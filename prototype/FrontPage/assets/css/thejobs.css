@@ -65,10 +65,10 @@
 }
 
 .btn-success-detail {
-	float: right;
+	
   background-color:#ef4d42;
   border-color:#ef4d42 !important;
-  width: 500px;
+  width: 350px;
 }
 
 .btn-success:hover,
@@ -1473,6 +1473,7 @@ dl.icon-holder dd {
   color:#55595c;
   font-size:21px;
   font-weight: bold;
+  margin-top: 20px;
   margin-bottom:40px;
   transition:.1s ease-in-out;
 }
@@ -2051,7 +2052,7 @@ dl.icon-holder dd {
   background-color:rgba(41,170,254,0.8);
   margin:0;
   padding:0;
-  margin-bottom:120px;
+  margin-bottom:50px;
   padding-top:100px;
   border:none;
 }
@@ -3341,6 +3342,10 @@ section {
   background-color:#fff;
 }
 
+section.bg-alt-company {
+  background-color:#fafafa;
+  padding: 0 0;
+}
 
 section.bg-alt {
   background-color:#fafafa;
@@ -3388,6 +3393,11 @@ section .bg-video {
 .section-header {
   text-align:center;
   margin-bottom:72px;
+}
+
+.section-header-map {
+  text-align:center;
+  margin-bottom:20px;
 }
 
 .section-header-blog {

@@ -2040,6 +2040,22 @@ pre code {
   padding-left:15px;
 }
 
+.searchcontent.col-xs-12 {
+  position:relative;
+  min-height:1px;
+  padding-right:15px;
+  padding-left:15px;
+  padding-bottom: 10px;
+}
+
+.searchcontentcompany.col-xs-12 {
+  position:relative;
+  min-height:1px;
+  padding-right:15px;
+  padding-left:15px;
+  padding-bottom: 30px;
+}
+
 .col-xs-1,
 .col-xs-2,
 .col-xs-3,
@@ -8907,6 +8923,7 @@ button.close {
 
 .fa-money:before {
   content:"\f0d6";
+  color: red;
 }
 
 .fa-caret-down:before {
@@ -9756,6 +9773,7 @@ button.close {
 
 .fa-cube:before {
   content:"\f1b2";
+  color: rgba(92, 190, 254, 0.8);
 }
 
 .fa-cubes:before {

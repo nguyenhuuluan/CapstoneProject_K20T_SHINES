@@ -12,17 +12,17 @@ $(function() {
 function initMap() {
   var mapDiv = document.getElementById('contact-map');
   var map = new google.maps.Map(mapDiv, {
-    center: {lat: 44.540, lng: -78.546},
+    center: {lat: 10.7627013, lng: 106.6932579},
     zoom: 14
   });
 
   var marker = new google.maps.Marker({
-    position: {lat: 44.540, lng: -78.546},
+    position: {lat: 10.7627013, lng: 106.6932579},
     map: map
   });
 
   var infowindow = new google.maps.InfoWindow({
-    content: "<strong>Our office</strong><br>3652 Seventh Avenue, Los Angeles, CA"
+    content: "<strong>Đại học Văn Lang</strong><br>45 Nguyễn Khắc Nhu, Quận 1, TP. HCM"
   });
 
   marker.addListener('click', function() {
