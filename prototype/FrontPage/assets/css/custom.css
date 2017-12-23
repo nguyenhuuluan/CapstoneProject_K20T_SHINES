@@ -12,12 +12,12 @@ span.positionwork {
 	color: rgba(92, 190, 254, 0.8);
 }
 
-.section-header-map-map {
+.section-header-map {
   text-align:center;
   margin-bottom:20px;
 }
 
-.section-header-map-map span {
+.section-header-map span {
   color:#c8d0d7;
   font-family:Montserrat,sans-serif;
   font-size:12px;
@@ -76,4 +76,8 @@ span.positionwork {
 .section-header-map.text-right h3::after {
   left:100%;
   margin-left:-48px;
+}
+
+.fa-money-recruitment:before {
+    content: "\f0d6";
 }

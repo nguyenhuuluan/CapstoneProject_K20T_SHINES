@@ -75,8 +75,8 @@
 	<!-- Page header -->
 	<header class="page-header">
 		<div class="container page-name">
-			<h1 class="text-center">Add a new job</h1>
-			<p class="lead text-center">Create a new vacancy for your company and put it online.</p>
+			<h1 class="text-center">Thêm việc làm</h1>
+			<p class="lead text-center">Tìm kiếm những ứng viên yêu thích công việc của bạn</p>
 		</div>
 
 		
@@ -90,226 +90,198 @@
 		<<section>
 			<div class="container">
 
-			<div class="row">
-				<div class="form-group col-xs-12 col-sm-6">
-					<input type="text" class="form-control input-lg" placeholder="Job title, e.g. Front-end developer">
-				</div>
-
-				<div class="form-group col-xs-12 col-sm-6">
-					<select class="form-control selectpicker">
-						<option>Select a company</option>
-						<option>Google</option>
-						<option>Microsoft</option>
-						<option>Apple</option>
-						<option>Facebook</option>
-					</select>
-					<a class="help-block" href="company-add.html">Add new company</a>
-				</div>
-
-				<div class="form-group col-xs-12">
-					<textarea class="form-control" rows="3" placeholder="Short description"></textarea>
-				</div>
-
-				<div class="form-group col-xs-12">
-					<input type="text" class="form-control" placeholder="Application URL">
-				</div>
-
-				<div class="form-group col-xs-12 col-sm-6 col-md-4">
-					<div class="input-group input-group-sm">
-						<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
-						<input type="text" class="form-control" placeholder="Location, e.g. Melon Park, CA">
+				<div class="row">
+					<div class="form-group col-xs-12 col-sm-12">
+						<input type="text" class="form-control input-lg" placeholder="Tiêu đề việc làm">
 					</div>
-				</div>
 
-				<div class="form-group col-xs-12 col-sm-6 col-md-4">
-					<div class="input-group input-group-sm">
-						<span class="input-group-addon"><i class="fa fa-briefcase"></i></span>
-						<select class="form-control selectpicker">
-							<option>Full time</option>
-							<option>Part time</option>
-							<option>Internship</option>
-							<option>Freelance</option>
-							<option>Remote</option>
-						</select>
+
+					<div class="form-group col-xs-12">
+						<textarea class="form-control" rows="3" placeholder="Mô tả ngắn việc làm"></textarea>
 					</div>
-				</div>
 
-				<div class="form-group col-xs-12 col-sm-6 col-md-4">
-					<div class="input-group input-group-sm">
-						<span class="input-group-addon"><i class="fa fa-money"></i></span>
-						<input type="text" class="form-control" placeholder="Salary">
+					<div class="form-group col-xs-12">
+						<input type="text" class="form-control" placeholder="Website">
 					</div>
-				</div>
 
-				<div class="form-group col-xs-12 col-sm-6 col-md-4">
-					<div class="input-group input-group-sm">
-						<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-						<input type="text" class="form-control" placeholder="Working hours, e.g. 40">
-						<span class="input-group-addon">hours / week</span>
+					<div class="form-group col-xs-12 col-sm-6 col-md-6">
+						<div class="input-group input-group-sm">
+							<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+							<input type="text" class="form-control" placeholder="Vị trí... Hồ Chí Minh">
+						</div>
 					</div>
-				</div>
 
-				<div class="form-group col-xs-12 col-sm-6 col-md-4">
-					<div class="input-group input-group-sm">
-						<span class="input-group-addon"><i class="fa fa-flask"></i></span>
-						<input type="text" class="form-control" placeholder="Experience, e.g. 5">
-						<span class="input-group-addon">Years</span>
+					<div class="form-group col-xs-12 col-sm-6 col-md-6">
+						<div class="input-group input-group-sm">
+							<span class="input-group-addon"><i class="fa fa-briefcase"></i></span>
+							<select class="form-control selectpicker">
+								<option>Full time</option>
+								<option>Part time</option>
+								<option>Internship</option>
+								<option>Freelance</option>
+								<option>Remote</option>
+							</select>
+						</div>
 					</div>
-				</div>
 
-				<div class="form-group col-xs-12 col-sm-6 col-md-4">
-					<div class="input-group input-group-sm">
-						<span class="input-group-addon"><i class="fa fa-certificate"></i></span>
-						<select class="form-control selectpicker" multiple>
-							<option>Postdoc</option>
-							<option>Ph.D.</option>
-							<option>Master</option>
-							<option selected>Bachelor</option>
-						</select>
+					<div class="form-group col-xs-12 col-sm-6 col-md-6">
+						<div class="input-group input-group-sm">
+							<span class="input-group-addon"><i class="fa fa-money-recruitment"></i></span>
+							<input type="text" class="form-control" placeholder="Lương">
+						</div>
 					</div>
-				</div>
 
+					<div class="form-group col-xs-12 col-sm-6 col-md-6">
+						<div class="input-group input-group-sm">
+							<span class="input-group-addon"><i class="fa fa-tag"></i></span>										<input type="text" class="form-control" placeholder="PHP">
+						</div>
+					</div>
+
+
+				</div>
 
 			</div>
-
-			<div class="button-group">
-				<div class="action-buttons">
-					<div class="upload-button">
-						<button class="btn btn-block btn-primary">Choose a cover image</button>
-						<input id="cover_img_file" type="file">
-					</div>
-				</div>
-			</div>
-
-		</div>
 		</section>
 
 		<!-- Job detail -->
 		<section>
 			<div class="container">
-
 				<header class="section-header">
-					<span>Description</span>
-					<h2>Job detail</h2>
-					<p>Write about your company, job description, skills required, benefits, etc.</p>
+					<h3>Mô tả</h3>
 				</header>
 
 				<textarea class="summernote-editor"></textarea>
-
 			</div>
-		</section>
-		<!-- END Job detail -->
 
-
-		<!-- Submit -->
-		<section class="bg-alt">
 			<div class="container">
 				<header class="section-header">
-					<span>Are you done?</span>
-					<h2>Submit Job</h2>
-					<p>Please review your information once more and press the below button to put your job online.</p>
+					<h3>Kĩ năng, công việc</h3>
 				</header>
-
-				<p class="text-center"><button class="btn btn-success btn-xl btn-round">Submit your job</button></p>
-
-			</div>
-		</section>
-		<!-- END Submit -->
-
-
-	</main>
-	<!-- END Main container -->
-
-
-	<!-- Site footer -->
-	<footer class="site-footer">
-
-		<!-- Top section -->
-		<div class="container">
-			<div class="row">
-
-				<div class="col-xs-6 col-sm-6 col-md-3">
-					<h6>Trendeing jobs</h6>
-					<ul class="footer-links">
-						<li><a href="job-list.html">Front-end developer</a></li>
-						<li><a href="job-list.html">Android developer</a></li>
-						<li><a href="job-list.html">iOS developer</a></li>
-						<li><a href="job-list.html">Full stack developer</a></li>
-						<li><a href="job-list.html">Project administrator</a></li>
-					</ul>
-				</div>
-
-				<div class="col-xs-6 col-sm-6 col-md-3">
-					<h6>Company</h6>
-					<ul class="footer-links">
-						<li><a href="page-about.html">About us</a></li>
-						<li><a href="page-typography.html">How it works</a></li>
-						<li><a href="page-faq.html">Help center</a></li>
-						<li><a href="page-typography.html">Privacy policy</a></li>
-						<li><a href="page-contact.html">Contact us</a></li>
-					</ul>
-				</div>
-
-				<div class="col-xs-6 col-sm-6 col-md-3">
-					<h6>Company</h6>
-					<ul class="footer-links">
-						<li><a href="page-about.html">About us</a></li>
-						<li><a href="page-typography.html">How it works</a></li>
-						<li><a href="page-faq.html">Help center</a></li>
-						<li><a href="page-typography.html">Privacy policy</a></li>
-						<li><a href="page-contact.html">Contact us</a></li>
-					</ul>
-				</div>
-
-				<div class="col-xs-6 col-sm-6 col-md-3">
-					<h6>Trending jobs</h6>
-					<ul class="footer-links">
-						<li><a href="job-list.html">Front-end developer</a></li>
-						<li><a href="job-list.html">Android developer</a></li>
-						<li><a href="job-list.html">iOS developer</a></li>
-						<li><a href="job-list.html">Full stack developer</a></li>
-						<li><a href="job-list.html">Project administrator</a></li>
-					</ul>
-				</div>
+				<textarea class="summernote-editor"></textarea>
 			</div>
 
-			<hr>
-		</div>
-		<!-- END Top section -->
+			<div class="container">
+				<header class="section-header">
+					<h3>Phúc lợi</h3>
+				</header>
+					<textarea class="summernote-editor"></textarea>
+				</div>
+			</section>
 
-		<!-- Bottom section -->
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8 col-sm-6 col-xs-12">
-					<p class="copyright-text">Copyrights &copy; 2017 All Rights Reserved by <a href="#">Shines Team</a>.</p>
+			<div class="container">
+				<header class="section-header">
+					<h3>Tùy chọn</h3>
+				</header>
+					<textarea class="summernote-editor"></textarea>
+				</div>
+				<br>
+			</section>
+
+			<!-- END Job detail -->
+
+			<!-- Submit -->
+
+				<div class="container">
+					<p class="text-center"><button class="btn btn-success btn-xl btn-round">Đăng việc làm</button></p>
+
+					<br>
+				</div>
+			<!-- END Submit -->
+
+
+		</main>
+		<!-- END Main container -->
+
+
+		<!-- Site footer -->
+		<footer class="site-footer">
+
+			<!-- Top section -->
+			<div class="container">
+				<div class="row">
+
+					<div class="col-xs-6 col-sm-6 col-md-3">
+						<h6>Trendeing jobs</h6>
+						<ul class="footer-links">
+							<li><a href="job-list.html">Front-end developer</a></li>
+							<li><a href="job-list.html">Android developer</a></li>
+							<li><a href="job-list.html">iOS developer</a></li>
+							<li><a href="job-list.html">Full stack developer</a></li>
+							<li><a href="job-list.html">Project administrator</a></li>
+						</ul>
+					</div>
+
+					<div class="col-xs-6 col-sm-6 col-md-3">
+						<h6>Company</h6>
+						<ul class="footer-links">
+							<li><a href="page-about.html">About us</a></li>
+							<li><a href="page-typography.html">How it works</a></li>
+							<li><a href="page-faq.html">Help center</a></li>
+							<li><a href="page-typography.html">Privacy policy</a></li>
+							<li><a href="page-contact.html">Contact us</a></li>
+						</ul>
+					</div>
+
+					<div class="col-xs-6 col-sm-6 col-md-3">
+						<h6>Company</h6>
+						<ul class="footer-links">
+							<li><a href="page-about.html">About us</a></li>
+							<li><a href="page-typography.html">How it works</a></li>
+							<li><a href="page-faq.html">Help center</a></li>
+							<li><a href="page-typography.html">Privacy policy</a></li>
+							<li><a href="page-contact.html">Contact us</a></li>
+						</ul>
+					</div>
+
+					<div class="col-xs-6 col-sm-6 col-md-3">
+						<h6>Trending jobs</h6>
+						<ul class="footer-links">
+							<li><a href="job-list.html">Front-end developer</a></li>
+							<li><a href="job-list.html">Android developer</a></li>
+							<li><a href="job-list.html">iOS developer</a></li>
+							<li><a href="job-list.html">Full stack developer</a></li>
+							<li><a href="job-list.html">Project administrator</a></li>
+						</ul>
+					</div>
 				</div>
 
-				<div class="col-md-4 col-sm-6 col-xs-12">
-					<ul class="social-icons">
-						<li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-						<li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-						<li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
-						<li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-						<li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
-					</ul>
+				<hr>
+			</div>
+			<!-- END Top section -->
+
+			<!-- Bottom section -->
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-sm-6 col-xs-12">
+						<p class="copyright-text">Copyrights &copy; 2017 All Rights Reserved by <a href="#">Shines Team</a>.</p>
+					</div>
+
+					<div class="col-md-4 col-sm-6 col-xs-12">
+						<ul class="social-icons">
+							<li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+							<li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+							<li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+							<li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+							<li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
+						</ul>
+					</div>
 				</div>
 			</div>
-		</div>
-		<!-- END Bottom section -->
+			<!-- END Bottom section -->
 
-	</footer>
-	<!-- END Site footer -->
+		</footer>
+		<!-- END Site footer -->
 
 
-	<!-- Back to top button -->
-	<a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
-	<!-- END Back to top button -->
+		<!-- Back to top button -->
+		<a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
+		<!-- END Back to top button -->
 
-	<!-- Scripts -->
-	<script src="assets/js/app.min.js"></script>
-	<script src="assets/vendors/summernote/summernote.min.js"></script>
-	<script src="assets/js/thejobs.js"></script>
-	<script src="assets/js/custom.js"></script>
+		<!-- Scripts -->
+		<script src="assets/js/app.min.js"></script>
+		<script src="assets/vendors/summernote/summernote.min.js"></script>
+		<script src="assets/js/thejobs.js"></script>
+		<script src="assets/js/custom.js"></script>
 
-</body>
-</html>
+	</body>
+	</html>
