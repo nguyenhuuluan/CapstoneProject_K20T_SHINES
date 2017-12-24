@@ -18,13 +18,13 @@ class CreateAddressesTable extends Migration
             $table->string('address',255);
             $table->integer('latitude');
             $table->integer('longtitude');
-            $table->integer('company_id')->index()->unsigned();
+            //$table->integer('company_id')->index()->unsigned();
             $table->integer('district_id')->index()->unsigned();
             $table->timestamps();
 
 
-            // $table->foreign('company_id')->references('id')->on('companies');
-            // $table->foreign('district_id')->references('id')->on('districts');
+            //$table->foreign('company_id')->references('id')->on('companies');
+            $table->foreign('district_id')->references('id')->on('districts');
 
         });
     }
