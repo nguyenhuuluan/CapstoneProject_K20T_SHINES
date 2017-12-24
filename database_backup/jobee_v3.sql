@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 23, 2017 at 04:33 AM
+-- Generation Time: Dec 24, 2017 at 07:25 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -53,10 +53,10 @@ CREATE TABLE `addresses` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `apply`
+-- Table structure for table `applies`
 --
 
-CREATE TABLE `apply` (
+CREATE TABLE `applies` (
   `student_id` int(11) NOT NULL,
   `recruitment_id` int(11) NOT NULL,
   `cv_id` int(11) NOT NULL,
@@ -134,10 +134,10 @@ CREATE TABLE `companies` (
   `website` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `phone` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `description` text COLLATE utf8_unicode_ci NOT NULL,
   `status_id` int(11) DEFAULT NULL,
   `address_id` int(11) NOT NULL,
   `benefit` text COLLATE utf8_unicode_ci NOT NULL,
+  `working_day` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -151,6 +151,32 @@ CREATE TABLE `companies_photos` (
   `company_id` int(11) NOT NULL,
   `photo_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `company_description_sections`
+--
+
+CREATE TABLE `company_description_sections` (
+  `id` int(11) NOT NULL,
+  `title` varchar(225) NOT NULL,
+  `content` text NOT NULL,
+  `company_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `company_social_networks`
+--
+
+CREATE TABLE `company_social_networks` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `company_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -214,6 +240,17 @@ CREATE TABLE `faculties` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `followings`
+--
+
+CREATE TABLE `followings` (
+  `student_id` int(11) NOT NULL,
+  `company_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `photos`
 --
 
@@ -236,7 +273,8 @@ CREATE TABLE `recruitments` (
   `requirement` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
   `benefit` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
   `more_description` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `number_of_view` int(11) NOT NULL,
+  `is_hot` bit(1) NOT NULL DEFAULT b'0',
+  `number_of_view` int(11) NOT NULL DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `expire_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `status_id` int(11) NOT NULL,
@@ -390,9 +428,9 @@ ALTER TABLE `addresses`
   ADD KEY `district_id` (`district_id`);
 
 --
--- Indexes for table `apply`
+-- Indexes for table `applies`
 --
-ALTER TABLE `apply`
+ALTER TABLE `applies`
   ADD PRIMARY KEY (`student_id`,`recruitment_id`,`cv_id`),
   ADD KEY `recruitment_id` (`recruitment_id`),
   ADD KEY `cv_id` (`cv_id`);
@@ -447,6 +485,20 @@ ALTER TABLE `companies_photos`
   ADD KEY `photo_id` (`photo_id`);
 
 --
+-- Indexes for table `company_description_sections`
+--
+ALTER TABLE `company_description_sections`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `company_id` (`company_id`);
+
+--
+-- Indexes for table `company_social_networks`
+--
+ALTER TABLE `company_social_networks`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `company_id` (`company_id`);
+
+--
 -- Indexes for table `countries`
 --
 ALTER TABLE `countries`
@@ -478,6 +530,13 @@ ALTER TABLE `faculities_tags`
 --
 ALTER TABLE `faculties`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `followings`
+--
+ALTER TABLE `followings`
+  ADD PRIMARY KEY (`student_id`,`company_id`),
+  ADD KEY `company_id` (`company_id`);
 
 --
 -- Indexes for table `photos`
@@ -604,6 +663,18 @@ ALTER TABLE `companies`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `company_description_sections`
+--
+ALTER TABLE `company_description_sections`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `company_social_networks`
+--
+ALTER TABLE `company_social_networks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `countries`
 --
 ALTER TABLE `countries`
@@ -693,12 +764,12 @@ ALTER TABLE `addresses`
   ADD CONSTRAINT `addresses_ibfk_2` FOREIGN KEY (`district_id`) REFERENCES `districts` (`id`);
 
 --
--- Constraints for table `apply`
+-- Constraints for table `applies`
 --
-ALTER TABLE `apply`
-  ADD CONSTRAINT `apply_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
-  ADD CONSTRAINT `apply_ibfk_2` FOREIGN KEY (`recruitment_id`) REFERENCES `recruitments` (`id`),
-  ADD CONSTRAINT `apply_ibfk_3` FOREIGN KEY (`cv_id`) REFERENCES `curriculum_vitaes` (`id`);
+ALTER TABLE `applies`
+  ADD CONSTRAINT `applies_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
+  ADD CONSTRAINT `applies_ibfk_2` FOREIGN KEY (`recruitment_id`) REFERENCES `recruitments` (`id`),
+  ADD CONSTRAINT `applies_ibfk_3` FOREIGN KEY (`cv_id`) REFERENCES `curriculum_vitaes` (`id`);
 
 --
 -- Constraints for table `blogs_photos`
@@ -735,6 +806,18 @@ ALTER TABLE `companies_photos`
   ADD CONSTRAINT `companies_photos_ibfk_3` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`);
 
 --
+-- Constraints for table `company_description_sections`
+--
+ALTER TABLE `company_description_sections`
+  ADD CONSTRAINT `company_description_sections_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`);
+
+--
+-- Constraints for table `company_social_networks`
+--
+ALTER TABLE `company_social_networks`
+  ADD CONSTRAINT `company_social_networks_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`);
+
+--
 -- Constraints for table `curriculum_vitaes`
 --
 ALTER TABLE `curriculum_vitaes`
@@ -752,6 +835,13 @@ ALTER TABLE `districts`
 ALTER TABLE `faculities_tags`
   ADD CONSTRAINT `faculities_tags_ibfk_1` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`),
   ADD CONSTRAINT `faculities_tags_ibfk_2` FOREIGN KEY (`faculity_id`) REFERENCES `faculties` (`id`);
+
+--
+-- Constraints for table `followings`
+--
+ALTER TABLE `followings`
+  ADD CONSTRAINT `followings_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`),
+  ADD CONSTRAINT `followings_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
 
 --
 -- Constraints for table `recruitments`
