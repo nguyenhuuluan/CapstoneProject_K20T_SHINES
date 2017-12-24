@@ -15,6 +15,11 @@ class CreateRecruitmentsTable extends Migration
     {
         Schema::create('recruitments', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('title',255);
+            $table->float('salary');
+            $table->integer('number_of_view');
+            $table->date('expire_date');
+            $table->integer('company_id')->index()->unsigned();
             $table->timestamps();
         });
     }
