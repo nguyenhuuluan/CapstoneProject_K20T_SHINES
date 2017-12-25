@@ -16,12 +16,18 @@ class CreateRecruitmentsTable extends Migration
         Schema::create('recruitments', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title',255);
-            $table->float('salary');
-            $table->integer('number_of_view');
+            $table->string('salary',255);
+            $table->integer('number_of_view')->default(0);
             $table->date('expire_date');
             $table->tinyInteger('is_hot');
+            $table->integer('status_id')->index()->unsigned();
             $table->integer('company_id')->index()->unsigned();
             $table->timestamps();
+
+            $table->foreign('status_id')->references('id')->on('statuses');
+            $table->foreign('company_id')->references('id')->on('companies');
+
+
         });
     }
 

@@ -13,10 +13,10 @@ class CreateRecruitmentsSectionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('recruitments_sections', function (Blueprint $table) {
+        Schema::create('section_recruitment', function (Blueprint $table) {
             $table->integer('recruitment_id')->index()->unsigned();
             $table->integer('section_id')->index()->unsigned();
-            $table->string('content');
+            $table->text('content');
             $table->timestamps();
 
 
@@ -33,7 +33,7 @@ class CreateRecruitmentsSectionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recruitments_sections');
+        Schema::dropIfExists('section_recruitment');
         
     }
 }

@@ -13,7 +13,7 @@ class CreateRecruitmentsCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('recruitments_categories', function (Blueprint $table) {
+        Schema::create('category_recruitment', function (Blueprint $table) {
             $table->integer('recruitment_id')->index()->unsigned();
             $table->integer('category_id')->index()->unsigned();
             $table->timestamps();
@@ -31,6 +31,6 @@ class CreateRecruitmentsCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recruitments_categories');
+        Schema::dropIfExists('category_recruitment');
     }
 }

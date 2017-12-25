@@ -13,10 +13,11 @@ class CreateCompaniesSectionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('companies_sections', function (Blueprint $table) {
+        Schema::create('section_company', function (Blueprint $table) {
             //$table->increments('id');
             $table->integer('company_id')->index()->unsigned();
             $table->integer('section_id')->index()->unsigned();
+            $table->text('content');
             $table->timestamps();
             
             $table->primary(['company_id','section_id']);
@@ -33,6 +34,6 @@ class CreateCompaniesSectionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('companies_sections');
+        Schema::dropIfExists('section_company');
     }
 }

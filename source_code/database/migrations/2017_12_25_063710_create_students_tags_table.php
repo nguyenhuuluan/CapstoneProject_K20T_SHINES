@@ -13,7 +13,7 @@ class CreateStudentsTagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('students_tags', function (Blueprint $table) {
+        Schema::create('tag_student', function (Blueprint $table) {
             $table->integer('student_id')->index()->unsigned();
             $table->integer('tag_id')->index()->unsigned();
             $table->timestamps();
@@ -33,6 +33,6 @@ class CreateStudentsTagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('students_tags');
+        Schema::dropIfExists('tag_student');
     }
 }

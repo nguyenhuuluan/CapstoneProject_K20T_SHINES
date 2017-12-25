@@ -13,7 +13,7 @@ class CreateBlogsPhotosTable extends Migration
      */
     public function up()
     {
-        Schema::create('blogs_photos', function (Blueprint $table) {
+        Schema::create('photo_blog', function (Blueprint $table) {
             $table->integer('blog_id')->index()->unsigned();
             $table->integer('photo_id')->index()->unsigned();
             $table->timestamps();
@@ -31,6 +31,6 @@ class CreateBlogsPhotosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blogs_photos');
+        Schema::dropIfExists('photo_blog');
     }
 }

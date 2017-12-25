@@ -1,0 +1,83 @@
+.demo-btn-margin .btn {
+  margin-bottom: 6px;
+}
+
+span.salary {
+	font-weight: bold;
+	color: red;
+}
+
+span.positionwork {
+	font-weight: bold;
+	color: rgba(92, 190, 254, 0.8);
+}
+
+.section-header-map {
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.section-header-map span {
+  color:#c8d0d7;
+  font-family:Montserrat,sans-serif;
+  font-size:12px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+.section-header-map h2,
+.section-header-map h3 {
+  position:relative;
+  margin-bottom:30px;
+  color:#55595c;
+  text-transform:capitalize;
+}
+
+.section-header-map h2::after,
+.section-header-map h3::after {
+  position:absolute;
+  left:50%;
+  margin-left:-24px;
+  bottom:-26px;
+  width:48px;
+  height:2px;
+  background-color:#29aafe;
+  content:"";
+}
+
+.section-header-map span ~ h2,
+.section-header-map span ~ h3 {
+  margin-top:12px;
+}
+
+.section-header-map p {
+  font-size:18px;
+}
+
+.section-header-map.text-left {
+  text-align:left;
+}
+
+.section-header-map-blog.text-left {
+  text-align:left;
+}
+
+.section-header-map.text-left h2::after,
+.section-header-map.text-left h3::after {
+  left:0;
+  margin-left:0;
+}
+
+.section-header-map.text-right {
+  text-align:right;
+}
+
+.section-header-map.text-right h2::after,
+.section-header-map.text-right h3::after {
+  left:100%;
+  margin-left:-48px;
+}
+
+.fa-money-recruitment:before {
+    content: "\f0d6";
+}

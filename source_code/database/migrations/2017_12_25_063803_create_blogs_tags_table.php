@@ -13,7 +13,7 @@ class CreateBlogsTagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('blogs_tags', function (Blueprint $table) {
+        Schema::create('tag_blog', function (Blueprint $table) {
             $table->integer('blog_id')->index()->unsigned();
             $table->integer('tag_id')->index()->unsigned();
             $table->timestamps();
@@ -32,6 +32,6 @@ class CreateBlogsTagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blogs_tags');
+        Schema::dropIfExists('tag_blog');
     }
 }

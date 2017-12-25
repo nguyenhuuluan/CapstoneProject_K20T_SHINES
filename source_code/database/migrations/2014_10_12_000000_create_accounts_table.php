@@ -17,7 +17,7 @@ class CreateAccountsTable extends Migration
             $table->increments('id');
             $table->string('username',20)->unique();
             $table->string('password');
-            $table->integer('status_id')->unsigned()->index()->default(0);
+            $table->integer('status_id')->unsigned()->index();
             $table->rememberToken();
             $table->timestamps();
 

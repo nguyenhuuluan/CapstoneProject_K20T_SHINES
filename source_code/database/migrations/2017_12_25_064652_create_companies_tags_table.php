@@ -13,7 +13,7 @@ class CreateCompaniesTagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('companies_tags', function (Blueprint $table) {
+        Schema::create('tag_company', function (Blueprint $table) {
             $table->integer('company_id')->index()->unsigned();
             $table->integer('tag_id')->index()->unsigned();
             $table->timestamps();
@@ -31,6 +31,6 @@ class CreateCompaniesTagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('companies_tags');
+        Schema::dropIfExists('tag_company');
     }
 }

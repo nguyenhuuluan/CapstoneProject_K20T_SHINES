@@ -13,7 +13,7 @@ class CreateAccountsRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('accounts_roles', function (Blueprint $table) {
+        Schema::create('role_account', function (Blueprint $table) {
             $table->integer('account_id')->index()->unsigned();
             $table->integer('role_id')->index()->unsigned();
             $table->timestamps();
@@ -32,6 +32,6 @@ class CreateAccountsRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('accounts_roles');
+        Schema::dropIfExists('role_account');
     }
 }
