@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRecruitmentsTable extends Migration
+class CreateFollowingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateRecruitmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('recruitments', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title',255);
-            $table->float('salary');
-            $table->integer('number_of_view');
-            $table->date('expire_date');
-            $table->tinyInteger('is_hot');
+        Schema::create('followings', function (Blueprint $table) {
+            $table->integer('student_id')->index()->unsigned();
             $table->integer('company_id')->index()->unsigned();
             $table->timestamps();
+
+            $table->primary(['student_id','company_id']);           
+            $table->foreign('student_id')->references('id')->on('students');
+            $table->foreign('company_id')->references('id')->on('companies');
+
         });
     }
 
@@ -32,6 +32,6 @@ class CreateRecruitmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recruitments');
+        Schema::dropIfExists('followings');
     }
 }

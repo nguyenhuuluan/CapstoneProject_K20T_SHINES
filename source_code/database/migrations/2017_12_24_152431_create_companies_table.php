@@ -19,6 +19,7 @@ class CreateCompaniesTable extends Migration
             $table->string('website');
             $table->string('email');
             $table->string('phone',20);
+            $table->string('working_day',255);
             $table->integer('status_id')->index()->unsigned();
             $table->integer('address_id')->index()->unsigned();
             $table->timestamps();

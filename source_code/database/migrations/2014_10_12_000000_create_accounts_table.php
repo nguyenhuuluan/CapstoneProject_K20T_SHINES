@@ -22,7 +22,7 @@ class CreateAccountsTable extends Migration
             $table->timestamps();
 
 
-            //$table->foreign('status_id')->references('id')->on('statuses');
+            $table->foreign('status_id')->references('id')->on('statuses');
         });
     }
 

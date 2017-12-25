@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRecruitmentsTable extends Migration
+class CreateCompaniesTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateRecruitmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('recruitments', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title',255);
-            $table->float('salary');
-            $table->integer('number_of_view');
-            $table->date('expire_date');
-            $table->tinyInteger('is_hot');
+        Schema::create('companies_tags', function (Blueprint $table) {
             $table->integer('company_id')->index()->unsigned();
+            $table->integer('tag_id')->index()->unsigned();
             $table->timestamps();
+
+            $table->primary(['company_id','tag_id']);        
+            $table->foreign('tag_id')->references('id')->on('tags');
+            $table->foreign('company_id')->references('id')->on('companies');
         });
     }
 
@@ -32,6 +31,6 @@ class CreateRecruitmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recruitments');
+        Schema::dropIfExists('companies_tags');
     }
 }
