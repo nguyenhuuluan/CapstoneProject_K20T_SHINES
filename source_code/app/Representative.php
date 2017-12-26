@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Representative extends Model
 {
     //
-    protected $fillable = ['name','phome','email','account_id','company_id'];
+    protected $fillable = ['name','phone','email','account_id','company_id'];
 
 }

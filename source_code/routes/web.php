@@ -19,3 +19,5 @@ Route::get('/', function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/recruitment/{id}', 'HomeController@detail')->name('detail');
+
+Route::get('/test/{companyID}', 'CompanyController@test')->name('test');
