@@ -27,4 +27,11 @@ class HomeController extends Controller
         $recruitments = Recruitment::where('status_id', 1)->orderBy('created_at','desc')->take(5)->get();
         return view('welcome', compact('recruitments'));
     }
+    public function detailrecruitment($id){
+
+        $recruitment = Recruitment::findOrFail($id);
+
+        return view('recruitments.index',compact('recruitment'));
+
+    }
 }
