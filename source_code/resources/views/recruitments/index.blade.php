@@ -2,55 +2,53 @@
 
 @section('page-header')
 
-<header class="page-header bg-img size-lg" style="background-image: url(/assets/img/bg-banner2.jpg)">
-	<div class="container">
-		<div class="header-detail">
-			<img class="logo" src="../images/companies/logos/{{ $recruitment->company->logo }}" alt="">
-			<div class="hgroup">
-				<h1>{{ $recruitment->title }}</h1>
-			</div>
-			<time datetime="">{{ $recruitment->created_at->diffForhumans() }}</time>
-			<ul class="details cols-3">
-				<li>
-					<h3><a href="#">{{ $recruitment->company->name }}</a></h3>
-				</li>
-				<li>
-					<i class="fa fa-money"></i>
+
+<header class="page-header bg-img size-lg" style="background-image: url(assets/img/bg-banner2.jpg)">
+    <div class="container">
+      <div class="header-detail">
+        <img class="logo" height="60" src="../images/companies/logos/{{ $recruitment->company->logo }}" alt="">
+        <div class="hgroup">
+          <h1>{{ $recruitment->title }}</h1>
+        </div>
+        <time datetime="">{{ $recruitment->created_at->diffForhumans() }}</time>
+        <ul class="details cols-3">
+          <li>
+            <h3><a href="#">{{ $recruitment->company->name }}</a></h3>
+          </li>
+          <li>
+            <i class="fa fa-money"></i>
 					<span class="salary">{{ $recruitment->salary }}</span>
-				</li>
-				<li>
-					<i class="fa fa-cube"></i>
+          </li>
+          <li>
+            <i class="fa fa-cube"></i>
 					@foreach ($recruitment->categories as $category)
-					@if($category->name == 'full-time' )
+					@if($category->name == 'FULL-TIME' )
 					<span class="label label-success">{{ $category->name }}</span>
 					@else
 					<span class="label label-danger">{{ $category->name }}</span>
 					@endif
 					@endforeach
+          </li>
+        </ul>
+        
+        <div class="button-group">
+          <ul class="social-icons">
+            <li class="title">Chia sẻ</li>
+            <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+            <li><a class="google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
+            <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+            <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+          </ul>
 
-					{{-- <span class="positionwork">Full Time</span> --}}
-				</li>
-			</ul>
-
-			<div class="button-group">
-				<ul class="social-icons">
-					<li class="title">Share on</li>
-					<li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-					<li><a class="google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
-					<li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-					<li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-				</ul>
-
-				<div class="action-buttons">
-					<a class="btn btn-success-detail" href="job-apply.html">Apply now</a>
-				</div>
-			</div>
+          <div class="action-buttons">
+            <a class="btn btn-success-detail" href="job-apply.html">Ứng tuyển ngay</a>
+          </div>
+        </div>
 
 
-		</div>
-	</div>
-</header>
-
+      </div>
+    </div>
+  </header>
 
 @endsection
 

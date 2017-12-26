@@ -18,8 +18,8 @@
   <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
 
   <!-- Favicons -->
-  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-  <link rel="icon" href="../assets/img/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="icon" href="assets/img/favicon.ico">
 </head>
 
 <body class="nav-on-header smart-nav">
@@ -33,8 +33,8 @@
         <a class="navbar-toggle" href="#" data-toggle="offcanvas"><i class="ti-menu"></i></a>
 
         <div class="logo-wrapper">
-          <a class="logo" href="index.html"><img src="../assets/img/logo.png" alt="logo"></a>
-          <a class="logo-alt" href="index.html"><img src="../assets/img/logo-alt.png" alt="logo-alt"></a>
+          <a class="logo" href="{{ url('/home') }}"><img src="../assets/img/logo.png" alt="logo"></a>
+          <a class="logo-alt" href="{{ url('/home') }}"><img src="../assets/img/logo-alt.png" alt="logo-alt"></a>
         </div>
 
       </div>
@@ -68,107 +68,107 @@
 
     </div>
   </nav>
-  <!-- END Navigation bar -->
 
-  @yield('page-header')
-  <!-- Page header -->
+   <!-- END Navigation bar -->
 
-  <!-- END Page header -->
+   @yield('page-header')
+   <!-- Page header -->
 
-  @yield('main-container')
-  <!-- Main container -->
-  
-  <!-- END Main container -->
+   <!-- END Page header -->
 
+   @yield('main-container')
+   <!-- Main container -->
 
-  <!-- Site footer -->
-  <footer class="site-footer">
+   <!-- END Main container -->
 
-    <!-- Top section -->
-    <div class="container">
-      <div class="row">
+ <!-- Site footer -->
+ <footer class="site-footer">
 
-        <div class="col-xs-6 col-sm-6 col-md-3">
-          <h6>Trendeing jobs</h6>
-          <ul class="footer-links">
-            <li><a href="job-list.html">Front-end developer</a></li>
-            <li><a href="job-list.html">Android developer</a></li>
-            <li><a href="job-list.html">iOS developer</a></li>
-            <li><a href="job-list.html">Full stack developer</a></li>
-            <li><a href="job-list.html">Project administrator</a></li>
-          </ul>
-        </div>
+  <!-- Top section -->
+  <div class="container">
+    <div class="row">
 
-        <div class="col-xs-6 col-sm-6 col-md-3">
-          <h6>Company</h6>
-          <ul class="footer-links">
-            <li><a href="page-about.html">About us</a></li>
-            <li><a href="page-typography.html">How it works</a></li>
-            <li><a href="page-faq.html">Help center</a></li>
-            <li><a href="page-typography.html">Privacy policy</a></li>
-            <li><a href="page-contact.html">Contact us</a></li>
-          </ul>
-        </div>
-
-        <div class="col-xs-6 col-sm-6 col-md-3">
-          <h6>Company</h6>
-          <ul class="footer-links">
-            <li><a href="page-about.html">About us</a></li>
-            <li><a href="page-typography.html">How it works</a></li>
-            <li><a href="page-faq.html">Help center</a></li>
-            <li><a href="page-typography.html">Privacy policy</a></li>
-            <li><a href="page-contact.html">Contact us</a></li>
-          </ul>
-        </div>
-
-        <div class="col-xs-6 col-sm-6 col-md-3">
-          <h6>Trending jobs</h6>
-          <ul class="footer-links">
-            <li><a href="job-list.html">Front-end developer</a></li>
-            <li><a href="job-list.html">Android developer</a></li>
-            <li><a href="job-list.html">iOS developer</a></li>
-            <li><a href="job-list.html">Full stack developer</a></li>
-            <li><a href="job-list.html">Project administrator</a></li>
-          </ul>
-        </div>
+      <div class="col-xs-6 col-sm-6 col-md-3">
+        <h6>Việc làm theo nghành nghề</h6>
+        <ul class="footer-links">
+          <li><a href="job-list.html">Việc làm Kế toán</a></li>
+          <li><a href="job-list.html">Việc làm Ngân hàng</a></li>
+          <li><a href="job-list.html">Việc làm IT - Phần mềm</a></li>
+          <li><a href="job-list.html">Việc làm IT-Phần cứng/Mạng</a></li>
+          <li><a href="job-list.html">Việc làm Xây dựng</a></li>
+        </ul>
       </div>
 
-      <hr>
-    </div>
-    <!-- END Top section -->
+      <div class="col-xs-6 col-sm-6 col-md-3">
+        <ul class="footer-links">
+          <br>
+          <li><a href="job-list.html">Việc làm Quảng cáo/Khuyến mãi</a></li>
+          <li><a href="job-list.html">Việc làm Hàng không/Du lịch</a></li>
+          <li><a href="job-list.html">Việc làm Giáo dục/Đào tạo</a></li>
+          <li><a href="job-list.html">Việc làm Điện/Điện tử</a></li>
+          <li><a href="job-list.html">Việc làm Bán hàng</a></li>
+        </ul>
+      </div>
 
-    <!-- Bottom section -->
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8 col-sm-6 col-xs-12">
-          <p class="copyright-text">Copyrights &copy; 2017 All Rights Reserved by <a href="#">Shines Team</a>.</p>
-        </div>
+      <div class="col-xs-6 col-sm-6 col-md-3">
+        <h6>Việc làm IT theo công ty</h6>
+        <ul class="footer-links">
+          <li><a href="page-about.html">Global CyberSoft</a></li>
+          <li><a href="page-typography.html">Vingroup</a></li>
+          <li><a href="page-faq.html">Capella Holding</a></li>
+          <li><a href="page-typography.html">Vietjetair</a></li>
+          <li><a href="page-contact.html">Standard Charter</a></li>
+        </ul>
+      </div>
 
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <ul class="social-icons">
-            <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-            <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-            <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
-            <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-            <li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
-          </ul>
-        </div>
+
+      <div class="col-xs-6 col-sm-6 col-md-3">
+        <h6>Việc làm IT theo thành phố</h6>
+        <ul class="footer-links">
+          <li><a href="job-list.html">Hồ Chí Minh</a></li>
+          <li><a href="job-list.html">Hà Nội</a></li>
+          <li><a href="job-list.html">Đà Nẵng</a></li>
+          <li><a href="job-list.html">Thêm</a></li>
+        </ul>
       </div>
     </div>
-    <!-- END Bottom section -->
 
-  </footer>
-  <!-- END Site footer -->
+    <hr>
+  </div>
+  <!-- END Top section -->
+
+  <!-- Bottom section -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-sm-6 col-xs-12">
+        <p class="copyright-text">Copyrights &copy; 2017 All Rights Reserved by <a href="#">Shines Team</a>.</p>
+      </div>
+
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <ul class="social-icons">
+          <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+          <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+          <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+          <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+          <li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- END Bottom section -->
+
+</footer>
+<!-- END Site footer -->
 
 
-  <!-- Back to top button -->
-  <a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
-  <!-- END Back to top button -->
+<!-- Back to top button -->
+<a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
+<!-- END Back to top button -->
 
-  <!-- Scripts -->
-  <script src="../assets/js/app.min.js"></script>
-  <script src="../assets/js/thejobs.js"></script>
-  <script src="../assets/js/custom.js"></script>
+<!-- Scripts -->
+<script src="../assets/js/app.min.js"></script>
+<script src="../assets/js/thejobs.js"></script>
+<script src="../assets/js/custom.js"></script>
 
 </body>
 </html>
