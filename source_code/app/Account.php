@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Account extends Model
 {
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
        'username', 'password', 'status_id'

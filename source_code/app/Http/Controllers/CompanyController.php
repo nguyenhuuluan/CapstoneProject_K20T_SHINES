@@ -10,38 +10,61 @@ use App\Company;
 class CompanyController extends Controller
 {
 
+	public function test($companyID)
+	{
+
+		return $this->CreateRepresentative($companyID);
+	}
+
+
 	public function CreateRepresentative($companyID)
     {
 
-    	$comp = Company::Where('id', $companyID)->firstOrFail();
+    	$comp = new Company();
+    	$comp = $this->SetActiveCompany($companyID);
+    	  	
+     	$acc_result = new Account();
+     	$acc_result = $this->CreateAccountRepresentative($comp);
+
+
+    	$repre = Representative::create([
+    				'name' => "Representative of " .$comp['name'],  				
+    				'email' => $comp['email'],
+    				'phone' => $comp['phone'],
+    				'account_id' => $acc_result['id'],
+    				'company_id' => $comp['id']
+    			]);
+
+		return $repre;
+    }
+
+    public function SetActiveCompany($company_id)
+    {
+    	$comp = Company::Where('id', $company_id)->first();
+
+    	$comp->status_id = 3;
+
+    	$comp->save();   	
+
+    	return $comp;
+    }
+
+    public function CreateAccountRepresentative($comp)
+    {
 
     	$number_of_repre = $comp->representatives()->count() + 1;
 
     	$acc_result = Account::create([
 			    		'username'=>$comp['name'] .$number_of_repre,
 			    		'password'=>bcrypt(str_random(40)),
-			    		'status_id'=>2
+			    		'status_id'=>5 // set active account
 			    	]);
 
-    	$repre = new Representative();
-		    	$repre["name"] = "Representative of " .$comp['name'];
-				$repre["phone"] = $comp['phone'];
-				$repre["email"] = $comp['email'];
-				$repre["account_id"] = $acc_result['id'];
-				$repre["company_id"] = $comp['id'];
-
-
-    	//Representative::create($repre);
-
-		return $repre;  	
+    	return $acc_result;
     }
 
 
 
-	public function test($companyID)
-	{
-		return $this->CreateRepresentative($companyID);
-	}
 
     
 }
