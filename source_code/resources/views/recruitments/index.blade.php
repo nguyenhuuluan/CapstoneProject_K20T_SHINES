@@ -11,7 +11,7 @@
           <h1>{{ $recruitment->title }}</h1>
         </div>
         <time datetime="">{{ $recruitment->created_at->diffForhumans() }}</time>
-        <ul class="details cols-3">
+        <ul class="details cols-3"  style="text-align: center">
           <li>
             <h3><a href="#">{{ $recruitment->company->name }}</a></h3>
           </li>
@@ -20,7 +20,6 @@
 					<span class="salary">{{ $recruitment->salary }}</span>
           </li>
           <li>
-            <i class="fa fa-cube"></i>
 					@foreach ($recruitment->categories as $category)
 					@if($category->name == 'FULL-TIME' )
 					<span class="label label-success">{{ $category->name }}</span>
