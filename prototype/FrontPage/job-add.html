@@ -110,7 +110,13 @@
 					<div class="form-group col-xs-12 col-sm-6 col-md-6">
 						<div class="input-group input-group-sm">
 							<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
-							<input type="text" class="form-control" placeholder="Vị trí... Hồ Chí Minh">
+							<select class="form-control selectpicker">
+								<option>Hồ Chí Minh</option>
+								<option>Bình Dương</option>
+								<option>Đồng Nai</option>
+								<option>Long An</option>
+								<option>Cần Thơ</option>
+							</select>
 						</div>
 					</div>
 
@@ -130,13 +136,13 @@
 					<div class="form-group col-xs-12 col-sm-6 col-md-6">
 						<div class="input-group input-group-sm">
 							<span class="input-group-addon"><i class="fa fa-money-recruitment"></i></span>
-							<input type="text" class="form-control" placeholder="Lương">
+							<input type="text" class="form-control" placeholder="12000000 - 15000000 vnd">
 						</div>
 					</div>
 
 					<div class="form-group col-xs-12 col-sm-6 col-md-6">
 						<div class="input-group input-group-sm">
-							<span class="input-group-addon"><i class="fa fa-tag"></i></span>										<input type="text" class="form-control" placeholder="PHP">
+							<span class="input-group-addon"><i class="fa fa-tag"></i></span>										<input type="text" class="form-control" value="PHP, JavaScript, CSS3" data-role="tagsinput">
 						</div>
 					</div>
 
@@ -192,7 +198,10 @@
 	<!-- Submit -->
 
 	<div class="container">
-		<p class="text-center"><button class="btn btn-danger btn-xl btn-round">Xem trước</button> <button class="btn btn-success btn-xl btn-round">Đăng việc làm</button></p>
+		<p class="text-center">
+			<a href="job-detail-preview.html" class="btn btn-danger btn-xl btn-round">Xem trước</a>
+			<a href="#" class="btn btn-success btn-xl btn-round">Đăng tin</a>
+		</p>
 		<br>
 	</div>
 	<!-- END Submit -->
