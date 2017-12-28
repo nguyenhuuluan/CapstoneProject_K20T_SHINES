@@ -7,6 +7,7 @@ use App\Recruitment;
 use App\Category;
 //use App\City;
 use App\Section;
+use App\Account;
 class RecruitmentController extends Controller
 {
     /**
@@ -44,7 +45,26 @@ class RecruitmentController extends Controller
     public function store(Request $request)
     {
         //
-        return $request;
+        // return $request;
+        $input = $request->all();
+        $tmps =  explode( ",",  $input['tags']);
+
+        $user = Account::find(3);
+        $data = [
+            'title'=>$request->title,
+            'salary'=>$request->salary,
+            'number_of_view'=>'0',
+            'expire_date'=>date("Y-m-d", strtotime($request->date)),
+            'is_hot'=>'0',
+            'status_id'=>'1',
+            'company_id'=>$user->representative->company->id,
+
+        ];
+
+        Recruitment::create($data);
+        $request->session()->flash('reply_message','Create Successfull');
+        return redirect()->back();
+
     }
 
     /**

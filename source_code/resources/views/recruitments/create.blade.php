@@ -14,8 +14,9 @@
 	<link href="{{asset('assets/vendors/summernote/summernote.css')}}" rel="stylesheet">
 	<link href="{{asset('assets/css/thejobs.css')}}" rel="stylesheet">
 	<link href="{{asset('assets/css/custom.css')}}" rel="stylesheet">
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+	
 	<!-- Fonts -->
 	<link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
 
@@ -120,14 +121,14 @@
 					<div class="form-group col-xs-12 col-sm-6 col-md-6">
 						<div class="input-group input-group-sm">
 							<span class="input-group-addon"><i class="fa fa-money-recruitment"></i></span>
-							{!! Form::text('salary', null,['class'=>'form-control', 'placeholder'=>'Lương']) !!}
+							{!! Form::text('salary', null, ['class'=>'form-control', 'placeholder'=>'Lương']) !!}
 						</div>
 					</div>
 
 					<div class="form-group col-xs-12 col-sm-6 col-md-6">
 						<div class="input-group input-group-sm">
 							<span class="input-group-addon"><i class="fa fa-tag"></i></span>
-							{!! Form::text('tag', null,['class'=>'form-control', 'placeholder'=>'Tags']) !!}
+							{!! Form::text('tags', null, ['class'=>'typeahead tm-input form-control tm-input-info', 'id'=>'tags', 'placeholder'=>'Tags', 'data-role' =>'tagsinput' ]) !!}
 						</div>
 					</div>
 
@@ -153,16 +154,16 @@
 			</div>
 			<br>
 			@endforeach
-		<!-- END Job detail -->
-		<!-- Submit -->
+			<!-- END Job detail -->
+			<!-- Submit -->
 			<div class="container">
 				<p class="text-center">
-				{!! Form::submit('Xem trước', ['class'=>'btn btn-danger btn-xl btn-round']) !!}
-				{!! Form::submit('Đăng tin', ['class'=>'btn btn-success btn-xl btn-round']) !!}
+					{!! Form::submit('Xem trước', ['class'=>'btn btn-danger btn-xl btn-round']) !!}
+					{!! Form::submit('Đăng tin', ['class'=>'btn btn-success btn-xl btn-round']) !!}
 				</p>				
 				<br>
 			</div>		
-		<!-- END Submit -->		
+			<!-- END Submit -->		
 		</section>
 
 		{!! Form::close() !!}
@@ -265,7 +266,9 @@
 	<script src="{{ asset('assets/js/thejobs.js') }}"></script>
 	<script src="{{ asset('assets/js/custom.js') }}"></script>
 
-	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+	{{-- <script src="//code.jquery.com/jquery-1.10.2.js"></script> --}}
+	{{-- <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script> --}}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
 
 	<script>
 		$(function() {
