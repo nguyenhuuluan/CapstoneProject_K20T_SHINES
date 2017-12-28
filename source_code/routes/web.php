@@ -23,5 +23,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/recruitment/create', 'RecruitmentController@create');
 Route::get('/recruitment/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
+Route::post('/recruitment', 'RecruitmentController@store');
 
 

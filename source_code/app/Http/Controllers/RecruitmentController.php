@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Recruitment;
-
+use App\Category;
+//use App\City;
+use App\Section;
 class RecruitmentController extends Controller
 {
     /**
@@ -26,7 +28,10 @@ class RecruitmentController extends Controller
     public function create()
     {
         
-        return view('recruitments.create');
+        $categories  = Category::pluck('name', 'id')->all();
+        //$cities  = City::pluck('name', 'id')->all();
+        $sections = Section::all();
+        return view('recruitments.create',compact('categories', 'sections'));
 
     }
 
@@ -39,6 +44,7 @@ class RecruitmentController extends Controller
     public function store(Request $request)
     {
         //
+        return $request;
     }
 
     /**

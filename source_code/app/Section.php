@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Section extends Model
 {
     //
-    protected $fillable = ['title'];
+    protected $fillable = ['title', 'type'];
 
     public function recruitments(){
     	return $this->belongsToMany('App\Recruitment');
