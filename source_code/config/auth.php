@@ -70,6 +70,11 @@ return [
             'model' => App\User::class,
         ],
 
+        'accounts' => [
+             'driver' => 'eloquent',  //We are using eloquent model
+             'model' => App\Account::class,
+         ],
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -97,6 +102,14 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
         ],
-    ],
+        'accounts' => [
+            //user provider for account
+         'provider' => 'accounts',
+            //table to store password reset tokens for seller
+         'table' => 'account_password_resets',
+           //expire time for these tokens in minutes
+         'expire' => 60,
+     ],
+ ],
 
 ];

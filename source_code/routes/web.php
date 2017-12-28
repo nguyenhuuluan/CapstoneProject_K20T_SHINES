@@ -21,3 +21,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/recruitment/{id}', 'HomeController@detail')->name('detail');
 
 Route::get('/test/{companyID}', 'CompanyController@test')->name('test');
+
+
+//Password reset routes
+Route::get('account_password/reset', 'AccountAuth\ForgotPasswordController@showLinkRequestForm');
+Route::post('account_password/email', 'AccountAuth\ForgotPasswordController@sendResetLinkEmail');
+Route::get('account_password/reset/{token}', 'AccountAuth\ResetPasswordController@showResetForm');
+Route::post('account_password/reset', 'AccountAuth\ResetPasswordController@reset');

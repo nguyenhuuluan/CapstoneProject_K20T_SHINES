@@ -4,14 +4,24 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Account extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+//Trait for sending notifications in laravel
+use Illuminate\Notifications\Notifiable;
+
+//Notification for Seller
+use App\Notifications\AccountResetPasswordNotification;
+
+class Account extends Authenticatable
 {
 
-    public $timestamps = true;
+  use Notifiable;
 
-    protected $fillable = [
-       'username', 'password', 'status_id'
-   ];
+  public $timestamps = true;
+
+  protected $fillable = [
+   'username', 'password', 'status_id'
+ ];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -19,6 +29,13 @@ class Account extends Model
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+      'password', 'remember_token',
     ];
-}
+
+
+    //Send password reset notification
+    public function sendPasswordResetNotification($token)
+    {
+      $this->notify(new AccountResetPasswordNotification($token));
+    }
+  }
