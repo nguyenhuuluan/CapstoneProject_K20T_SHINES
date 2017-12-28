@@ -25,4 +25,7 @@ class Recruitment extends Model
     public function categories(){
     	return $this->belongsToMany('App\Category');
     }
+    public function tags(){
+        return $this->belongsToMany('App\Tag', 'tag_recruitment', 'recruitment_id', 'tag_id');
+    }
 }

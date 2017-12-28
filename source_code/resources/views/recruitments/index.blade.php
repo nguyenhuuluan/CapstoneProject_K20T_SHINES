@@ -88,15 +88,10 @@
 
 		<div class="widget widget_tag_cloud">
 			<div class="widget-body">
-				<a href="#">blog</a>
-				<a href="#">new</a>
-				<a href="#">google</a>
-				<a href="#">position</a>
-				<a href="#">facebook</a>
-				<a href="#">hire</a>
-				<a href="#">chance</a>
-				<a href="#">resume</a>
-				<a href="#">tip</a>
+				@foreach ($recruitment->tags as $tag)
+					{{-- expr --}}
+					<a href="#">{{ $tag->name }}</a>
+				@endforeach
 			</div>
 		</div>
 

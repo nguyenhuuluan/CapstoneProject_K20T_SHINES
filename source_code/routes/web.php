@@ -20,4 +20,8 @@ Route::get('/' , 'HomeController@index')->name('home');
 //Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/recruitment/{id}', 'HomeController@detailrecruitment')->name('detailrecruitment');
+
+Route::get('/recruitment/create', 'RecruitmentController@create');
+Route::get('/recruitment/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
+
+
