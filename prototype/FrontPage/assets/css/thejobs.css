@@ -59,16 +59,22 @@
   background-color:#38b0fe;
 }
 
+.btn-success-detail {
+  background-color:#ef4d42;
+  width: 350px;
+}
+
+.btn-success-detail:hover,
+.btn-success-detail:focus,
+.btn-success-detail:active,
+.btn-success-detail:active:focus {
+  color:#fff;
+  background-color:#f5b406;
+}
+
 .btn-success {
   background-color:#7ec855;
   border-color:#7ec855 !important;
-}
-
-.btn-success-detail {
-	
-  background-color:#ef4d42;
-  border-color:#ef4d42 !important;
-  width: 350px;
 }
 
 .btn-success:hover,
