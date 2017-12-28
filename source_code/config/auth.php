@@ -97,16 +97,6 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
         ],
-
-        //Account password broker
-       'accounts' => [
-            //user provider for seller
-           'provider' => 'account',
-            //table to store password reset tokens for seller
-           'table' => 'seller_password_resets',
-           //expire time for these tokens in two minutes
-           'expire' => 120,
-       ],
     ],
 
 ];
