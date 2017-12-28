@@ -26,10 +26,16 @@ Route::get('/test/{companyID}', 'CompanyController@test')->name('test');
 
 
 
-Route::get('account/reset','MyAuth\ForgotPasswordController@showLinkRequestForm');
+// Route::get('account/reset','MyAuth\ForgotPasswordController@showLinkRequestForm');
 
-Route::post('account/email','MyAuth\PasswordController@sendResetLinkEmail');
+// Route::post('account/email','MyAuth\PasswordController@sendResetLinkEmail');
 
-Route::get('account/getreset/{token}','MyAuth\PasswordController@showRequestForm');
+// Route::get('account/getreset/{token}','MyAuth\PasswordController@showRequestForm');
 
-Route::post('account/postreset/{token}','MyAuth\PasswordController@postReset');
+// Route::post('account/postreset/{token}','MyAuth\PasswordController@postReset');
+
+
+Route::get('account/reset', 'MyAuth\ForgotPasswordController@showLinkRequestForm');
+Route::post('account/email', 'MyAuth\ForgotPasswordController@sendResetLinkEmail');
+Route::get('account/getreset/{token}', 'MyAuth\ResetPasswordController@showResetForm');
+Route::post('account/postreset/{token}', 'MyAuth\ResetPasswordController@reset');
