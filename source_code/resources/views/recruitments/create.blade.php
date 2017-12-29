@@ -132,7 +132,7 @@
 					<div class="form-group col-xs-12 col-sm-6 col-md-6">
 						<div class="input-group input-group-sm">
 							<span class="input-group-addon"><i class="fa fa-tag"></i></span>
-							{!! Form::text('tags', null, ['class'=>'typeahead tm-input form-control tm-input-info', 'id'=>'typeahead', 'placeholder'=>'Tags', 'data-role' =>'tagsinput' ]) !!}
+							{!! Form::text('tags', null, ['class'=>'typeahead tm-input form-control tm-input-info', 'id'=>'typeahead', 'placeholder'=>'Tags']) !!}
 						</div>
 					</div>
 
@@ -183,16 +183,17 @@
 	<script src="{{ asset('assets/js/thejobs.js') }}"></script>
 	<script src="{{ asset('assets/js/custom.js') }}"></script>
 	
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script> 
 	{{-- <script src="//code.jquery.com/jquery-1.10.2.js"></script> --}}
 	{{-- <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script> --}}
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script> 
 
 	<script>
 		$(function() {
 			$( "#datepicker" ).datepicker();
 			$( "#datepicker" ).datepicker( "option", "dateFormat", 'dd/mm/yy');
+
 
 			
 		});
@@ -204,12 +205,11 @@
 		    ],
 		    height: 200
 		});
-
 		$(document).ready(function() {
 			var tags = $(".tm-input").tagsManager();
-			jQuery(".typeahead").typeahead({
+			jQuery("#typeahead").typeahead({
 				source: function (query, process) {
-					return $.get('aj.php', { query: query }, function (data) {
+					return $.get('{!! URL::route('searchtag') !!}', { query: query }, function (data) {
 						data = $.parseJSON(data);
 						return process(data);
 					});

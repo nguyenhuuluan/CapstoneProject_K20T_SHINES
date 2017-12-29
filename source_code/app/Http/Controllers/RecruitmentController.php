@@ -8,7 +8,7 @@ use App\Category;
 //use App\City;
 use App\Section;
 use App\Account;
-
+use App\Tag;
 class RecruitmentController extends Controller
 {
     /**
@@ -131,4 +131,16 @@ class RecruitmentController extends Controller
         return view('recruitments.index',compact('recruitment'));
 
     }
+    public function searchtag(Request $request){
+        $term = $request['query'];
+        $tags = Tag::where('name', 'LIKE', '%'.$term.'%')->get();
+        if(count($tags) ==0){
+            return 'not tag';
+        }else{
+            foreach ($tags as $key => $value) {
+               $result[] = $value->name;
+           }
+       }
+       return json_encode($result);
+   }
 }

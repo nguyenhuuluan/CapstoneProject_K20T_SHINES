@@ -20,7 +20,7 @@ Route::get('/' , 'HomeController@index')->name('home');
 //Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
+Route::get('/recruitment/searchtag', 'RecruitmentController@searchtag')->name('searchtag');
 Route::get('/recruitment/create', 'RecruitmentController@create');
 Route::get('/recruitment/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
 
@@ -28,5 +28,4 @@ Route::post('/recruitment', 'RecruitmentController@store');
 
 Route::get('/test', 'HomeController@test');
 
-Route::get('/search', 'HomeController@search')->name('searchtag');
 
