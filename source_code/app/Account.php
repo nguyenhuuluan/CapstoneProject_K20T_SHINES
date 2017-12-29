@@ -12,10 +12,10 @@ use Illuminate\Notifications\Notifiable;
 //Notification for Seller
 use App\Notifications\AccountResetPasswordNotification;
 
-class Account extends Authenticatable
+class Account extends Model
 {
 
-  use Notifiable;
+ // use Notifiable;
 
   public $timestamps = true;
 

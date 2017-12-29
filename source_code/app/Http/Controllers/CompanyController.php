@@ -7,64 +7,75 @@ use App\Representative;
 use App\Account;
 use App\Company;
 
+use Mail;
+
 class CompanyController extends Controller
 {
 
 	public function test($companyID)
 	{
 
-		return $this->CreateRepresentative($companyID);
-	}
+		
+        $com = $this->CreateRepresentative($companyID);
+
+        Mail::send('verify', ['company' => $com], function ($message) use($com)
+        {
+            $message->to($com['email'])->subject('Welcome to Expertphp.in!');
+
+        });
+
+        return "OK";
+    }
 
 
-	public function CreateRepresentative($companyID)
+    public function CreateRepresentative($companyID)
     {
 
     	$comp = new Company();
     	$comp = $this->SetActiveCompany($companyID);
-    	  	
-     	$acc_result = new Account();
-     	$acc_result = $this->CreateAccountRepresentative($comp);
+
+      $acc_result = new Account();
+      $acc_result = $this->CreateAccountRepresentative($comp);
 
 
-    	$repre = Representative::create([
-    				'name' => "Representative of " .$comp['name'],  				
-    				'email' => $comp['email'],
-    				'phone' => $comp['phone'],
-    				'account_id' => $acc_result['id'],
-    				'company_id' => $comp['id']
-    			]);
+      $repre = Representative::create([
+        'name' => "Representative of " .$comp['name'],  				
+        'email' => $comp['email'],
+        'phone' => $comp['phone'],
+        'account_id' => $acc_result['id'],
+        'company_id' => $comp['id']
+    ]);
 
-		return $repre;
-    }
+      return $repre;
+  }
 
-    public function SetActiveCompany($company_id)
-    {
-    	$comp = Company::Where('id', $company_id)->first();
+  public function SetActiveCompany($company_id)
+  {
+     $comp = Company::Where('id', $company_id)->first();
 
-    	$comp->status_id = 3;
+     $comp->status_id = 3;
 
-    	$comp->save();   	
+     $comp->save();   	
 
-    	return $comp;
-    }
+     return $comp;
+ }
 
-    public function CreateAccountRepresentative($comp)
-    {
+ public function CreateAccountRepresentative($comp)
+ {
 
-    	$number_of_repre = $comp->representatives()->count() + 1;
+     $number_of_repre = $comp->representatives()->count() + 1;
 
-    	$acc_result = Account::create([
-			    		'username'=>$comp['name'] .$number_of_repre,
-			    		'password'=>bcrypt(str_random(40)),
+     $acc_result = Account::create([
+         'username'=>$comp['name'] .$number_of_repre,
+         'password'=>bcrypt(str_random(40)),
 			    		'status_id'=>5 // set active account
 			    	]);
 
-    	return $acc_result;
-    }
+     return $acc_result;
+ }
 
 
 
 
-    
+
 }
