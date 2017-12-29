@@ -6,9 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Representative extends Model
 {
-    
-	public $timestamps = true;
-    
+    //
     protected $fillable = ['name','phone','email','account_id','company_id'];
 
 }

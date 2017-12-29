@@ -20,7 +20,7 @@ class Account extends Model
   public $timestamps = true;
 
   protected $fillable = [
-   'username', 'password', 'status_id'
+   'username', 'password', 'status_id', 'remember_token'
  ];
 
     /**

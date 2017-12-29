@@ -7,6 +7,7 @@ use App\Representative;
 use App\Account;
 use App\Company;
 
+
 use Mail;
 
 class CompanyController extends Controller
@@ -16,26 +17,43 @@ class CompanyController extends Controller
 	{
 
 		
-        $com = $this->CreateRepresentative($companyID);
+        $com = $this->createRepresentative($companyID);
 
-        Mail::send('verify', ['company' => $com], function ($message) use($com)
+
+    }
+
+    public function sendMailToResetPassword($represen, $com, $acc)
+    {
+
+
+
+        Mail::send('representatives.reset', ['company' => $com, 'representative' => $represen,'account' => $acc],  function ($message) use($com)
         {
-            $message->to($com['email'])->subject('Welcome to Expertphp.in!');
-
+            $message->to($com['email'])->subject('Chấp thuận doanh  nghiệp / công ty | Reset password');
         });
 
-        return "OK";
+
+        // $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
+        // $beautymail->send('representatives.reset', ['company' => $com], function($message)
+        // {
+        //     $message
+        //     ->from('jobee0210@gmail.com')
+        //     ->to($com['email'], $com['name'])
+        //     ->subject('Chấp thuận công ty');
+        // });
+
+        return $represen;
     }
 
 
-    public function CreateRepresentative($companyID)
+    public function createRepresentative($companyID)
     {
 
     	$comp = new Company();
-    	$comp = $this->SetActiveCompany($companyID);
+    	$comp = $this->setActiveCompany($companyID);
 
       $acc_result = new Account();
-      $acc_result = $this->CreateAccountRepresentative($comp);
+      $acc_result = $this->createAccountRepresentative($comp);
 
 
       $repre = Representative::create([
@@ -46,10 +64,12 @@ class CompanyController extends Controller
         'company_id' => $comp['id']
     ]);
 
+      $this->sendMailToResetPassword($repre, $comp, $acc_result);
+
       return $repre;
   }
 
-  public function SetActiveCompany($company_id)
+  public function setActiveCompany($company_id)
   {
      $comp = Company::Where('id', $company_id)->first();
 
@@ -60,7 +80,7 @@ class CompanyController extends Controller
      return $comp;
  }
 
- public function CreateAccountRepresentative($comp)
+ public function createAccountRepresentative($comp)
  {
 
      $number_of_repre = $comp->representatives()->count() + 1;
@@ -68,14 +88,12 @@ class CompanyController extends Controller
      $acc_result = Account::create([
          'username'=>$comp['name'] .$number_of_repre,
          'password'=>bcrypt(str_random(40)),
-			    		'status_id'=>5 // set active account
-			    	]);
+		'status_id'=>5, // set active account
+        'remember_token'=>str_random(40)
+    ]);
 
      return $acc_result;
  }
-
-
-
 
 
 }

@@ -164,6 +164,9 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+        // HTML Email Beauty
+        Snowfire\Beautymail\BeautymailServiceProvider::class,
+
         /*
          * Package Service Providers...
          */
