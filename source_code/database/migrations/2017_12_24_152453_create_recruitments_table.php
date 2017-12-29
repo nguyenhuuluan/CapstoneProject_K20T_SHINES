@@ -25,7 +25,7 @@ class CreateRecruitmentsTable extends Migration
             $table->timestamps();
 
             $table->foreign('status_id')->references('id')->on('statuses');
-            $table->foreign('company_id')->references('id')->on('companies');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
 
 
         });

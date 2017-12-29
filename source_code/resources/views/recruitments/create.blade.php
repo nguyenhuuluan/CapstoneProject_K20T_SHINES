@@ -11,12 +11,16 @@
 
 	<!-- Styles -->
 	<link href="{{asset('assets/css/app.min.css')}}" rel="stylesheet">
-	<link href="{{asset('assets/vendors/summernote/summernote.css')}}" rel="stylesheet">
+	
 	<link href="{{asset('assets/css/thejobs.css')}}" rel="stylesheet">
 	<link href="{{asset('assets/css/custom.css')}}" rel="stylesheet">
+	<link href="{{asset('assets/vendors/summernote/summernote.css')}}" rel="stylesheet">
+	
 
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
 	
+
 	<!-- Fonts -->
 	<link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
 
@@ -93,13 +97,13 @@
 
 	<!-- Main container -->
 	<main>
+		@if(Session::has('comment_message'))	
+		{{ session('comment_message') }}
+		@endif
 		{!! Form::open(['method'=>'POST', 'action'=>'RecruitmentController@store', 'files'=>true]) !!}
 		<section>
 			<div class="container">
 				<div class="row">
-
-
-
 					<div class="form-group col-xs-12 col-sm-12">
 						{!! Form::text('title', null,['class'=>'form-control', 'placeholder'=>'Tiêu đề tin tuyển dụng']) !!}
 					</div>
@@ -128,34 +132,25 @@
 					<div class="form-group col-xs-12 col-sm-6 col-md-6">
 						<div class="input-group input-group-sm">
 							<span class="input-group-addon"><i class="fa fa-tag"></i></span>
-							{!! Form::text('tags', null, ['class'=>'typeahead tm-input form-control tm-input-info', 'id'=>'tags', 'placeholder'=>'Tags', 'data-role' =>'tagsinput' ]) !!}
+							{!! Form::text('tags', null, ['class'=>'typeahead tm-input form-control tm-input-info', 'id'=>'typeahead', 'placeholder'=>'Tags', 'data-role' =>'tagsinput' ]) !!}
 						</div>
 					</div>
 
 					<div class="form-group col-xs-12 col-sm-12">
 						
 					</div>
-					<div class="form-group col-xs-12 col-sm-12">
-						{!! Form::textarea('description', null,['class'=>'form-control', 'rows'=>5, 'placeholder'=>'Mô tả ngắn']) !!}
-					</div>
 
 				</div>
 			</div>
-		</section>
-		<!-- Job detail -->
-		<section>
-
 			@foreach ($sections as $section)
 			<div class="container">
 				<header class="section-header">
 					<h3>{!! $section->title !!}</h3>
 				</header>
-				{!! Form::textarea($section->id , null,['class'=>'summernote-editor', 'rows'=>5, 'placeholder'=>'']) !!}
+				{!! Form::textarea($section->id , null,['class'=>'summernote', 'rows'=>5]) !!}
 			</div>
 			<br>
 			@endforeach
-			<!-- END Job detail -->
-			<!-- Submit -->
 			<div class="container">
 				<p class="text-center">
 					{!! Form::submit('Xem trước', ['class'=>'btn btn-danger btn-xl btn-round']) !!}
@@ -163,96 +158,18 @@
 				</p>				
 				<br>
 			</div>		
+			
+			
 			<!-- END Submit -->		
 		</section>
 
-		{!! Form::close() !!}
-		
-		
-		
-
-
+		{!! Form::close() !!}				
 	</main>
 	<!-- END Main container -->
 
 
 	<!-- Site footer -->
-	<footer class="site-footer">
-
-		<!-- Top section -->
-		<div class="container">
-			<div class="row">
-
-				<div class="col-xs-6 col-sm-6 col-md-3">
-					<h6>Việc làm theo nghành nghề</h6>
-					<ul class="footer-links">
-						<li><a href="job-list.html">Việc làm Kế toán</a></li>
-						<li><a href="job-list.html">Việc làm Ngân hàng</a></li>
-						<li><a href="job-list.html">Việc làm IT - Phần mềm</a></li>
-						<li><a href="job-list.html">Việc làm IT-Phần cứng/Mạng</a></li>
-						<li><a href="job-list.html">Việc làm Xây dựng</a></li>
-					</ul>
-				</div>
-
-				<div class="col-xs-6 col-sm-6 col-md-3">
-					<ul class="footer-links">
-						<br>
-						<li><a href="job-list.html">Việc làm Quảng cáo/Khuyến mãi</a></li>
-						<li><a href="job-list.html">Việc làm Hàng không/Du lịch</a></li>
-						<li><a href="job-list.html">Việc làm Giáo dục/Đào tạo</a></li>
-						<li><a href="job-list.html">Việc làm Điện/Điện tử</a></li>
-						<li><a href="job-list.html">Việc làm Bán hàng</a></li>
-					</ul>
-				</div>
-
-				<div class="col-xs-6 col-sm-6 col-md-3">
-					<h6>Việc làm IT theo công ty</h6>
-					<ul class="footer-links">
-						<li><a href="page-about.html">Global CyberSoft</a></li>
-						<li><a href="page-typography.html">Vingroup</a></li>
-						<li><a href="page-faq.html">Capella Holding</a></li>
-						<li><a href="page-typography.html">Vietjetair</a></li>
-						<li><a href="page-contact.html">Standard Charter</a></li>
-					</ul>
-				</div>
-
-
-				<div class="col-xs-6 col-sm-6 col-md-3">
-					<h6>Việc làm IT theo thành phố</h6>
-					<ul class="footer-links">
-						<li><a href="job-list.html">Hồ Chí Minh</a></li>
-						<li><a href="job-list.html">Hà Nội</a></li>
-						<li><a href="job-list.html">Đà Nẵng</a></li>
-						<li><a href="job-list.html">Thêm</a></li>
-					</ul>
-				</div>
-			</div>
-
-			<hr>
-		</div>
-		<!-- END Top section -->
-
-		<!-- Bottom section -->
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8 col-sm-6 col-xs-12">
-					<p class="copyright-text">Copyrights &copy; 2017 All Rights Reserved by <a href="#">Shines Team</a>.</p>
-				</div>
-
-				<div class="col-md-4 col-sm-6 col-xs-12">
-					<ul class="social-icons">
-						<li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-						<li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-						<li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
-						<li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-						<li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<!-- END Bottom section -->
-
-	</footer>
+	@include('layouts.footer')
 	<!-- END Site footer -->
 
 
@@ -265,7 +182,9 @@
 	<script src="{{ asset('assets/vendors/summernote/summernote.min.js') }}"></script>
 	<script src="{{ asset('assets/js/thejobs.js') }}"></script>
 	<script src="{{ asset('assets/js/custom.js') }}"></script>
-
+	
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script> 
 	{{-- <script src="//code.jquery.com/jquery-1.10.2.js"></script> --}}
 	{{-- <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script> --}}
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
@@ -274,6 +193,31 @@
 		$(function() {
 			$( "#datepicker" ).datepicker();
 			$( "#datepicker" ).datepicker( "option", "dateFormat", 'dd/mm/yy');
+
+			
+		});
+		$(".summernote").summernote({
+			toolbar: [
+		    // [groupName, [list of button]]
+		    ['style', ['bold', 'italic']],
+		    ['para', ['ul', 'ol']],
+		    ],
+		    height: 200
+		});
+
+		$(document).ready(function() {
+			var tags = $(".tm-input").tagsManager();
+			jQuery(".typeahead").typeahead({
+				source: function (query, process) {
+					return $.get('aj.php', { query: query }, function (data) {
+						data = $.parseJSON(data);
+						return process(data);
+					});
+				},
+				afterSelect :function (item){
+					tags.tagsManager("pushTag", item);
+				}
+			});
 		});
 	</script>
 </body>

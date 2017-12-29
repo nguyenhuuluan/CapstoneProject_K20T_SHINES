@@ -8,6 +8,7 @@ use App\Category;
 //use App\City;
 use App\Section;
 use App\Account;
+
 class RecruitmentController extends Controller
 {
     /**
@@ -28,11 +29,11 @@ class RecruitmentController extends Controller
      */
     public function create()
     {
-        
+        $places = ["PHP", "JS"];
         $categories  = Category::pluck('name', 'id')->all();
         //$cities  = City::pluck('name', 'id')->all();
         $sections = Section::all();
-        return view('recruitments.create',compact('categories', 'sections'));
+        return view('recruitments.create',compact('categories', 'sections', 'places'));
 
     }
 
@@ -50,6 +51,11 @@ class RecruitmentController extends Controller
         $tmps =  explode( ",",  $input['tags']);
 
         $user = Account::find(3);
+
+        // $recruitment = Recruitment::find(3);
+
+
+
         $data = [
             'title'=>$request->title,
             'salary'=>$request->salary,
@@ -58,11 +64,18 @@ class RecruitmentController extends Controller
             'is_hot'=>'0',
             'status_id'=>'1',
             'company_id'=>$user->representative->company->id,
-
         ];
+        $recruitment = Recruitment::create($data);
 
-        Recruitment::create($data);
-        $request->session()->flash('reply_message','Create Successfull');
+        $recruitment->sections()->save(Section::find(1), ['content'=>$input['1']]);
+        $recruitment->sections()->save(Section::find(2), ['content'=>$input['2']]);
+        $recruitment->sections()->save(Section::find(3), ['content'=>$input['3']]);
+        $recruitment->sections()->save(Section::find(4), ['content'=>$input['4']]);
+
+        $recruitment->categories()->save(Category::find($input['category_id']));
+
+        $request->session()->flash('comment_message','Create Successfull');
+
         return redirect()->back();
 
     }

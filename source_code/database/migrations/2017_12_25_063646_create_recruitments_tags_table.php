@@ -19,8 +19,8 @@ class CreateRecruitmentsTagsTable extends Migration
             $table->timestamps();
 
             $table->primary(['recruitment_id','tag_id']);
-            $table->foreign('recruitment_id')->references('id')->on('recruitments');
-            $table->foreign('tag_id')->references('id')->on('tags');
+            $table->foreign('recruitment_id')->references('id')->on('recruitments')->onDelete('cascade');
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
 
         });
     }

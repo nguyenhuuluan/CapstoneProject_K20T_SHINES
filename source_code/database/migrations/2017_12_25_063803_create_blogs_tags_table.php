@@ -20,8 +20,8 @@ class CreateBlogsTagsTable extends Migration
 
 
             $table->primary(['blog_id','tag_id']);          
-            $table->foreign('tag_id')->references('id')->on('tags');
-            $table->foreign('blog_id')->references('id')->on('blogs');
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
+            $table->foreign('blog_id')->references('id')->on('blogs')->onDelete('cascade');
         });
     }
 

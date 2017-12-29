@@ -23,8 +23,8 @@ class CreateAddressesTable extends Migration
             $table->timestamps();
 
 
-            $table->foreign('company_id')->references('id')->on('companies');
-            $table->foreign('district_id')->references('id')->on('districts');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+            $table->foreign('district_id')->references('id')->on('districts')->onDelete('cascade');
 
         });
     }

@@ -20,7 +20,7 @@ class CreateCvsTable extends Migration
             $table->integer('student_id')->index()->unsigned();
             $table->timestamps();
 
-            $table->foreign('student_id')->references('id')->on('students');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
         });
     }
 
