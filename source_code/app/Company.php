@@ -20,4 +20,7 @@ class Company extends Model
     public function status(){
     	return $this->belongsTo('App\Status');
     }
+    public function representative(){
+        return $this->hasOne('App\Representative', 'company_id', 'id');
+    }
 }	

@@ -11,11 +11,21 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
+
+Route::get('/' , 'HomeController@index')->name('home');
 //Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/recruitment/{id}', 'HomeController@detail')->name('detail');
+Route::get('/recruitment/searchtag', 'RecruitmentController@searchtag')->name('searchtag');
+Route::get('/recruitment/create', 'RecruitmentController@create');
+Route::get('/recruitment/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
+
+Route::post('/recruitment', 'RecruitmentController@store');
+
+Route::get('/test', 'HomeController@test');
+
+

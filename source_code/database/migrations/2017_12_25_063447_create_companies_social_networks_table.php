@@ -20,7 +20,7 @@ class CreateCompaniesSocialNetworksTable extends Migration
             $table->integer('company_id')->index()->unsigned();
             $table->timestamps();
 
-            $table->foreign('company_id')->references('id')->on('companies');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
 
         });
     }

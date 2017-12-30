@@ -81,3 +81,36 @@ span.positionwork {
 .fa-money-recruitment:before {
     content: "\f0d6";
 }
+
+.user-account-text {
+  color: #fff;
+  font: 
+}
+
+/*------------------------------------*\
+  Blog index
+\*------------------------------------*/
+
+.blog {
+    margin: 15px 0px;
+}
+
+.blog .blog-content {
+    padding: 20px 20px 40px;
+}
+
+.blog .blog-meta {
+    margin-bottom: 20px;
+}
+
+.blog .blog-meta li {
+    display: inline-block;
+    font-size: 14px;
+    color: #10161A;
+    margin-right: 10px;
+}
+
+.blog .blog-meta li i {
+    color: #6195FF;
+    margin-right: 5px;
+}

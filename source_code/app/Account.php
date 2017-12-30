@@ -20,4 +20,11 @@ class Account extends Model
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function representative(){
+        return $this->hasOne('App\Representative', 'account_id', 'id');
+    }
+    //     public function company(){
+    //     return $this->belongsTo('App\Company', 'App\Representative', 'account_id' ,'company_id', 'id');
+    // }
 }

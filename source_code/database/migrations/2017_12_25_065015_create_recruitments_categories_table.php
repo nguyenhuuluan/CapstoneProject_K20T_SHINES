@@ -19,8 +19,8 @@ class CreateRecruitmentsCategoriesTable extends Migration
             $table->timestamps();
 
             $table->primary(['recruitment_id','category_id']);       
-            $table->foreign('category_id')->references('id')->on('categories');
-            $table->foreign('recruitment_id')->references('id')->on('recruitments');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('recruitment_id')->references('id')->on('recruitments')->onDelete('cascade');
         });
     }
 
