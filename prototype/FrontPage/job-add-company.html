@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Post a job position or create your online resume by TheJobs!">
+    <meta name="keywords" content="">
+
+    <title>Jobee</title>
+
+    <!-- Styles -->
+    <link href="assets/css/app.min.css" rel="stylesheet">
+    <link href="assets/vendors/summernote/summernote.css" rel="stylesheet">
+    <link href="assets/css/thejobs.css" rel="stylesheet">
+    <link href="assets/css/custom.css" rel="stylesheet">
+    <link href="assets/css/bootstrap-tagsinput.css" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="icon" href="assets/img/favicon.ico">
+</head>
+
+<body class="nav-on-header smart-nav">
+
+    <!-- Navigation bar -->
+    <nav class="navbar">
+        <div class="container">
+
+            <!-- Logo -->
+            <div class="pull-left">
+                <a class="navbar-toggle" href="#" data-toggle="offcanvas"><i class="ti-menu"></i></a>
+
+                <div class="logo-wrapper">
+                    <a class="logo" href="index.html"><img src="assets/img/logo.png" alt="logo">
+                    </a>
+                    <a class="logo-alt" href="index.html"><img src="assets/img/logo-alt.png" alt="logo-alt">
+                    </a>
+                </div>
+
+            </div>
+            <!-- END Logo -->
+
+            <!-- User account -->
+            <div class="pull-right">
+                <div class="dropdown user-account">
+                    <a class="user-account-text">Thành Huỳnh</a>
+                    <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                        <img src="assets/img/logo-envato.png" alt="avatar">
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="user-login.html">Tài khoản</a>
+                        </li>
+                        <li><a href="user-register.html">Hồ sơ</a>
+                        </li>
+                        <li><a href="#">Đăng xuất</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <!-- END User account -->
+
+            <!-- Navigation menu -->
+            <ul class="nav-menu">
+                <li>
+                    <a class="active" href="#">Trang chủ</a>
+                </li>
+                <li>
+                    <a href="#">Công ty</a>
+                </li>
+                <li>
+                    <a href="#">Việc làm</a>
+                </li>
+                <li>
+                    <a href="#">Blog</a>
+                </li>
+                <li>
+                    <a href="#">Giới thiệu</a>
+                </li>
+            </ul>
+            <!-- END Navigation menu -->
+
+        </div>
+    </nav>
+    <!-- END Navigation bar -->
+
+
+    <!-- Page header -->
+    <header class="page-header">
+        <div class="container page-name">
+            <h1 class="text-center">Thêm việc làm</h1>
+            <p class="lead text-center">Tìm kiếm những ứng viên yêu thích công việc của bạn</p>
+        </div>
+
+
+    </header>
+    <!-- END Page header -->
+
+
+    <!-- Main container -->
+    <main>
+
+        <section>
+            <div class="container">
+
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-12">
+                        <input type="text" class="form-control input-lg" placeholder="Tiêu đề việc làm">
+                    </div>
+
+                    <div class="form-group col-xs-12 col-sm-6 col-md-6">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                            <select class="form-control selectpicker">
+                                <option>Hồ Chí Minh</option>
+                                <option>Bình Dương</option>
+                                <option>Đồng Nai</option>
+                                <option>Long An</option>
+                                <option>Cần Thơ</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-xs-12 col-sm-6 col-md-6">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-addon"><i class="fa fa-briefcase"></i></span>
+                            <select class="form-control selectpicker" multiple>
+                                <option>Full time</option>
+                                <option>Part time</option>
+                                <option>Internship</option>
+                                <option>Freelance</option>
+                                <option>Remote</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-xs-12 col-sm-6 col-md-6">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-addon"><i class="fa fa-money-recruitment"></i></span>
+                            <input type="text" class="form-control" placeholder="12000000 - 15000000 vnd">
+                        </div>
+                    </div>
+
+                    <div class="form-group col-xs-12 col-sm-6 col-md-6">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-addon"><i class="fa fa-tag"></i></span>
+                            <input type="text" class="tagsinput-typeahead" placeholder="Nhập tag" data-role="tagsinput">
+                        </div>
+                    </div>
+
+                    <div class="form-group col-xs-12">
+                        <textarea class="form-control" rows="3" placeholder="Mô tả ngắn việc làm"></textarea>
+                    </div>
+
+                    <div class="form-group col-xs-12">
+                        <input type="text" class="form-control" placeholder="Website">
+                    </div>
+
+                </div>
+
+            </div>
+            </section>
+
+            <!-- Job detail -->
+            <section>
+                <div class="container">
+                    <header class="section-header">
+                        <h3>Mô tả</h3>
+                    </header>
+
+                    <textarea class="summernote-editor"></textarea>
+                </div>
+
+                <div class="container">
+                    <header class="section-header">
+                        <h3>Kĩ năng, công việc</h3>
+                    </header>
+                    <textarea class="summernote-editor"></textarea>
+                </div>
+
+                <div class="container">
+                    <header class="section-header">
+                        <h3>Phúc lợi</h3>
+                    </header>
+                    <textarea class="summernote-editor"></textarea>
+                </div>
+            </section>
+
+            <div class="container">
+                <header class="section-header">
+                    <h3>Tùy chọn</h3>
+                </header>
+                <textarea class="summernote-editor"></textarea>
+            </div>
+            <br>
+            </section>
+
+            <!-- END Job detail -->
+
+            <!-- Submit -->
+
+            <div class="container">
+                <p class="text-center">
+                    <a href="job-detail-preview.html" class="btn btn-danger btn-xl btn-round">Xem trước</a>
+                    <a href="#" class="btn btn-success btn-xl btn-round">Đăng tin</a>
+                </p>
+                <br>
+            </div>
+            <!-- END Submit -->
+
+
+    </main>
+    <!-- END Main container -->
+
+
+    <!-- Site footer -->
+    <footer class="site-footer">
+
+        <!-- Bottom section -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                    <p class="copyright-text">Copyrights &copy; 2017 All Rights Reserved by <a href="#">Shines Team</a>.</p>
+                </div>
+            </div>
+        </div>
+        <!-- END Bottom section -->
+
+    </footer>
+    <!-- END Site footer -->
+
+
+    <!-- Back to top button -->
+    <a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
+    <!-- END Back to top button -->
+
+    <!-- Scripts -->
+    <script src="assets/js/app.min.js"></script>
+    <script src="assets/vendors/summernote/summernote.min.js"></script>
+    <script src="assets/js/thejobs.js"></script>
+    <script src="assets/js/custom.js"></script>
+    <script src="assets/js/bootstrap3-typeahead.js"></script>
+    <script src="assets/js/cbootstrap-tagsinput.js"></script>
+
+    <!-- Gợi ý tag -->
+    <script>
+        var places = [{
+            name: "PHP"
+        }, {
+            name: "JavaScript"
+        }, {
+            name: "BIM"
+        }, {
+            name: "HTML"
+        }, {
+            name: "CSS"
+        }];
+
+        $('.tagsinput-typeahead').tagsinput({
+            typeahead: {
+                source: places.map(function(item) {
+                    return item.name
+                }),
+                afterSelect: function() {
+                    this.$element[0].value = '';
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>
