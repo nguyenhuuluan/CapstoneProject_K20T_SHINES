@@ -125,14 +125,14 @@
 					<div class="form-group col-xs-12 col-sm-6 col-md-6">
 						<div class="input-group input-group-sm">
 							<span class="input-group-addon"><i class="fa fa-money-recruitment"></i></span>
-							{!! Form::text('salary', null, ['class'=>'form-control', 'placeholder'=>'Lương']) !!}
+							{!! Form::text('salary', null, ['class'=>'form-control', 'placeholder'=>'8.000.000 VNĐ - 15.000.000 VNĐ', 'autocomplete'=>'off']) !!}
 						</div>
 					</div>
 
 					<div class="form-group col-xs-12 col-sm-6 col-md-6">
 						<div class="input-group input-group-sm">
 							<span class="input-group-addon"><i class="fa fa-tag"></i></span>
-							{!! Form::text('tags', null, ['class'=>'typeahead tm-input form-control tm-input-info', 'id'=>'typeahead', 'placeholder'=>'Tags']) !!}
+							{!! Form::text('tags', null, ['class'=>'typeahead tm-input form-control tm-input-info', 'id'=>'typeahead', 'placeholder'=>'Tags', 'autocomplete'=>'off']) !!}
 						</div>
 					</div>
 
