@@ -20,12 +20,12 @@ class Recruitment extends Model
     	return $this->belongsTo('App\Status');
     }
     public function sections(){
-    	return $this->belongsToMany('App\Section', 'section_recruitment', 'recruitment_id','section_id')->withPivot('content');
+    	return $this->belongsToMany('App\Section', 'section_recruitment', 'recruitment_id','section_id')->withPivot('content')->withTimestamps();
     }
     public function categories(){
-    	return $this->belongsToMany('App\Category');
+    	return $this->belongsToMany('App\Category', 'category_recruitment', 'recruitment_id', 'category_id')->withTimestamps();
     }
     public function tags(){
-        return $this->belongsToMany('App\Tag', 'tag_recruitment', 'recruitment_id', 'tag_id');
+        return $this->belongsToMany('App\Tag', 'tag_recruitment', 'recruitment_id', 'tag_id')->withTimestamps();
     }
 }
