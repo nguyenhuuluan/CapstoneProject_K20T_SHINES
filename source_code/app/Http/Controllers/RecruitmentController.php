@@ -54,29 +54,29 @@ class RecruitmentController extends Controller
 
         // $recruitment = Recruitment::find(3);
 
+        return $input;
 
+        // $data = [
+        //     'title'=>$request->title,
+        //     'salary'=>$request->salary,
+        //     'number_of_view'=>'0',
+        //     'expire_date'=>date("Y-m-d", strtotime($request->date)),
+        //     'is_hot'=>'0',
+        //     'status_id'=>'1',
+        //     'company_id'=>$user->representative->company->id,
+        // ];
+        // $recruitment = Recruitment::create($data);
 
-        $data = [
-            'title'=>$request->title,
-            'salary'=>$request->salary,
-            'number_of_view'=>'0',
-            'expire_date'=>date("Y-m-d", strtotime($request->date)),
-            'is_hot'=>'0',
-            'status_id'=>'1',
-            'company_id'=>$user->representative->company->id,
-        ];
-        $recruitment = Recruitment::create($data);
+        // $recruitment->sections()->save(Section::find(1), ['content'=>$input['1']]);
+        // $recruitment->sections()->save(Section::find(2), ['content'=>$input['2']]);
+        // $recruitment->sections()->save(Section::find(3), ['content'=>$input['3']]);
+        // $recruitment->sections()->save(Section::find(4), ['content'=>$input['4']]);
 
-        $recruitment->sections()->save(Section::find(1), ['content'=>$input['1']]);
-        $recruitment->sections()->save(Section::find(2), ['content'=>$input['2']]);
-        $recruitment->sections()->save(Section::find(3), ['content'=>$input['3']]);
-        $recruitment->sections()->save(Section::find(4), ['content'=>$input['4']]);
+        // $recruitment->categories()->save(Category::find($input['category_id']));
 
-        $recruitment->categories()->save(Category::find($input['category_id']));
+        // $request->session()->flash('comment_message','Create Successfull');
 
-        $request->session()->flash('comment_message','Create Successfull');
-
-        return redirect()->back();
+        // return redirect()->back();
 
     }
 

@@ -118,7 +118,7 @@
 					<div class="form-group col-xs-12 col-sm-6 col-md-6">
 						<div class="input-group input-group-sm">
 							<span class="input-group-addon"><i class="fa fa-briefcase"></i></span>
-							{!! Form::select('category_id', [''=>'Vị trí'] +$categories, null,['class'=>'form-control selectpicker']) !!}
+							{!! Form::select('category_id[]', $categories, null,['class'=>'form-control selectpicker', 'multiple'=>true,'title'=>'Chưa chọn vị trí tuyển dụng']) !!}
 						</div>
 					</div>
 
