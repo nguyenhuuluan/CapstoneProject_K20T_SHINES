@@ -10,17 +10,17 @@
   <title>Jobee</title>
 
   <!-- Styles -->
-  <link href="assets/css/app.min.css" rel="stylesheet">
-  <link href="assets/css/thejobs.css" rel="stylesheet">
-  <link href="assets/css/custom.css" rel="stylesheet">
-  <link href="assets/css/alpha.css" rel="stylesheet" type="text/css"/>
+  <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/css/thejobs.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/css/alpha.css') }}" rel="stylesheet">
 
   <!-- Fonts -->
   <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
 
   <!-- Favicons -->
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="icon" href="assets/img/favicon.ico">
+  <link rel="apple-touch-icon" href="{{ asset('/apple-touch-icon.png') }}">
+  <link rel="icon" href="{{ asset('assets/img/favicon.ico') }} ">
 </head>
 {{-- @extends('layouts.masterlayout')
 @section('content') --}}
@@ -32,7 +32,7 @@
 
 
 <!-- Site header -->
-<header class="site-header size-lg text-center" style="background-image: url(assets/img/bg-banner1.jpg)">
+<header class="site-header size-lg text-center" style="background-image: url({{ asset('assets/img/bg-banner1.jpg') }} )">
   <div class="container">
     <div class="col-xs-12">
       <br><br>
@@ -69,7 +69,7 @@
   @yield('recentjobs')
   <!-- <section></section> -->
   <!-- END Recent jobs -->
-  <section class="bg-img bg-repeat no-overlay section-sm" style="background-image: url(assets/img/bg-pattern.png)">
+  <section class="bg-img bg-repeat no-overlay section-sm" style="background-image: url({{ asset('assets/img/bg-pattern.png') }} )">
     <div class="container">
 
       <div class="row">
@@ -227,91 +227,12 @@
     </div>
   </div>
   <!-- /blog -->
-
 </section>
 <!-- END Categories -->
 
-
 <!-- START TESTIMONIAL -->
-<section id="testimonials">
-
-  <div class="testim-ovl"></div>
-  <div class="testimonials-wrapper">
-
-   <ul class="testimonials-line">
-
-     <li class="customer">
-
-       <div class="testimonial-bubble">
-         <p>Thế giới thật rộng lớn khi tôi phát hiện ra Jobee</p>
-       </div>
-
-       <div class="cus-profile">
-        <span class="cus-image"><img src="assets/img/te1.jpg"></span>
-        <span class="cus-name">
-         Elon Musk
-         <span class="cus-title">Director SpaceX, Tesla & Paypal</span>
-       </span>  
-     </div>
-
-   </li>
-
-   <li class="customer">
-
-     <div class="testimonial-bubble">
-       <p>Website thật tuyệt vời, tôi đã tuyển được rất nhiều nhân viên từ Jobee</p>
-     </div>
-
-     <div class="cus-profile">
-      <span class="cus-image"><img src="assets/img/te2.jpg"></span>
-      <span class="cus-name">
-       Thành Huỳnh
-       <span class="cus-title">Giám đốc Ecogreen</span>
-     </span>   
-   </div>
-
- </li>
-
- <li class="customer">
-
-   <div class="testimonial-bubble">
-     <p>Trên cả tuyệt vời, mong Jobee sẽ ngày càng phát triển hơn</p>
-   </div>
-
-   <div class="cus-profile">
-    <span class="cus-image"><img src="assets/img/te3.jpg"></span>
-    <span class="cus-name">
-     Phạm Nhật Vượng
-     <span class="cus-title">Giám đốc Vingroup</span>
-   </span>  
- </div>
-
-</li>
-
-<li class="customer">
-
- <div class="testimonial-bubble">
-   <p>Nguồn nhân lực từ nhà trường được đào tạo rất tốt</p>
- </div>
-
- <div class="cus-profile">
-  <span class="cus-image"><img src="assets/img/te1.jpg"></span>
-  <span class="cus-name">
-   Đinh La Thăng
-   <span class="cus-title">Cựu giám đốc PVN</span>
- </span>  
-
-</li>
-
-<span id="prev"></span>
-<span id="next"></span>   
-
-</ul><!-- .testimonials-line -->
-</div><!-- .testimonials-wrapper -->
-</section><!-- .testimonials -->  
+@include('layouts.testimonial')
 <!-- END TESTIMONIAL -->
-
-
 </main>
 <!-- END Main container -->
 
@@ -328,10 +249,11 @@
 <!-- END Back to top button -->
 
 <!-- Scripts -->
-<script src="assets/js/app.min.js"></script>
-<script src="assets/js/thejobs.js"></script>
-<script src="assets/js/custom.js"></script>
-<script type="text/javascript" src="assets/js/alpha.js"></script>
+<script src="{{ asset('assets/js/app.min.js') }} "></script>
+<script src="{{ asset('assets/js/thejobs.js') }} "></script>
+<script src="{{ asset('assets/js/custom.js') }} "></script>
+<script type="text/javascript" src="{{ asset('assets/js/alpha.js') }} "></script>
+
 <script type="text/javascript">
   $(document).ready(function(){
     $('#testimonials').alpha({

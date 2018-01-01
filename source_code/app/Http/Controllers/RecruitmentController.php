@@ -19,7 +19,16 @@ class RecruitmentController extends Controller
     public function index()
     {
         //
-
+        $recruitments = Recruitment::all();
+        return view ('admin.recruitments.index',compact('recruitments'));
+    }
+    public function status(Request $request, $id){
+        Recruitment::findOrFail($id)->update($request->all());
+        return redirect()->back();
+    }
+    public function preview($id){
+        $recruitment = Recruitment::findOrFail($id);
+        return view('admin.recruitments.preview',compact('recruitment'));
     }
 
     /**
