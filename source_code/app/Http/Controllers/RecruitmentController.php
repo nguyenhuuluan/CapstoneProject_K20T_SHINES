@@ -9,6 +9,7 @@ use App\Category;
 use App\Section;
 use App\Account;
 use App\Tag;
+use App\Company;
 class RecruitmentController extends Controller
 {
     /**
@@ -57,10 +58,9 @@ class RecruitmentController extends Controller
         //
         // return $request;
         $input = $request->all();
-        $tags = explode(',', $input['hidden-tags']); 
+        //return $request;
         $user = Account::find(3);
-
-        /* Create Recruitment */
+        $tags = explode(',', $input['hidden-tags']); 
         $data = [
             'title'=>$request->title,
             'salary'=>$request->salary,
@@ -70,25 +70,55 @@ class RecruitmentController extends Controller
             'status_id'=>'1',
             'company_id'=>$user->representative->company->id,
         ];
-        $recruitment = Recruitment::create($data);
 
-        $recruitment->sections()->save(Section::find(1), ['content'=>$input['1']]);
-        $recruitment->sections()->save(Section::find(2), ['content'=>$input['2']]);
-        $recruitment->sections()->save(Section::find(3), ['content'=>$input['3']]);
-        $recruitment->sections()->save(Section::find(4), ['content'=>$input['4']]);
-        /*Save categories*/
-        foreach ($input['category_id'] as $key => $value) {
-            $recruitment->categories()->save(Category::find($value));
+        switch ($request->submitbutton) {
+            case 'Xem trước':
+            $company = Company::findOrFail($data['company_id']);
+            $categories = Category::find($input['category_id']);
+            //return $input['category_id'];
+            //return $tags;
+            foreach ($tags as $key => $value) {
+                $tags2[]= Tag::where('name', $value)->first();
+            }
+            return view('recruitments.preview', compact('data', 'categories', 'tags2', 'company'));
+            break;
+            case 'Đăng tin':
+            return "3";
+            break;
         }
-        /*Save tagss*/
-        foreach ($tags as $key => $value) {
-            $recruitment->tags()->save(Tag::where('name',$value)->first());
-        }
+
+       
+       
+
+       //  /* Create Recruitment */
+       //  $data = [
+       //      'title'=>$request->title,
+       //      'salary'=>$request->salary,
+       //      'number_of_view'=>'0',
+       //      'expire_date'=>date("Y-m-d", strtotime($request->date)),
+       //      'is_hot'=>'0',
+       //      'status_id'=>'1',
+       //      'company_id'=>$user->representative->company->id,
+       //  ];
+       //  $recruitment = Recruitment::create($data);
+
+       //  $recruitment->sections()->save(Section::find(1), ['content'=>$input['1']]);
+       //  $recruitment->sections()->save(Section::find(2), ['content'=>$input['2']]);
+       //  $recruitment->sections()->save(Section::find(3), ['content'=>$input['3']]);
+       //  $recruitment->sections()->save(Section::find(4), ['content'=>$input['4']]);
+       //  /*Save categories*/
+       //  foreach ($input['category_id'] as $key => $value) {
+       //      $recruitment->categories()->save(Category::find($value));
+       //  }
+       //  /*Save tagss*/
+       //  foreach ($tags as $key => $value) {
+       //      $recruitment->tags()->save(Tag::where('name',$value)->first());
+       //  }
         
-        /* Create successful*/
-       $request->session()->flash('comment_message','Create Successfull');
+       //  /* Create successful*/
+       // $request->session()->flash('comment_message','Create Successfull');
 
-        return redirect()->back();
+       //  return redirect()->back();
 
     }
 
@@ -150,9 +180,9 @@ class RecruitmentController extends Controller
             return 'not tag';
         }else{
             foreach ($tags as $key => $value) {
-             $result[] = $value->name;
-         }
-     }
-     return json_encode($result);
- }
+               $result[] = $value->name;
+           }
+       }
+       return json_encode($result);
+   }
 }
