@@ -75,20 +75,44 @@ class RecruitmentController extends Controller
             case 'Xem trước':
             $company = Company::findOrFail($data['company_id']);
             $categories = Category::find($input['category_id']);
-            //return $input['category_id'];
-            //return $tags;
             foreach ($tags as $key => $value) {
                 $tags2[]= Tag::where('name', $value)->first();
             }
-            return view('recruitments.preview', compact('data', 'categories', 'tags2', 'company'));
+
+            $sections[1] = Section::find(1);
+            $sections[2] = Section::find(2);
+            $sections[3] = Section::find(3);
+            $sections[4] = Section::find(4);
+            foreach ($sections as $key => $value) {
+                $value['content'] = $input[$key];
+            }
+            return view('recruitments.preview', compact('data', 'categories', 'tags2', 'company', 'sections'));
             break;
             case 'Đăng tin':
-            return "3";
+            /* Create Recruitment */
+            $recruitment = Recruitment::create($data);
+
+            $recruitment->sections()->save(Section::find(1), ['content'=>$input['1']]);
+            $recruitment->sections()->save(Section::find(2), ['content'=>$input['2']]);
+            $recruitment->sections()->save(Section::find(3), ['content'=>$input['3']]);
+            $recruitment->sections()->save(Section::find(4), ['content'=>$input['4']]);
+            /*Save categories*/
+            foreach ($input['category_id'] as $key => $value) {
+                $recruitment->categories()->save(Category::find($value));
+            }
+            /*Save tagss*/
+            foreach ($tags as $key => $value) {
+                $recruitment->tags()->save(Tag::where('name',$value)->first());
+            }
+            /* Create successful*/
+            $request->session()->flash('comment_message','Create Successfull');
+
+            return redirect()->back();
             break;
         }
 
-       
-       
+
+
 
        //  /* Create Recruitment */
        //  $data = [

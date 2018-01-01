@@ -13,7 +13,7 @@
     <div class="col-xs-12">
       <a class="item-block" href="{{ route('detailrecruitment', $recruitment->id ) }}">
         <header>
-          <img src="images/companies/logos/{{ $recruitment->company->logo }}" alt="">
+          <img src="{{ $recruitment->company->logo }}" alt="">
           <div class="hgroup">
             <h4>{{ $recruitment->title }}</h4>
             <h5>{{ $recruitment->company->name }}</h5>

@@ -35,14 +35,14 @@
   <header class="page-header bg-img size-lg" style="background-image: url(assets/img/bg-banner2.jpg)">
     <div class="container">
       <div class="header-detail">
-        <img class="logo" height="60" src="../images/companies/logos/{{ $company->logo }}" alt="">
+        <img class="logo" height="60" src="{!! $company->logo !!}" alt="">
         <div class="hgroup">
           <h1>{!! $data['title'] !!}</h1>
         </div>
         <time datetime="">Just now</time>
         <ul class="details cols-3"  style="text-align: center">
           <li>
-            <h3><a href="#">{{ $company->name }}</a></h3>
+            <h3><a href="#">{!! $company->name !!}</a></h3>
           </li>
           <li>
             <i class="fa fa-money"></i>
@@ -51,9 +51,9 @@
           <li>
             @foreach ($categories as $category)
             @if($category->name == 'FULL-TIME' )
-            <span class="label label-success">{{ $category->name }}</span>
+            <span class="label label-success">{!! $category->name !!}</span>
             @else
-            <span class="label label-danger">{{ $category->name }}</span>
+            <span class="label label-danger">{!! $category->name !!}</span>
             @endif
             @endforeach
           </li>
@@ -94,20 +94,20 @@
           <div class="blog-content">
 
             <!--START ARTICLES Job Description -->
-            
-          {{-- @foreach ($data->sections as $section)
+
+          @foreach ($sections as $section)
           @if($section->title =='Job Description')
-          <p class="lead">{{ $section->pivot->content}}</p>
+          <p class="lead">{!! $section->content!!}</p>
           @else
 
           <div class="job_reason_to_join_us" style="background-color: white; box-sizing: border-box; color: #333333; font-family: Roboto, sans-serif; font-size: 16px;">
             <h2 class="title" style="box-sizing: border-box; color: #353535; font-family: &quot;Roboto Condensed&quot;, sans-serif; font-size: 27px; font-weight: 400; line-height: 35.2px; margin: 20px 0px;">
-              {{ $section->title }}
+              {!! $section->title !!}
             </h2>
-              {!! $section->pivot->content !!}
+              {!! $section->content !!}
           </div>
           @endif
-          @endforeach --}}
+          @endforeach
           <!--END ARTICLES -->
 
         </div>
@@ -119,17 +119,14 @@
         <div class="widget-body">
           @foreach ($tags2 as $tag)
           {{-- expr --}}
-          <a href="#">{{ $tag->name }}</a>
+          <a href="#">{!! $tag->name !!}</a>
           @endforeach
         </div>
       </div>
 
     </div>
 
-
-
     <div class="col-md-4 col-lg-3">
-
       <div class="widget widget_tag_cloud">
         <h6 class="widget-title">Tags</h6>
         <div class="widget-body">
@@ -144,22 +141,15 @@
           <a href="#">tip</a>
         </div>
       </div>
-
     </div>
+
   </div>
-
-
-
 </main>
 <!-- END Main container -->
 
 <!-- Site footer -->
 @include('layouts.footer')
 <!-- END Site footer -->
-
-
-
-
 <!-- Scripts -->
 <script src="../assets/js/app.min.js"></script>
 <script src="../assets/js/thejobs.js"></script>

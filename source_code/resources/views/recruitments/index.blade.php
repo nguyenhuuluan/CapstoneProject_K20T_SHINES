@@ -6,25 +6,25 @@
 <header class="page-header bg-img size-lg" style="background-image: url(assets/img/bg-banner2.jpg)">
     <div class="container">
       <div class="header-detail">
-        <img class="logo" height="60" src="../images/companies/logos/{{ $recruitment->company->logo }}" alt="">
+        <img class="logo" height="60" src="{!! $recruitment->company->logo !!}" alt="">
         <div class="hgroup">
-          <h1>{{ $recruitment->title }}</h1>
+          <h1>{!! $recruitment->title !!}</h1>
         </div>
-        <time datetime="">{{ $recruitment->created_at->diffForhumans() }}</time>
+        <time datetime="">{!! $recruitment->created_at->diffForhumans() !!}</time>
         <ul class="details cols-3"  style="text-align: center">
           <li>
-            <h3><a href="#">{{ $recruitment->company->name }}</a></h3>
+            <h3><a href="#">{!! $recruitment->company->name !!}</a></h3>
           </li>
           <li>
             <i class="fa fa-money"></i>
-					<span class="salary">{{ $recruitment->salary }}</span>
+					<span class="salary">{!! $recruitment->salary !!}</span>
           </li>
           <li>
 					@foreach ($recruitment->categories as $category)
 					@if($category->name == 'FULL-TIME' )
-					<span class="label label-success">{{ $category->name }}</span>
+					<span class="label label-success">{!! $category->name !!}</span>
 					@else
-					<span class="label label-danger">{{ $category->name }}</span>
+					<span class="label label-danger">{!! $category->name !!}</span>
 					@endif
 					@endforeach
           </li>
@@ -68,12 +68,12 @@
 					
 					@foreach ($recruitment->sections as $section)
 					@if($section->title =='Job Description')
-					<p class="lead">{{ $section->pivot->content}}</p>
+					<p class="lead">{!! $section->pivot->content!!}</p>
 					@else
 
 					<div class="job_reason_to_join_us" style="background-color: white; box-sizing: border-box; color: #333333; font-family: Roboto, sans-serif; font-size: 16px;">
 						<h2 class="title" style="box-sizing: border-box; color: #353535; font-family: &quot;Roboto Condensed&quot;, sans-serif; font-size: 27px; font-weight: 400; line-height: 35.2px; margin: 20px 0px;">
-							{{ $section->title }}
+							{!! $section->title !!}
 						</h2>
 							{!! $section->pivot->content !!}
 					</div>
@@ -90,7 +90,7 @@
 			<div class="widget-body">
 				@foreach ($recruitment->tags as $tag)
 					{{-- expr --}}
-					<a href="#">{{ $tag->name }}</a>
+					<a href="#">{!! $tag->name !!}</a>
 				@endforeach
 			</div>
 		</div>
