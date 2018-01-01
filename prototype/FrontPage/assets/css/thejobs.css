@@ -61,7 +61,8 @@
 
 .btn-success-detail {
   background-color:#ef4d42;
-  width: 350px;
+  text-align: center;
+  width: 100%;
 }
 
 .btn-success-detail:hover,

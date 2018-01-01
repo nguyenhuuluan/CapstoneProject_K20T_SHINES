@@ -163,3 +163,13 @@ span.positionwork {
     border: 1px solid transparent;
     border-radius: 4px;
 }
+
+/*information company*/
+.table-bordered-company
+{
+      border:1px solid #ddd !important;
+}
+
+#img-company{
+  border:1px solid #ddd !important;
+}
