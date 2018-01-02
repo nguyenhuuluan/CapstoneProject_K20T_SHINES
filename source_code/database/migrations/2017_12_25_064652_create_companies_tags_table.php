@@ -19,8 +19,8 @@ class CreateCompaniesTagsTable extends Migration
             $table->timestamps();
 
             $table->primary(['company_id','tag_id']);        
-            $table->foreign('tag_id')->references('id')->on('tags');
-            $table->foreign('company_id')->references('id')->on('companies');
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
         });
     }
 

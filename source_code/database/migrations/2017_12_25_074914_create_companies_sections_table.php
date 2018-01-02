@@ -21,8 +21,8 @@ class CreateCompaniesSectionsTable extends Migration
             $table->timestamps();
             
             $table->primary(['company_id','section_id']);
-            $table->foreign('company_id')->references('id')->on('companies');
-            $table->foreign('section_id')->references('id')->on('sections');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+            $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
 
         });
     }

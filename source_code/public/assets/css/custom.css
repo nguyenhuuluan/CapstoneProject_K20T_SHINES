@@ -81,3 +81,95 @@ span.positionwork {
 .fa-money-recruitment:before {
     content: "\f0d6";
 }
+
+.user-account-text {
+  color: #fff;
+  font: 
+}
+
+/*------------------------------------*\
+  Blog index
+\*------------------------------------*/
+
+.blog {
+    margin: 15px 0px;
+}
+
+.blog .blog-content {
+    padding: 20px 20px 40px;
+}
+
+.blog .blog-meta {
+    margin-bottom: 20px;
+}
+
+.blog .blog-meta li {
+    display: inline-block;
+    font-size: 14px;
+    color: #10161A;
+    margin-right: 10px;
+}
+
+.blog .blog-meta li i {
+    color: #6195FF;
+    margin-right: 5px;
+}
+
+/*------------------------------------*\
+  Không cho thao tác trên web 
+\*------------------------------------*/
+
+.preview{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none; 
+    -moz-user-select: none;    
+    -ms-user-select: none;     
+    -o-user-select: none;
+    user-select: none;
+    opacity: 0.6;
+  }
+#watermark {
+  color: #d0d0d0;
+  font-size: 200pt;
+  -webkit-transform: rotate(30deg);
+  -moz-transform: rotate(30deg);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  z-index: 1;
+  top: 300px;
+}
+
+/*application list*/
+.btnview {
+    display: inline-block;
+    padding: 2px 4px;
+    margin-bottom: 0;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+/*information company*/
+.table-bordered-company
+{
+      border:1px solid #ddd !important;
+}
+
+#img-company{
+  border:1px solid #ddd !important;
+}

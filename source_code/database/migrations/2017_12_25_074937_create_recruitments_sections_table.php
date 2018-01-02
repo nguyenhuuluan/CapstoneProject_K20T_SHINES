@@ -21,8 +21,8 @@ class CreateRecruitmentsSectionsTable extends Migration
 
 
             $table->primary(['recruitment_id','section_id']);
-            $table->foreign('recruitment_id')->references('id')->on('recruitments');
-            $table->foreign('section_id')->references('id')->on('sections');
+            $table->foreign('recruitment_id')->references('id')->on('recruitments')->onDelete('cascade');
+            $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
         });
     }
 

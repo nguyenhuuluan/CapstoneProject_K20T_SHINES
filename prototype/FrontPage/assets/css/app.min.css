@@ -3002,7 +3002,7 @@ table th[class*=col-] {
 
 .table-responsive {
   min-height:.01%;
-  overflow-x:auto;
+  /*overflow-x:auto;*/
 }
 
 @media screen and (max-width:767px) {
@@ -12804,6 +12804,7 @@ select.selectpicker {
   width:100%;
   padding-right:25px;
   z-index:1;
+  height: 70px;
 }
 
 .bootstrap-select>select {

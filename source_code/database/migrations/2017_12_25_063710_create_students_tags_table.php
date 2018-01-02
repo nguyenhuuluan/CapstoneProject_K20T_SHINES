@@ -20,8 +20,8 @@ class CreateStudentsTagsTable extends Migration
 
 
             $table->primary(['student_id','tag_id']);            
-            $table->foreign('tag_id')->references('id')->on('tags');
-            $table->foreign('student_id')->references('id')->on('students');
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
 
         });
     }

@@ -20,7 +20,7 @@ class CreateBlogsTable extends Migration
             $table->integer('account_id')->index()->unsigned();
             $table->timestamps();
 
-            $table->foreign('account_id')->references('id')->on('accounts');
+            $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
 
         });
     }

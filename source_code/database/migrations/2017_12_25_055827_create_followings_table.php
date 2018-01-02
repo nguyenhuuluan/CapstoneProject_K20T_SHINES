@@ -19,8 +19,8 @@ class CreateFollowingsTable extends Migration
             $table->timestamps();
 
             $table->primary(['student_id','company_id']);           
-            $table->foreign('student_id')->references('id')->on('students');
-            $table->foreign('company_id')->references('id')->on('companies');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
 
         });
     }

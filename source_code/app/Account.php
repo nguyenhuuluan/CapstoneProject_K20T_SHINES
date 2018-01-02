@@ -32,6 +32,7 @@ class Account extends Model
       'password', 'remember_token',
     ];
 
+<<<<<<< HEAD
 
     //Send password reset notification
     public function sendPasswordResetNotification($token)
@@ -39,3 +40,12 @@ class Account extends Model
       $this->notify(new AccountResetPasswordNotification($token));
     }
   }
+=======
+    public function representative(){
+        return $this->hasOne('App\Representative', 'account_id', 'id');
+    }
+    //     public function company(){
+    //     return $this->belongsTo('App\Company', 'App\Representative', 'account_id' ,'company_id', 'id');
+    // }
+}
+>>>>>>> master
