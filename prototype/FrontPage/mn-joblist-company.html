@@ -11,6 +11,10 @@
       <link href="assets/css/app.min.css" rel="stylesheet">
       <link href="assets/css/thejobs.css" rel="stylesheet">
       <link href="assets/css/custom.css" rel="stylesheet">
+      <!-- DataTables CSS -->
+      <link href="assets/vendors/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+      <!-- DataTables Responsive CSS -->
+      <link href="assets/vendors/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
       <!-- Fonts -->
       <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
       <!-- Favicons -->
@@ -74,7 +78,7 @@
       <!-- Page header -->
       <header class="page-header">
          <div class="container page-name">
-            <h1 class="text-center">Công ty</h1>
+            <h1 class="text-center">Danh sách việc làm</h1>
          </div>
       </header>
       <!-- END Page header -->
@@ -82,92 +86,58 @@
       <main>
          <section>
             <div class="container">
-               <div class="col-md-3 col-sm-12 col-xs-12">
-                  <center><img id="img-company" src="assets/img/fpt.jpg" alt=""></center>
-                  <hr>
-                  <center>
-                     <p>Liên hệ với VLU Jobs</p>
-                     <strong>08 123 4568</strong><br>
-                     <a href="mn-job-add-company.html" target="_blank" class="btnview btn-danger">Chỉnh sửa</a>
-                     <a href="company-detail.html" target="_blank" class="btnview btn-danger">Xem công ty của bạn</a>
-                  </center>
-                  <br>
-               </div>
-               <div class="col-md-9 col-sm-12 col-xs-12">
-                  <div class="table-responsive">
-                     <table class="table table-striped table-bordered-company">
+               <div class="row">
+                  <div class="col-lg-12">
+                        <div class="panel-body">
+                           <div class="table-responsive">
+                     <table width="100%" id="dataTables-example" class="table table-striped table-hover table-bordered-company">
                         <thead>
                            <tr>
-                              <th>Chi tiết công ty</th>
-                              <th></th>
+                              <th>Tiêu đề việc làm</th>
+                              <th>Lĩnh Vực</th>
+                              <th>Lương</th>
+                              <th>Địa điểm</th>
+                              <th>Ngày đăng</th>
+                              <th>Ngày hết hạn</th>
+                              <th>Lượt xem</th>
+                              <th>Loại việc làm</th>
+                              <th>TAG</th>
                            </tr>
                         </thead>
                         <tbody>
                            <tr>
-                              <td>Tên công ty</td>
-                              <td>FPT</td>
+                              <td>2 senior PHP Developer (Laravel/OOP)</td>
+                              <td>IT - Phần Mềm</td>
+                              <td>10 000 000 - 15 000 000 VND</td>
+                              <td>Hồ Chí Minh</td>
+                              <td>29/10/2017 6:20</td>
+                              <td>29/11/2017 18:00</td>
+                              <td>756</td>
+                              <td>
+								<span class="label label-warning">Part-time</span>
+							</td>
+                              <td>PHP</td>
                            </tr>
                            <tr>
-                              <td>Email</td>
-                              <td>info@fpt.com.vn</td>
-                           </tr>
-                           <tr>
-                              <td>Email dự phòng</td>
-                              <td>infofo@fpt.com.vn</td>
-                           </tr>
-                           <tr>
-                              <td>Số điện thoại</td>
-                              <td>+84 123456789</td>
-                           </tr>
-                           <tr>
-                              <td>Địa chỉ</td>
-                              <td>45 Nguyễn Khắc Nhu, Quận 1, Hồ Chí Minh</td>
-                           </tr>
-                           <tr>
-                              <td>Quốc Gia</td>
-                              <td>Việt Nam</td>
-                           </tr>
-                           <tr>
-                              <td>Website</td>
-                              <td><a href="#">www.fpt.com.vn</a></td>
-                           </tr>
-                           <tr>
-                              <td>Thời gian làm việc</td>
-                              <td>Thứ hai - thứ bảy</td>
-                           </tr>
-                           <tr>
-                              <td>Quy mô công ty</td>
-                              <td>50 - 100 người</td>
-                           </tr>
-                           <tr>
-                              <td>Lĩnh vực công ty</td>
-                              <td>Mạng và phần mềm</td>
-                           </tr>
-                           <tr>
-                              <td>Loại công ty</td>
-                              <td>Việc làm IT - Phần mềm</td>
-                           </tr>
-                           <tr>
-                              <td>Công ty có yêu cầu làm ngoài giờ không?</td>
-                              <td>Có</td>
-                           </tr>
-                           <tr>
-                              <td>Giới thiệu</td>
-                              <td id="lalalala">Google là một công ty Internet có trụ sở tại Hoa Kỳ, được thành lập vào năm 1998...<a href="#">xem thêm</a></td>
-                           </tr>
-                           <tr>
-                              <td>Tại sao bạn nên làm việc tại FPT?</td>
-                              <td>Global Exposure, Global Exposure...<a href="#">xem thêm</a></td>
-                           </tr>
-                           <tr>
-                              <td>TAG</td>
-                              <td>PHP, JavaSCript, HTML, CSS, ASP.NET</td>
+                              <td>5 fresher developer C#</td>
+                              <td>IT - Phần Mềm</td>
+                              <td>5 000 000 - 10 000 000 VND</td>
+                              <td>Đà Nẵng</td>
+                              <td>2/12/2017 7:26</td>
+                              <td>2/1/2018 10:00</td>
+                              <td>187</td>
+                              <td>
+                              	<span class="label label-success">Full-time</span>
+                              </td>
+                              <td>C#, ASP.NET</td>
                            </tr>
                         </tbody>
                      </table>
-                  </div>
                </div>
             </div>
+        </div>
+    </div>
+</div>
          </section>
       </main>
       <!-- END Main container -->
@@ -191,5 +161,16 @@
       <script src="assets/js/app.min.js"></script>
       <script src="assets/js/thejobs.js"></script>
       <script src="assets/js/custom.js"></script>
+      <!-- DataTables JavaScript -->
+      <script src="assets/vendors/datatables/js/jquery.dataTables.min.js"></script>
+      <script src="assets/vendors/datatables-plugins/dataTables.bootstrap.min.js"></script>
+      <script src="assets/vendors/datatables-responsive/dataTables.responsive.js"></script>
+      <script>
+         $(document).ready(function() {
+             $('#dataTables-example').DataTable({
+                 responsive: true
+             });
+         });
+      </script>
    </body>
 </html>

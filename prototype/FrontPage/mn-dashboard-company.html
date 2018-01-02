@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
    <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,11 +9,14 @@
       <title>Jobee</title>
       <!-- Styles -->
       <link href="assets/css/app.min.css" rel="stylesheet">
+      <link href="assets/vendors/summernote/summernote.css" rel="stylesheet">
       <link href="assets/css/thejobs.css" rel="stylesheet">
       <link href="assets/css/custom.css" rel="stylesheet">
+      <link href="assets/css/bootstrap-tagsinput.css" rel="stylesheet">
       <!-- Fonts -->
       <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
       <!-- Favicons -->
+      <link rel="apple-touch-icon" href="/apple-touch-icon.png">
       <link rel="icon" href="assets/img/favicon.ico">
    </head>
    <body class="nav-on-header smart-nav">
@@ -74,99 +77,37 @@
       <!-- Page header -->
       <header class="page-header">
          <div class="container page-name">
-            <h1 class="text-center">Công ty</h1>
+            <h1 class="text-center">Bảng Điều Khiển</h1>
          </div>
       </header>
       <!-- END Page header -->
       <!-- Main container -->
       <main>
+          <center><h5>"The most important job is recruiting." - Steve Jobs</h5></center>
          <section>
             <div class="container">
-               <div class="col-md-3 col-sm-12 col-xs-12">
-                  <center><img id="img-company" src="assets/img/fpt.jpg" alt=""></center>
-                  <hr>
-                  <center>
-                     <p>Liên hệ với VLU Jobs</p>
-                     <strong>08 123 4568</strong><br>
-                     <a href="mn-job-add-company.html" target="_blank" class="btnview btn-danger">Chỉnh sửa</a>
-                     <a href="company-detail.html" target="_blank" class="btnview btn-danger">Xem công ty của bạn</a>
-                  </center>
-                  <br>
-               </div>
-               <div class="col-md-9 col-sm-12 col-xs-12">
+               <div class="row">
+                  <h6>Trang báo cáo công ty</h6>
                   <div class="table-responsive">
                      <table class="table table-striped table-bordered-company">
                         <thead>
                            <tr>
-                              <th>Chi tiết công ty</th>
-                              <th></th>
+                              <th>Tổng số lượt xem</th>
+                              <th>Lượt xem trong 30 ngày</th>
+                              <th>Lượt xem trong 7 ngày</th>
                            </tr>
                         </thead>
                         <tbody>
                            <tr>
-                              <td>Tên công ty</td>
-                              <td>FPT</td>
-                           </tr>
-                           <tr>
-                              <td>Email</td>
-                              <td>info@fpt.com.vn</td>
-                           </tr>
-                           <tr>
-                              <td>Email dự phòng</td>
-                              <td>infofo@fpt.com.vn</td>
-                           </tr>
-                           <tr>
-                              <td>Số điện thoại</td>
-                              <td>+84 123456789</td>
-                           </tr>
-                           <tr>
-                              <td>Địa chỉ</td>
-                              <td>45 Nguyễn Khắc Nhu, Quận 1, Hồ Chí Minh</td>
-                           </tr>
-                           <tr>
-                              <td>Quốc Gia</td>
-                              <td>Việt Nam</td>
-                           </tr>
-                           <tr>
-                              <td>Website</td>
-                              <td><a href="#">www.fpt.com.vn</a></td>
-                           </tr>
-                           <tr>
-                              <td>Thời gian làm việc</td>
-                              <td>Thứ hai - thứ bảy</td>
-                           </tr>
-                           <tr>
-                              <td>Quy mô công ty</td>
-                              <td>50 - 100 người</td>
-                           </tr>
-                           <tr>
-                              <td>Lĩnh vực công ty</td>
-                              <td>Mạng và phần mềm</td>
-                           </tr>
-                           <tr>
-                              <td>Loại công ty</td>
-                              <td>Việc làm IT - Phần mềm</td>
-                           </tr>
-                           <tr>
-                              <td>Công ty có yêu cầu làm ngoài giờ không?</td>
-                              <td>Có</td>
-                           </tr>
-                           <tr>
-                              <td>Giới thiệu</td>
-                              <td id="lalalala">Google là một công ty Internet có trụ sở tại Hoa Kỳ, được thành lập vào năm 1998...<a href="#">xem thêm</a></td>
-                           </tr>
-                           <tr>
-                              <td>Tại sao bạn nên làm việc tại FPT?</td>
-                              <td>Global Exposure, Global Exposure...<a href="#">xem thêm</a></td>
-                           </tr>
-                           <tr>
-                              <td>TAG</td>
-                              <td>PHP, JavaSCript, HTML, CSS, ASP.NET</td>
+                              <td>4500 (0.5 / ngày)</td>
+                              <td>300 (1.2 / ngày)</td>
+                              <td>50 (0.7 / ngày)</td>
                            </tr>
                         </tbody>
                      </table>
                   </div>
                </div>
+               
             </div>
          </section>
       </main>
@@ -189,7 +130,35 @@
       <!-- END Back to top button -->
       <!-- Scripts -->
       <script src="assets/js/app.min.js"></script>
+      <script src="assets/vendors/summernote/summernote.min.js"></script>
       <script src="assets/js/thejobs.js"></script>
       <script src="assets/js/custom.js"></script>
+      <script src="assets/js/bootstrap3-typeahead.js"></script>
+      <script src="assets/js/cbootstrap-tagsinput.js"></script>
+      <!-- Gợi ý tag -->
+      <script>
+         var places = [{
+             name: "PHP"
+         }, {
+             name: "JavaScript"
+         }, {
+             name: "BIM"
+         }, {
+             name: "HTML"
+         }, {
+             name: "CSS"
+         }];
+         
+         $('.tagsinput-typeahead').tagsinput({
+             typeahead: {
+                 source: places.map(function(item) {
+                     return item.name
+                 }),
+                 afterSelect: function() {
+                     this.$element[0].value = '';
+                 }
+             }
+         })
+      </script>
    </body>
 </html>
