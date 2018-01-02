@@ -10,16 +10,15 @@
   <title>Jobee - Recruiment Preview</title>
 
   <!-- Styles -->
-  <link href="../assets/css/app.min.css" rel="stylesheet">
-  <link href="../assets/css/thejobs.css" rel="stylesheet">
-  <link href="../assets/css/custom.css" rel="stylesheet">
+  <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/css/thejobs.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
 
   <!-- Fonts -->
   <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
 
   <!-- Favicons -->
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="icon" href="assets/img/favicon.ico">
+  <link rel="icon" href="{{ asset('assets/img/favicon.ico') }} ">
 </head>
 {{-- @extends('layouts.masterlayout')
 @section('content') --}}
@@ -32,7 +31,7 @@
 
   {{--  @yield('page-header') --}}
   <!-- Page header -->
-  <header class="page-header bg-img size-lg" style="background-image: url(assets/img/bg-banner2.jpg)">
+  <header class="page-header bg-img size-lg" style="background-image: url({{ asset('assets/img/bg-banner2.jpg') }} )">
     <div class="container">
       <div class="header-detail">
         <img class="logo" height="60" src="{!! $company->logo !!}" alt="">
@@ -151,9 +150,9 @@
 @include('layouts.footer')
 <!-- END Site footer -->
 <!-- Scripts -->
-<script src="../assets/js/app.min.js"></script>
-<script src="../assets/js/thejobs.js"></script>
-<script src="../assets/js/custom.js"></script>
+<script src="{{ asset('assets/js/app.min.js') }}"></script>
+<script src="{{ asset('assets/js/thejobs.js') }}"></script>
+<script src="{{ asset('assets/js/custom.js') }}"></script>
 
 </body>
 {{-- @endsection --}}

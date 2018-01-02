@@ -19,16 +19,15 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Title</th>
-                                        <th>Salary</th>
-                                        <th>Expire_date</th>                                       
-                                        <th>number_of_view</th>
-                                        <th>Company</th>
+                                        <th>Tiêu đề</th>
+                                        <th>Lương</th>
+                                        <th>Ngày hết hạn</th>                                       
+                                        <th>Lượt xem</th>
+                                        <th>Công ty</th>
                                         <th>created_at</th>
                                         <th>updated_at</th>
                                         <th>is_hot</th>
-                                        <th>Preview</th>
-                                        <th>Status</th>
+                                        <th>Thao tác</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -42,23 +41,24 @@
                                         <td>{{ $recruitment->company->name }}</td>
                                         <td>{!! $recruitment->created_at !!}</td>
                                         <td>{!! $recruitment->updated_at !!}</td>
-                                        <td>{!! $recruitment->is_hot !!}</td>
-                                        <td><a href=" {{ route('adminpreviewrecruitment', $recruitment->id) }}" class="btnreview btn-success">Xem</a></td>
-                                        {!! Form::open(['method'=>'PATCH', 'action'=>['RecruitmentController@status',$recruitment->id]]) !!}
-                                        @if ($recruitment->status_id ==1)
-                                        {{-- <td>{!! Form::checkbox('status_id', $recruitment->status_id, true,['data-toggle'=>'toggle', 'data-onstyle'=>'success', 'data-size'=>'mini' ]) !!}</td> --}}                                        
+                                        <td>{!! $recruitment->is_hot ==1? 'Hot' : 'Not Hot' !!}</td>
                                         <td>
-                                            <input type="hidden" name="status_id" value="2">   
-                                            {!! Form::submit('Active', ['class'=>'btn btn-success']) !!}
+                                            <div style="display: inline-block; width: 100px ">
+                                                <a href=" {{ route('preview', $recruitment->id) }}" class="btnreview btn-success" target="_blank" style="display: inline-block;">Xem</a>
+                                                {!! Form::open(['method'=>'PATCH', 'action'=>['RecruitmentController@status',$recruitment->id], 'style'=>'display: inline-block']) !!}
+                                                @if ($recruitment->status_id ==1)
+                                                {{-- <td>{!! Form::checkbox('status_id', $recruitment->status_id, true,['data-toggle'=>'toggle', 'data-onstyle'=>'success', 'data-size'=>'mini' ]) !!}</td> --}}                                        
+                                                <input type="hidden" name="status_id" value="2">   
+                                                {!! Form::submit('Active', ['class'=>'btn btn-success btnreview']) !!}
+                                                @else
+                                                {{-- <td>{!! Form::checkbox('status_id', $recruitment->status_id, false,['data-toggle'=>'toggle', 'data-onstyle'=>'success', 'data-size'=>'mini' ]) !!}</td> --}}
+                                                <input type="hidden" name="status_id" value="1">       
+                                                {!! Form::submit('InActive', ['class'=>'btn btn-primary btn-danger btnreview']) !!}
+
+                                                @endif
+                                            </div>
+                                            
                                         </td>
-                                        @else
-                                        {{-- <td>{!! Form::checkbox('status_id', $recruitment->status_id, false,['data-toggle'=>'toggle', 'data-onstyle'=>'success', 'data-size'=>'mini' ]) !!}</td> --}}
-                                        <td>
-                                            <input type="hidden" name="status_id" value="1">       
-                                            {!! Form::submit('InActive', ['class'=>'btn btn-primary btn-danger']) !!}
-                                        </td>
-                                        
-                                        @endif
                                         {!! Form::close() !!} 
                                     </tr>
                                     @endforeach

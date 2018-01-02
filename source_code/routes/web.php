@@ -27,6 +27,6 @@ Route::get('/recruitment/{id}', 'RecruitmentController@detailrecruitment')->name
 Route::post('/recruitment', 'RecruitmentController@store');
 Route::get('/admin/recruitment', 'RecruitmentController@index');
 Route::patch('/admin/recruitment/{id}', 'RecruitmentController@status');
-Route::get('/admin/recruitment/{id}/preview', 'RecruitmentController@preview')->name('adminpreviewrecruitment');
+Route::get('/admin/recruitment/{id}/preview', 'RecruitmentController@preview')->name('preview');
 
 

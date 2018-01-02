@@ -55,10 +55,8 @@ class RecruitmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        // return $request;
+
         $input = $request->all();
-        //return $request;
         $user = Account::find(3);
         $tags = explode(',', $input['hidden-tags']); 
         $data = [
@@ -91,7 +89,6 @@ class RecruitmentController extends Controller
             case 'Đăng tin':
             /* Create Recruitment */
             $recruitment = Recruitment::create($data);
-
             $recruitment->sections()->save(Section::find(1), ['content'=>$input['1']]);
             $recruitment->sections()->save(Section::find(2), ['content'=>$input['2']]);
             $recruitment->sections()->save(Section::find(3), ['content'=>$input['3']]);
@@ -110,40 +107,6 @@ class RecruitmentController extends Controller
             return redirect()->back();
             break;
         }
-
-
-
-
-       //  /* Create Recruitment */
-       //  $data = [
-       //      'title'=>$request->title,
-       //      'salary'=>$request->salary,
-       //      'number_of_view'=>'0',
-       //      'expire_date'=>date("Y-m-d", strtotime($request->date)),
-       //      'is_hot'=>'0',
-       //      'status_id'=>'1',
-       //      'company_id'=>$user->representative->company->id,
-       //  ];
-       //  $recruitment = Recruitment::create($data);
-
-       //  $recruitment->sections()->save(Section::find(1), ['content'=>$input['1']]);
-       //  $recruitment->sections()->save(Section::find(2), ['content'=>$input['2']]);
-       //  $recruitment->sections()->save(Section::find(3), ['content'=>$input['3']]);
-       //  $recruitment->sections()->save(Section::find(4), ['content'=>$input['4']]);
-       //  /*Save categories*/
-       //  foreach ($input['category_id'] as $key => $value) {
-       //      $recruitment->categories()->save(Category::find($value));
-       //  }
-       //  /*Save tagss*/
-       //  foreach ($tags as $key => $value) {
-       //      $recruitment->tags()->save(Tag::where('name',$value)->first());
-       //  }
-        
-       //  /* Create successful*/
-       // $request->session()->flash('comment_message','Create Successfull');
-
-       //  return redirect()->back();
-
     }
 
     /**

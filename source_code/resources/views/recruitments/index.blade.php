@@ -3,7 +3,7 @@
 @section('page-header')
 
 
-<header class="page-header bg-img size-lg" style="background-image: url(assets/img/bg-banner2.jpg)">
+<header class="page-header bg-img size-lg" style="background-image: url({{ asset('assets/img/bg-banner2.jpg') }} )">
     <div class="container">
       <div class="header-detail">
         <img class="logo" height="60" src="{!! $recruitment->company->logo !!}" alt="">
