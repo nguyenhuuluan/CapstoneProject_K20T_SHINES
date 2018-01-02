@@ -28,3 +28,7 @@ Route::get('account_password/reset', 'AccountAuth\ForgotPasswordController@showL
 Route::post('account_password/email', 'AccountAuth\ForgotPasswordController@sendResetLinkEmail');
 Route::get('account_password/reset/{token}', 'AccountAuth\ResetPasswordController@showResetForm');
 Route::post('account_password/reset', 'AccountAuth\ResetPasswordController@reset');
+
+//Company
+
+Route::get('company', 'CompanyController@getCompanies')->name('getCompanies');

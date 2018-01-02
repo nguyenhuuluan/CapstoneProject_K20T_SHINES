@@ -95,5 +95,11 @@ class CompanyController extends Controller
      return $acc_result;
  }
 
+ public function getCompanies(){
+    $comps = Company::all();
+
+    return $comps;
+ }
+
 
 }
