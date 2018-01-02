@@ -17,7 +17,7 @@
 
 
 Route::get('/' , 'HomeController@index')->name('home');
-//Auth::routes();s
+Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/recruitment/searchtag', 'RecruitmentController@searchtag')->name('searchtag');

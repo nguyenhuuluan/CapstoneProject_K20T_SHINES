@@ -45,15 +45,18 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
 
-        if($this->validation($request)){
-            $errors()->add('username', 'dsadsa');
-        }
+        $this->validation($request);
+
+        // if($this->validation($request)){
+        //     $errors()->add('username', 'dsadsa');
+        // }
         Account::create([
-            'username'=> $request->username,
+            'username'=> $request->email,
             'password'=>bcrypt($request->password),
+            'status_id'=> 6,
         ]);
 
-        return redirect('/')->with('Status', 'You Are registed');
+        return redirect('/');
     }
 
     /**
@@ -63,9 +66,9 @@ class RegisterController extends Controller
      * @return \Illuminate\Contracts\Validation\Validator
      */
     public function validation($request)
-    {
+    {      
         return $this->validate($request,[
-                    'username'=>'required|string|max:255|unique:accounts',
+                    'email'=>'required|string|email|max:255|unique:accounts,username',
                     'password' => 'required|string|min:6|confirmed',
         ]);
 
