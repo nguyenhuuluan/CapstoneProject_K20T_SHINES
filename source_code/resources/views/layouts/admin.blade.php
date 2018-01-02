@@ -204,7 +204,7 @@
             </div>
             <!-- /.navbar-static-side -->
         </nav>
-
+         
         <!-- Page Content -->
         @yield('body')
         <!-- /#page-wrapper -->
@@ -231,13 +231,7 @@
         <!-- Toggle JavaScript Button -->
         <script src="{{asset('assets/js/bootstrap-toggle.min.js')}}"></script>
         <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-        <script>
-            $(document).ready(function() {
-                $('#dataTables-example').DataTable({
-                    responsive: true
-                });
-            });
-        </script>
+       
         
         @yield('scripts')
 
