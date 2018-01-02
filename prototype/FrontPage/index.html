@@ -47,6 +47,49 @@
     </div>
     <!-- END User account -->
 
+    <!-- Modal Signin -->
+      <div id="login-modal" class="login-block">
+        <img src="assets/img/logo.png" alt="">
+        <h1>Log into your account</h1>
+
+        <form action="#">
+
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="ti-email"></i></span>
+              <input type="text" class="form-control" placeholder="Email">
+            </div>
+          </div>
+          
+          <hr class="hr-xs">
+
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="ti-unlock"></i></span>
+              <input type="password" class="form-control" placeholder="Password">
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-block" type="submit">Login</button>
+
+          <div class="login-footer">
+            <h6>Or login with</h6>
+            <ul class="social-icons">
+              <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+              <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+              <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+            </ul>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="login-links">
+        <a class="pull-left" href="user-forget-pass.html">Forget Password?</a>
+        <a class="pull-right" href="user-register.html">Register an account</a>
+      </div>
+    <!-- END Modal Signin -->
+
     <!-- Navigation menu -->
     <ul class="nav-menu">
       <li>
@@ -651,6 +694,17 @@
     });
   })
 </script>
+
+<script>
+var modal = document.getElementById('login-modal');
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+
 
 </body>
 </html>
