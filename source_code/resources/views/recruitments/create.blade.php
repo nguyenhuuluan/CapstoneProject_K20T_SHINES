@@ -153,8 +153,8 @@
 			@endforeach
 			<div class="container">
 				<p class="text-center">
-					{!! Form::submit('Xem trước', ['class'=>'btn btn-danger btn-xl btn-round']) !!}
-					{!! Form::submit('Đăng tin', ['class'=>'btn btn-success btn-xl btn-round']) !!}
+					{!! Form::submit('Xem trước', ['class'=>'btn btn-danger btn-xl btn-round', 'name'=>'submitbutton' , 'formtarget'=>'_blank']) !!}
+					{!! Form::submit('Đăng tin', ['class'=>'btn btn-success btn-xl btn-round', 'name'=>'submitbutton']) !!}
 				</p>				
 				<br>
 			</div>		
