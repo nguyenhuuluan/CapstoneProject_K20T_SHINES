@@ -22,9 +22,16 @@ class CompanyController extends Controller
 
   }
 
+  // public function index()
+  // {
+  //   return view('admin.companies.index');
+  // }
+
   public function index()
   {
-    return view('admin.companies.index');
+        //
+    $comps = Company::all();
+    return view ('admin.companies.index',compact('comps'));
   }
 
   public function sendMailToResetPassword($represen, $com, $acc)
@@ -94,7 +101,10 @@ class CompanyController extends Controller
   $comps = Company::all();
 
   return datatables()->of($comps)->addColumn('action', function ($comps) {
-    return '<input type="checkbox" id="something" unchecked data-toggle="toggle" data-onstyle="success" data-size="mini">';
+    $btn;
+
+    $btn = $comps['status_id'] == 3? '<td><input type="checkbox" id="something" checked data-toggle="toggle" data-onstyle="success" data-size="mini"  value="'.$comps['id'].'"></td>' : '<td><input type="checkbox" id="something" data-toggle="toggle" data-onstyle="success" data-size="mini" value="'.$comps['id'].'"></td>';
+    return $btn;
   })->toJson();
 }
 

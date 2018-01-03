@@ -232,6 +232,7 @@
         <script src="{{asset('assets/js/bootstrap-toggle.min.js')}}"></script>
         <!-- Page-Level Demo Scripts - Tables - Use for reference -->
        
+       
         
         @yield('scripts')
 

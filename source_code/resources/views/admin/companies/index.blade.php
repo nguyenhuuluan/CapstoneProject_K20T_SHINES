@@ -21,81 +21,94 @@
                                 <table width="100%" class="table table-striped table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-                                                    
-                                                    <th>Tên</th>
-                                         
-                                                    <th>Điện thoại</th>
-                                                    <th>Website</th>
-                                                    <th>Email</th>
-                                                    <th>Trạng thái</th>
-                                                    <th>Ngày tạo</th>
-                                                   <th>Thao tác</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {{-- <tr>
-                                                    <td>1</td>
-                                                    <td>Sacomreal Sacomreal Sacomreal Sacomreal</td>
-                                                    <td>Hồ Chí Minh</td>
-                                                    <td>0123456789</td>
-                                                    <td>29/12/2017</td>
-                                                    <td>sacomreal@gmail.com</td>
-                                                    <td><button type="button" class="btnreview btn-success">Xem</button></td>
-                                                    <td>
-                                                        <input type="checkbox" checked data-toggle="toggle" data-onstyle="success" data-size="mini">
-                                                    </td>
-                                                </tr> --}}
 
+                                            <th>Tên</th>                                          
+                                            <th>Điện thoại</th>
+                                            <th>Website</th>
+                                            <th>Email</th>                                        
+                                            <th>Ngày tạo</th>
+                                            <th>Trạng thái</th>
+                                            <th>Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                       {{--  @foreach ($comps as $comp)
+                                        <tr>
+                                            <td>{{$comp->name}}</td>
+                                            <td>{{$comp->phone}}</td>
+                                             <td><a href="{{$comp->website}}">{{$comp->website}}</a></td>
+                                            <td>{{$comp->email}}</td>
+                                            <td>{{$comp->created_at}}</td>
+                                            <td>                                               
+                                                @if ($comp->status_id == 3)
+                                                <input type="checkbox" checked data-toggle="toggle" data-onstyle="success" data-size="mini" value="{{$comp->id}}">
+                                                @else
+                                                <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" value="{{$comp->id}}">
+                                                @endif
+                                            </td>
+                                            <td><button type="button" class="btnreview btn-success">Xem</button></td>
+                                            
+                                        </tr>
+                                        @endforeach
 
-                                            </tbody>
+                                        --}}
 
-                                        </table>
-                                    </div>
-                                    <!-- /.table-responsive -->
-                                </div>
-                                <!-- /.panel-body -->
+                                    </tbody>
+
+                                </table>
                             </div>
-                            <!-- /.panel -->
+                            <!-- /.table-responsive -->
                         </div>
-
+                        <!-- /.panel-body -->
                     </div>
-                    <!-- /.col-lg-12 -->
+                    <!-- /.panel -->
                 </div>
-                <!-- /.row -->
+
             </div>
-            <!-- /.container-fluid -->
+            <!-- /.col-lg-12 -->
         </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
 
-        
 
-        @endsection
 
-        @section('scripts')
-        <script type="text/javascript">
-            getCompanies();
+@endsection
 
-            function getCompanies(){
+@section('scripts')
+<script type="text/javascript">
 
-                $('#dataTables-example').DataTable({
-                    processing: true,
-                    serverSide: true,
-                    ajax: 'http://localhost:9999/CapstoneProject_K20T_SHINES/source_code/public/admin/getcompanies',
-                    columns:[
-                    {data:'name'},
-                    {data:'phone'},
-                    {data:'website'},
-                    {data:'email'},
-                    {data:'status_id'},
-                    {data:'created_at'},
-                    {data: 'action', name: 'action', orderable: false, searchable: false}
-                    ]
+    $('#something').change(function() {
+        var r = confirm("Press a button!");
+        if (r == true) {
+           alert('OK');
+        } else {
+            alert('123');
+        }
+    });
 
-                    
-                    
-                });
+    getCompanies();
 
-            }
+    function getCompanies(){
 
-        </script>
-        @endsection
+        $('#dataTables-example').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: '{{Route('getcompanies')}}',
+            columns:[
+            {data:'name'},
+            {data:'phone'},
+            {data:'website'},
+            {data:'email'},
+            {data:'created_at'},
+
+            {data: 'action', name: 'action', orderable: false, searchable: false}
+            ]
+        });
+
+    }
+
+</script>
+@endsection
 
