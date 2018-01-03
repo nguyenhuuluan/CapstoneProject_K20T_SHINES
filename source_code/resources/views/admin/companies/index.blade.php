@@ -95,7 +95,7 @@
 
     function confirmconpany(id){
         $.ajax({
-            url: 'localhost:9999/CapstoneProject_K20T_SHINES/source_code/public/test/' + id,
+            url: '../test/' + id,
             type: 'GET',
             dataType: 'json'
             
