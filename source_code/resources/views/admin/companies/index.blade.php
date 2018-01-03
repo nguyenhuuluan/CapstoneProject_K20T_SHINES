@@ -32,26 +32,28 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                       {{--  @foreach ($comps as $comp)
+                                        @foreach ($comps as $comp)
                                         <tr>
                                             <td>{{$comp->name}}</td>
                                             <td>{{$comp->phone}}</td>
-                                             <td><a href="{{$comp->website}}">{{$comp->website}}</a></td>
+                                            <td><a href="{{$comp->website}}">{{$comp->website}}</a></td>
                                             <td>{{$comp->email}}</td>
                                             <td>{{$comp->created_at}}</td>
                                             <td>                                               
                                                 @if ($comp->status_id == 3)
-                                                <input type="checkbox" checked data-toggle="toggle" data-onstyle="success" data-size="mini" value="{{$comp->id}}">
+                                                <input id="something" type="checkbox" checked data-toggle="toggle" data-onstyle="success" data-size="mini" value="{{$comp->id}}">
                                                 @else
-                                                <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" value="{{$comp->id}}">
+                                                <input id="something" type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" value="{{$comp->id}}">
                                                 @endif
                                             </td>
-                                            <td><button type="button" class="btnreview btn-success">Xem</button></td>
+                                            <td>
+                                                <button type="button" class="btnreview btn-success">Xem</button>
+                                            </td>
                                             
                                         </tr>
                                         @endforeach
 
-                                        --}}
+
 
                                     </tbody>
 
@@ -80,15 +82,27 @@
 <script type="text/javascript">
 
     $('#something').change(function() {
-        var r = confirm("Press a button!");
+        var r = confirm("Are you sure");
+        var valueid = $('#something').val(); 
         if (r == true) {
-           alert('OK');
+            confirmconpany(valueid);
         } else {
             alert('123');
         }
     });
 
-    getCompanies();
+    // getCompanies();
+
+    function confirmconpany(id){
+        $.ajax({
+            url: 'localhost:9999/CapstoneProject_K20T_SHINES/source_code/public/test/' + id,
+            type: 'GET',
+            dataType: 'json'
+            
+        }
+        );
+
+    }
 
     function getCompanies(){
 
