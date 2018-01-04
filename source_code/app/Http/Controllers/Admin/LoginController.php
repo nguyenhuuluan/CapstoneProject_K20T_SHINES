@@ -50,10 +50,10 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:admin')->except('logout');
+        //$this->middleware('guest')->except('logout');
     }
 
-        public function showLoginForm()
+    public function showLoginForm()
     {
         return view('admin.auth.login');
     }
@@ -63,28 +63,33 @@ class LoginController extends Controller
     {   
 
         $this->validate($request,[
-         'email'=>'required|string|email|max:255',
-         'password' => 'required|string|min:6',
-     ]);
+           'email'=>'required|string|email|max:255',
+           'password' => 'required|string|min:6',
+       ]);
 
-        // if ($this->hasTooManyLoginAttempts($request)) {
-        //     $this->fireLockoutEvent($request);
+        if ($this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
 
-        //     return $this->sendLockoutResponse($request);
-        // }
-
-        if(Auth::attempt(['username'=>$request->email, 'password'=>$request->password] )){
-            return redirect('/admin/home');
+            return $this->sendLockoutResponse($request);
         }
-        return ' false';
-        // $this->incrementLoginAttempts($request);
 
-        // return $this->sendFailedLoginResponse($request);
+        if(Auth::attempt(['username'=>$request->email, 'password'=>$request->password] ) &&Auth::user()->roles->first()->name == 'Admin' ){
+            return redirect('/admin/home');
+        }else{
+            $this->guard()->logout();
+
+            $request->session()->invalidate();
+
+            return redirect('admin');
+        }
+        $this->incrementLoginAttempts($request);
+
+        return $this->sendFailedLoginResponse($request);
     }
 
-    protected function guard()
-    {
-        return Auth::guard('admin');
-    }
+    // protected function guard()
+    // {
+    //     return Auth::guard('admin');
+    // }
 
 }

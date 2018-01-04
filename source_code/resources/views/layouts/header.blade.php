@@ -76,7 +76,13 @@
   
   <div class="pull-right">
    <div class="dropdown user-account">
-    <a class="user-account-text">{!! Auth::user()->student->name !!}</a>
+    <a class="user-account-text">
+      @if (Auth::user()->isStudent())
+        {!! Auth::user()->student->name !!}
+        @elseif(Auth::user()->isRepresentative())
+        {!! Auth::user()->representative->name !!}
+      @endif
+      </a>
     <a class="dropdown-toggle" href="#" data-toggle="dropdown">
       <img src="assets/img/logo-envato.png" alt="avatar">
     </a>

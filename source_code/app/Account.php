@@ -30,6 +30,33 @@ class Account extends Authenticatable
     public function student(){
         return $this->hasOne('App\Student', 'account_id', 'id');    
     }
+    public function roles(){
+        return $this->belongsToMany('App\Role', 'role_account', 'account_id', 'role_id')->withTimestamps();
+    }
+
+    public function isAdmin(){
+        if($this->roles->first()->name == 'Admin' && $this->status_id==5){
+
+            return true;
+        }
+        return false;
+    }
+    public function isRepresentative(){
+        if($this->roles->first()->name == 'Representative' && $this->status_id==5){
+
+            return true;
+        }
+        return false;
+    }
+    public function isStudent(){
+        if($this->roles->first()->name == 'Student' && $this->status_id==5){
+
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
 
 
     // public function getUsernameAttribute($value){
