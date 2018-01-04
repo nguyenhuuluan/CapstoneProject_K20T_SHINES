@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="description" content="Post a job position or create your online resume by TheJobs!">
+   <meta name="keywords" content="">
+   <title>Jobee</title>
+   <!-- Styles -->
+   <link href="assets/css/app.min.css" rel="stylesheet">
+   <link href="assets/css/thejobs.css" rel="stylesheet">
+   <link href="assets/css/custom.css" rel="stylesheet">
+   <link href="assets/css/bootstrap-tagsinput.css" rel="stylesheet">
+   <link href="assets/css/tagmanager.min.css" rel="stylesheet">
+
+   <!-- Fonts -->
+   <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
+   <!-- Favicons -->
+   <link rel="icon" href="assets/img/favicon.ico">
+</head>
+<body class="nav-on-header smart-nav">
+   <!-- Navigation bar -->
+   <nav class="navbar">
+      <div class="container">
+         <!-- Logo -->
+         <div class="pull-left">
+            <a class="navbar-toggle" href="#" data-toggle="offcanvas"><i class="ti-menu"></i></a>
+            <div class="logo-wrapper">
+               <a class="logo" href="index.html"><img src="assets/img/logo.png" alt="logo">
+               </a>
+               <a class="logo-alt" href="index.html"><img src="assets/img/logo-alt.png" alt="logo-alt">
+               </a>
+            </div>
+         </div>
+         <!-- END Logo -->
+         <!-- User account -->
+         <div class="pull-right">
+            <div class="dropdown user-account">
+               <a class="user-account-text">Thành Huỳnh</a>
+               <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                  <img src="assets/img/logo-envato.png" alt="avatar">
+               </a>
+               <ul class="dropdown-menu dropdown-menu-right">
+                  <li><a href="user-login.html">Tài khoản</a>
+                  </li>
+                  <li><a href="user-register.html">Hồ sơ</a>
+                  </li>
+                  <li><a href="#">Đăng xuất</a>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <!-- END User account -->
+         <!-- Navigation menu -->
+         <ul class="nav-menu">
+            <li>
+               <a class="active" href="#">Trang chủ</a>
+            </li>
+            <li>
+               <a href="#">Công ty</a>
+            </li>
+            <li>
+               <a href="#">Việc làm</a>
+            </li>
+            <li>
+               <a href="#">Blog</a>
+            </li>
+            <li>
+               <a href="#">Giới thiệu</a>
+            </li>
+         </ul>
+         <!-- END Navigation menu -->
+      </div>
+   </nav>
+   <!-- END Navigation bar -->
+   <!-- Page header -->
+   <header class="page-header">
+      <div class="container page-name">
+         <h1 class="text-center">Công ty</h1>
+      </div>
+   </header>
+   <!-- END Page header -->
+   <!-- Main container -->
+   <main>
+      <section>
+         <div class="container">
+            <div class="col-md-3 col-sm-12 col-xs-12">
+               <center>
+                  <div class="form-group">
+                    <input type="file" class="dropify" data-default-file="assets/img/fpt.jpg">
+                    <span class="help-block">Logo công ty của bạn</span>
+                  </div>
+               </center>
+               <hr>
+               <center>
+                  <p>Liên hệ với VLU Jobs</p>
+                  <strong>08 123 4568</strong><br><br>
+                  <a href="company-detail-preview.html" target="_blank" class="btn btn-warning">Xem công ty của bạn</a>
+               </center>
+               <br>
+            </div>
+            <div class="col-md-9 col-sm-12 col-xs-12">
+               <div class="table-responsive">
+                  <table class="table">
+                     <thead>
+                        <tr>
+                           <th>Chi tiết công ty</th>
+                           <th></th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>Tên công ty</td>
+                           <td><input type="text" class="form-control input-sm" value="FPT"></td>
+                        </tr>
+                        <tr>
+                           <td>Email</td>
+                           <td><input type="text" class="form-control input-sm" value="info@fpt.com.vn"></td>
+                        </tr>
+                        <tr>
+                           <td>Email dự phòng</td>
+                           <td><input type="text" class="form-control input-sm" value="infofo@fpt.com.vn"></td>
+                        </tr>
+                        <tr>
+                           <td>Số điện thoại</td>
+                           <td><input type="text" class="form-control input-sm" value="+84 123456789"></td>
+                        </tr>
+                        <tr>
+                           <td>Địa chỉ</td>
+                           <td><input type="text" class="form-control input-sm" value="45 Nguyễn Khắc Nhu"></td>
+                        </tr>
+                        <tr>
+                           <td>Quận</td>
+                           <td>
+                              <select class="form-control selectpicker">
+                                 <option value="1">1</option>
+                                 <option value="2">2</option>
+                                 <option selected="selected" value="3">3</option>
+                                 <option value="4">4</option>
+                              </select>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>Thành Phố</td>
+                           <td>
+                             <select class="form-control selectpicker">
+                              <option selected="selected">Hồ Chí Minh</option>
+                              <option>Hà Nội</option>
+                              <option>Đà Nẵng</option>
+                              <option>Cần Thơ</option>
+                              <option>Hải Phòng</option>
+                           </select>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>Quốc Gia</td>
+                        <td><input type="text" class="form-control input-sm" value="Việt Nam"></td>
+                     </tr>
+                     <tr>
+                        <td>Website</td>
+                        <td><input type="text" class="form-control input-sm" value="www.fpt.com.vn"></a></td>
+                     </tr>
+                     <tr>
+                        <td>Thời gian làm việc</td>
+                        <td><input type="text" class="form-control input-sm" value="Thứ hai - thứ bảy"></td>
+                     </tr>
+                     <tr>
+                        <td>Quy mô công ty</td>
+                        <td><input type="text" class="form-control input-sm" value="50 - 100 người"></td>
+                     </tr>
+                     <tr>
+                        <td>Lĩnh vực công ty</td>
+                        <td><input type="text" class="form-control input-sm" value="Mạng và phần mềm"></td>
+                     </tr>
+                     <tr>
+                        <td>Loại công ty</td>
+                        <td>
+                           <select class="form-control selectpicker" data-placeholder="Nhấn để chọn...">
+                              <option>Việc làm Kế toán</option>
+                              <option>Việc làm Ngân hàng</option>
+                              <option selected="selected">Việc làm IT - Phần mềm</option>
+                              <option>Việc làm IT-Phần cứng/Mạng</option>
+                              <option>Việc làm Xây dựng</option>
+                              <option>Việc làm Quảng cáo/Khuyến mãi</option>
+                              <option>Việc làm Hàng không/Du lịch</option>
+                              <option>Việc làm Giáo dục/Đào tạo</option>
+                              <option>Việc làm Điện/Điện tử</option>
+                              <option>Việc làm Bán hàng</option>
+                           </select>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>Công ty có yêu cầu làm ngoài giờ không?</td>
+                        <td><input type="text" class="form-control input-sm" value="Có"></td>
+                     </tr>
+                     <tr>
+                        <td>Giới thiệu</td>
+                        <td>
+                           <textarea class="form-control" rows="3">Google là một công ty Internet có trụ sở tại Hoa Kỳ, được thành lập vào năm 1998...</textarea>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>Tại sao bạn nên làm việc tại FPT?</td>
+                        <td>
+                           <textarea class="form-control" rows="3">Mình thích thì mình làm thôi</textarea>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>TAG</td>
+                        <td>
+                           <input type="text" name="tags" class="tm-input form-control tm-input-info tagsinput-typeahead" data-role="tagsinput" placeholder="Nhập tag" value="PHP, HTML" />
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+   </section>
+   <!-- Submit -->
+         <div class="container">
+            <p class="text-center">
+               <a href="mn-information-company.html" class="btn btn-danger btn-xl btn-round">Hủy</a>
+               <a href="#" class="btn btn-success btn-xl btn-round">Cập nhật</a>
+            </p>
+            <br>
+         </div>
+         <!-- END Submit -->
+</main>
+<!-- END Main container -->
+<!-- Site footer -->
+<footer class="site-footer">
+   <!-- Bottom section -->
+   <div class="container">
+      <div class="row">
+         <div class="col-md-8 col-sm-6 col-xs-12">
+            <p class="copyright-text">Copyrights &copy; 2017 All Rights Reserved by <a href="#">Shines Team</a>.</p>
+         </div>
+      </div>
+   </div>
+   <!-- END Bottom section -->
+</footer>
+<!-- END Site footer -->
+<!-- Back to top button -->
+<a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
+<!-- END Back to top button -->
+<!-- Scripts -->
+<script src="assets/js/app.min.js"></script>
+<script src="assets/js/thejobs.js"></script>
+<script src="assets/js/custom.js"></script>
+<script src="assets/js/bootstrap3-typeahead.js"></script>
+<script src="assets/js/bootstrap-tagsinput.js"></script>
+<script src="assets/js/tagmanager.min.js"></script>
+
+<!-- Gợi ý tag -->
+<script type="text/javascript">
+ $(document).ready(function() {
+  var tagApi = $(".tm-input").tagsManager();
+
+
+  jQuery(".typeahead").typeahead({
+   name: 'tags',
+   displayKey: 'name',
+   source: function (query, process) {
+    return $.get('ajaxpro.php', { query: query }, function (data) {
+     data = $.parseJSON(data);
+     return process(data);
+  });
+ },
+ afterSelect :function (item){
+    tagApi.tagsManager("pushTag", item);
+ }
+});
+});
+</script>
+</body>
+</html>

@@ -12804,7 +12804,7 @@ select.selectpicker {
   width:100%;
   padding-right:25px;
   z-index:1;
-  height: 70px;
+  height: 36px;
 }
 
 .bootstrap-select>select {

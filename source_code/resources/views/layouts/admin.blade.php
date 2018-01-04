@@ -195,7 +195,7 @@
                             <a href="listrecruitment.html"><i class="fa fa-dashboard fa-fw"></i> Việc làm</a>
                         </li>
                         <li>
-                            <a href="listcompany.html"><i class="fa fa-dashboard fa-fw"></i> Công ty</a>
+                            <a href="{{ route('company') }}"><i class="fa fa-dashboard fa-fw"></i> Công ty</a>
                         </li>
                         
                     </ul>
@@ -204,7 +204,7 @@
             </div>
             <!-- /.navbar-static-side -->
         </nav>
-
+         
         <!-- Page Content -->
         @yield('body')
         <!-- /#page-wrapper -->
@@ -231,7 +231,8 @@
         <!-- Toggle JavaScript Button -->
         <script src="{{asset('assets/js/bootstrap-toggle.min.js')}}"></script>
         <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-        <script>
+       
+       <script>
             $(document).ready(function() {
                 $('#dataTables-example').DataTable({
                     responsive: true

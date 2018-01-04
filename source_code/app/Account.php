@@ -7,13 +7,16 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+
 class Account extends Authenticatable
 {
     use Notifiable;
 
-    protected $fillable = [
-         'username', 'password', 'status_id'
-    ];
+  public $timestamps = true;
+
+  protected $fillable = [
+   'username', 'password', 'status_id', 'remember_token'
+ ];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -21,8 +24,17 @@ class Account extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+      'password', 'remember_token',
     ];
+
+
+
+    //Send password reset notification
+    public function sendPasswordResetNotification($token)
+    {
+      $this->notify(new AccountResetPasswordNotification($token));
+    }
+  
 
     public function representative(){
         return $this->hasOne('App\Representative', 'account_id', 'id');
@@ -67,3 +79,4 @@ class Account extends Authenticatable
     //     return $this->belongsTo('App\Company', 'App\Representative', 'account_id' ,'company_id', 'id');
     // }
 }
+

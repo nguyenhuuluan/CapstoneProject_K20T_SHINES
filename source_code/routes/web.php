@@ -20,6 +20,23 @@ Route::get('/' , 'HomeController@index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/test/{companyID}', 'CompanyController@test')->name('test');
+
+
+//Password reset routes
+// Route::get('account_password/reset', 'AccountAuth\ForgotPasswordController@showLinkRequestForm');
+// Route::post('account_password/email', 'AccountAuth\ForgotPasswordController@sendResetLinkEmail');
+// Route::get('account_password/reset/{token}', 'AccountAuth\ResetPasswordController@showResetForm');
+// Route::post('account_password/reset', 'AccountAuth\ResetPasswordController@reset');
+
+//Company
+
+Route::get('/admin/getcompanies', 'CompanyController@getCompanies')->name('getcompanies');
+Route::get('/admin/company', 'CompanyController@index')->name('company');
+Route::get('/admin/company/approve/{companyID}', 'CompanyController@approveCompany')->name('approvecompany');
+Route::get('/admin/company/active/{companyID}', 'CompanyController@setActiveCompany')->name('activecompany');
+
 Route::get('/recruitment/searchtag', 'RecruitmentController@searchtag')->name('searchtag');
 
 Route::get('/recruitment/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
