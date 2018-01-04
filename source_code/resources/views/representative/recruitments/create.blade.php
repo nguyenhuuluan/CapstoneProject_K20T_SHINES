@@ -100,7 +100,7 @@
 		@if(Session::has('comment_message'))	
 		{{ session('comment_message') }}
 		@endif
-		{!! Form::open(['method'=>'POST', 'action'=>'RepresentativeController@store',]) !!}
+		{!! Form::open(['method'=>'POST', 'action'=>'Representative\RepresentativeRecruitmentController@store']) !!}
 		<section>
 			<div class="container">
 				<div class="row">

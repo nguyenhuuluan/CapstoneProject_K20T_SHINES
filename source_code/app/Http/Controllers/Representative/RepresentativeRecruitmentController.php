@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Representative;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Tag;
 use App\Category;
@@ -10,7 +11,7 @@ use App\Recruitment;
 use App\Section;
 use App\Company;
 
-class RepresentativeController extends Controller
+class RepresentativeRecruitmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +21,6 @@ class RepresentativeController extends Controller
     public function index()
     {
         //
-        return view('representative.index');
     }
 
     /**

@@ -15,14 +15,16 @@ class Representative
      * @return mixed
      */
     public function handle($request, Closure $next)
-    {
-        $user = Auth::user();
-        if(!$user->isRepresentative()){
+    { 
+      if(Auth::check()){
+            $user = Auth::user();
+            if(!$user->isRepresentative()){
 
-           return redirect('/home');
+               return redirect('/representative');
+           }
+       }else{
+        return redirect('/representative');
        }
-
-
        return $next($request);
-   }
+  }
 }

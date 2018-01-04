@@ -165,84 +165,87 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Cài đặt</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Đăng xuất</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-                <!-- /.dropdown -->
-            </ul>
-            <!-- /.navbar-top-links -->
+                        <li><a href="{{ route('logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();">Đăng xuất</a>
+                          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                    </li>
+                </ul>
+                <!-- /.dropdown-user -->
+            </li>
+            <!-- /.dropdown -->
+        </ul>
+        <!-- /.navbar-top-links -->
 
-            <div class="navbar-default sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Tìm...">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </span>
-                            </div>
-                            <!-- /input-group -->
-                        </li>
-                        <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Tổng quan</a>
-                        </li>
-                        <li>
-                            <a href="listrecruitment.html"><i class="fa fa-dashboard fa-fw"></i> Việc làm</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('company') }}"><i class="fa fa-dashboard fa-fw"></i> Công ty</a>
-                        </li>
-                        
-                    </ul>
-                </div>
-                <!-- /.sidebar-collapse -->
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li class="sidebar-search">
+                        <div class="input-group custom-search-form">
+                            <input type="text" class="form-control" placeholder="Tìm...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                        <!-- /input-group -->
+                    </li>
+                    <li>
+                        <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Tổng quan</a>
+                    </li>
+                    <li>
+                        <a href="listrecruitment.html"><i class="fa fa-dashboard fa-fw"></i> Việc làm</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('company') }}"><i class="fa fa-dashboard fa-fw"></i> Công ty</a>
+                    </li>
+                    
+                </ul>
             </div>
-            <!-- /.navbar-static-side -->
-        </nav>
-         
-        <!-- Page Content -->
-        @yield('body')
-        <!-- /#page-wrapper -->
-
+            <!-- /.sidebar-collapse -->
         </div>
-        <!-- /#wrapper -->
+        <!-- /.navbar-static-side -->
+    </nav>
+    
+    <!-- Page Content -->
+    @yield('body')
+    <!-- /#page-wrapper -->
 
-        <!-- jQuery -->
-        <script src="{{asset('assets/vendors/jquery/jquery.min.js')}}"></script>
-        <!-- Bootstrap Core JavaScript -->
-        <script src="{{asset('assets/vendors/bootstrap/js/bootstrap.min.js')}}"></script>
-        <!-- Metis Menu Plugin JavaScript -->
-        <script src="{{asset('assets/vendors/metisMenu/metisMenu.min.js')}}"></script>
-        <!-- DataTables JavaScript -->
-        <script src="{{asset('assets/vendors/datatables/js/jquery.dataTables.min.js')}}"></script>
-        <script src="{{asset('assets/vendors/datatables-plugins/dataTables.bootstrap.min.js')}}"></script>
-        <script src="{{asset('assets/vendors/datatables-responsive/dataTables.responsive.js')}}"></script>
+</div>
+<!-- /#wrapper -->
 
-
-        <!-- Custom Theme JavaScript -->
-        <script src="{{asset('assets/dist/js/sb-admin-2.js')}}"></script>
-
-
-        <!-- Toggle JavaScript Button -->
-        <script src="{{asset('assets/js/bootstrap-toggle.min.js')}}"></script>
-        <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-       
-       <script>
-            $(document).ready(function() {
-                $('#dataTables-example').DataTable({
-                    responsive: true
-                });
-            });
-        </script>
-        
-        @yield('scripts')
+<!-- jQuery -->
+<script src="{{asset('assets/vendors/jquery/jquery.min.js')}}"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="{{asset('assets/vendors/bootstrap/js/bootstrap.min.js')}}"></script>
+<!-- Metis Menu Plugin JavaScript -->
+<script src="{{asset('assets/vendors/metisMenu/metisMenu.min.js')}}"></script>
+<!-- DataTables JavaScript -->
+<script src="{{asset('assets/vendors/datatables/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('assets/vendors/datatables-plugins/dataTables.bootstrap.min.js')}}"></script>
+<script src="{{asset('assets/vendors/datatables-responsive/dataTables.responsive.js')}}"></script>
 
 
-    </body>
+<!-- Custom Theme JavaScript -->
+<script src="{{asset('assets/dist/js/sb-admin-2.js')}}"></script>
 
-    </html>
+
+<!-- Toggle JavaScript Button -->
+<script src="{{asset('assets/js/bootstrap-toggle.min.js')}}"></script>
+<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+
+<script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
+</script>
+
+@yield('scripts')
+
+
+</body>
+
+</html>

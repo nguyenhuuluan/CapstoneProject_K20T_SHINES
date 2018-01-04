@@ -45,27 +45,37 @@ Route::get('/recruitment/{id}', 'RecruitmentController@detailrecruitment')->name
 
 
 //Admin login
-	Route::GET('admin','Admin\LoginController@showLoginForm')->name('admin.login');
-	Route::POST('admin','Admin\LoginController@login');
-	Route::POST('admin-password/email','Admin\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
-	Route::GET('admin-password/reset','Admin\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
-	Route::POST ('admin-password/reset','Admin\ResetPasswordController@reset');
-	Route::GET('password/reset/{token}','Admin\ResetPasswordController@showResetForm')->name('admin.password.reset'); 
+Route::GET('admin','Admin\LoginController@showLoginForm')->name('admin.login');
+Route::POST('admin','Admin\LoginController@login');
+Route::POST('admin-password/email','Admin\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
+Route::GET('admin-password/reset','Admin\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
+Route::POST ('admin-password/reset','Admin\ResetPasswordController@reset');
+Route::GET('password/reset/{token}','Admin\ResetPasswordController@showResetForm')->name('admin.password.reset'); 
 
+
+//Admin Controller
 Route::middleware(['admin', 'web'])->group(function () {
 
-	Route::GET('admin/home', 'AdminController@index');   
-	Route::get('/admin/recruitment', 'RecruitmentController@index');
-	Route::patch('/admin/recruitment/{id}', 'RecruitmentController@status');
-	Route::get('/admin/recruitment/{id}/preview', 'RecruitmentController@preview')->name('preview');
+	Route::GET('admin/home', 'Admin\AdminController@index');  
+	Route::resource('admin/recruitment', 'Admin\AdminRecruitmentController') ;
+	//Route::get('/admin/recruitment/{id}/preview', 'RecruitmentController@preview')->name('preview');
 });
 
-Route::get('/recruitment/create', 'RecruitmentController@create');
-Route::middleware(['auth', 'representative', 'web'])->group(function () {
 
-	Route::resource('representative', 'RepresentativeController');
-	Route::get('/representative/recruitment/create', 'RepresentativeController@create');
-	//Route::post('recruitment', 'RecruitmentController@store');
+//login representatitive 
+Route::GET('representative','Representative\LoginController@showLoginForm')->name('representative.login');
+Route::POST('representative','Representative\LoginController@login');
+Route::POST('representative-password/email','Representative\ForgotPasswordController@sendResetLinkEmail')->name('representative.password.email');
+Route::GET('representative-password/reset','Representative\ForgotPasswordController@showLinkRequestForm')->name('representative.password.request');
+Route::POST ('representative-password/reset','Representative\ResetPasswordController@reset');
+Route::GET('password/reset/{token}','Representative\ResetPasswordController@showResetForm')->name('representative.password.reset'); 
+
+
+//Representative Controller
+Route::middleware(['representative', 'web'])->group(function () {
+
+	Route::GET('representative/home', 'Representative\RepresentativeController@index');   
+	Route::resource('representative/recruitment', 'Representative\RepresentativeRecruitmentController');
 
 });
 

@@ -40,18 +40,12 @@
                 <h2>Đăng nhập</h2>
             </div>
             <form class="form-horizontal" method="POST" action="{{ route('admin.login') }}">
-                <div class="form-groupform-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
                     <div class="col-md-6">
                         <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
-
-                        @if ($errors->has('email'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('email') }}</strong>
-                        </span>
-                        @endif
                     </div>
                 </div>
 
@@ -68,32 +62,41 @@
                         @endif
                     </div>
                 </div>
-                
+                @if ($errors->has('email'))
+                <span class="help-block">
+                  <strong style="color: red">{{ $errors->first('email') }}</strong>
+              </span>
+              @endif
+              @if(Session::has('comment_message'))  
+              <span class="help-block">
+                  <strong style="color: red">{{ session('comment_message') }}</strong>
+              </span>
+              @endif
 
-                <div class="form-group">
-                    <div class="col-md-6 col-md-offset-4">
-                        <button type="submit" class="btn btn-primary">
-                            Login
-                        </button>
-                        
-                    </div>
-                </div>
+              <div class="form-group">
+                <div class="col-md-6 col-md-offset-4">
+                    <button type="submit" class="btn btn-primary">
+                        Đăng nhập
+                    </button>
 
-                <div class="form-group">
-                    <div class="col-md-8 col-md-offset-4">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                            </label>
-                        </div>
-                        <a class="btn btn-link" href="{{ route('password.request') }}">
-                            Forgot Your Password?
-                        </a>
-                    </div>
                 </div>
-            </form>
-        </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-8 col-md-offset-4">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Ghi nhớ
+                        </label>
+                    </div>
+                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                        Quên mật khẩu?
+                    </a>
+                </div>
+            </div>
+        </form>
     </div>
+</div>
 </body>
 
 <script>
