@@ -28,8 +28,9 @@ class Account extends Authenticatable
         return $this->hasOne('App\Representative', 'account_id', 'id');
     }
     public function student(){
-        return $this->hasOne('App\Representative', 'account_id', 'id');    
+        return $this->hasOne('App\Student', 'account_id', 'id');    
     }
+
 
     // public function getUsernameAttribute($value){
     //     return $this->student;

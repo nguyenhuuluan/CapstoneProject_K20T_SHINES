@@ -7,6 +7,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Account;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Validation\ValidationException;
+
 class LoginController extends Controller
 {
     /*
@@ -29,6 +31,19 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/home';
 
+    protected function hasTooManyLoginAttempts(Request $request)
+    {
+        return $this->limiter()->tooManyAttempts(
+            $this->throttleKey($request), $this->maxAttempts(), $this->decayMinutes()
+        );
+    }
+
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        throw ValidationException::withMessages([
+            $this->username() => [trans('auth.failed')=>'Email hoặc mật khẩu không chính xác!'],
+        ]);
+    }
     /**
      * Create a new controller instance.
      *
@@ -45,10 +60,19 @@ class LoginController extends Controller
            'password' => 'required|string|min:6',
        ]);
 
+        if ($this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+
+            return $this->sendLockoutResponse($request);
+        }
+
         if(Auth::attempt(['username'=>$request->email, 'password'=>$request->password] )){
             return redirect('/');
         }
-        return 'Ooopps something wrong happens';
+         $this->incrementLoginAttempts($request);
+
+        return $this->sendFailedLoginResponse($request);
+        
         
     }
 }

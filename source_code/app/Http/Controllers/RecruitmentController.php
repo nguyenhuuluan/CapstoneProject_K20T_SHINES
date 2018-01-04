@@ -44,7 +44,6 @@ class RecruitmentController extends Controller
         //$cities  = City::pluck('name', 'id')->all();
         $sections = Section::all();
         return view('recruitments.create',compact('categories', 'sections', 'places'));
-
     }
 
     /**
