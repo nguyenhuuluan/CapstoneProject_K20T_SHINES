@@ -34,6 +34,8 @@ Route::get('/test/{companyID}', 'CompanyController@test')->name('test');
 
 Route::get('/admin/getcompanies', 'CompanyController@getCompanies')->name('getcompanies');
 Route::get('/admin/company', 'CompanyController@index')->name('company');
+Route::get('/admin/company/approve/{companyID}', 'CompanyController@approveCompany')->name('approvecompany');
+Route::get('/admin/company/active/{companyID}', 'CompanyController@setActiveCompany')->name('activecompany');
 
 Route::get('/recruitment/searchtag', 'RecruitmentController@searchtag')->name('searchtag');
 Route::get('/recruitment/create', 'RecruitmentController@create');

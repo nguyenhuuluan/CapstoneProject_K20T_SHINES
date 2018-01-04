@@ -195,7 +195,7 @@
                             <a href="listrecruitment.html"><i class="fa fa-dashboard fa-fw"></i> Việc làm</a>
                         </li>
                         <li>
-                            <a href="listcompany.html"><i class="fa fa-dashboard fa-fw"></i> Công ty</a>
+                            <a href="{{ route('company') }}"><i class="fa fa-dashboard fa-fw"></i> Công ty</a>
                         </li>
                         
                     </ul>
