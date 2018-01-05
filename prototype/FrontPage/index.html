@@ -33,7 +33,7 @@
 			<!-- END Logo -->
 
 			<!-- Sign In -->
-			<div id="id01" class="modal">
+			<div id="id01" class="modal fade">
 				<!-- Modal Content -->
 				<form class="modal-content animate" action="#">
 					<div class="login-block">
@@ -62,7 +62,7 @@
 			<!-- End Sign In -->
 
 			<!-- SignUp -->
-			<div id="id02" class="modal">
+			<div id="id02" class="modal fade">
 				<!-- Modal Content -->
 				<form class="modal-content animate" action="#">
 					<div class="login-block">
@@ -110,7 +110,7 @@
 
 			<!-- User account -->
 			<div class="pull-right user-login">
-				<a class="btn btn-sm btn-primary" onclick="document.getElementById('id02').style.display='block'" href="#">Đăng kí</a> | <a onclick="document.getElementById('id01').style.display='block'" href="#">Đăng nhập</a>
+				<a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#id02" href="#">Đăng kí</a> | <a data-toggle="modal" data-target="#id01" href="#">Đăng nhập</a>
 			</div>
 			<!-- END User account -->
 
@@ -630,18 +630,6 @@
 					});
 				})
 			</script>
-			<script>
-      	 // Login Modal
-      	 var modalsignin = document.getElementById('id01');
-      	 var modalsignup = document.getElementById('id02');
-
-         // When the user clicks anywhere outside of the modal, close it
-         	window.onclick = function(event) {
-     		if (event.target == modalsignup || event.target == modalsignin) {
-     			modalsignup.style.display = "none";
-     			modalsignin.style.display = "none";
-     		}
-     	}
-     </script>
+			
  </body>
  </html>
