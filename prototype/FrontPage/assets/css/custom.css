@@ -82,9 +82,9 @@ span.positionwork {
     content: "\f0d6";
 }
 
-.user-account-text {
+.user-account-text, .user-account-text:hover {
   color: #fff;
-  font: 
+  font-weight: 600;
 }
 
 /*------------------------------------*\
