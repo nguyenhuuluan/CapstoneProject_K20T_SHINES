@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Post a job position or create your online resume by TheJobs!">
+	<meta name="keywords" content="">
+
+	<title>Jobee - Chi tiết hồ sơ</title>
+
+	<!-- Styles -->
+	<link href="assets/css/app.min.css" rel="stylesheet">
+	<link href="assets/css/thejobs.css" rel="stylesheet">
+	<link href="assets/css/custom.css" rel="stylesheet">
+
+	<!-- Fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
+
+	<!-- Favicons -->
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+	<link rel="icon" href="assets/img/favicon.ico">
+</head>
+
+<body class="nav-on-header smart-nav">
+
+	<!-- Navigation bar -->
+	<nav class="navbar">
+		<div class="container">
+
+			<!-- Logo -->
+			<div class="pull-left">
+				<a class="navbar-toggle" href="#" data-toggle="offcanvas"><i class="ti-menu"></i></a>
+
+				<div class="logo-wrapper">
+					<a class="logo" href="index.html"><img src="assets/img/logo.png" alt="logo"></a>
+					<a class="logo-alt" href="index.html"><img src="assets/img/logo-alt.png" alt="logo-alt"></a>
+				</div>
+
+			</div>
+			<!-- END Logo -->
+
+			<!-- SignUp/SignIn Candidate-->
+			<div id="id02" class="modal fade">
+				<form class="modal-content animate" action="#">
+					<div class="login-block">
+						<img src="assets/img/logo.png" alt="">
+						<br><br>
+						<ul class="nav nav-tabs">
+							<li class="active">
+								<a data-toggle="tab" onclick="modalSignInOut('dangnhap')" href="#">Đăng nhập</a>
+							</li>
+							<li>
+								<a data-toggle="tab" onclick="modalSignInOut('dangky')" href="#">Đăng ký</a>
+							</li>
+						</ul>
+
+						<div id="dangnhap" class="modalinout">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="ti-email"></i></span>
+									<input type="text" class="form-control" placeholder="Email">
+								</div>
+							</div>
+							<hr class="hr-xs">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="ti-unlock"></i></span>
+									<input type="password" class="form-control" placeholder="Mật khẩu">
+								</div>
+							</div>
+							<button class="btn btn-primary btn-block" type="submit">Đăng Nhập</button>
+							<div class="login-links">
+								<center><a href="forget-password.html">Quên mật khẩu?</a></center>
+							</div>
+						</div>
+
+						<div id="dangky" class="modalinout" style="display:none">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="ti-email"></i></span>
+									<input name="emailCompany" type="text" class="form-control" placeholder="Email">
+								</div>
+							</div>
+							<button name="registerCandidate" class="btn btn-primary btn-block" type="submit">Đăng Ký</button><br>
+						</div>
+						
+					</div>
+				</form>
+			</div>
+
+			<!-- End SignUp/SignIn Candidate -->
+
+			<!-- User account -->
+			<div class="pull-right user-login">
+				<a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#id02" href="#">Đăng nhập</a> | <a href="mn-login-register-intermediate-company.html">Nhà tuyển dụng</a>
+			</div>
+			<!-- END User account -->
+
+			<!-- Navigation menu -->
+			<ul class="nav-menu">
+				<li>
+					<a class="active" href="index.html">Trang chủ</a>
+				</li>
+				<li>
+					<a href="company-list.html">Công ty</a>
+				</li>
+				<li>
+					<a href="job-list-1.html">Việc làm</a>
+				</li>
+				<li>
+					<a href="#">Blog</a>
+				</li>
+				<li>
+					<a href="#">Giới thiệu</a>
+				</li>
+			</ul>
+			<!-- END Navigation menu -->
+
+		</div>
+	</nav>
+	<!-- END Navigation bar -->
+
+
+	<!-- Page header -->
+	<header class="page-header bg-img" style="background-image: url(assets/img/bg-banner1.jpg)">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 col-sm-4">
+					<center><img src="assets/img/te4.jpg" alt="no avatar" style="max-width: 200px; max-height: 200px;"></center>
+				</div>
+
+				<div class="col-xs-12 col-sm-8 header-detail">
+					<div class="hgroup">
+						<h1>Thành Huỳnh</h1>
+						<h3>Front-end developer</h3>
+					</div>
+					<hr>
+					<p class="lead">The front end  is the part that users see and interact with, includes the User Interface, the animations, and usually a bunch of logic to talk to the backend. It is the visual bit that the user interacts with. This includes the design, images, colours, buttons, forms, typography, animations and content. It’s basically everything that you as a user of the website can see.</p>
+
+					<ul class="details cols-2">
+						<li>
+							<i class="fa fa-map-marker"></i>
+							<span>Hồ Chí Minh</span>
+						</li>
+
+						<li>
+							<i class="fa fa-graduation-cap"></i>
+							<span>Công Nghệ Thông Tin</span>
+						</li>
+
+
+						<li>
+							<i class="fa fa-phone"></i>
+							<span>(+84) 123 456 7890</span>
+						</li>
+
+						<li>
+							<i class="fa fa-envelope"></i>
+							<a href="#">thanhhuynh17@vanlanguni.vn</a>
+						</li>
+					</ul>
+
+					<div class="tag-list">
+						<span>HTML5</span>
+						<span>CSS3</span>
+						<span>JavaScript</span>
+						<span>Bootstrap</span>
+						<span>Wordpress</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="button-group">
+				<ul class="social-icons">
+					<li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+					<li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+					<li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+					<li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+					<li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
+				</ul>
+
+				<div class="action-buttons">
+					<a class="btn btn-success" data-toggle="modal" data-target="#modal-contact" href="#">Liên lạc với tôi</a>
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- END Page header -->
+
+
+	<!-- Main container -->
+	<main>
+
+
+		<!-- Education -->
+		<section>
+			<div class="container">
+
+				<header class="section-header">
+					<span>Latest degrees</span>
+					<h2>Education</h2>
+				</header>
+
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="item-block">
+							<header>
+								<img src="assets/img/logo-mit.png" alt="">
+								<div class="hgroup">
+									<h4>Master <small>Computer Science</small></h4>
+									<h5>Massachusetts Institute of Technology</h5>
+								</div>
+								<h6 class="time">2012 - 2014</h6>
+							</header>
+							<div class="item-body">
+								<p>The Massachusetts Institute of Technology (MIT) is a private research university in Cambridge, Massachusetts. Founded in 1861 in response to the increasing industrialization of the United States, MIT adopted a European polytechnic university model and stressed laboratory instruction in applied science and engineering.</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12">
+						<div class="item-block">
+							<header>
+								<img src="assets/img/logo-berkeley.png" alt="">
+								<div class="hgroup">
+									<h4>Bachelor <small>Computer Science</small></h4>
+									<h5>University of California, Berkeley</h5>
+								</div>
+								<h6 class="time">2008 - 2012</h6>
+							</header>
+							<div class="item-body">
+								<p>The University of California, Berkeley is a public research university located in Berkeley, California. It is the flagship campus of the University of California system, one of three parts in the state's public higher education plan, which also includes the California State University system and the California Community Colleges System.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</section>
+		<!-- END Education -->
+
+
+		<!-- Work Experience -->
+		<section class="bg-alt">
+			<div class="container">
+				<header class="section-header">
+					<span>Past positions</span>
+					<h2>Work Experience</h2>
+				</header>
+
+				<div class="row">
+
+					<!-- Work item -->
+					<div class="col-xs-12">
+						<div class="item-block">
+							<header>
+								<img src="assets/img/logo-google.jpg" alt="">
+								<div class="hgroup">
+									<h4>Google</h4>
+									<h5>Senior front-end developer</h5>
+								</div>
+								<h6 class="time">Jan 2016 - Present</h6>
+							</header>
+							<div class="item-body">
+								<p>Responsibilities:</p>
+								<ul>
+									<li>Developed front-end for world-class online social viewing video and chat platform using xHTML, CSS, ActionScript 2-3, Javascript, and XML.</li>
+									<li>Developed built-in chat application into Flash video player in ActionScript 3.</li>
+									<li>Built and developed sites for ABC Family properties such as Gilmore Girls, The Middleman, Secret Life of an American Teenager, Greek, and Kyle XY. </li>
+									<li>Translate designs into responsive web interfaces </li>
+									<li>Collaboration with the graphic designer on the front-end aspect of development. </li>
+									<li>Cross-platform cross-browser development. </li>
+									<li>Some back-end development in collaboration with senior developer.</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- END Work item -->
+
+
+					<!-- Work item -->
+					<div class="col-xs-12">
+						<div class="item-block">
+							<header>
+								<img src="assets/img/logo-facebook.png" alt="">
+								<div class="hgroup">
+									<h4>Facebook</h4>
+									<h5>Interface developer</h5>
+								</div>
+								<h6 class="time">Aug 2014 - Jan 2016</h6>
+							</header>
+							<div class="item-body">
+								<p>Responsibilities:</p>
+								<ul>
+									<li>Work as a part of a large team on a major corporate project</li>
+									<li>Responsible for all aspects of presentation layer development including developing templates using HTML, DHTML, Javascript, XML, and XSL.</li>
+									<li>Rapid-prototyping for usability studies and new business development.</li>
+									<li>Collaboration with the graphic designer on the front-end aspect of development.</li>
+									<li>Some back-end development in collaboration with senior developer.</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- END Work item -->
+
+
+					<!-- Work item -->
+					<div class="col-xs-12">
+						<div class="item-block">
+							<header>
+								<img src="assets/img/logo-envato.png" alt="">
+								<div class="hgroup">
+									<h4>Envato</h4>
+									<h5>Quality assurance engineer</h5>
+								</div>
+								<h6 class="time">Mar 2012 - Jun 2014</h6>
+							</header>
+							<div class="item-body">
+								<p>Responsibilities:</p>
+								<ul>
+									<li>Software testing in a Web Applications/Mobile environment.</li>
+									<li>Software Test Plans from Business Requirement Specifications for test engineering group.</li>
+									<li>Run production tests as part of software implementation; Create, deliver and support test plans for testing group to execute.</li>
+									<li>Software testing in a Web Applications environment.</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- END Work item -->
+
+
+				</div>
+
+			</div>
+		</section>
+		<!-- END Work Experience -->
+
+
+		<!-- Skills -->
+		<section>
+			<div class="container">
+				<header class="section-header">
+					<span>Expertise Areas</span>
+					<h2>Skills</h2>
+				</header>
+
+				<br>
+				<ul class="skills cols-3">
+					<li>
+						<div>
+							<span class="skill-name">HTML</span>
+							<span class="skill-value">50%</span>
+						</div>
+						<div class="progress">
+							<div class="progress-bar" style="width: 50%;"></div>
+						</div>
+					</li>
+
+					<li>
+						<div>
+							<span class="skill-name">CSS</span>
+							<span class="skill-value">95%</span>
+						</div>
+						<div class="progress">
+							<div class="progress-bar" style="width: 95%;"></div>
+						</div>
+					</li>
+
+					<li>
+						<div>
+							<span class="skill-name">Javascript</span>
+							<span class="skill-value">80%</span>
+						</div>
+						<div class="progress">
+							<div class="progress-bar" style="width: 80%;"></div>
+						</div>
+					</li>
+
+					<li>
+						<div>
+							<span class="skill-name">Photoshop</span>
+							<span class="skill-value">60%</span>
+						</div>
+						<div class="progress">
+							<div class="progress-bar" style="width: 60%;"></div>
+						</div>
+					</li>
+
+					<li>
+						<div>
+							<span class="skill-name">ReactJS</span>
+							<span class="skill-value">70%</span>
+						</div>
+						<div class="progress">
+							<div class="progress-bar" style="width: 70%;"></div>
+						</div>
+					</li>
+
+					<li>
+						<div>
+							<span class="skill-name">Team work</span>
+							<span class="skill-value">90%</span>
+						</div>
+						<div class="progress">
+							<div class="progress-bar" style="width: 90%;"></div>
+						</div>
+					</li>
+				</ul>
+
+			</div>
+		</section>
+		<!-- END Skills -->
+
+
+	</main>
+	<!-- END Main container -->
+
+
+	<!-- Site footer -->
+	<footer class="site-footer">
+
+		<!-- Top section -->
+		<div class="container">
+			<div class="row">
+
+				<div class="col-xs-6 col-sm-6 col-md-3">
+					<h6>Việc làm theo nghành nghề</h6>
+					<ul class="footer-links">
+						<li><a href="job-list.html">Việc làm Kế toán</a></li>
+						<li><a href="job-list.html">Việc làm Ngân hàng</a></li>
+						<li><a href="job-list.html">Việc làm IT - Phần mềm</a></li>
+						<li><a href="job-list.html">Việc làm IT-Phần cứng/Mạng</a></li>
+						<li><a href="job-list.html">Việc làm Xây dựng</a></li>
+					</ul>
+				</div>
+
+				<div class="col-xs-6 col-sm-6 col-md-3">
+					<ul class="footer-links">
+						<br>
+						<li><a href="job-list.html">Việc làm Quảng cáo/Khuyến mãi</a></li>
+						<li><a href="job-list.html">Việc làm Hàng không/Du lịch</a></li>
+						<li><a href="job-list.html">Việc làm Giáo dục/Đào tạo</a></li>
+						<li><a href="job-list.html">Việc làm Điện/Điện tử</a></li>
+						<li><a href="job-list.html">Việc làm Bán hàng</a></li>
+					</ul>
+				</div>
+
+				<div class="col-xs-6 col-sm-6 col-md-3">
+					<h6>Việc làm IT theo công ty</h6>
+					<ul class="footer-links">
+						<li><a href="page-about.html">Global CyberSoft</a></li>
+						<li><a href="page-typography.html">Vingroup</a></li>
+						<li><a href="page-faq.html">Capella Holding</a></li>
+						<li><a href="page-typography.html">Vietjetair</a></li>
+						<li><a href="page-contact.html">Standard Charter</a></li>
+					</ul>
+				</div>
+
+
+				<div class="col-xs-6 col-sm-6 col-md-3">
+					<h6>Việc làm IT theo thành phố</h6>
+					<ul class="footer-links">
+						<li><a href="job-list.html">Hồ Chí Minh</a></li>
+						<li><a href="job-list.html">Hà Nội</a></li>
+						<li><a href="job-list.html">Đà Nẵng</a></li>
+						<li><a href="job-list.html">Thêm</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<hr>
+		</div>
+		<!-- END Top section -->
+
+		<!-- Bottom section -->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-sm-6 col-xs-12">
+					<p class="copyright-text">Copyrights &copy; 2017 All Rights Reserved by <a href="#">Shines Team</a>.</p>
+				</div>
+
+				<div class="col-md-4 col-sm-6 col-xs-12">
+					<ul class="social-icons">
+						<li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+						<li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+						<li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+						<li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+						<li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- END Bottom section -->
+
+	</footer>
+	<!-- END Site footer -->
+
+
+	<!-- Back to top button -->
+	<a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
+	<!-- END Back to top button -->
+
+
+	<!-- Contact modal -->
+	<div class="modal fade" id="modal-contact" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h5 class="modal-title" id="myModalLabel">Send message</h5>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+							<label for="subject" class="control-label">Subject</label>
+							<input type="text" class="form-control" id="subject">
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">Message</label>
+							<textarea class="form-control" id="message-text"></textarea>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-gray" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Send</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Scripts -->
+	<script src="assets/js/app.min.js"></script>
+	<script src="assets/js/thejobs.js"></script>
+	<script src="assets/js/custom.js"></script>
+
+</body>
+</html>
