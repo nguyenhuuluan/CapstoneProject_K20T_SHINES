@@ -1212,7 +1212,7 @@ $(function() {
         },
         xaxis: {
             mode: "time",
-            timeformat: "%m/%d",
+            timeformat: "%d/%m",
             minTickSize: [1, "day"]
         },
         grid: {
@@ -1223,7 +1223,7 @@ $(function() {
         },
         tooltip: true,
         tooltipOpts: {
-            content: "x: %x, y: %y"
+            content: "ngày: %x, số lượt: %y"
         }
     };
     var barData = {

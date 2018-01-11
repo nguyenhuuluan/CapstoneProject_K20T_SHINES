@@ -40,62 +40,31 @@
 			</div>
 			<!-- END Logo -->
 
-			<!-- SignUp/SignIn Candidate-->
-			<div id="id02" class="modal fade">
-				<form class="modal-content animate" action="#">
-					<div class="login-block">
-						<img src="assets/img/logo.png" alt="">
-						<br><br>
-						<ul class="nav nav-tabs">
-							<li class="active">
-								<a data-toggle="tab" onclick="modalSignInOut('dangnhap')" href="#">Đăng nhập</a>
-							</li>
-							<li>
-								<a data-toggle="tab" onclick="modalSignInOut('dangky')" href="#">Đăng ký</a>
-							</li>
-						</ul>
-
-						<div id="dangnhap" class="modalinout">
-							<div class="form-group">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="ti-email"></i></span>
-									<input type="text" class="form-control" placeholder="Email">
-								</div>
-							</div>
-							<hr class="hr-xs">
-							<div class="form-group">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="ti-unlock"></i></span>
-									<input type="password" class="form-control" placeholder="Mật khẩu">
-								</div>
-							</div>
-							<button class="btn btn-primary btn-block" type="submit">Đăng Nhập</button>
-							<div class="login-links">
-								<center><a href="forget-password.html">Quên mật khẩu?</a></center>
-							</div>
-						</div>
-
-						<div id="dangky" class="modalinout" style="display:none">
-							<div class="form-group">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="ti-email"></i></span>
-									<input name="emailCompany" type="text" class="form-control" placeholder="Email">
-								</div>
-							</div>
-							<button name="registerCandidate" class="btn btn-primary btn-block" type="submit">Đăng Ký</button><br>
-						</div>
-						
-					</div>
-				</form>
-			</div>
-
-			<!-- End SignUp/SignIn Candidate -->
-
 			<!-- User account -->
-			<div class="pull-right user-login">
-				<a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#id02" href="#">Đăng nhập</a> | <a href="mn-login-register-intermediate-company.html">Nhà tuyển dụng</a>
-			</div>
-			<!-- END User account -->
+            <div class="pull-right">
+               <div class="dropdown user-account">
+                  <a class="user-account-text">Thành Huỳnh</a>
+                  <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                  <img src="assets/img/logo-envato.png" alt="avatar">
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-right">
+                     <li>
+                        <a href="candidate-account.html"><i class="fa fa-user" aria-hidden="true"></i> Tài khoản</a>
+                     </li>
+                     <li>
+                        <a href="candidate-resume-add.html"><i class="fa fa-file" aria-hidden="true"></i> Hồ sơ</a>
+                     </li>
+                     <li>
+                        <a href="candidate-jobs-have-apply.html"><i class="fa fa-check-circle" aria-hidden="true"></i> Đã ứng tuyển</a>
+                     </li>
+                     <li>
+                        <a href="#"><i class="fa fa-sign-out" aria-hidden="true"></i> Đăng xuất</a>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <!-- END User account -->
+
 
 			<!-- Navigation menu -->
 			<ul class="nav-menu">
