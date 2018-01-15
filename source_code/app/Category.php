@@ -13,9 +13,6 @@ class Category extends Model
     public function recruitments(){
     	return $this->belongsToMany('App\Recruitment');
     }
-    public function categories(){
-        return $this->belongsToMany('App\Recruitment');
-    }
 
     public function getNameAttribute($value){
     	return strtoupper($value);

@@ -52,5 +52,12 @@ class AccountTest extends TestCase
 
     }
 
+     /** @test */
+    function a_account_has_blogs(){
+    	$this->blog = 	create('App\Blog',['account_id'=>$this->account->id]);
+    	//dd($this->account->blogs);
+        $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $this->account->blogs); 
+    }
+
 
 }

@@ -15,25 +15,25 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Account::class, function (Faker $faker) {
 	//$faker->locale = "vi_VN";
-    static $password;
+	static $password;
         //'email' => $faker->unique()->safeEmail,
 
-    return [
-        'username' => $faker->userName,
-        'status_id'=> 5,
-        'password' => $password ?: $password = bcrypt('secret'),
-        'remember_token' => str_random(10),
-    ];
+	return [
+		'username' => $faker->userName,
+		'status_id'=> 5,
+		'password' => $password ?: $password = bcrypt('secret'),
+		'remember_token' => str_random(10),
+	];
 });
 
 $factory->define(App\Role::class, function (Faker $faker) {
 	//$faker->locale = "vi_VN";
-    static $password;
+	static $password;
         //'email' => $faker->unique()->safeEmail,
 
-    return [
-        'name' => $faker->word,
-    ];
+	return [
+		'name' => $faker->word,
+	];
 });
 
 
@@ -120,13 +120,24 @@ $factory->define(App\Recruitment::class, function(Faker $faker){
 		'salary'=>$faker->numberBetween($min = 5000000, $max = 15000000),
 		'expire_date'=>$faker->date($format = 'Y-m-d', $max = 'now'),
 		'is_hot'=>0,
-        'status_id'=> 1,
-        'company_id'=>function(){
+		'status_id'=> 1,
+		'company_id'=>function(){
 			return factory('App\Company')->create()->id;
 		},
-
 	];
 });
+
+$factory->define(App\Blog::class, function(Faker $faker){
+	//$faker->locale = "vi_VN";
+	return [
+		'title'=>$faker->locale,
+		'content'=>$faker->locale,
+		'account_id'=>function(){
+			return factory('App\Account')->create()->id;
+		},
+	];
+});
+
 
 $factory->define(App\Company::class, function(Faker $faker){
 	//$faker->locale = "vi_VN";
@@ -136,7 +147,9 @@ $factory->define(App\Company::class, function(Faker $faker){
 		'email'=>$faker->companyEmail,
 		'phone'=>$faker->tollFreePhoneNumber,
 		'working_day'=>'Monday - Saturday',
-		'status_id'=>2,
+		'status_id'=>function(){
+			return factory('App\Status')->create()->id;
+		},
 
 	];
 });
@@ -182,5 +195,24 @@ $factory->define(App\Country::class, function(Faker $faker){
 		'name'=>$faker->country,
 	];
 });
+
+$factory->define(App\Cv::class, function(Faker $faker){
+	//$faker->locale = "vi_VN";
+	return [
+		'name'=>$faker->sentence,
+		'file'=>'/cv/cv1.pdf',
+		'student_id'=>function(){
+			return factory('App\Student')->create()->id;
+		},
+	];
+});
+
+$factory->define(App\Tag::class, function(Faker $faker){
+	//$faker->locale = "vi_VN";
+	return [
+		'name'=>$faker->sentence,
+	];
+});
+
 
 

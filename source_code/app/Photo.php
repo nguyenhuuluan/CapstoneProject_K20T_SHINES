@@ -9,4 +9,5 @@ class Photo extends Model
     //
     protected $fillable = ['name'];
 
+    public function company
 }

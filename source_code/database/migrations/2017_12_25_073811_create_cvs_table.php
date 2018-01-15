@@ -15,7 +15,7 @@ class CreateCvsTable extends Migration
     {
         Schema::create('cvs', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nane',255);
+            $table->string('name',255);
             $table->string('file',255);
             $table->integer('student_id')->index()->unsigned();
             $table->timestamps();

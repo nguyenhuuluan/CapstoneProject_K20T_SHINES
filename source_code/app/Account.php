@@ -48,6 +48,10 @@ class Account extends Authenticatable
     public function roles(){
         return $this->belongsToMany('App\Role', 'role_account', 'account_id', 'role_id')->withTimestamps();
     }
+    public function blogs()
+    {
+        return $this->hasMany('App\Blog');
+    }
 
     public function isAdmin(){
         if($this->roles->first()->name == 'Admin' && $this->status_id==5){

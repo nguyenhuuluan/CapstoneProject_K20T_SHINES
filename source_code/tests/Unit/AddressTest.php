@@ -7,28 +7,29 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class DistrictTest extends TestCase
+class AddressTest extends TestCase
 {
-    use DatabaseMigrations;
+   use DatabaseMigrations;
 
     /**
      @test
      */
-    function it_has_city(){
+    function it_has_company(){
 
-    	$district = create('App\District');
+    	$company = create('App\Company');
+    	$address = create('App\Address',['company_id'=>$company->id]);
 
-    	$this->assertInstanceOf('App\City', $district->city);
+    	$this->assertInstanceOf('App\Company', $address->company);
     }
 
      /**
      @test
      */
-    function it_has_addresses(){
+    function it_has_district(){
 
     	$district = create('App\District');
     	$address = create('App\Address', ['district_id'=>$district->id]);
 
-    	$this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $district->addresses);
+    	$this->assertInstanceOf('App\District', $address->district);
     }
 }

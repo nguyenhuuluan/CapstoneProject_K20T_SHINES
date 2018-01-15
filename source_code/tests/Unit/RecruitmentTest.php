@@ -50,4 +50,11 @@ class RecruitmentTest extends TestCase
     	// dd($this->recruitment->sections);
         $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $this->recruitment->sections);
     }
+
+     /** @test */
+     function it_has_tags(){
+        $tag = create('App\Tag');
+        $this->recruitment->tags()->save($tag);
+        $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $this->recruitment->tags);
+    }
 }

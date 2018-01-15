@@ -21,13 +21,20 @@ class Company extends Model
     	return $this->belongsTo('App\Status');
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany('App\Tag', 'tag_company', 'company_id','tag_id')->withTimestamps();
+    }
+
+    public function sections()
+    {
+        return $this->belongsToMany('App\Section', 'section_company', 'company_id','section_id')->withPivot('content')->withTimestamps();
+    }
 
     public function representatives(){
         return $this->hasMany('App\Representative');
     }
-    public function representative(){
-        return $this->hasOne('App\Representative', 'company_id', 'id');
-    }
+    
     public function getLogoAttribute($value){
         if($value){
             return $this->path.$value;
