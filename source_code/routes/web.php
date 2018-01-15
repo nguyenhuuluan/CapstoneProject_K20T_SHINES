@@ -42,6 +42,9 @@ Route::get('/recruitment/searchtag', 'RecruitmentController@searchtag')->name('s
 Route::get('/recruitment/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
 
 
+// Student
+
+Route::POST('student','StudentController@register')->name('student.register');
 
 
 //Admin login

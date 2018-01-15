@@ -1,3 +1,7 @@
+nav-tabs li{
+  width: 50%;
+}
+
 .demo-btn-margin .btn {
   margin-bottom: 6px;
 }
@@ -82,9 +86,13 @@ span.positionwork {
     content: "\f0d6";
 }
 
-.user-account-text {
+.user-account-text,
+.user-account-text:hover,
+.user-account-text:focus,
+.user-account-text:active,
+.user-account-text:active:focus {
   color: #fff;
-  font: 
+  font-weight: 600;
 }
 
 /*------------------------------------*\
@@ -130,15 +138,14 @@ span.positionwork {
   }
 #watermark {
   color: #d0d0d0;
-  font-size: 200pt;
-  -webkit-transform: rotate(30deg);
-  -moz-transform: rotate(30deg);
+  font-size: 50pt;
   position: absolute;
   width: 100%;
   height: 100%;
   margin: 0;
   z-index: 1;
-  top: 300px;
+  top: 230px;
+  left: 600px;
 }
 
 /*application list*/
@@ -175,23 +182,7 @@ span.positionwork {
 }
 
 
-
-/* The Modal SignIn */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    padding-top: 60px;
-}
-
-/* Modal Content/Box */
+/* Modal Content Box */
 .modal-content {
     background-color: #fefefe;
     margin: 5px auto; /* 15% from the top and centered */
@@ -215,7 +206,6 @@ span.positionwork {
     width: 90%; /* Could be more or less, depending on screen size */
 }
 
-
 /* Add Zoom Animation */
 .animate {
     -webkit-animation: animatezoom 0.6s;
@@ -232,7 +222,4 @@ span.positionwork {
     to {transform: scale(1)}
 }
 
-
-@media (max-width:991px) {
-
-}
+/* End Modal Content Box, link to app.min.css, line 6933*/
