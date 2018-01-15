@@ -33,6 +33,6 @@ class StatusTest extends TestCase
 	/** @test */
 	function it_has_companies(){
 		$company = create('App\Company', ['status_id'=>$this->status2->id]);
-		$this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $this->status2->accounts);
+		$this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $this->status2->companies);
 	}
 }
