@@ -42,6 +42,9 @@ class Account extends Authenticatable
     public function student(){
         return $this->hasOne('App\Student', 'account_id', 'id');    
     }
+    public function staff(){
+        return $this->hasOne('App\Staff', 'account_id', 'id');    
+    }
     public function roles(){
         return $this->belongsToMany('App\Role', 'role_account', 'account_id', 'role_id')->withTimestamps();
     }

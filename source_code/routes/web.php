@@ -39,7 +39,7 @@ Route::get('/admin/company/active/{companyID}', 'CompanyController@setActiveComp
 
 Route::get('/recruitment/searchtag', 'RecruitmentController@searchtag')->name('searchtag');
 
-Route::get('/recruitment/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
+Route::get('/recruitments/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
 
 
 

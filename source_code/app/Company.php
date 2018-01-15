@@ -29,7 +29,12 @@ class Company extends Model
         return $this->hasOne('App\Representative', 'company_id', 'id');
     }
     public function getLogoAttribute($value){
-        return $this->path.$value;
+        if($value){
+            return $this->path.$value;
+        }else{
+            return 'http://via.placeholder.com/100x100';
+        }
+        
 
     }
 }	
