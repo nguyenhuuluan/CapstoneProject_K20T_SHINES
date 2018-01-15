@@ -82,9 +82,13 @@ span.positionwork {
     content: "\f0d6";
 }
 
-.user-account-text {
+.user-account-text,
+.user-account-text:hover,
+.user-account-text:focus,
+.user-account-text:active,
+.user-account-text:active:focus {
   color: #fff;
-  font: 
+  font-weight: 600;
 }
 
 /*------------------------------------*\

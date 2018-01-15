@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Post a job position or create your online resume by TheJobs!">
+	<meta name="keywords" content="">
+
+	<title>Jobee</title>
+
+	<!-- Styles -->
+	<link href="assets/css/app.min.css" rel="stylesheet">
+	<link href="assets/css/thejobs.css" rel="stylesheet">
+	<link href="assets/css/custom.css" rel="stylesheet">
+	<!-- DataTables CSS -->
+    <link href="assets/vendors/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+    <!-- DataTables Responsive CSS -->
+    <link href="assets/vendors/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+
+	<!-- Fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
+
+	<!-- Favicons -->
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+	<link rel="icon" href="assets/img/favicon.ico">
+</head>
+
+<body class="nav-on-header smart-nav">
+
+	<!-- Navigation bar -->
+	<nav class="navbar">
+		<div class="container">
+
+			<!-- Logo -->
+			<div class="pull-left">
+				<a class="navbar-toggle" href="#" data-toggle="offcanvas"><i class="ti-menu"></i></a>
+
+				<div class="logo-wrapper">
+					<a class="logo" href="index.html"><img src="assets/img/logo.png" alt="logo"></a>
+					<a class="logo-alt" href="index.html"><img src="assets/img/logo-alt.png" alt="logo-alt"></a>
+				</div>
+
+			</div>
+			<!-- END Logo -->
+
+			<!-- User account -->
+            <div class="pull-right">
+               <div class="dropdown user-account">
+                  <a class="user-account-text">Thành Huỳnh</a>
+                  <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                  <img src="assets/img/logo-envato.png" alt="avatar">
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-right">
+                     <li>
+                        <a href="candidate-account.html"><i class="fa fa-user" aria-hidden="true"></i> Tài khoản</a>
+                     </li>
+                     <li>
+                        <a href="candidate-resume-add.html"><i class="fa fa-file" aria-hidden="true"></i> Hồ sơ</a>
+                     </li>
+                     <li>
+                        <a href="candidate-jobs-have-apply.html"><i class="fa fa-check-circle" aria-hidden="true"></i> Đã ứng tuyển</a>
+                     </li>
+                     <li>
+                        <a href="#"><i class="fa fa-sign-out" aria-hidden="true"></i> Đăng xuất</a>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <!-- END User account -->
+
+			<!-- Navigation menu -->
+			<ul class="nav-menu">
+				<li>
+					<a class="active" href="index.html">Trang chủ</a>
+				</li>
+				<li>
+					<a href="company-list.html">Công ty</a>
+				</li>
+				<li>
+					<a href="job-list-1.html">Việc làm</a>
+				</li>
+				<li>
+					<a href="#">Blog</a>
+				</li>
+				<li>
+					<a href="#">Giới thiệu</a>
+				</li>
+			</ul>
+			<!-- END Navigation menu -->
+
+		</div>
+	</nav>
+	<!-- END Navigation bar -->
+
+	<form action="#">
+
+		<!-- Page header -->
+		<header class="page-header">
+			<div class="container page-name">
+				<h1 class="text-center">Danh sách việc làm đã ứng tuyển</h1>
+			</div>
+		</header>
+		<!-- END Page header -->
+
+
+		<!-- Main container -->
+		<main>
+			<section>
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="panel-body">
+								<div class="table-responsive">
+									<table width="100%" id="dataTables-example" class="table table-striped table-hover table-bordered-company">
+										<thead>
+											<tr>
+												<th>Tiêu đề việc làm</th>
+												<th>Địa điểm</th>
+												<th>Ngày ứng tuyển</th>
+												<th>Công ty</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td><a href="#">2 senior PHP Developer (Laravel/OOP)</a></td>
+												<td>Hồ Chí Minh</td>
+												<td>29/10/2017 6:20</td>
+												<td><a href="#">Global Cybersoft</a></td>
+											</tr>
+											<tr>
+												<td><a href="#">5 fresher developer C#</a></td>
+												<td>Đà Nẵng</td>
+												<td>2/12/2017 7:26</td>
+												<td><a href="#">CMC</a></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+
+		</main>
+		<!-- END Main container -->
+
+	</form>
+
+	<!-- Site footer -->
+	<footer class="site-footer">
+
+		<!-- Top section -->
+		<div class="container">
+			<div class="row">
+
+				<div class="col-xs-6 col-sm-6 col-md-3">
+					<h6>Việc làm theo nghành nghề</h6>
+					<ul class="footer-links">
+						<li><a href="job-list.html">Việc làm Kế toán</a></li>
+						<li><a href="job-list.html">Việc làm Ngân hàng</a></li>
+						<li><a href="job-list.html">Việc làm IT - Phần mềm</a></li>
+						<li><a href="job-list.html">Việc làm IT-Phần cứng/Mạng</a></li>
+						<li><a href="job-list.html">Việc làm Xây dựng</a></li>
+					</ul>
+				</div>
+
+				<div class="col-xs-6 col-sm-6 col-md-3">
+					<ul class="footer-links">
+						<br>
+						<li><a href="job-list.html">Việc làm Quảng cáo/Khuyến mãi</a></li>
+						<li><a href="job-list.html">Việc làm Hàng không/Du lịch</a></li>
+						<li><a href="job-list.html">Việc làm Giáo dục/Đào tạo</a></li>
+						<li><a href="job-list.html">Việc làm Điện/Điện tử</a></li>
+						<li><a href="job-list.html">Việc làm Bán hàng</a></li>
+					</ul>
+				</div>
+
+				<div class="col-xs-6 col-sm-6 col-md-3">
+					<h6>Việc làm IT theo công ty</h6>
+					<ul class="footer-links">
+						<li><a href="page-about.html">Global CyberSoft</a></li>
+						<li><a href="page-typography.html">Vingroup</a></li>
+						<li><a href="page-faq.html">Capella Holding</a></li>
+						<li><a href="page-typography.html">Vietjetair</a></li>
+						<li><a href="page-contact.html">Standard Charter</a></li>
+					</ul>
+				</div>
+
+
+				<div class="col-xs-6 col-sm-6 col-md-3">
+					<h6>Việc làm IT theo thành phố</h6>
+					<ul class="footer-links">
+						<li><a href="job-list.html">Hồ Chí Minh</a></li>
+						<li><a href="job-list.html">Hà Nội</a></li>
+						<li><a href="job-list.html">Đà Nẵng</a></li>
+						<li><a href="job-list.html">Thêm</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<hr>
+		</div>
+		<!-- END Top section -->
+
+		<!-- Bottom section -->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-sm-6 col-xs-12">
+					<p class="copyright-text">Copyrights &copy; 2017 All Rights Reserved by <a href="#">Shines Team</a>.</p>
+				</div>
+
+				<div class="col-md-4 col-sm-6 col-xs-12">
+					<ul class="social-icons">
+						<li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+						<li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+						<li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+						<li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+						<li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- END Bottom section -->
+
+	</footer>
+	<!-- END Site footer -->
+
+
+
+	<!-- Back to top button -->
+	<a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
+	<!-- END Back to top button -->
+
+	<!-- Scripts -->
+	<script src="assets/js/app.min.js"></script>
+	<script src="assets/js/thejobs.js"></script>
+	<script src="assets/js/custom.js"></script>
+	 <!-- DataTables JavaScript -->
+      <script src="assets/vendors/datatables/js/jquery.dataTables.min.js"></script>
+      <script src="assets/vendors/datatables-plugins/dataTables.bootstrap.min.js"></script>
+      <script src="assets/vendors/datatables-responsive/dataTables.responsive.js"></script>
+      <script>
+         $(document).ready(function() {
+             $('#dataTables-example').DataTable({
+                 responsive: true
+             });
+         });
+      </script>
+
+
+</body>
+</html>

@@ -43,11 +43,23 @@
                   <img src="assets/img/logo-envato.png" alt="avatar">
                   </a>
                   <ul class="dropdown-menu dropdown-menu-right">
-                     <li><a href="user-login.html">Tài khoản</a>
+                     <li>
+                        <a href="mn-account-company.html"><i class="fa fa-user" aria-hidden="true"></i> Tài khoản</a>
                      </li>
-                     <li><a href="user-register.html">Hồ sơ</a>
+                     <li>
+                        <a href="mn-dashboard-company.html"><i class="fa fa-tachometer" aria-hidden="true"></i> Bảng điều khiển</a>
                      </li>
-                     <li><a href="#">Đăng xuất</a>
+                     <li>
+                        <a href="mn-information-company.html"><i class="fa fa-building-o" aria-hidden="true"></i> Công ty của bạn</a>
+                     </li>
+                     <li>
+                        <a href="mn-joblist-company.html"><i class="fa fa-newspaper-o" aria-hidden="true"></i> Việc làm đã đăng</a>
+                     </li>
+                     <li>
+                        <a href="mn-application-list-company.html"><i class="fa fa-users" aria-hidden="true"></i> Danh sách ứng tuyển</a>
+                     </li>
+                     <li>
+                        <a href="#"><i class="fa fa-sign-out" aria-hidden="true"></i> Đăng xuất</a>
                      </li>
                   </ul>
                </div>
@@ -78,7 +90,7 @@
       <!-- Page header -->
       <header class="page-header">
          <div class="container page-name">
-            <h1 class="text-center">Danh sách việc làm</h1>
+            <h1 class="text-center">Danh sách tin tuyển dụng của bạn</h1>
          </div>
       </header>
       <!-- END Page header -->
@@ -96,40 +108,47 @@
                               <th>Tiêu đề việc làm</th>
                               <th>Lĩnh Vực</th>
                               <th>Lương</th>
-                              <th>Địa điểm</th>
                               <th>Ngày đăng</th>
                               <th>Ngày hết hạn</th>
                               <th>Lượt xem</th>
-                              <th>Loại việc làm</th>
-                              <th>TAG</th>
+                              <th>Trạng thái</th>
+                              <th>Thao tác</th>
                            </tr>
                         </thead>
                         <tbody>
                            <tr>
-                              <td>2 senior PHP Developer (Laravel/OOP)</td>
+                              <td><a href="job-detail-preview.html" target="_blank">2 senior PHP Developer (Laravel/OOP)</a></td>
                               <td>IT - Phần Mềm</td>
                               <td>10 000 000 - 15 000 000 VND</td>
-                              <td>Hồ Chí Minh</td>
                               <td>29/10/2017 6:20</td>
                               <td>29/11/2017 18:00</td>
                               <td>756</td>
                               <td>
-								<span class="label label-warning">Part-time</span>
-							</td>
-                              <td>PHP</td>
+								  <span class="label label-warning">Đang chờ</span>
+							  </td>
+                              <td>
+                                 <center>
+                                 <a href="mn-job-add-company.html" target="_blank"><abbr title="Sửa"><i class="fa fa-pencil" aria-hidden="true"></i></abbr></a>
+                                 <a href="#"><abbr title="Xóa"><i class="fa fa-trash" aria-hidden="true"></i></abbr></a>
+                                 </center>
+                              </td>
                            </tr>
                            <tr>
-                              <td>5 fresher developer C#</td>
+                              <td><a href="job-detail.html" target="_blank">5 fresher developer C#</a></td>
                               <td>IT - Phần Mềm</td>
                               <td>5 000 000 - 10 000 000 VND</td>
-                              <td>Đà Nẵng</td>
                               <td>2/12/2017 7:26</td>
                               <td>2/1/2018 10:00</td>
                               <td>187</td>
                               <td>
-                              	<span class="label label-success">Full-time</span>
+                              	<span class="label label-success">Đã duyệt</span>
                               </td>
-                              <td>C#, ASP.NET</td>
+                              <td>
+                                 <center>
+                                 <a href="mn-job-add-company.html" target="_blank"><abbr title="Sửa"><i class="fa fa-pencil" aria-hidden="true"></i></abbr></a>
+                                 <a href="#"><abbr title="Xóa"><i class="fa fa-trash" aria-hidden="true"></i></abbr></a>
+                                 </center>
+                              </td>
                            </tr>
                         </tbody>
                      </table>
@@ -137,6 +156,7 @@
             </div>
         </div>
     </div>
+    <a class="btn btn-success-detail" href="mn-job-add-company.html" target="_blank">Thêm tin tuyển dụng</a>
 </div>
          </section>
       </main>

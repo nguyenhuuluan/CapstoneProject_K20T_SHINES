@@ -40,11 +40,62 @@
     </div>
     <!-- END Logo -->
 
-    <!-- User account -->
-    <div class="pull-right user-login">
-      <a class="btn btn-sm btn-primary" href="user-login.html">Đăng kí</a> | <a href="user-register.html">Đăng nhập</a>
-    </div>
-    <!-- END User account -->
+    <!-- SignUp/SignIn Candidate-->
+      <div id="id02" class="modal fade">
+        <form class="modal-content animate" action="#">
+          <div class="login-block">
+            <img src="assets/img/logo.png" alt="">
+            <br><br>
+            <ul class="nav nav-tabs">
+              <li class="active">
+                <a data-toggle="tab" onclick="modalSignInOut('dangnhap')" href="#">Đăng nhập</a>
+              </li>
+              <li>
+                <a data-toggle="tab" onclick="modalSignInOut('dangky')" href="#">Đăng ký</a>
+              </li>
+            </ul>
+
+            <div id="dangnhap" class="modalinout">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="ti-email"></i></span>
+                  <input type="text" class="form-control" placeholder="Email">
+                </div>
+              </div>
+              <hr class="hr-xs">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="ti-unlock"></i></span>
+                  <input type="password" class="form-control" placeholder="Mật khẩu">
+                </div>
+              </div>
+              <button class="btn btn-primary btn-block" type="submit">Đăng Nhập</button>
+              <div class="login-links">
+                <center><a href="forget-password.html">Quên mật khẩu?</a></center>
+              </div>
+            </div>
+
+            <div id="dangky" class="modalinout" style="display:none">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="ti-email"></i></span>
+                  <input name="emailCompany" type="text" class="form-control" placeholder="Email">
+                </div>
+              </div>
+              <button name="registerCandidate" class="btn btn-primary btn-block" type="submit">Đăng Ký</button><br>
+            </div>
+            
+          </div>
+        </form>
+      </div>
+
+      <!-- End SignUp/SignIn Candidate -->
+
+      <!-- User account -->
+      <div class="pull-right user-login">
+        <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#id02" href="#">Đăng nhập</a> | <a href="#">Nhà tuyển dụng</a>
+      </div>
+      <!-- END User account -->
 
     <!-- Navigation menu -->
     <ul class="nav-menu">
@@ -247,6 +298,16 @@
 <script src="assets/js/app.min.js"></script>
 <script src="assets/js/thejobs.js"></script>
 <script src="assets/js/custom.js"></script>
+<script>
+        function modalSignInOut(nameinout) {
+          var i;
+          var x = document.getElementsByClassName("modalinout");
+          for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";  
+          }
+          document.getElementById(nameinout).style.display = "block";  
+        }
+      </script>
 
 </body>
 </html>
