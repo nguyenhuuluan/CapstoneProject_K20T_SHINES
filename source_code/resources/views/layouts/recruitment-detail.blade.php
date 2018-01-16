@@ -10,16 +10,16 @@
   <title>Jobee</title>
 
   <!-- Styles -->
-  <link href="../assets/css/app.min.css" rel="stylesheet">
-  <link href="../assets/css/thejobs.css" rel="stylesheet">
-  <link href="../assets/css/custom.css" rel="stylesheet">
+  <link href="{{ asset('/assets/css/app.min.css') }}" rel="stylesheet">
+  <link href=" {{ asset('/assets/css/thejobs.css') }}" rel="stylesheet">
+  <link href="{{ asset('/assets/css/custom.css') }}" rel="stylesheet">
 
   <!-- Fonts -->
   <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
 
   <!-- Favicons -->
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="icon" href="assets/img/favicon.ico">
+  <link rel="apple-touch-icon" href="{{ asset('/apple-touch-icon.png') }}">
+  <link rel="icon" href="{{ asset('assets/img/favicon.ico') }} ">
 </head>
 {{-- @extends('layouts.masterlayout')
 @section('content') --}}
@@ -28,29 +28,29 @@
   <!-- Navigation bar -->
   @include('layouts.header')
 
-   <!-- END Navigation bar -->
+  <!-- END Navigation bar -->
 
-   @yield('page-header')
-   <!-- Page header -->
+  @yield('page-header')
+  <!-- Page header -->
 
-   <!-- END Page header -->
+  <!-- END Page header -->
 
-   @yield('main-container')
-   <!-- Main container -->
+  @yield('main-container')
+  <!-- Main container -->
 
-   <!-- END Main container -->
+  <!-- END Main container -->
 
- <!-- Site footer -->
+  <!-- Site footer -->
   @include('layouts.footer')
-<!-- END Site footer -->
+  <!-- END Site footer -->
 
 
 
 
-<!-- Scripts -->
-<script src="../assets/js/app.min.js"></script>
-<script src="../assets/js/thejobs.js"></script>
-<script src="../assets/js/custom.js"></script>
+  <!-- Scripts -->
+  <script src="{{ asset('/assets/js/app.min.js') }}"></script>
+  <script src=" {{ asset('/assets/js/thejobs.js') }}"></script>
+  <script src="{{ asset('/assets/js/custom.js') }}"></script>
 
 </body>
 {{-- @endsection --}}

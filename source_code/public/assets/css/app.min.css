@@ -3002,7 +3002,7 @@ table th[class*=col-] {
 
 .table-responsive {
   min-height:.01%;
-  overflow-x:auto;
+  /*overflow-x:auto;*/
 }
 
 @media screen and (max-width:767px) {
@@ -6893,16 +6893,19 @@ button.close {
 }
 
 .modal {
-  position:fixed;
-  top:0;
-  right:0;
-  bottom:0;
-  left:0;
-  z-index:1050;
-  display:none;
-  -webkit-overflow-scrolling:touch;
-  outline:0;
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
 }
+
 
 .modal.fade .modal-dialog {
   transition:-webkit-transform .3s ease-out;
@@ -6928,16 +6931,6 @@ button.close {
   margin:10px;
 }
 
-.modal-content {
-  position:relative;
-  background-color:#fff;
-  background-clip:padding-box;
-  border:1px solid #999;
-  border:1px solid rgba(0,0,0,.2);
-  border-radius:6px;
-  outline:0;
-  box-shadow:0 3px 9px rgba(0,0,0,.5);
-}
 
 .modal-backdrop {
   position:fixed;
@@ -6945,7 +6938,7 @@ button.close {
   right:0;
   bottom:0;
   left:0;
-  z-index:1040;
+  z-index: auto;
   background-color:#000;
 }
 
@@ -12804,6 +12797,7 @@ select.selectpicker {
   width:100%;
   padding-right:25px;
   z-index:1;
+  height: 36px;
 }
 
 .bootstrap-select>select {

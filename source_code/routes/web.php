@@ -72,8 +72,9 @@ Route::GET('password/reset/{token}','Representative\ResetPasswordController@show
 
 
 //Representative Controller
-Route::middleware(['representative', 'web'])->group(function () {
 
+Route::middleware(['representative', 'web'])->group(function () {
+	Route::GET('representative', 'Representative\RepresentativeController@index');   
 	Route::GET('representative/home', 'Representative\RepresentativeController@index');   
 	Route::resource('representative/recruitment', 'Representative\RepresentativeRecruitmentController');
 

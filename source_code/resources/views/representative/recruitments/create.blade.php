@@ -1,139 +1,92 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Post a job position or create your online resume by TheJobs!">
-	<meta name="keywords" content="">
+@extends('layouts.representative')
 
-	<title>Jobee</title>
-
-	<!-- Styles -->
-	<link href="{{asset('assets/css/app.min.css')}}" rel="stylesheet">
-	
-	<link href="{{asset('assets/css/thejobs.css')}}" rel="stylesheet">
-	<link href="{{asset('assets/css/custom.css')}}" rel="stylesheet">
+@section('styles')
 	<link href="{{asset('assets/vendors/summernote/summernote.css')}}" rel="stylesheet">
 	
 
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
-	
+@endsection
 
-	<!-- Fonts -->
-	<link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
-
-	<!-- Favicons -->
-	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-	<link rel="icon" href="{{ asset('assets/img/favicon.ico') }}">
-</head>
-<body class="nav-on-header smart-nav">
-
-	<!-- Navigation bar -->
-	<nav class="navbar">
+@section('body')
+	   	<main>
+		@if(Session::has('comment_message'))
 		<div class="container">
-			<!-- Logo -->
-			<div class="pull-left">
-				<a class="navbar-toggle" href="#" data-toggle="offcanvas"><i class="ti-menu"></i></a>
-
-				<div class="logo-wrapper">
-					<a class="logo" href="index.html"><img src="{{ asset('assets/img/logo.png') }}" alt="logo"></a>
-					<a class="logo-alt" href="index.html"><img src="{{ asset('assets/img/logo-alt.png') }}" alt="logo-alt"></a>
-				</div>
-			</div>
-			<!-- END Logo -->
-			<!-- User account -->
-			<div class="pull-right">
-				<div class="dropdown user-account">
-					<a class="user-account-text">Thành Huỳnh</a>
-					<a class="dropdown-toggle" href="#" data-toggle="dropdown">
-						<img src="{{ asset('assets/img/logo-envato.png') }}" alt="avatar">
-					</a>
-
-					<ul class="dropdown-menu dropdown-menu-right">
-						<li><a href="user-login.html">Tài khoản</a></li>
-						<li><a href="user-register.html">Hồ sơ</a></li>
-						<li><a href="#">Đăng xuất</a></li>
-					</ul>
-				</div>
-			</div>
-			<!-- END User account -->
-			
-			<!-- Navigation menu -->
-			<ul class="nav-menu">
-				<li>
-					<a class="active" href="index.html">Trang chủ</a>
-				</li>
-				<li>
-					<a href="company-list.html">Công ty</a>
-				</li>
-				<li>
-					<a href="job-list-1.html">Việc làm</a>
-				</li>
-				<li>
-					<a href="#">Blog</a>
-				</li>
-				<li>
-					<a href="#">Giới thiệu</a>
+			<ul class="alert alert-success">
+				<li> 
+					{{ session('comment_message') }}
 				</li>
 			</ul>
-			<!-- END Navigation menu -->
-
-		</div>
-	</nav>
-	<!-- END Navigation bar -->
-
-
-	<!-- Page header -->
-	<header class="page-header">
-		<div class="container page-name">
-			<h1 class="text-center">Thêm việc làm</h1>
-			<p class="lead text-center">Tìm kiếm những ứng viên yêu thích công việc của bạn</p>
-		</div>
-	</header>
-	<!-- END Page header -->
-
-
-	<!-- Main container -->
-	<main>
-		@if(Session::has('comment_message'))	
-		{{ session('comment_message') }}
+			
+		</div>	
 		@endif
+
+{{-- 		@if (count($errors))
+		<ul class="alert alert-danger">
+			@foreach ($errors->all() as $error)
+			<li>{{ $error }}</li>
+			@endforeach
+		</ul>
+		@endif --}}
 		{!! Form::open(['method'=>'POST', 'action'=>'Representative\RepresentativeRecruitmentController@store']) !!}
 		<section>
 			<div class="container">
 				<div class="row">
-					<div class="form-group col-xs-12 col-sm-12">
-						{!! Form::text('title', null,['class'=>'form-control', 'placeholder'=>'Tiêu đề tin tuyển dụng']) !!}
+					<div class="form-group col-xs-12 col-sm-12 {{ $errors->has('title') ? ' has-error' : '' }}">
+						{!! Form::text('title', null,['class'=>'form-control', 'placeholder'=>'Tiêu đề tin tuyển dụng', 'value'=> old('title') ]) !!}
+						@if ($errors->has('title'))
+						<span class="help-block">
+							<strong>Tiêu đề không được bỏ trống!</strong>
+						</span>
+						@endif
 					</div>
 					
-					<div class="form-group col-xs-12 col-sm-6 col-md-6">
+					<div class="form-group col-xs-12 col-sm-6 col-md-6 {{ $errors->has('expire_date') ? ' has-error' : '' }}">
 						<div class="input-group input-group-sm">
 							<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
-							{!! Form::text('date', null, ['class'=>'form-control', 'placeholder'=>'Ngày hết hạn' , 'id' => 'datepicker']) !!}
+							{!! Form::text('expire_date', old('expire_date'), ['class'=>'form-control', 'placeholder'=>'Ngày hết hạn' , 'id' => 'datepicker']) !!}
 						</div>
+						@if ($errors->has('expire_date'))
+						<span class="help-block">
+							<strong>Ngày hết hạn không được bỏ trống!</strong>
+						</span>
+						@endif
 					</div>
 
-					<div class="form-group col-xs-12 col-sm-6 col-md-6">
+					<div class="form-group col-xs-12 col-sm-6 col-md-6 {{ $errors->has('category_id') ? ' has-error' : '' }}">
 						<div class="input-group input-group-sm">
 							<span class="input-group-addon"><i class="fa fa-briefcase"></i></span>
-							{!! Form::select('category_id[]', $categories, null,['class'=>'form-control selectpicker', 'multiple'=>true,'title'=>'Chưa chọn vị trí tuyển dụng']) !!}
+							{!! Form::select('category_id[]', $categories, old('category_id'),['class'=>'form-control selectpicker', 'multiple'=>true,'title'=>'Chưa chọn vị trí tuyển dụng']) !!}
 						</div>
+						@if ($errors->has('category_id'))
+						<span class="help-block">
+							<strong>Vui lòng chọn vị trí tuyển dụng!</strong>
+						</span>
+						@endif
 					</div>
 
-					<div class="form-group col-xs-12 col-sm-6 col-md-6">
+					<div class="form-group col-xs-12 col-sm-6 col-md-6 {{ $errors->has('salary') ? ' has-error' : '' }}">
 						<div class="input-group input-group-sm">
 							<span class="input-group-addon"><i class="fa fa-money-recruitment"></i></span>
-							{!! Form::text('salary', null, ['class'=>'form-control', 'placeholder'=>'8.000.000 VNĐ - 15.000.000 VNĐ', 'autocomplete'=>'off']) !!}
+							{!! Form::text('salary', null, ['class'=>'form-control', 'placeholder'=>'8.000.000 VNĐ - 15.000.000 VNĐ', 'autocomplete'=>'off', 'value'=> old('salary')]) !!}
 						</div>
+						@if ($errors->has('salary'))
+						<span class="help-block">
+							<strong>Vui lòng nhập lương!</strong>
+						</span>
+						@endif
 					</div>
 
-					<div class="form-group col-xs-12 col-sm-6 col-md-6">
+					<div class="form-group col-xs-12 col-sm-6 col-md-6 {{ $errors->has('hidden-tags') ? ' has-error' : '' }}">
 						<div class="input-group input-group-sm">
 							<span class="input-group-addon"><i class="fa fa-tag"></i></span>
-							{!! Form::text('tags', null, ['class'=>'typeahead tm-input form-control tm-input-info', 'id'=>'typeahead', 'placeholder'=>'Tags', 'autocomplete'=>'off']) !!}
+							{!! Form::text('tags', null, ['class'=>'typeahead tm-input form-control tm-input-info', 'id'=>'typeahead', 'placeholder'=>'Tags', 'autocomplete'=>'off', 'value'=> old('hidden-tags')]) !!}
 						</div>
+						@if ($errors->has('hidden-tags'))
+						<span class="help-block">
+							<strong>TAG không hợp lệ!</strong>
+						</span>
+						@endif
 					</div>
 
 					<div class="form-group col-xs-12 col-sm-12">
@@ -165,24 +118,12 @@
 
 		{!! Form::close() !!}				
 	</main>
-	<!-- END Main container -->
+@endsection
 
+@section('scripts')
 
-	<!-- Site footer -->
-	@include('layouts.footer')
-	<!-- END Site footer -->
-
-
-	<!-- Back to top button -->
-	<a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
-	<!-- END Back to top button -->
-
-	<!-- Scripts -->
-	<script src="{{ asset('assets/js/app.min.js') }}"></script>
 	<script src="{{ asset('assets/vendors/summernote/summernote.min.js') }}"></script>
-	<script src="{{ asset('assets/js/thejobs.js') }}"></script>
-	<script src="{{ asset('assets/js/custom.js') }}"></script>
-	
+
 	{{-- <script src="//code.jquery.com/jquery-1.10.2.js"></script> --}}
 	{{-- <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script> --}}
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
@@ -193,17 +134,15 @@
 		$(function() {
 			$( "#datepicker" ).datepicker();
 			$( "#datepicker" ).datepicker( "option", "dateFormat", 'dd/mm/yy');
-
-
 			
 		});
 		$(".summernote").summernote({
-			toolbar: [
-		    // [groupName, [list of button]]
-		    ['style', ['bold', 'italic']],
-		    ['para', ['ul', 'ol']],
-		    ],
-		    height: 200
+			// toolbar: [
+		 //    // [groupName, [list of button]]
+		 //    ['style', ['bold', 'italic']],
+		 //    ['para', ['ul', 'ol']],
+		 //    ],
+		 height: 200
 		});
 		$(document).ready(function() {
 			var tags = $(".tm-input").tagsManager();
@@ -220,5 +159,4 @@
 			});
 		});
 	</script>
-</body>
-</html>
+@endsection

@@ -10,6 +10,9 @@ use App\Category;
 use App\Recruitment;
 use App\Section;
 use App\Company;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;    
 
 class RepresentativeRecruitmentController extends Controller
 {
@@ -18,9 +21,18 @@ class RepresentativeRecruitmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct(){
+        //$this->middleware('auth')->only(['create','store']);
+
+        $this->middleware('auth');
+    }
     public function index()
     {
         //
+        $recruitments = Recruitment::all();
+        return view('representative.recruitments.index',compact('recruitments'));
+
     }
 
     /**
@@ -44,18 +56,31 @@ class RepresentativeRecruitmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+        $request['hidden-tags'] = explode(',', $request['hidden-tags']);
+        //return $request;
+
+        $this->validate($request,[
+            'title'=>'required',
+            'salary'=>'required',
+            'expire_date'=>'required',
+            'category_id'=>'required',
+            'hidden-tags'=>'required|array|exists:tags,name',
+            //'hidden-tags'=>'required',
+        ]);
+
+
         $input = $request->all();
         $user = Auth::user();
+        //$user = Account::find(auth()->id());
         $tags = explode(',', $input['hidden-tags']); 
         $data = [
             'title'=>$request->title,
             'salary'=>$request->salary,
             'number_of_view'=>'0',
-            'expire_date'=>date("Y-m-d", strtotime($request->date)),
+            'expire_date'=>date("Y-m-d", strtotime($request->expire_date)),
             'is_hot'=>'0',
-            'status_id'=>'1',
+            'status_id'=>'8',
             'company_id'=>$user->representative->company->id,
         ];
 
