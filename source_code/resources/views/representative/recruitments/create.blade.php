@@ -10,24 +10,15 @@
 
 @section('body')
 	   	<main>
-		@if(Session::has('comment_message'))
-		<div class="container">
-			<ul class="alert alert-success">
-				<li> 
-					{{ session('comment_message') }}
-				</li>
-			</ul>
-			
-		</div>	
-		@endif
 
-{{-- 		@if (count($errors))
+		{{-- @if (count($errors))
 		<ul class="alert alert-danger">
 			@foreach ($errors->all() as $error)
 			<li>{{ $error }}</li>
 			@endforeach
 		</ul>
 		@endif --}}
+
 		{!! Form::open(['method'=>'POST', 'action'=>'Representative\RepresentativeRecruitmentController@store']) !!}
 		<section>
 			<div class="container">
@@ -77,12 +68,12 @@
 						@endif
 					</div>
 
-					<div class="form-group col-xs-12 col-sm-6 col-md-6 {{ $errors->has('hidden-tags') ? ' has-error' : '' }}">
+					<div class="form-group col-xs-12 col-sm-6 col-md-6 {{ $errors->has('tags') ? ' has-error' : '' }}">
 						<div class="input-group input-group-sm">
 							<span class="input-group-addon"><i class="fa fa-tag"></i></span>
 							{!! Form::text('tags', null, ['class'=>'typeahead tm-input form-control tm-input-info', 'id'=>'typeahead', 'placeholder'=>'Tags', 'autocomplete'=>'off', 'value'=> old('hidden-tags')]) !!}
 						</div>
-						@if ($errors->has('hidden-tags'))
+						@if ($errors->has('tags'))
 						<span class="help-block">
 							<strong>TAG không hợp lệ!</strong>
 						</span>
@@ -100,7 +91,7 @@
 				<header class="section-header">
 					<h3>{!! $section->title !!}</h3>
 				</header>
-				{!! Form::textarea($section->id , null,['class'=>'summernote', 'rows'=>5]) !!}
+				{!! Form::textarea('sections['.$section->id.']' , null,['class'=>'summernote', 'rows'=>5]) !!}
 			</div>
 			<br>
 			@endforeach

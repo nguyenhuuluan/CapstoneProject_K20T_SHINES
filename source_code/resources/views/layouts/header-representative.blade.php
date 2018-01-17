@@ -29,7 +29,7 @@
                   <a href="mn-information-company.html"><i class="fa fa-building-o" aria-hidden="true"></i> Công ty của bạn</a>
                </li>
                <li>
-                  <a href="/representative/recruitment"><i class="fa fa-newspaper-o" aria-hidden="true"></i> Việc làm đã đăng</a>
+                  <a href="{{ route('recruitments.index') }}"><i class="fa fa-newspaper-o" aria-hidden="true"></i> Việc làm đã đăng</a>
                </li>
                <li>
                   <a href="mn-application-list-company.html"><i class="fa fa-users" aria-hidden="true"></i> Danh sách ứng tuyển</a>

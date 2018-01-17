@@ -12,7 +12,14 @@
 <main>
    <section>
       <div class="container">
-         <div class="row">
+         <div class="row"> 
+            @if(Session::has('comment_message'))
+            <div class="container">
+               <ul class="alert alert-success">
+                  {{ session('comment_message') }}
+               </ul>
+            </div>   
+            @endif
             <div class="col-lg-12">
                <div class="panel-body">
                   <div class="table-responsive">
@@ -35,6 +42,8 @@
                            <tr>
                               <td>{{ $recruitment->id }}</td>
                               <td><a href="{{ $recruitment->path() }}" target="_blank">{{ $recruitment->title }}</a></td>
+                              <td>{{ $recruitment->salary }}</td>
+                              
                               <td>
                                  <?php foreach ($recruitment->tags as $tag){
                                     echo '<span class="label label-default">'.$tag->name.'</span>';
@@ -42,7 +51,6 @@
                                  ?>
                                  
                               </td>
-                              <td>{{ $recruitment->salary }}</td>
                               <td>{{ $recruitment->created_at }}</td>
                               <td>{{ $recruitment->expire_date }}</td>
                               <td><center>{{ $recruitment->number_of_view }}</center></td>
@@ -70,7 +78,7 @@
                </div>
             </div>
          </div>
-         <a class="btn btn-success-detail" href="{{ route('recruitment.create') }}" target="_blank">Thêm tin tuyển dụng</a>
+         <a class="btn btn-success-detail" href="{{ route('recruitments.create') }}" target="_blank">Thêm tin tuyển dụng</a>
       </div>
    </section>
 </main>

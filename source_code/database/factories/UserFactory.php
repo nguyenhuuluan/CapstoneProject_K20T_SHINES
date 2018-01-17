@@ -117,7 +117,7 @@ $factory->define(App\Recruitment::class, function(Faker $faker){
 	//$faker->locale = "vi_VN";
 	return [
 		'title'=>$faker->sentence,
-		'salary'=>$faker->numberBetween($min = 5000000, $max = 15000000),
+		'salary'=>'dsadsa',
 		'expire_date'=>$faker->date($format = 'Y-m-d', $max = 'now'),
 		'is_hot'=>0,
 		'status_id'=> 1,
