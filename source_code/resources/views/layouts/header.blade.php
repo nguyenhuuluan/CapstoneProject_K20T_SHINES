@@ -66,19 +66,38 @@
       </div>
     </form>
     <form method="POST" action="{{ route('student.register') }}">
-       {{ csrf_field() }}
-      <div id="dangky" class="modalinout" style="display:none">
-        <div class="form-group">
-          <div class="input-group">
-            <span class="input-group-addon"><i class="ti-email"></i></span>
-            <input name="email" type="email" class="form-control" placeholder="Email">
-          </div>
+     {{ csrf_field() }}
+
+     <div id="dangky" class="modalinout" style="display:none">
+
+      @if(Session::has('resigter-success'))
+        <br>
+        <div class="alert alert-success">         
+          <span>{!! session('resigter-success') !!}</span>
         </div>
+      @elseif(Session::has('email-invalid'))
+        <br>
+        <div class="alert alert-danger">         
+          <span>{!! session('email-invalid') !!}</span>
+        </div>
+      @elseif(Session::has('email-exist'))
+        <br>
+        <div class="alert alert-warning">         
+          <span>{!! session('email-exist') !!}</span>
+        </div>
+      @endif
+
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="ti-email"></i></span>
+          <input name="email" type="email" class="form-control" value="{{ old('email') }}" placeholder="Email: jobee@vanlanguni.vn">
+        </div>
+      </div>
 
       <button name="registerCandidate" class="btn btn-primary btn-block" type="submit">Đăng Ký</button>
     </form>
- </div>
   </div>
+</div>
 </div>
 
 
@@ -154,3 +173,4 @@
     document.getElementById(nameinout).style.display = "block";  
   }
 </script>
+
