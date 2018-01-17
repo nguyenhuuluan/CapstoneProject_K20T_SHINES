@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use Response;
 
 use App\Account;
+use App\Faculty;
+use App\Company;
+
+use Mail;
 
 class StudentController extends Controller
 {
@@ -50,18 +54,16 @@ class StudentController extends Controller
 			return redirect()->route("home")->withInput();
 		}
 
-		$input = $request->all();
-		$input["remember_token"] = str_random(40);
-		$input["status_id"] = 6;
-
 		
-		Account::create([
+		$acc = Account::create([
 			"username" => $request["email"],
 			"remember_token" => str_random(40),
 			"status_id" => 6
 		]);
 
 		$request->session()->flash('resigter-success', '<strong>Đăng ký thành công</strong>, vui lòng kiểm tra Email để cập nhật thông tin tài khoản.');
+
+		$this->sendMail($acc);
 
 		return redirect()->route("home");
 	}
@@ -77,6 +79,29 @@ class StudentController extends Controller
 		}
 
 		return false;
+	}
+
+
+	public function sendMail($account)
+	{
+		Mail::send('students.email-confirm', ['account' => $account],  function ($message) use($account)
+        {
+             $message->to($account['username'])->subject('Xác Nhận');
+       });
+
+	}
+
+	public function confirm($token)
+	{
+		$acc = Account::where('remember_token', '=', $token)->first();
+
+		if (!$acc) {
+			return view('layouts2.custom-error-message')->with('errorMessage', 'Địa chỉ hiện tại không tồn tại');
+		}
+
+		$faculs = Faculty::pluck('name', 'id');
+
+		return view('students.confirm')->with(compact('acc','faculs'));
 	}
 
 	
