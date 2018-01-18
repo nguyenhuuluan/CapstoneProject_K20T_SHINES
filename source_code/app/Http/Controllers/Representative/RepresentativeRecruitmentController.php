@@ -41,7 +41,6 @@ class RepresentativeRecruitmentController extends Controller
     public function create()
     {
         //
-        $places = ["PHP", "JS"];
         $categories  = Category::pluck('name', 'id')->all();
         $sections = Section::all();
         return view('representative.recruitments.create',compact('categories', 'sections', 'places'));
@@ -56,36 +55,25 @@ class RepresentativeRecruitmentController extends Controller
     public function store(Request $request)
     {    
 
-       //$request['hidden-tags'] = explode(',', $request['hidden-tags']);
-        //$this->request->hidd = explode(',', $request['hidden-tags']);
-
+        //return $request;
         $tags = explode(',', request('hidden-tags')); 
-
-        //$request->request->remove('hidden-tags');
         $request->request->add(['tags' => $tags]); 
-
-
         $sections =  request('sections');
-
-        //return request('sections');
 
         $this->validate($request,[
             'title'=>'required',
             'salary'=>'required',
             'expire_date'=>'required',
-            'category_id'=>'required',
+            'category_id'=>'required|array|exists:categories,id',
             //'hidden-tags'=>'required|array|exists:tags,name',
-            'tags*.'=>'required|array|exists:tags,name',
+            'tags.*'=>'required|exists:tags,name',
             //'hidden-tags'=>'required',
         ]);
 
 
-
-        $input = $request->all();
-
         $user = Account::find(auth()->id());
         //$user = Account::find(auth()->id());
-        //$tags = request('hidden-tags'); 
+        //$tags = request('hidden-tags');
 
 
         $data = [
@@ -101,7 +89,7 @@ class RepresentativeRecruitmentController extends Controller
         switch (request('submitbutton')) {
             case 'Xem trước':
             $company = Company::findOrFail($data['company_id']);
-            $categories = Category::find($input['category_id']);
+            $categories = Category::find(request('category_id'));
             foreach ($tags as $key => $value) {
                 $tags2[]= Tag::where('name', $value)->first();
             }
@@ -122,17 +110,14 @@ class RepresentativeRecruitmentController extends Controller
             }
 
             /*Save categories*/
-            foreach ($input['category_id'] as $key => $value) {
+            foreach (request('category_id') as $key => $value) {
                 $recruitment->categories()->save(Category::find($value));
             }
 
             /*Save tagss*/
 
             foreach ($tags as $key => $value) {
-
-
                 $recruitment->tags()->save(Tag::where('name',$value)->first());
-
             }
 
             /* Create successful*/

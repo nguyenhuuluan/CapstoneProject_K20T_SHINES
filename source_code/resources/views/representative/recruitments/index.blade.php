@@ -43,7 +43,6 @@
                               <td>{{ $recruitment->id }}</td>
                               <td><a href="{{ $recruitment->path() }}" target="_blank">{{ $recruitment->title }}</a></td>
                               <td>{{ $recruitment->salary }}</td>
-                              
                               <td>
                                  <?php foreach ($recruitment->tags as $tag){
                                     echo '<span class="label label-default">'.$tag->name.'</span>';

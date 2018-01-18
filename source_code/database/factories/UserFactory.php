@@ -117,7 +117,7 @@ $factory->define(App\Recruitment::class, function(Faker $faker){
 	//$faker->locale = "vi_VN";
 	return [
 		'title'=>$faker->sentence,
-		'salary'=>'dsadsa',
+		'salary'=>'8.000.000VNĐ - 15.000.000VNĐ',
 		'expire_date'=>$faker->date($format = 'Y-m-d', $max = 'now'),
 		'is_hot'=>0,
 		'status_id'=> 1,
