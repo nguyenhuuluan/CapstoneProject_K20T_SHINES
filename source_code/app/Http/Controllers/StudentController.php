@@ -3,11 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Request\StudentRequests;
 use Response;
 
 use App\Account;
 use App\Faculty;
 use App\Company;
+use App\Student;
+
+
 
 use Mail;
 
@@ -85,9 +90,9 @@ class StudentController extends Controller
 	public function sendMail($account)
 	{
 		Mail::send('students.email-confirm', ['account' => $account],  function ($message) use($account)
-        {
-             $message->to($account['username'])->subject('Xác Nhận');
-       });
+		{
+			$message->to($account['username'])->subject('Xác Nhận');
+		});
 
 	}
 
@@ -102,6 +107,32 @@ class StudentController extends Controller
 		$faculs = Faculty::pluck('name', 'id');
 
 		return view('students.confirm')->with(compact('acc','faculs'));
+	}
+
+	public function confirmInfomation(\App\Http\Requests\StudentRequest $request)
+	{
+
+		$acc = Account::where('id', $request['account_id'])->first();
+		$acc->password = bcrypt($request['password']);
+		$acc->status_id = 5;
+		$acc->remember_token = null;
+
+		$stud = Student::create([
+			"name" => $request["name"],
+			"phone" => $request["phone"],
+			"dateofbirth" => $request["dateofbirth"],
+			"gender" => $request["gender"],
+			"faculty_id" => $request["faculty_id"],
+			"email" => $acc["username"]
+		]);
+
+		return redirect()->route('student.update-success');		
+
+	}
+
+	public function updateSuccess()
+	{
+		return view('layouts2.update-success');
 	}
 
 	

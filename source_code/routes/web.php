@@ -46,7 +46,9 @@ Route::get('/recruitment/{id}', 'RecruitmentController@detailrecruitment')->name
 
 Route::POST('student','StudentController@register')->name('student.register');
 Route::GET('student/confirm/{token}','StudentController@confirm')->name('student.confirm');
-Route::POST('student/confirm','StudentController@confirm')->name('student.confirm-information');
+Route::POST('student/confirm','StudentController@confirmInfomation')->name('student.confirm-information');
+Route::GET('student/update-success','StudentController@updateSuccess')->name('student.update-success');
+
 
 
 //Admin login
