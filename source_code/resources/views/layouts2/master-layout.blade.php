@@ -32,10 +32,14 @@
 
 
  <!-- Site header -->
- @include('layouts2.search-header')
+  {{-- @include('layouts2.search-header') --}}
  <!-- END Site header -->
 
-
+@if ($isDisplaySearchHeader)
+ @include('layouts2.search-header')
+@else
+<header class="page-header"></header>
+@endif
  <!-- Main container -->
  <main>
 
@@ -43,7 +47,7 @@
   @yield('content')
   <!-- <section></section> -->
   <!-- END Recent jobs -->
-  <section class="bg-img bg-repeat no-overlay section-sm" style="background-image: url({{ asset('assets/img/bg-pattern.png') }} )">
+ {{--  <section class="bg-img bg-repeat no-overlay section-sm" style="background-image: url({{ asset('assets/img/bg-pattern.png') }} )">
     @include('layouts2.general-value')
   </section>
   <!-- END Facts -->
@@ -64,7 +68,7 @@
   <!-- END Categories -->
 
   <!-- START TESTIMONIAL -->
-  @include('layouts.testimonial')
+  @include('layouts.testimonial') --}}
   <!-- END TESTIMONIAL -->
 </main>
 <!-- END Main container -->

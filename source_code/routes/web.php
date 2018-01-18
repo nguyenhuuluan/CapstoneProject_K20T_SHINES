@@ -30,19 +30,22 @@ Route::get('/test/{companyID}', 'CompanyController@test')->name('test');
 // Route::get('account_password/reset/{token}', 'AccountAuth\ResetPasswordController@showResetForm');
 // Route::post('account_password/reset', 'AccountAuth\ResetPasswordController@reset');
 
-//Company
 
-Route::get('/admin/getcompanies', 'CompanyController@getCompanies')->name('getcompanies');
-Route::get('/admin/company', 'CompanyController@index')->name('company');
-Route::get('/admin/company/approve/{companyID}', 'CompanyController@approveCompany')->name('approvecompany');
-Route::get('/admin/company/active/{companyID}', 'CompanyController@setActiveCompany')->name('activecompany');
 
+
+// Company Registration - WEB
+Route::get('/partnership', 'CompanyRegistrationController@partnership')->name('company.partnership');
+
+Route::GET('/partnership/register', 'CompanyRegistrationController@registerPartnershipForm')->name('company.register.partnership.form');
+Route::POST('/partnership/register', 'CompanyRegistrationController@registerPartnership')->name('company.register.partnership.store');
+
+
+// Recruitment - WEB
 Route::get('/recruitment/searchtag', 'RecruitmentController@searchtag')->name('searchtag');
-
 Route::get('/recruitment/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
 
 
-// Student
+// Student - WEB
 
 Route::POST('student','StudentController@register')->name('student.register');
 Route::GET('student/confirm/{token}','StudentController@confirm')->name('student.confirm');
@@ -51,7 +54,7 @@ Route::GET('student/update-success','StudentController@updateSuccess')->name('st
 
 
 
-//Admin login
+//Admin login - ADMIN
 Route::GET('admin','Admin\LoginController@showLoginForm')->name('admin.login');
 Route::POST('admin','Admin\LoginController@login');
 Route::POST('admin-password/email','Admin\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
@@ -60,16 +63,24 @@ Route::POST ('admin-password/reset','Admin\ResetPasswordController@reset');
 Route::GET('password/reset/{token}','Admin\ResetPasswordController@showResetForm')->name('admin.password.reset'); 
 
 
-//Admin Controller
+//Admin - ADMIN
 Route::middleware(['admin', 'web'])->group(function () {
 
 	Route::GET('admin/home', 'Admin\AdminController@index');  
 	Route::resource('admin/recruitment', 'Admin\AdminRecruitmentController') ;
 	//Route::get('/admin/recruitment/{id}/preview', 'RecruitmentController@preview')->name('preview');
+
+
+	//Company - ADMIN
+
+	Route::get('/admin/getcompanies', 'CompanyController@getCompanies')->name('getcompanies');
+	Route::get('/admin/company', 'CompanyController@index')->name('company');
+	Route::get('/admin/company/approve/{companyID}', 'CompanyController@approveCompany')->name('approvecompany');
+	Route::get('/admin/company/active/{companyID}', 'CompanyController@setActiveCompany')->name('activecompany');
 });
 
 
-//login representatitive 
+//login representatitive - WEB 
 Route::GET('representative','Representative\LoginController@showLoginForm')->name('representative.login');
 Route::POST('representative','Representative\LoginController@login');
 Route::POST('representative-password/email','Representative\ForgotPasswordController@sendResetLinkEmail')->name('representative.password.email');

@@ -1,4 +1,4 @@
-@section('search-header');
+
 <header class="site-header size-lg text-center" style="background-image: url({{ asset('assets/img/bg-banner1.jpg') }} )">
   <div class="container">
     <div class="col-xs-12">
@@ -24,5 +24,3 @@
 
   </div>
 </header>
-
-@endsection

@@ -9,6 +9,6 @@ class Student extends Model
     //
     protected $fillable = ['name','gender','email','phone','profile_photo','dateofbirth','account_id','faculty_id'];
 
-    protected $timestamp = true;
+    public $timestamp = true;
 
 }

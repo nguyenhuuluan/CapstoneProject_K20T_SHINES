@@ -116,12 +116,14 @@ class StudentController extends Controller
 		$acc->password = bcrypt($request['password']);
 		$acc->status_id = 5;
 		$acc->remember_token = null;
+		$acc->save();
 
 		$stud = Student::create([
 			"name" => $request["name"],
 			"phone" => $request["phone"],
 			"dateofbirth" => $request["dateofbirth"],
 			"gender" => $request["gender"],
+			"account_id" => $acc["id"],
 			"faculty_id" => $request["faculty_id"],
 			"email" => $acc["username"]
 		]);
