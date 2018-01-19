@@ -10,6 +10,8 @@
 
     <title>Jobee - Admin Page</title>
 
+    <link rel="stylesheet" href="{{asset('assets/vendors/modal-confirm/jquery-confirm.min.css')}}">
+
     <!-- Bootstrap Core CSS -->
     <link href="{{asset('assets/vendors/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
 
@@ -30,6 +32,12 @@
 
     <!-- Toggle CSS Button -->
     <link href="{{asset('assets/dist/css/bootstrap-toggle.min.css')}}" rel="stylesheet">
+
+    {{-- bootstrap switch --}}
+    <link href="{{asset('assets/vendors/bootstrap-switch/bootstrap-switch.css')}}" rel="stylesheet">
+
+    {{-- Custom style --}}
+    <link href="{{asset('assets/vendors/bootstrap/css/admin-custom.css')}}" rel="stylesheet">
 
     @yield('styles')
     
@@ -180,28 +188,53 @@
         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
-                    <li class="sidebar-search">
-                        <div class="input-group custom-search-form">
-                            <input type="text" class="form-control" placeholder="Tìm...">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                        </div>
-                        <!-- /input-group -->
-                    </li>
-                    <li>
-                        <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Tổng quan</a>
-                    </li>
-                    <li>
-                        <a href="listrecruitment.html"><i class="fa fa-dashboard fa-fw"></i> Việc làm</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('company') }}"><i class="fa fa-dashboard fa-fw"></i> Công ty</a>
-                    </li>
-                    
-                </ul>
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Tìm...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <!-- /input-group -->
+                        </li>
+                        <li>
+                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Bảng điều khiển</a>
+                        </li>
+                        <li>
+                            <a href="list-recruitment.html"><i class="fa fa-newspaper-o fa-fw"></i> Tin tuyển dụng</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-building fa-fw"></i> Công ty<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="{{route('company.registration')}}">Công ty đang chờ xác nhận</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('company') }}">Danh sách công ty</a>
+                                </li>
+                               
+                            </ul>
+                        </li>
+                         <li>
+                            <a href="#"><i class="fa fa-users fa-fw"></i> Danh sách tài khoản<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="list-account-company.html">Công ty</a>
+                                </li>
+                                <li>
+                                    <a href="list-account-candidate.html">Ứng viên</a>
+                                </li>
+                                <li>
+                                    <a href="list-account-staff.html">Nhân viên</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-pencil-square-o fa-fw"></i> Blog</a>
+                        </li>
+                    </ul>
             </div>
             <!-- /.sidebar-collapse -->
         </div>
@@ -230,9 +263,16 @@
 <!-- Custom Theme JavaScript -->
 <script src="{{asset('assets/dist/js/sb-admin-2.js')}}"></script>
 
+{{-- boostrap switch --}}
+<script src="{{asset('assets/vendors/bootstrap-switch/bootstrap-switch.js')}}"></script>
+
 
 <!-- Toggle JavaScript Button -->
 <script src="{{asset('assets/js/bootstrap-toggle.min.js')}}"></script>
+<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+
+{{-- using jquery modal confirm JS --}}
+<script src="{{asset('assets/vendors/modal-confirm/jquery-confirm.min.js')}}"></script>
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 
 <script>

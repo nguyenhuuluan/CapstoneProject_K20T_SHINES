@@ -77,6 +77,8 @@ Route::middleware(['admin', 'web'])->group(function () {
 	Route::get('/admin/company', 'CompanyController@index')->name('company');
 	Route::get('/admin/company/approve/{companyID}', 'CompanyController@approveCompany')->name('approvecompany');
 	Route::get('/admin/company/active/{companyID}', 'CompanyController@setActiveCompany')->name('activecompany');
+
+	Route::get('/admin/company/company-registration', 'CompanyController@companyRegistration')->name('company.registration');
 });
 
 
