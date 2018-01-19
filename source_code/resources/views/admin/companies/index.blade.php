@@ -4,6 +4,8 @@
 
 @section('body')
 
+
+
 <div id="page-wrapper">
     <div class="container-fluid">
         <div class="row">
@@ -39,20 +41,33 @@
                                             <td><a href="{{$comp->website}}">{{$comp->website}}</a></td>
                                             <td>{{$comp->email}}</td>
                                             <td>{{$comp->created_at}}</td>
-                                            <td>                  
-                                                @if ($comp->status_id == 7)
-                                                <button type="button" class="btn btn-default btn-approve">
-                                                    <input type="hidden" name="" class="hidden-company-id" value="{{$comp->id}}">
-                                                    <span class="glyphicon glyphicon-globe"></span> Xác nhận
-                                                </button>
-                                                @elseif ($comp->status_id == 3)
-                                                <input id="something" type="checkbox" class="status-switch" checked data-toggle="toggle" data-onstyle="success" data-size="mini" value="{{$comp->id}}">
+
+                                            <td>  
+
+                                                @if ($comp->status_id == 3)
+
+                                                <input type="checkbox" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" 
+                                                checked value="{{$comp->id}}" />
+                                                @elseif($comp->status_id == 4)                                           
+                                                <input type="checkbox" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" value="{{$comp->id}}" />
+
                                                 @else
-                                                <input id="something" type="checkbox" class="status-switch" data-toggle="toggle" data-onstyle="success" data-size="mini" value="{{$comp->id}}">
+
+                                                <input type="checkbox" disabled="true" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" 
+                                                checked value="{{$comp->id}}" />
+
                                                 @endif
                                             </td>
                                             <td>
+                                                @if ($comp->status_id == 7)
+                                                <button type="button" class="btn btn-default btn-approve" value = "{{$comp->id}}">
+                                                    {{-- <input type="hidden" name="" class="hidden-company-id" value="{{$comp->id}}"> --}}
+                                                    <span class="glyphicon glyphicon-globe"></span> Xác nhận
+                                                </button>
+                                                @endif
+
                                                 <button type="button" class="btnreview btn-success">Xem</button>
+
                                             </td>
 
                                         </tr>
@@ -80,77 +95,141 @@
 </div>
 
 
+
 @endsection
 
 @section('scripts')
 <script type="text/javascript">
 
-    $('.btn-approve').click(function() {
-     var r = confirm("Are you sure");
-     var valueid = $('.hidden-company-id').val(); 
-     if (r == true) {
-        approveCompany(valueid);
-    }
-});
-
-    $('.status-switch').change(function() {
-        var r = confirm("Are you sure");
-        var valueid = $(this).val(); 
-        if (r == true) {
-            activeCompany(valueid);
-
-        }
+    $('.switch').bootstrapSwitch({
+        size: 'small',
+        onText: 'Bật',
+        offText: 'Tắt'      
     });
 
+    $('.btn-approve').click(function() {
+
+     var currentelement = $(this);
+
+     $.confirm({
+        title: 'Thông báo!!',
+        content: 'Bạn có muốn xác nhận công ty này?',
+        buttons: {
+            Có: {
+                keys: ['enter'],
+                btnClass: 'btn-green',
+                action: function(){
+                    approveCompany(currentelement);
+                }
+            },
+            Không: {
+                keys: ['esc'],
+                btnClass: 'btn-red'              
+            }
+
+        }
+
+
+    });
+
+ });
+
+
+    $('.status-switch').on('switchChange.bootstrapSwitch', function (e, data) {
+
+        var element = $(this);
+
+        element.bootstrapSwitch('state', !data, true);
+
+        $.confirm({
+            title: 'Thông báo!!',
+            content: 'Bạn có muốn thay đổi trạng thái của công ty này?',
+            buttons: {
+                Có: {
+                    keys: ['enter'],
+                    btnClass: 'btn-green',
+                    action: function(){
+                        activeCompany(element.val());
+                        element.bootstrapSwitch('toggleState', true, true);
+                    }
+                },
+                Không: {
+                    keys: ['esc'],
+                    btnClass: 'btn-red'
+
+                }
+
+            }
+        });
+    });
+
+
+    function alertError(){
+     $.alert({
+        title: 'Thông báo!',
+        content: 'Đã có lỗi xảy ra, vui lòng reload lại trang.',
+    });
+ }
     // getCompanies();
 
     function activeCompany(id){
-       $.ajax({
-        url: 'company/active/' + id,
-        type: 'GET',
-        dataType: 'json',
+        $('.modal-ajax-loading').show();
 
-            // success: function(){
-            //     alert('Thành công');
-            // },
-            // error: function(){
-            //     alert('Không thành công, vui lòng thao tác lại');
-            // },            
-        });
-   }
+        $.ajax({
+            url: 'company/active/' + id,
+            type: 'GET',
+            dataType: 'json',
 
-   function approveCompany(id){
-    $.ajax({
-        url: 'company/approve/' + id,
-        type: 'GET',
-        dataType: 'json',
-        success: function(){
-            alert('Đã xác nhận thành công');
-        },
-        error: function(){
-            alert('Xác nhận không thành công, vui lòng thao tác lại');
+            success: function(){
+               $('.modal-ajax-loading').hide();
+
+           },
+           error: function(){
+               $('.modal-ajax-loading').hide();
+               alertError();
+           }            
+       });
+    }
+
+    function approveCompany(element){
+        $('.modal-ajax-loading').show();
+        $.ajax({
+            url: 'company/approve/' + element.val(),
+            type: 'GET',
+            dataType: 'json',
+            success: function(){
+                $('.modal-ajax-loading').hide();
+               // location.reload();
+               element.remove();
+               $("input[value='" + element.val() + "']" ).attr({
+                   disabled: true
+               });
+           },
+           error: function(){
+            $('.modal-ajax-loading').hide();
+            alertError();
         }            
     });
-}
+    }
 
-function getCompanies(){
+    function getCompanies(){
 
-    $('#dataTables-example').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: '{{Route('getcompanies')}}',
-        columns:[
-        {data:'name'},
-        {data:'phone'},
-        {data:'website'},
-        {data:'email'},
-        {data:'created_at'},
+        $('#dataTables-example').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: '{{Route('getcompanies')}}',
+            columns:[
+            {data:'name'},
+            {data:'phone'},
+            {data:'website'},
+            {data:'email'},
+            {data:'created_at'},
 
-        {data: 'action', name: 'action', orderable: false, searchable: false}
-        ]
-    });
+            {data: 'action', name: 'action', orderable: false, searchable: false}
+            ]
+        });
 
-}
+    }
 
 </script>
 @endsection
