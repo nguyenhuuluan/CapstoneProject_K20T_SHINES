@@ -26,8 +26,8 @@
 
 <hr>
 
-<h3>{{$account -> username}} là người đại diện chính của công ty / doanh nghiệp</h3>
-<p>username: {{$representative -> email}}</p>
-<p>password: ******************* </p>
+<h3>{{$representative->name}} là người đại diện chính của công ty / doanh nghiệp</h3>
+<p>username: {{$account->username}}</p>
+{{-- <p>password: ******************* </p> --}}
 <br>
 Để thay đổi mật khẩu vui lòng ấn vào đây: <a href="http://localhost:9999/CapstoneProject_K20T_SHINES/source_code/public/account/reset/{{$account -> remember_token}}" >Click vào đây</a>

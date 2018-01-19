@@ -29,7 +29,7 @@
   <main>
 
     <div class="login-block">
-      <img src="assets/img/logo.png" alt="">
+      <img src="{{ asset('assets/img/logo.png') }} " alt="">
       <h1>Chúng tôi rất vui khi được đón tiếp quý công ty :)</h1>
       @if(Session::has('resigter-success'))
       <br>

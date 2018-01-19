@@ -108,7 +108,7 @@
   @guest
 
 
-  <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#id02" href="#">Đăng nhập</a> | <a href="mn-login-register-intermediate-company.html">Nhà tuyển dụng</a>
+  <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#id02" href="#">Đăng nhập</a> | <a href="{{ route('company.partnership') }}">Nhà tuyển dụng</a>
   @else
   {{-- <a class="btn btn-sm btn-primary" href="{{ route('home') }}">Home</a> --}}
 

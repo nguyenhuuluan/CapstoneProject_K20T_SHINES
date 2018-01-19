@@ -21,13 +21,8 @@ class CompanyController extends Controller
     return view ('admin.companies.company-registration',compact('compsRegis'));
   }
 
-  public function approveCompany($companyID)
-  {   
-    // $this->createRepresentative($companyID);
-    // return response()->json(['isSuccess' => true]);
-
-
-    $compRegis = CompanyRegistration::where('id', $companyID)->first();
+  public function createCompany($compRegis)
+  {
 
     $comp = Company::create([
       "name" => $compRegis["company_name"],
@@ -35,28 +30,31 @@ class CompanyController extends Controller
       "status_id" => 3
     ]);
 
-    $acc = Account::create([
-      'username'=>$compRegis["representative_email"],
-      'password'=>bcrypt(str_random(40)),
-        'status_id'=>5, // set active account
-        'remember_token'=>str_random(40)
-      ]);
+    return $comp;
+  }
+
+  public function approveCompany($companyID)
+  {   
+    // $this->createRepresentative($companyID);
+    // return response()->json(['isSuccess' => true]);
+
+    $compRegis = CompanyRegistration::where('id', $companyID)->first();
+
+    $comp = new Company();
+    $comp = $this->createCompany($compRegis);
+
+    $account = new Account();
+    $account = $this->createAccountRepresentative($compRegis);
+
+    $repre = new Representative();
+    $repre = $this->createRepresentative($comp, $compRegis, $account);
 
 
-    $repre = Representative::create([
-     'name' => $compRegis["representative_name"],        
-     'email' => $compRegis["representative_email"],
-     'phone' => $compRegis["representative_phone"],
-     'account_id' => $acc['id'],
-     'company_id' => $comp['id']
-   ]);
+    $this->sendMailToResetPassword($repre, $comp, $account);
+    
+  //  return $repre;
 
-    Mail::send('representatives.reset', ['company' => $comp, 'representative' => $repre,'account' => $acc],  function ($message) use($com)
-    {
-     $message->to($compRegis['representative_email'])->subject('Chấp thuận doanh  nghiệp / công ty | Reset password');
-   });
-
-  return response()->json(['isSuccess' => true]);
+    return response()->json(['isSuccess' => true]);
 
   }
 
@@ -74,34 +72,24 @@ class CompanyController extends Controller
   public function sendMailToResetPassword($represen, $com, $acc)
   {
 
-    Mail::send('representatives.reset', ['company' => $com, 'representative' => $represen,'account' => $acc],  function ($message) use($com)
+    Mail::send('representatives.reset', ['company' => $com, 'representative' => $represen,'account' => $acc],  function ($message) use($represen)
     {
-     $message->to($com['email'])->subject('Chấp thuận doanh  nghiệp / công ty | Reset password');
+     $message->to($represen['email'])->subject('Chấp thuận doanh  nghiệp / công ty | Reset password');
    });
 
-    return $represen;
   }
 
 
-  public function createRepresentative($companyID)
+  public function createRepresentative($comp, $compRegis, $acc)
   {
 
-    $comp = new Company();
-    $comp = $this->setApproveCompany($companyID);
-
-    $acc_result = new Account();
-    $acc_result = $this->createAccountRepresentative($comp);
-
-
     $repre = Representative::create([
-     'name' => "Representative of " .$comp['name'],         
-     'email' => $comp['email'],
-     'phone' => $comp['phone'],
-     'account_id' => $acc_result['id'],
-     'company_id' => $comp['id']
+     "name" => $compRegis["representative_name"],        
+     "email" => $compRegis["representative_email"],
+     "phone" => $compRegis["representative_phone"],
+     "account_id" => $acc["id"],
+     "company_id" => $comp["id"]
    ]);
-
-    $this->sendMailToResetPassword($repre, $comp, $acc_result);
 
     return $repre;
   }
@@ -130,23 +118,21 @@ class CompanyController extends Controller
    return $comp;
  }
 
- public function createAccountRepresentative($comp)
+ public function createAccountRepresentative($compRegis)
  {
 
-  $number_of_repre = $comp->representatives()->count() + 1;
+   $acc = Account::create([
+    'username'=>$compRegis["representative_email"],
+    'password'=>bcrypt(str_random(40)),
+      'status_id'=>5, // set active account
+      'remember_token'=>str_random(40)
+    ]);
 
-  $acc_result = Account::create([
-   'username'=>$comp['name'] .$number_of_repre,
-   'password'=>bcrypt(str_random(40)),
-    'status_id'=>5, // set active account
-    'remember_token'=>str_random(40)
-  ]);
+   return $acc;
+ }
 
-  return $acc_result;
-}
-
-public function getCompanies()
-{
+ public function getCompanies()
+ {
   $comps = Company::all();
 
   return datatables()->of($comps)->addColumn('action', function ($comps) {
