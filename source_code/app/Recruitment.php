@@ -3,14 +3,25 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Cviebrock\EloquentSluggable\Sluggable;
+use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 class Recruitment extends Model
 {
     //
-
+    use Sluggable;
+    use SluggableScopeHelpers;
     protected $fillable = ['title','salary','number_of_view','expire_date','is_hot','company_id','status_id'];
 
-
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source'        => 'title',
+                'onUpdate'      => true,
+            ]
+        ];
+    }
+    
     public function path(){
          return "/recruitments/{$this->id}";
     }

@@ -6,8 +6,8 @@
       <a class="navbar-toggle" href="#" data-toggle="offcanvas"><i class="ti-menu"></i></a>
 
       <div class="logo-wrapper">
-        <a class="logo" href="index.html"><img src="{{ asset('assets/img/logo.png') }}" alt="logo"></a>
-        <a class="logo-alt" href="index.html"><img src="{{ asset('assets/img/logo-alt.png') }}" alt="logo-alt"></a>
+        <a class="logo" href="{{ route('home') }}"><img src="{{ asset('assets/img/logo.png') }}" alt="logo"></a>
+        <a class="logo-alt" href="{{ route('home') }}"><img src="{{ asset('assets/img/logo-alt.png') }}" alt="logo-alt"></a>
       </div>
 
     </div>
@@ -21,7 +21,7 @@
      <!-- Modal Content -->
      <form class="modal-content animate" method="POST" action="{{ route('login') }}">
       <div class="login-block">
-       <img src="assets/img/logo.png" alt="">
+       <img src="{{ asset('assets/img/logo.png') }}" alt="">
        <br>
        {{ csrf_field() }}
        <div class="form-group" form-group{{ $errors->has('email') ? ' has-error' : '' }}> 

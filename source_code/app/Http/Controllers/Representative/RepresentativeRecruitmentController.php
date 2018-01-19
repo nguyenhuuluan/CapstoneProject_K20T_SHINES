@@ -121,7 +121,7 @@ class RepresentativeRecruitmentController extends Controller
             }
 
             /* Create successful*/
-            $request->session()->flash('comment_message','Create Successfull');
+            $request->session()->flash('comment_message','Tạo mới tin tuyển dụng thành công');
 
             return redirect(route('recruitments.index'));
             //return redirect($recruitment->path());

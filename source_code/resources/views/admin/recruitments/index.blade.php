@@ -44,7 +44,7 @@
                                         <td>{!! $recruitment->is_hot ==1? 'Hot' : 'Not Hot' !!}</td>
                                         <td>
                                             <div style="display: inline-block; width: 100px ">
-                                                <a href=" {{ route('recruitment.show', $recruitment->id) }}" class="btnreview btn-success" target="_blank" style="display: inline-block;">Xem</a>
+                                                <a href=" {{ route('recruitment.show', $recruitment->slug) }}" class="btnreview btn-success" target="_blank" style="display: inline-block;">Xem</a>
                                                 {!! Form::open(['method'=>'PATCH', 'action'=>['Admin\AdminRecruitmentController@update',$recruitment->id], 'style'=>'display: inline-block']) !!}
                                                 @if ($recruitment->status_id ==1)
                                                 {{-- <td>{!! Form::checkbox('status_id', $recruitment->status_id, true,['data-toggle'=>'toggle', 'data-onstyle'=>'success', 'data-size'=>'mini' ]) !!}</td> --}}                                        

@@ -34,4 +34,9 @@ class HomeController extends Controller
         return view('recruitments.test');
     }
 
+    public function search(Request $request)
+    {
+
+    }
+
 }

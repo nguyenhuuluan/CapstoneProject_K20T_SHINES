@@ -8,10 +8,9 @@
 
   <div class="row item-blocks-connected">
     @foreach ($recruitments as $recruitment)
-    
     <!-- Job item -->
     <div class="col-xs-12">
-      <a class="item-block" href="{{ route('detailrecruitment', $recruitment->id ) }}">
+      <a class="item-block" href="{{ route('detailrecruitment', $recruitment->slug ) }}">
         <header>
           <img src="{{ asset($recruitment->company->logo) }}" alt="">
           <div class="hgroup">

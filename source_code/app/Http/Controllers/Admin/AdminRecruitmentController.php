@@ -47,10 +47,10 @@ class AdminRecruitmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
         //
-        $recruitment = Recruitment::findOrFail($id);
+        $recruitment = Recruitment::findBySlugOrFail($slug);
         return view('admin.recruitments.preview',compact('recruitment'));
     }
 

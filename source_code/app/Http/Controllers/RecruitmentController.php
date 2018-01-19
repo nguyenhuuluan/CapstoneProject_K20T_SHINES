@@ -20,33 +20,14 @@ class RecruitmentController extends Controller
     public function index()
     {
         //
-        $recruitments = Recruitment::all();
-        return view ('admin.recruitments.index',compact('recruitments'));
-    }
-    public function status(Request $request, $id){
-        Recruitment::findOrFail($id)->update($request->all());
-        return redirect()->back();
-    }
-    public function preview($id){
-        $recruitment = Recruitment::findOrFail($id);
-        return view('admin.recruitments.preview',compact('recruitment'));
+        // $recruitments = Recruitment::all();
+        // return view ('admin.recruitments.index',compact('recruitments'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
-    {
-
+    {   
+        //
+        return 'dsadas';
         
     }
 
@@ -94,11 +75,17 @@ class RecruitmentController extends Controller
     {
         //
     }
-    public function detailrecruitment($id){
+    public function detailrecruitment($slug){
 
-        $recruitment = Recruitment::findOrFail($id);
-
+        $recruitment = Recruitment::findBySlugOrFail($slug);
+        if($recruitment->status_id==1)
+        {
         return view('recruitments.index',compact('recruitment'));
+
+    }else{
+        abort(404);
+
+    }
 
     }
     public function searchtag(Request $request){
