@@ -10,7 +10,7 @@ class City extends Model
     protected $fillable = ['name', 'country_id'];
 
     public function districts(){
-    	return $this->hasMany('App\Distrct');
+    	return $this->hasMany('App\District');
     }
 
     public function country(){

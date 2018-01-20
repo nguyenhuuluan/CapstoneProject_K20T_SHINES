@@ -10,6 +10,7 @@ use App\Category;
 use App\Recruitment;
 use App\Section;
 use App\Company;
+use App\Account;
 
 class RepresentativeRecruitmentController extends Controller
 {
@@ -18,9 +19,18 @@ class RepresentativeRecruitmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct(){
+        //$this->middleware('auth')->only(['create','store']);
+
+        //$this->middleware('auth');
+    }
     public function index()
     {
         //
+        $recruitments = Recruitment::all();
+        return view('representative.recruitments.index',compact('recruitments'));
+
     }
 
     /**
@@ -31,7 +41,6 @@ class RepresentativeRecruitmentController extends Controller
     public function create()
     {
         //
-        $places = ["PHP", "JS"];
         $categories  = Category::pluck('name', 'id')->all();
         $sections = Section::all();
         return view('representative.recruitments.create',compact('categories', 'sections', 'places'));
@@ -44,59 +53,81 @@ class RepresentativeRecruitmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
-        $input = $request->all();
-        $user = Auth::user();
-        $tags = explode(',', $input['hidden-tags']); 
+    {    
+
+        //return $request;
+        $tags = explode(',', request('hidden-tags')); 
+        $request->request->add(['tags' => $tags]); 
+        $sections =  request('sections');
+
+        $this->validate($request,[
+            'title'=>'required',
+            'salary'=>'required',
+            'expire_date'=>'required',
+            'category_id'=>'required|array|exists:categories,id',
+            //'hidden-tags'=>'required|array|exists:tags,name',
+            'tags.*'=>'required|exists:tags,name',
+            //'hidden-tags'=>'required',
+        ]);
+
+
+        $user = Account::find(auth()->id());
+        //$user = Account::find(auth()->id());
+        //$tags = request('hidden-tags');
+
+
         $data = [
-            'title'=>$request->title,
-            'salary'=>$request->salary,
+            'title'=>request('title'),
+            'salary'=>request('salary'),
             'number_of_view'=>'0',
-            'expire_date'=>date("Y-m-d", strtotime($request->date)),
+            'expire_date'=>date("Y-m-d", strtotime(request('expire_date'))),
             'is_hot'=>'0',
-            'status_id'=>'1',
+            'status_id'=>'8',
             'company_id'=>$user->representative->company->id,
         ];
 
-        switch ($request->submitbutton) {
+        switch (request('submitbutton')) {
             case 'Xem trước':
             $company = Company::findOrFail($data['company_id']);
-            $categories = Category::find($input['category_id']);
+            $categories = Category::find(request('category_id'));
             foreach ($tags as $key => $value) {
                 $tags2[]= Tag::where('name', $value)->first();
             }
-
-            $sections[1] = Section::find(1);
-            $sections[2] = Section::find(2);
-            $sections[3] = Section::find(3);
-            $sections[4] = Section::find(4);
             foreach ($sections as $key => $value) {
-                $value['content'] = $input[$key];
+                $sections[$key] = Section::find($key);
+                $sections[$key]['content'] = $value;
             }
             return view('representative.recruitments.preview', compact('data', 'categories', 'tags2', 'company', 'sections'));
             break;
             case 'Đăng tin':
             /* Create Recruitment */
+
             $recruitment = Recruitment::create($data);
-            $recruitment->sections()->save(Section::find(1), ['content'=>$input['1']]);
-            $recruitment->sections()->save(Section::find(2), ['content'=>$input['2']]);
-            $recruitment->sections()->save(Section::find(3), ['content'=>$input['3']]);
-            $recruitment->sections()->save(Section::find(4), ['content'=>$input['4']]);
+
+            foreach ($sections as $key => $value) {
+                $sections[$key] = Section::find($key);
+                 $recruitment->sections()->save(Section::find($key), ['content'=>$value]);
+            }
+
             /*Save categories*/
-            foreach ($input['category_id'] as $key => $value) {
+            foreach (request('category_id') as $key => $value) {
                 $recruitment->categories()->save(Category::find($value));
             }
+
             /*Save tagss*/
+
             foreach ($tags as $key => $value) {
                 $recruitment->tags()->save(Tag::where('name',$value)->first());
             }
+
             /* Create successful*/
             $request->session()->flash('comment_message','Create Successfull');
 
-            return redirect()->back();
+            return redirect(route('recruitments.index'));
+            //return redirect($recruitment->path());
             break;
         }
+       
     }
 
     /**

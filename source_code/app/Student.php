@@ -11,4 +11,19 @@ class Student extends Model
 
     public $timestamp = true;
 
+    public function faculty()
+    {
+    	return $this->belongsTo('App\Faculty');
+    }
+    public function account()
+    {
+    	return $this->belongsTo('App\Account');
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany('App\Tag', 'tag_student', 'student_id','tag_id')->withTimestamps();
+    }
+
+
 }

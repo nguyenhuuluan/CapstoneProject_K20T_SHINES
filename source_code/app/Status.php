@@ -14,7 +14,7 @@ class Status extends Model
 		return $this->hasMany('App\Recruitment');
 	}
 	public function companies(){
-		return $this->hasMany('App\Compant');
+		return $this->hasMany('App\Company');
 	}
 	public function accounts(){
 		return $this->hasMany('App\Account');

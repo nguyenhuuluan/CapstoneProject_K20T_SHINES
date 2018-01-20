@@ -33,6 +33,7 @@ Route::get('/test/{companyID}', 'CompanyController@test')->name('test');
 
 
 
+
 // Company Registration - WEB
 Route::get('/partnership', 'CompanyRegistrationController@partnership')->name('company.partnership');
 
@@ -43,6 +44,9 @@ Route::POST('/partnership/register', 'CompanyRegistrationController@registerPart
 // Recruitment - WEB
 Route::get('/recruitment/searchtag', 'RecruitmentController@searchtag')->name('searchtag');
 Route::get('/recruitment/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
+
+Route::get('/recruitments/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
+
 
 
 // Student - WEB
@@ -82,9 +86,16 @@ Route::middleware(['admin', 'web'])->group(function () {
 });
 
 
+
 //login representatitive - WEB 
 Route::GET('representative','Representative\LoginController@showLoginForm')->name('representative.login');
 Route::POST('representative','Representative\LoginController@login');
+
+//login representatitive 
+
+Route::GET('representative/login','Representative\LoginController@showLoginForm')->name('representative.login');
+Route::POST('representative/login','Representative\LoginController@login');
+
 Route::POST('representative-password/email','Representative\ForgotPasswordController@sendResetLinkEmail')->name('representative.password.email');
 Route::GET('representative-password/reset','Representative\ForgotPasswordController@showLinkRequestForm')->name('representative.password.request');
 Route::POST ('representative-password/reset','Representative\ResetPasswordController@reset');
@@ -92,10 +103,12 @@ Route::GET('password/reset/{token}','Representative\ResetPasswordController@show
 
 
 //Representative Controller
+
 Route::middleware(['representative', 'web'])->group(function () {
+	Route::GET('representative', 'Representative\RepresentativeController@index');   
 
 	Route::GET('representative/home', 'Representative\RepresentativeController@index');   
-	Route::resource('representative/recruitment', 'Representative\RepresentativeRecruitmentController');
+	Route::resource('representative/recruitments', 'Representative\RepresentativeRecruitmentController');
 
 });
 

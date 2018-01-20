@@ -11,6 +11,9 @@ class Recruitment extends Model
     protected $fillable = ['title','salary','number_of_view','expire_date','is_hot','company_id','status_id'];
 
 
+    public function path(){
+         return "/recruitments/{$this->id}";
+    }
     public function company(){
     	return $this->belongsTo('App\Company');
     	//return $this->belongsTo('App\Company', 'company_id', 'id');

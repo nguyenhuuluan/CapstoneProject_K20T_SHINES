@@ -20,10 +20,10 @@ class Representative
             $user = Auth::user();
             if(!$user->isRepresentative()){
 
-               return redirect('/representative');
+               return redirect('/representative/login');
            }
        }else{
-        return redirect('/representative');
+        return redirect('/representative/login');
        }
        return $next($request);
   }
