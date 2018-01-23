@@ -44,6 +44,7 @@ Route::POST('/partnership/register', 'CompanyRegistrationController@registerPart
 
 // Recruitment - WEB
 Route::get('/recruitment/searchtag', 'RecruitmentController@searchtag')->name('searchtag');
+
 Route::get('/recruitments/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
 
 
@@ -99,9 +100,13 @@ Route::middleware(['admin', 'web'])->group(function () {
 });
 
 
+
 //login representatitive - WEB 
 Route::GET('representative/login','Representative\LoginController@showLoginForm')->name('representative.login');
 Route::POST('representative/login','Representative\LoginController@login');
+
+
+
 Route::POST('representative-password/email','Representative\ForgotPasswordController@sendResetLinkEmail')->name('representative.password.email');
 Route::GET('representative-password/reset','Representative\ForgotPasswordController@showLinkRequestForm')->name('representative.password.request');
 Route::POST ('representative-password/reset','Representative\ResetPasswordController@reset');

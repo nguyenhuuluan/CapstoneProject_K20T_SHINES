@@ -10,6 +10,8 @@ class Student extends Model
     protected $fillable = ['name','gender','email','phone','profile_photo','dateofbirth','account_id','faculty_id'];
 
 
+    public $timestamp = true;
+
     public function faculty()
     {
     	return $this->belongsTo('App\Faculty');
@@ -24,7 +26,6 @@ class Student extends Model
         return $this->belongsToMany('App\Tag', 'tag_student', 'student_id','tag_id')->withTimestamps();
     }
 
-    //public $timestamp = true;
 
 
 }

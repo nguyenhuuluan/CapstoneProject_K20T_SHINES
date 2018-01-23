@@ -62,7 +62,7 @@
         <span class="help-block">
           <strong style="color: red">{{ $errors->first('password') }}</strong>
           <script type="text/javascript">
-            document.getElementById('id01').style.display='block'
+             $("#id02").modal("show");
           </script>
         </span>
         @endif
