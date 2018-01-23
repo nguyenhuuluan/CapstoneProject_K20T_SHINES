@@ -76,7 +76,7 @@
                         <li>
                             <a href="#">
                                 <div>
-                                    <strong>Thanh Huynh</strong>
+                                    <strong>{!! Auth::user()->staff->name!!}</strong>
                                     <span class="pull-right text-muted">
                                         <em>Hôm qua</em>
                                     </span>
@@ -88,7 +88,7 @@
                         <li>
                             <a href="#">
                                 <div>
-                                    <strong>Thanh Huynh</strong>
+                                    <strong>{!! Auth::user()->staff->name!!}</strong>
                                     <span class="pull-right text-muted">
                                         <em>24/12/2017</em>
                                     </span>
@@ -100,7 +100,7 @@
                         <li>
                             <a href="#">
                                 <div>
-                                    <strong>Thanh Huynh</strong>
+                                    <strong>{!! Auth::user()->staff->name!!}</strong>
                                     <span class="pull-right text-muted">
                                         <em>20/10/2017</em>
                                     </span>
@@ -200,10 +200,10 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Bảng điều khiển</a>
+                            <a href="/admin/home"><i class="fa fa-dashboard fa-fw"></i> Bảng điều khiển</a>
                         </li>
                         <li>
-                            <a href="list-recruitment.html"><i class="fa fa-newspaper-o fa-fw"></i> Tin tuyển dụng</a>
+                            <a href="{{ route('admin.recruitments.index') }}"><i class="fa fa-newspaper-o fa-fw"></i> Tin tuyển dụng</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-building fa-fw"></i> Công ty<span class="fa arrow"></span></a>

@@ -30,6 +30,30 @@ class AdminRecruitmentController extends Controller
         //
     }
 
+    public function setApproveRecruitment($recruitmentID){
+        $recruitment = Recruitment::Where('id', $recruimentID)->first();
+
+        $recruitment->status_id = 1;
+
+        $recruitment->save();
+
+        return $recruitment;     
+    }
+
+    public function setActiveRecruitment($recruitment_id){
+        $recruitment = Recruitment::Where('id', $recruitment_id)->first();
+
+        if ($recruitment->status_id != 1) {
+           $recruitment->status_id = 1;
+       }else {
+           $recruitment->status_id = 2;
+       }
+
+       $recruitment->save();     
+
+       return $recruitment;
+   }
+
     /**
      * Store a newly created resource in storage.
      *

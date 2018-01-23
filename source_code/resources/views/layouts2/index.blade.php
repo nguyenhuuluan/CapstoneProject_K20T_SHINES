@@ -54,7 +54,6 @@
         </div>
       </form>
     </div>
-
   </div>
 </header>
 <!-- END Site header -->

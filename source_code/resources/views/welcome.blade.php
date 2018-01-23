@@ -1,7 +1,8 @@
 @extends('layouts.index')
 
 @section('recentjobs')
-<div class="container">
+<section>
+  <div class="container">
   <header class="section-header">
     <h2>Việc làm mới nhất</h2>
   </header>
@@ -34,12 +35,11 @@
     <!-- END Job item -->
     @endforeach
     
-
-
-
   </div>
 
   <br><br>
   <p class="text-center"><a class="btn btn-info" href="">Xem thêm</a></p>
 </div>
+</section>
+
 @endsection

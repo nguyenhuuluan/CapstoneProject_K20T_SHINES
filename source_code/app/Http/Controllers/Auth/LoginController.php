@@ -60,20 +60,25 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $this->validate($request,[
-           'email'=>'required|string|email|max:255',
-           'password' => 'required|string|min:6',
-       ]);
+         'email'=>'required|string|email|max:255',
+         'password' => 'required|string|min:6',
+     ]);
 
         if ($this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
 
             return $this->sendLockoutResponse($request);
         }
+        if(Auth::attempt(['username'=>$request->email, 'password'=>$request->password] ) &&Auth::user()->roles->first()->name == 'Student' ){
+            return redirect('/home');
+        }elseif(Auth::attempt(['username'=>$request->email, 'password'=>$request->password] ) && (Auth::user()->roles->first()->name == 'Representative' || Auth::user()->roles->first()->name == 'Admin')){
+            $this->guard()->logout();
 
-        if(Auth::attempt(['username'=>$request->email, 'password'=>$request->password] )){
-            return redirect('/');
+            $request->session()->invalidate();
+            $request->session()->flash('comment_message','Email hoặc mật khẩu không chính xác!');          
+            return redirect()->back();
         }
-         $this->incrementLoginAttempts($request);
+        $this->incrementLoginAttempts($request);
 
         return $this->sendFailedLoginResponse($request);
         

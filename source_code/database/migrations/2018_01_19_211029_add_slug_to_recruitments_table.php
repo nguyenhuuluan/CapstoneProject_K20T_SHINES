@@ -15,7 +15,7 @@ class AddSlugToRecruitmentsTable extends Migration
     {
         Schema::table('recruitments', function (Blueprint $table) {
             //
-            $table->string('slug');
+            $table->string('slug')->nullable();
         });
     }
 

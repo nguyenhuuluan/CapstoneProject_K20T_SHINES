@@ -5,8 +5,8 @@
     <div class="pull-left">
       <a class="navbar-toggle" href="#" data-toggle="offcanvas"><i class="ti-menu"></i></a>
       <div class="logo-wrapper">
-        <a class="logo" href="index.html"><img src="{{ asset('assets/img/logo.png') }}" alt="logo"></a>
-        <a class="logo-alt" href="index.html"><img src="{{ asset('assets/img/logo-alt.png') }}" alt="logo-alt"></a>
+        <a class="logo" href="{{ route('home') }}"><img src="{{ asset('assets/img/logo.png') }}" alt="logo"></a>
+        <a class="logo-alt" href="{{ route('home') }}"><img src="{{ asset('assets/img/logo-alt.png') }}" alt="logo-alt"></a>
       </div>
     </div>
     <!-- END Logo -->
@@ -50,6 +50,14 @@
           </script>
         </span>
         @endif
+
+        @if(Session::has('comment_message'))  
+        <strong style="color: red">{{ session('comment_message') }}</strong>
+        <script type="text/javascript">
+          document.getElementById('id01').style.display='block'
+        </script>
+        @endif
+
         @if ($errors->has('password'))
         <span class="help-block">
           <strong style="color: red">{{ $errors->first('password') }}</strong>
@@ -71,20 +79,20 @@
      <div id="dangky" class="modalinout" style="display:none">
 
       @if(Session::has('resigter-success'))
-        <br>
-        <div class="alert alert-success">         
-          <span>{!! session('resigter-success') !!}</span>
-        </div>
+      <br>
+      <div class="alert alert-success">         
+        <span>{!! session('resigter-success') !!}</span>
+      </div>
       @elseif(Session::has('email-invalid'))
-        <br>
-        <div class="alert alert-danger">         
-          <span>{!! session('email-invalid') !!}</span>
-        </div>
+      <br>
+      <div class="alert alert-danger">         
+        <span>{!! session('email-invalid') !!}</span>
+      </div>
       @elseif(Session::has('email-exist'))
-        <br>
-        <div class="alert alert-warning">         
-          <span>{!! session('email-exist') !!}</span>
-        </div>
+      <br>
+      <div class="alert alert-warning">         
+        <span>{!! session('email-exist') !!}</span>
+      </div>
       @endif
 
       <div class="form-group">
@@ -106,35 +114,47 @@
 <!-- User account -->
 <div class="pull-right user-login">
   @guest
-
-
   <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#id02" href="#">Đăng nhập</a> | <a href="{{route('company.partnership')}}">Nhà tuyển dụng</a>
   @else
   {{-- <a class="btn btn-sm btn-primary" href="{{ route('home') }}">Home</a> --}}
 
   <div class="pull-right">
    <div class="dropdown user-account">
-    <a class="user-account-text">
+     {{--  <a class="user-account-text"> --}}
       @if (Auth::user()->isStudent())
-      {!! Auth::user()->student->name !!}
-      @elseif(Auth::user()->isRepresentative())
-      {!! Auth::user()->representative->name !!}
-      @endif
-    </a>
+      <a class="user-account-text"> {!! Auth::user()->student->name!!}</a>
+      <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+        <img src="assets/img/logo-envato.png" alt="avatar">
+      </a>
+      <ul class="dropdown-menu dropdown-menu-right">
+       <li><a href="user-login.html">Tài khoản</a>
+       </li>
+       <li><a href="user-register.html">Hồ sơ</a>
+       </li>
+       <li><a href="{{ route('logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();">Đăng xuất</a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+          {{ csrf_field() }}
+        </form>
+      </li>
+    </ul>
+    @elseif(Auth::user()->isRepresentative())
+    <a class="user-account-text"> {!! Auth::user()->representative->name!!}</a>
     <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-      <img src="assets/img/logo-envato.png" alt="avatar">
-    </a>
-    <ul class="dropdown-menu dropdown-menu-right">
-     <li><a href="user-login.html">Tài khoản</a>
-     </li>
-     <li><a href="user-register.html">Hồ sơ</a>
-     </li>
-     <li><a href="{{ route('logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();">Đăng xuất</a>
+     <img src="{{ asset('assets/img/logo-envato.png') }} " alt="avatar">
+   </a>
+   <ul class="dropdown-menu dropdown-menu-right">
+     <li><a href="mn-account-company.html"><i class="fa fa-user" aria-hidden="true"></i> Tài khoản</a></li>
+     <li><a href="mn-dashboard-company.html"><i class="fa fa-tachometer" aria-hidden="true"></i> Bảng điều khiển</a></li>
+     <li><a href="mn-information-company.html"><i class="fa fa-building-o" aria-hidden="true"></i> Công ty của bạn</a></li>
+     <li><a href="{{ route('recruitments.index') }}"><i class="fa fa-newspaper-o" aria-hidden="true"></i> Việc làm đã đăng</a></li>
+     <li><a href="mn-application-list-company.html"><i class="fa fa-users" aria-hidden="true"></i> Danh sách ứng tuyển</a></li>
+     <li><a href="{{ route('logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="fa fa-sign-out" aria-hidden="true"></i>Đăng xuất</a>
       <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-        {{ csrf_field() }}
-      </form>
-    </li>
-  </ul>
+       {{ csrf_field() }}
+     </form>
+   </li>
+ </ul>
+ @endif
 </div>
 </div>
 @endguest        
@@ -164,6 +184,7 @@
 </nav>
 
 <script>
+
   function modalSignInOut(nameinout) {
     var i;
     var x = document.getElementsByClassName("modalinout");

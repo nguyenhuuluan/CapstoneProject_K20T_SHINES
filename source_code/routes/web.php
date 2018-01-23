@@ -70,7 +70,21 @@ Route::GET('password/reset/{token}','Admin\ResetPasswordController@showResetForm
 Route::middleware(['admin', 'web'])->group(function () {
 
 	Route::GET('admin/home', 'Admin\AdminController@index');  
-	Route::resource('admin/recruitment', 'Admin\AdminRecruitmentController') ;
+	Route::resource('admin/recruitments', 'Admin\AdminRecruitmentController', [
+		'names' => [
+			'index' => 'admin.recruitments.index',
+			'store' => 'admin.recruitments.store',
+			'create' => 'admin.recruitments.create',
+			'show' => 'admin.recruitments.show',
+			'update' => 'admin.recruitments.update',
+			'destroy' => 'admin.recruitments.destroy',
+			'edit' => 'admin.recruitments.edit',
+		]]);
+
+	Route::get('/admin/recruitments/approve/{recruitmentID}', 'Admin\AdminRecruitmentController@approveRecruitment')->name('approverecruitment');
+	Route::get('/admin/recruitments/active/{recruitment_id}', 'Admin\AdminRecruitmentController@setActiveRecruitment')->name('activerecruitment');
+
+
 	//Route::get('/admin/recruitment/{id}/preview', 'RecruitmentController@preview')->name('preview');
 
 

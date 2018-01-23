@@ -10,7 +10,7 @@ class Recruitment extends Model
     //
     use Sluggable;
     use SluggableScopeHelpers;
-    protected $fillable = ['title','salary','number_of_view','expire_date','is_hot','company_id','status_id'];
+    protected $fillable = ['title','salary','number_of_view','expire_date','is_hot','company_id','status_id', 'slug'];
 
     public function sluggable()
     {
@@ -21,9 +21,8 @@ class Recruitment extends Model
             ]
         ];
     }
-    
     public function path(){
-         return "/recruitments/{$this->id}";
+         return "/recruitments/{$this->slug}";
     }
     public function company(){
     	return $this->belongsTo('App\Company');

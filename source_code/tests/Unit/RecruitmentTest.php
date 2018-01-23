@@ -21,7 +21,7 @@ class RecruitmentTest extends TestCase
   /** @test */
     function a_recruitment_can_make_a_string_path(){
     	
-        $this->assertEquals("/recruitments/{$this->recruitment->id}", $this->recruitment->path());
+        $this->assertEquals("/recruitments/{$this->recruitment->slug}", $this->recruitment->path());
     }
 
      /** @test*/
