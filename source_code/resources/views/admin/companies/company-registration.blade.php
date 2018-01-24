@@ -48,11 +48,14 @@
                                             
                                             <td>{{$compRegis->created_at}}</td>
                                             <td>
-                                                <button type="button" class="btn btn-default btn-approve" value = "{{$compRegis->id}}">
+                                                @if ($compRegis->status_id == 8)
+                                                    <button type="button" class="btn btn-default btn-success btn-approve" value = "{{$compRegis->id}}">
 
-                                                    <span class="glyphicon glyphicon-globe"></span> Xác nhận
+                                                    <span class="fa fa-check"></span> Xác nhận
 
                                                 </button>
+                                                @endif
+                                                
                                             </td>                                          
                                             @endforeach
 
@@ -120,10 +123,7 @@
                 dataType: 'json',
                 success: function(){
                     //$('.modal-ajax-loading').hide();
-                    $.alert({
-                        title: 'Thông báo!',
-                        content: 'Xác nhận thành công',
-                    });
+                   element.remove();
                // // location.reload();
                // element.remove();
                // $("input[value='" + element.val() + "']" ).attr({

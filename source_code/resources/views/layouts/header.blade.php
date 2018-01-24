@@ -5,8 +5,8 @@
     <div class="pull-left">
       <a class="navbar-toggle" href="#" data-toggle="offcanvas"><i class="ti-menu"></i></a>
       <div class="logo-wrapper">
-        <a class="logo" href="index.html"><img src="{{ asset('assets/img/logo.png') }}" alt="logo"></a>
-        <a class="logo-alt" href="index.html"><img src="{{ asset('assets/img/logo-alt.png') }}" alt="logo-alt"></a>
+        <a class="logo" href="{{ route('index') }}"><img src="{{ asset('assets/img/logo.png') }}" alt="logo"></a>
+        <a class="logo-alt" href="{{ route('index') }}"><img src="{{ asset('assets/img/logo-alt.png') }}" alt="logo-alt"></a>
       </div>
     </div>
     <!-- END Logo -->
@@ -162,6 +162,27 @@
 <!-- END Navigation menu -->
 </div>
 </nav>
+
+@section('scripts')
+
+@if(Session::has('resigter-success') || Session::has('email-invalid') || Session::has('email-exist'))
+
+<script type="text/javascript" charset="utf-8">
+  $("#id02").modal("show");
+
+  $('.nav-tabs li:first-child').removeClass('active');
+  $('.nav-tabs li:last-child').addClass('active');
+  modalSignInOut('dangky');
+
+
+  // $('.nav-tabs li:last-child a').attr("aria-expanded", true);
+  //$('.login-block').css( "display", "none");
+  
+
+</script>
+@endif
+
+@endsection
 
 <script>
   function modalSignInOut(nameinout) {

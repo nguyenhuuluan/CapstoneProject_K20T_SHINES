@@ -90,11 +90,11 @@
       <div class="form-group">
         <div class="input-group">
           <span class="input-group-addon"><i class="ti-email"></i></span>
-          <input name="email" type="email" class="form-control" value="{{ old('email') }}" placeholder="Email: jobee@vanlanguni.vn">
+          <input name="email" type="email" class="form-control" value="{{ old('email') }}" placeholder="jobee@vanlanguni.vn">
         </div>
       </div>
 
-      <button name="registerCandidate" class="btn btn-primary btn-block" type="submit">Đăng Ký</button>
+      <button class="btn btn-primary btn-block" type="submit">Đăng Ký</button>
     </form>
   </div>
 </div>

@@ -91,22 +91,7 @@
 <script src="{{ asset('assets/js/custom.js') }} "></script>
 <script type="text/javascript" src="{{ asset('assets/js/alpha.js') }} "></script>
 
-@if(Session::has('resigter-success') || Session::has('email-invalid') || Session::has('email-exist'))
 
-<script type="text/javascript" charset="utf-8">
-  $("#id02").modal("show");
-
-  $('.nav-tabs li:first-child').removeClass('active');
-  $('.nav-tabs li:last-child').addClass('active');
-  modalSignInOut('dangky');
-
-
-  // $('.nav-tabs li:last-child a').attr("aria-expanded", true);
-  //$('.login-block').css( "display", "none");
-  
-
-</script>
-@endif
 
 <script type="text/javascript">
   $(document).ready(function(){

@@ -21,7 +21,10 @@ class CreateCompaniesRegistrations extends Migration
             $table->string('representative_position');
             $table->string('representative_phone');
             $table->string('representative_email');
-            $table->timestamps();
+            $table->integer('status_id')->unsigned()->index();
+            $table->timestamps();            
+            
+            $table->foreign('status_id')->references('id')->on('statuses');
         });
     }
 

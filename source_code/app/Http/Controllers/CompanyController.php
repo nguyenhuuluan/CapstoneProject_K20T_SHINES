@@ -8,6 +8,7 @@ use App\Representative;
 use App\Account;
 use App\Company;
 use App\CompanyRegistration;
+use App\Role;
 
 use Mail;
 
@@ -40,6 +41,10 @@ class CompanyController extends Controller
 
     $compRegis = CompanyRegistration::where('id', $companyID)->first();
 
+    $compRegis -> status_id = 7;
+
+    $compRegis -> save();
+
     $comp = new Company();
     $comp = $this->createCompany($compRegis);
 
@@ -57,10 +62,6 @@ class CompanyController extends Controller
     return response()->json(['isSuccess' => true]);
 
   }
-
-
-
-
 
 
   public function index()
@@ -127,6 +128,10 @@ class CompanyController extends Controller
       'status_id'=>5, // set active account
       'remember_token'=>str_random(40)
     ]);
+
+      //set role for account
+    $role = Role::findOrFail(3);
+    $role -> accounts() -> attach($acc["id"]);
 
    return $acc;
  }

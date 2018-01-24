@@ -84,7 +84,7 @@
          </div>
 
          <div class="form-group col-md-3 col-xs-12 col-sm-3">
-            <h7>Học khoa</h7>
+            <h7>Chuyên nghành</h7>
          </div>
          <div class="form-group col-md-9 col-xs-12 col-sm-9{{ $errors->has('faculty_id') ? ' has-error' : '' }}">
             <div class="form-group{{ $errors->has('faculty_id') ? ' has-error' : '' }}">
@@ -126,10 +126,7 @@
       </div>
 
 
-     <div class="btn-group pull-right">
-        {!! Form::reset("Reset", ['class' => 'btn btn-warning']) !!}
-        {!! Form::submit("Add", ['class' => 'btn btn-success']) !!}
-     </div>
+     <button class="btn btn-primary btn-block" type="submit">Cập nhật</button>
 
      {!! Form::close() !!}
                {{-- <div class="form-group col-md-3 col-xs-12 col-sm-3">

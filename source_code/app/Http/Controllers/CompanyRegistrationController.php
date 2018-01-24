@@ -27,12 +27,14 @@ class CompanyRegistrationController extends Controller
 			"representative_name" => $request["representative_name"],
 			"representative_position" => $request["representative_position"],
 			"representative_phone" => $request["representative_phone"],
-			"representative_email" => $request["representative_email"]
+			"representative_email" => $request["representative_email"],
+			"status_id" => 8
 		]);
 
 
 		if ($compRegis) {
-			$request->session()->flash('resigter-success', '<strong>Đăng ký thành công</strong>, sau khi xác nhận Jobee sẽ liên lạc với bạn, cảm ơn.');
+			$indexURL = route('index');
+			$request->session()->flash('resigter-success', '<strong>Đăng ký thành công</strong>, sau khi xác nhận Jobee sẽ liên lạc với bạn, cảm ơn. <br> Quay về <a href="'. $indexURL .'"><strong> Trang chủ</strong></a>');
 
 			return redirect()->route("company.register.partnership.form");
 

@@ -102,16 +102,18 @@
 <script type="text/javascript">
 
     $('.switch').bootstrapSwitch({
-        size: 'small',
+        size: 'mini',
         onText: 'Bật',
-        offText: 'Tắt'      
+        offText: 'Tắt',
+        onColor: 'success',
+        offColor: 'danger'     
     });
 
     $('.btn-approve').click(function() {
 
-     var currentelement = $(this);
+       var currentelement = $(this);
 
-     $.confirm({
+       $.confirm({
         title: 'Thông báo!!',
         content: 'Bạn có muốn xác nhận công ty này?',
         buttons: {
@@ -132,7 +134,7 @@
 
     });
 
- });
+   });
 
 
     $('.status-switch').on('switchChange.bootstrapSwitch', function (e, data) {
@@ -165,15 +167,15 @@
 
 
     function alertError(){
-     $.alert({
+       $.alert({
         title: 'Thông báo!',
         content: 'Đã có lỗi xảy ra, vui lòng reload lại trang.',
     });
- }
+   }
     // getCompanies();
 
     function activeCompany(id){
-        $('.modal-ajax-loading').show();
+        $('.modal-ajax-loading').fadeIn("200");
 
         $.ajax({
             url: 'company/active/' + id,
@@ -181,14 +183,14 @@
             dataType: 'json',
 
             success: function(){
-               $('.modal-ajax-loading').hide();
+             $('.modal-ajax-loading').fadeOut("200");
 
-           },
-           error: function(){
-               $('.modal-ajax-loading').hide();
-               alertError();
-           }            
-       });
+         },
+         error: function(){
+             $('.modal-ajax-loading').fadeOut("200");
+             alertError();
+         }            
+     });
     }
 
     function approveCompany(element){
@@ -202,8 +204,8 @@
                // location.reload();
                element.remove();
                $("input[value='" + element.val() + "']" ).attr({
-                   disabled: true
-               });
+                 disabled: true
+             });
            },
            error: function(){
             $('.modal-ajax-loading').hide();

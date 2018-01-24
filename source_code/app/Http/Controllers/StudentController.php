@@ -11,6 +11,7 @@ use App\Account;
 use App\Faculty;
 use App\Company;
 use App\Student;
+use App\Role;
 
 
 
@@ -34,6 +35,7 @@ class StudentController extends Controller
 		return false;
 	}
 
+
 	public function register(Request $request)
 	{   
 
@@ -47,7 +49,7 @@ class StudentController extends Controller
 
 		if (!$this->validateEmailDomain($request["email"], $whitelist)) {
 
-			$request->session()->flash('email-invalid', '<strong>Email không hợp lệ</strong>, chỉ Email của sinh viên trường ĐH Văn Lang mới được đăng ký.');
+			$request->session()->flash('email-invalid', '<strong>Email không hợp lệ</strong>, hiện tại website chỉ cung cấp dịch vụ cho sinh viên học tại ĐH Văn Lang.');
 
 			return redirect()->route("home")->withInput();
 
@@ -66,7 +68,11 @@ class StudentController extends Controller
 			"status_id" => 6
 		]);
 
-		$request->session()->flash('resigter-success', '<strong>Đăng ký thành công</strong>, vui lòng kiểm tra Email để cập nhật thông tin tài khoản.');
+		//set role for account
+		$role = Role::findOrFail(4);
+		$role -> accounts() -> attach($acc["id"]);
+
+		$request->session()->flash('resigter-success', '<strong>Đăng ký thành công</strong>, vui lòng kiểm tra Email để cập nhật thông tin tài khoản. Cảm ơn');
 
 		$this->sendMail($acc);
 
