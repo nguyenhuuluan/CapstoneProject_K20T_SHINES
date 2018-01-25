@@ -88,6 +88,7 @@ class CompanyController extends Controller
      "name" => $compRegis["representative_name"],        
      "email" => $compRegis["representative_email"],
      "phone" => $compRegis["representative_phone"],
+     "position" => $compRegis["representative_position"],
      "account_id" => $acc["id"],
      "company_id" => $comp["id"]
    ]);
