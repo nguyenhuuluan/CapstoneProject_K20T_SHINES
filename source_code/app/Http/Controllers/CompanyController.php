@@ -55,11 +55,11 @@ class CompanyController extends Controller
     $repre = $this->createRepresentative($comp, $compRegis, $account);
 
 
-    $this->sendMailToResetPassword($repre, $comp, $account);
+  //  $this->sendMailToResetPassword($repre, $comp, $account);
     
-  //  return $repre;
+    return $repre;
 
-    return response()->json(['isSuccess' => true]);
+   // return response()->json($repre);
 
   }
 
@@ -73,12 +73,22 @@ class CompanyController extends Controller
   public function sendMailToResetPassword($represen, $com, $acc)
   {
 
-    Mail::send('representatives.reset', ['company' => $com, 'representative' => $represen,'account' => $acc],  function ($message) use($represen)
+    Mail::send('admin.representatives.email-confirm', ['company' => $com, 'representative' => $represen,'account' => $acc],  function ($message) use($represen)
     {
      $message->to($represen['email'])->subject('Chấp thuận doanh  nghiệp / công ty | Reset password');
    });
 
   }
+
+public function sendConfirmEmail($accID, $repreID, $compID)
+{
+  $acc = Account::Where('id', $accID)->first();
+  $repre = Representative::Where('id', $repreID)->first();
+  $comp = Company::Where('id', $compID)->first();
+
+  $this->sendMailToResetPassword($repre, $comp, $acc);
+
+}
 
 
   public function createRepresentative($comp, $compRegis, $acc)

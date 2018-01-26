@@ -49,7 +49,7 @@
                                             <td>{{$compRegis->created_at}}</td>
                                             <td>
                                                 @if ($compRegis->status_id == 8)
-                                                    <button type="button" class="btn btn-default btn-success btn-approve" value = "{{$compRegis->id}}">
+                                                <button type="button" class="btn btn-default btn-success btn-approve" value = "{{$compRegis->id}}">
 
                                                     <span class="fa fa-check"></span> Xác nhận
 
@@ -116,25 +116,35 @@
        });
 
         function approveCompany(element){
-            $('.modal-ajax-loading').show();
+            $('.modal-ajax-loading').fadeIn("200");
             $.ajax({
                 url: '../company/approve/' + element.val(),
                 type: 'GET',
                 dataType: 'json',
+                success: function(response){
+                    $('.modal-ajax-loading').fadeOut("200");
+                    element.remove();
+                    sendConfirmEmail(response.account_id, response.id, response.company_id);
+                },
+                error: function(){
+                    $('.modal-ajax-loading').fadeOut("200");
+                    alertError();
+                }            
+            });
+        }
+
+        function sendConfirmEmail(accID, repreID, compID){
+            $.ajax({
+                url: '../company/sendemailconfirm/' + accID + '/' + repreID + '/' +compID,
+                type: 'GET',
+                dataType: 'json',
                 success: function(){
-                    //$('.modal-ajax-loading').hide();
-                   element.remove();
-               // // location.reload();
-               // element.remove();
-               // $("input[value='" + element.val() + "']" ).attr({
-               //     disabled: true
-               // });
-           },
-           error: function(){
-            $('.modal-ajax-loading').hide();
-            alertError();
-        }            
-    });
+                    alert('OK');
+                },
+                error: function(){
+                    
+                }            
+            });
         }
 
 

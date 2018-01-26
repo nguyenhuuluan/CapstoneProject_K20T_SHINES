@@ -83,6 +83,10 @@ Route::middleware(['admin', 'web'])->group(function () {
 	Route::get('/admin/company/active/{companyID}', 'CompanyController@setActiveCompany')->name('activecompany');
 
 	Route::get('/admin/company/company-registration', 'CompanyController@companyRegistration')->name('company.registration');
+
+	Route::get('/admin/company/sendemailconfirm/{accID}/{repreID}/{compID}', 'CompanyController@sendConfirmEmail')->name('company.sendConfirmEmail');
+
+
 });
 
 
