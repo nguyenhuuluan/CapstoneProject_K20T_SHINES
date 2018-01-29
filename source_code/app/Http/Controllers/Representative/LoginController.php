@@ -38,6 +38,7 @@ class LoginController extends Controller
         );
     }
 
+
     protected function sendFailedLoginResponse(Request $request)
     {
         throw ValidationException::withMessages([
@@ -55,7 +56,7 @@ class LoginController extends Controller
     }
     public function showLoginForm()
     {
-        return view('auth.login');
+       return view('representative.auth.login');
     }
     public function login(Request $request)
     {

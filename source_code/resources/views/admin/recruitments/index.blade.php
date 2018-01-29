@@ -57,24 +57,6 @@
                                             <div style="display: inline-block; width: 100px ">
                                                 <a href=" {{ route('admin.recruitments.show', $recruitment->slug) }}" class="btnreview btn-success" target="_blank" style="display: inline-block;">Xem</a>
                                                 {!! Form::open(['method'=>'PATCH', 'action'=>['Admin\AdminRecruitmentController@update',$recruitment->id], 'style'=>'display: inline-block']) !!}
-
-                                                @if ($recruitment->status_id == 8)
-                                                <button type="button" class="btn btn-default btn-approve" value = "{{$recruitment->id}}">
-                                                    {{-- <input type="hidden" name="" class="hidden-company-id" value="{{$comp->id}}"> --}}
-                                                    <span class="glyphicon glyphicon-globe"></span> Xác nhận
-                                                </button>
-                                                @endif
-    
-
-{{--                                                 @if ($recruitment->status_id ==1)                              
-                                                <input type="hidden" name="status_id" value="2">   
-                                                {!! Form::submit('Active', ['class'=>'btn btn-success btnreview']) !!}
-                                                @else
-                                                <input type="hidden" name="status_id" value="1">       
-                                                {!! Form::submit('InActive', ['class'=>'btn btn-primary btn-danger btnreview']) !!}
-                                                @endif --}}
-
-
                                             </div>
                                             
                                         </td>

@@ -188,53 +188,65 @@
         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Tìm...">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </span>
-                            </div>
-                            <!-- /input-group -->
-                        </li>
-                        <li>
-                            <a href="/admin/home"><i class="fa fa-dashboard fa-fw"></i> Bảng điều khiển</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin.recruitments.index') }}"><i class="fa fa-newspaper-o fa-fw"></i> Tin tuyển dụng</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-building fa-fw"></i> Công ty<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="{{route('company.registration')}}">Công ty đang chờ xác nhận</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('company') }}">Danh sách công ty</a>
-                                </li>
-                               
-                            </ul>
-                        </li>
-                         <li>
-                            <a href="#"><i class="fa fa-users fa-fw"></i> Danh sách tài khoản<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="list-account-company.html">Công ty</a>
-                                </li>
-                                <li>
-                                    <a href="list-account-candidate.html">Ứng viên</a>
-                                </li>
-                                <li>
-                                    <a href="list-account-staff.html">Nhân viên</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-pencil-square-o fa-fw"></i> Blog</a>
-                        </li>
-                    </ul>
+                    <li class="sidebar-search">
+                        <div class="input-group custom-search-form">
+                            <input type="text" class="form-control" placeholder="Tìm...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                        <!-- /input-group -->
+                    </li>
+                    <li>
+                        <a href="/admin/home"><i class="fa fa-dashboard fa-fw"></i> Bảng điều khiển</a>
+                    </li>
+
+                    <li>
+                        <a href="#"><i class="fa fa-building fa-fw"></i> Tin tuyển dụng<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="{{ route('admin.recruitments.index') }}"><i class="fa fa-newspaper-o fa-fw"></i>Danh sách tin tuyển dụng</a>
+                            </li>
+                            <li>
+                                <a href="{{route('admin.recruitments.approve')}}">Tin tuyển dụng chờ xác nhận</a>
+                            </li>
+
+                            
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#"><i class="fa fa-building fa-fw"></i> Công ty<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="{{route('company.registration')}}">Công ty đang chờ xác nhận</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('company') }}">Danh sách công ty</a>
+                            </li>
+                            
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-users fa-fw"></i> Danh sách tài khoản<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="list-account-company.html">Công ty</a>
+                            </li>
+                            <li>
+                                <a href="list-account-candidate.html">Ứng viên</a>
+                            </li>
+                            <li>
+                                <a href="list-account-staff.html">Nhân viên</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-pencil-square-o fa-fw"></i> Blog</a>
+                    </li>
+                </ul>
             </div>
             <!-- /.sidebar-collapse -->
         </div>

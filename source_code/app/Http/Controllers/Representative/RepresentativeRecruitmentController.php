@@ -28,7 +28,7 @@ class RepresentativeRecruitmentController extends Controller
     public function index()
     {
         //
-        $recruitments = Recruitment::all();
+        $recruitments = Recruitment::where('company_id', Auth::user()->representative->company->id )->get();
         return view('representative.recruitments.index',compact('recruitments'));
 
     }

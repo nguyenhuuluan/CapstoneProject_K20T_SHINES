@@ -59,8 +59,8 @@ Route::GET('student/update-success','StudentController@updateSuccess')->name('st
 
 
 //Admin login - ADMIN
-Route::GET('admin','Admin\LoginController@showLoginForm')->name('admin.login');
-Route::POST('admin','Admin\LoginController@login');
+Route::GET('admin/login','Admin\LoginController@showLoginForm')->name('admin.login');
+Route::POST('admin/login','Admin\LoginController@login');
 Route::POST('admin-password/email','Admin\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
 Route::GET('admin-password/reset','Admin\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
 Route::POST ('admin-password/reset','Admin\ResetPasswordController@reset');
@@ -69,7 +69,7 @@ Route::GET('password/reset/{token}','Admin\ResetPasswordController@showResetForm
 
 //Admin - ADMIN
 Route::middleware(['admin', 'web'])->group(function () {
-
+	Route::GET('admin', 'Admin\AdminController@index');  
 	Route::GET('admin/home', 'Admin\AdminController@index');  
 	Route::resource('admin/recruitments', 'Admin\AdminRecruitmentController', [
 		'names' => [
@@ -80,7 +80,9 @@ Route::middleware(['admin', 'web'])->group(function () {
 			'update' => 'admin.recruitments.update',
 			'destroy' => 'admin.recruitments.destroy',
 			'edit' => 'admin.recruitments.edit',
+			
 		]]);
+	Route::get('admin/approve/recruitments', 'Admin\AdminRecruitmentController@approve')->name('admin.recruitments.approve');
 
 	Route::get('/admin/recruitments/approve/{recruitmentID}', 'Admin\AdminRecruitmentController@approveRecruitment')->name('approverecruitment');
 	Route::get('/admin/recruitments/active/{recruitment_id}', 'Admin\AdminRecruitmentController@setActiveRecruitment')->name('activerecruitment');
