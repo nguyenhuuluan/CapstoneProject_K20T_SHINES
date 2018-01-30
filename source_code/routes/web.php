@@ -34,6 +34,7 @@ Route::get('/test/{companyID}', 'CompanyController@test')->name('test');
 
 
 
+
 // Company Registration - WEB
 Route::get('/partnership', 'CompanyRegistrationController@partnership')->name('company.partnership');
 
@@ -43,7 +44,6 @@ Route::POST('/partnership/register', 'CompanyRegistrationController@registerPart
 
 // Recruitment - WEB
 Route::get('/recruitment/searchtag', 'RecruitmentController@searchtag')->name('searchtag');
-Route::get('/recruitment/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
 
 Route::get('/recruitments/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
 
@@ -62,8 +62,8 @@ Route::GET('student/update-success','StudentController@updateSuccess')->name('st
 
 
 //Admin login - ADMIN
-Route::GET('admin','Admin\LoginController@showLoginForm')->name('admin.login');
-Route::POST('admin','Admin\LoginController@login');
+Route::GET('admin/login','Admin\LoginController@showLoginForm')->name('admin.login');
+Route::POST('admin/login','Admin\LoginController@login');
 Route::POST('admin-password/email','Admin\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
 Route::GET('admin-password/reset','Admin\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
 Route::POST ('admin-password/reset','Admin\ResetPasswordController@reset');
@@ -72,9 +72,25 @@ Route::GET('password/reset/{token}','Admin\ResetPasswordController@showResetForm
 
 //Admin - ADMIN
 Route::middleware(['admin', 'web'])->group(function () {
-
+	Route::GET('admin', 'Admin\AdminController@index');  
 	Route::GET('admin/home', 'Admin\AdminController@index');  
-	Route::resource('admin/recruitment', 'Admin\AdminRecruitmentController') ;
+	Route::resource('admin/recruitments', 'Admin\AdminRecruitmentController', [
+		'names' => [
+			'index' => 'admin.recruitments.index',
+			'store' => 'admin.recruitments.store',
+			'create' => 'admin.recruitments.create',
+			'show' => 'admin.recruitments.show',
+			'update' => 'admin.recruitments.update',
+			'destroy' => 'admin.recruitments.destroy',
+			'edit' => 'admin.recruitments.edit',
+			
+		]]);
+	Route::get('admin/approve/recruitments', 'Admin\AdminRecruitmentController@approve')->name('admin.recruitments.approve');
+
+	Route::get('/admin/recruitments/approve/{recruitmentID}', 'Admin\AdminRecruitmentController@approveRecruitment')->name('approverecruitment');
+	Route::get('/admin/recruitments/active/{recruitment_id}', 'Admin\AdminRecruitmentController@setActiveRecruitment')->name('activerecruitment');
+
+
 	//Route::get('/admin/recruitment/{id}/preview', 'RecruitmentController@preview')->name('preview');
 
 
@@ -95,13 +111,10 @@ Route::middleware(['admin', 'web'])->group(function () {
 
 
 //login representatitive - WEB 
-Route::GET('representative','Representative\LoginController@showLoginForm')->name('representative.login');
-Route::POST('representative','Representative\LoginController@login');
-
-//login representatitive 
-
 Route::GET('representative/login','Representative\LoginController@showLoginForm')->name('representative.login');
 Route::POST('representative/login','Representative\LoginController@login');
+
+
 
 Route::POST('representative-password/email','Representative\ForgotPasswordController@sendResetLinkEmail')->name('representative.password.email');
 Route::GET('representative-password/reset','Representative\ForgotPasswordController@showLinkRequestForm')->name('representative.password.request');
@@ -124,9 +137,11 @@ Route::GET('representative/reset-password/{token}','Representative\Representativ
 Route::GET('representative/update-success','Representative\ResetPasswordController@updateSuccess')->name('representative.update-success');
 
 
+
 Route::POST('representative/reset-password','Representative\ResetPasswordController@resetPassword')->name('representative.reset-password');
 
 
 
 
 Route::get('/test/{id}','RecruitmentController@test')->name('test');
+

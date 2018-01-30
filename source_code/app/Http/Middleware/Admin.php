@@ -19,10 +19,10 @@ class Admin
             $user = Auth::user();
             if(!$user->isAdmin()){
 
-               return redirect('/admin');
+               return redirect('/admin/login');
            }
        }else{
-        return redirect('/admin');
+        return redirect('/admin/login');
        }
        return $next($request);
    }

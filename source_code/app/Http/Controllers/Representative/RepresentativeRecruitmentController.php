@@ -28,7 +28,7 @@ class RepresentativeRecruitmentController extends Controller
     public function index()
     {
         //
-        $recruitments = Recruitment::all();
+        $recruitments = Recruitment::where('company_id', Auth::user()->representative->company->id )->get();
         return view('representative.recruitments.index',compact('recruitments'));
 
     }
@@ -121,7 +121,7 @@ class RepresentativeRecruitmentController extends Controller
             }
 
             /* Create successful*/
-            $request->session()->flash('comment_message','Create Successfull');
+            $request->session()->flash('comment_message','Tạo mới tin tuyển dụng thành công');
 
             return redirect(route('recruitments.index'));
             //return redirect($recruitment->path());

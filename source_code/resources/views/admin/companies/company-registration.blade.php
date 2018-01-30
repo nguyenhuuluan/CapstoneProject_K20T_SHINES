@@ -37,6 +37,8 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($compsRegis as $compRegis)
+
+                                        @if ($compRegis->status_id == 8)
                                         <tr>
                                             <td>{{$compRegis->company_name}}</td>
 
@@ -48,15 +50,17 @@
                                             
                                             <td>{{$compRegis->created_at}}</td>
                                             <td>
-                                                @if ($compRegis->status_id == 8)
+                                               
                                                 <button type="button" class="btn btn-default btn-success btn-approve" value = "{{$compRegis->id}}">
 
                                                     <span class="fa fa-check"></span> Xác nhận
 
                                                 </button>
-                                                @endif
                                                 
-                                            </td>                                          
+                                                
+                                            </td>   </tr>
+                                        @endif
+                                                                               
                                             @endforeach
 
 
@@ -101,17 +105,17 @@
                     btnClass: 'btn-green',
                     action: function(){
                        approveCompany(currentelement);
-                    }
-                },
-                Không: {
-                    keys: ['esc'],
-                    btnClass: 'btn-red'              
-                }
-
+                   }
+               },
+               Không: {
+                keys: ['esc'],
+                btnClass: 'btn-red'              
             }
 
+        }
 
-        });
+
+    });
 
        });
 
@@ -125,7 +129,7 @@
                 dataType: 'json',
                 success: function(response){
                     $('.modal-ajax-loading').fadeOut("200");
-                   element.parent().parent().remove();
+                    element.parent().parent().remove();
                     sendConfirmEmail(response.account_id, response.id, response.company_id);
                 },
                 error: function(){

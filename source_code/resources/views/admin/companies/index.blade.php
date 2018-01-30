@@ -43,9 +43,7 @@
                                             <td>{{$comp->created_at}}</td>
 
                                             <td>  
-
                                                 @if ($comp->status_id == 3)
-
                                                 <input type="checkbox" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" 
                                                 checked value="{{$comp->id}}" />
                                                 @elseif($comp->status_id == 4)                                           

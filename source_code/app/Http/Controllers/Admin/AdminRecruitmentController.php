@@ -16,7 +16,7 @@ class AdminRecruitmentController extends Controller
     public function index()
     {
         //
-        $recruitments = Recruitment::all();
+        $recruitments = Recruitment::where('status_id', '1')->orWhere('status_id', '2')->get();
         return view ('admin.recruitments.index',compact('recruitments'));
     }
 
@@ -28,7 +28,61 @@ class AdminRecruitmentController extends Controller
     public function create()
     {
         //
+        // $recruitments = Recruitment::where('status_id', 8)->get();
+        // return view ('admin.recruitments.approve', compact('recruitments'));
     }
+
+    public function approve()
+    {
+        $recruitments = Recruitment::where('status_id', 8)->get();
+        return view ('admin.recruitments.approve', compact('recruitments'));
+
+    }
+
+    public function setApproveRecruitment($recruitmentID){
+        $recruitment = Recruitment::Where('id', $recruimentID)->first();
+
+        $recruitment->status_id = 1;
+
+        $recruitment->save();
+
+        //return '231';
+        return $recruitment;  
+
+    }
+
+
+    public function approveRecruitment($recruitmentID)
+    {   
+    // $this->createRepresentative($companyID);
+    // return response()->json(['isSuccess' => true]);
+
+        $recruitment = Recruitment::where('id', $recruitmentID)->first();
+
+        $recruitment->status_id = 1;
+        $recruitment->save();
+
+
+  //  return $repre;
+
+        return response()->json(['isSuccess' => true]);
+
+    }
+
+
+
+    public function setActiveRecruitment($recruitment_id){
+        $recruitment = Recruitment::Where('id', $recruitment_id)->first();
+
+        if ($recruitment->status_id != 1) {
+         $recruitment->status_id = 1;
+     }else {
+         $recruitment->status_id = 2;
+     }
+
+     $recruitment->save();     
+     return $recruitment;
+ }
 
     /**
      * Store a newly created resource in storage.
@@ -47,10 +101,10 @@ class AdminRecruitmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
         //
-        $recruitment = Recruitment::findOrFail($id);
+        $recruitment = Recruitment::findBySlugOrFail($slug);
         return view('admin.recruitments.preview',compact('recruitment'));
     }
 

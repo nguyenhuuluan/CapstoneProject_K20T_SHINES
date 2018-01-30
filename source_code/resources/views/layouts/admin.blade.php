@@ -51,6 +51,7 @@
 </head>
 
 <body>
+
     <div class="modal-ajax-loading">
       <div class="modal-ajax-loading-content">
         <img src="{{ asset('assets/img/ajax-loader.gif') }}">
@@ -80,7 +81,7 @@
                     <li>
                         <a href="#">
                             <div>
-                                <strong>Thanh Huynh</strong>
+                                <strong>{!! Auth::user()->staff->name!!}</strong>
                                 <span class="pull-right text-muted">
                                     <em>Hôm qua</em>
                                 </span>
@@ -92,7 +93,7 @@
                     <li>
                         <a href="#">
                             <div>
-                                <strong>Thanh Huynh</strong>
+                                <strong>{!! Auth::user()->staff->name!!}</strong>
                                 <span class="pull-right text-muted">
                                     <em>24/12/2017</em>
                                 </span>
@@ -104,7 +105,7 @@
                     <li>
                         <a href="#">
                             <div>
-                                <strong>Thanh Huynh</strong>
+                                <strong>{!! Auth::user()->staff->name!!}</strong>
                                 <span class="pull-right text-muted">
                                     <em>20/10/2017</em>
                                 </span>
@@ -122,8 +123,12 @@
                 </ul>
                 <!-- /.dropdown-messages -->
             </li>
+
+
+            <!-- /.dropdown -->
             
-            
+
+
             <!-- /.dropdown -->
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -207,18 +212,26 @@
                     <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Bảng điều khiển</a>
                 </li>
                 <li>
-                    <a href="list-recruitment.html"><i class="fa fa-newspaper-o fa-fw"></i> Tin tuyển dụng</a>
+                    <a href="#"><i class="fa fa-building fa-fw"></i> Tin tuyển dụng<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="{{ route('admin.recruitments.index') }}"><i class="fa fa-newspaper-o fa-fw"></i> Danh sách tin tuyển dụng</a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.recruitments.approve')}}">Tin tuyển dụng chờ xác nhận</a>
+                        </li>                   
+                    </ul>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-building fa-fw"></i> Công ty<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li>
-                            <a href="{{route('company.registration')}}">Công ty đang chờ xác nhận</a>
-                        </li>
+                        
                         <li>
                             <a href="{{ route('company') }}">Danh sách công ty</a>
                         </li>
-                        
+                        <li>
+                            <a href="{{route('company.registration')}}">Công ty đang chờ xác nhận</a>
+                        </li>
                     </ul>
                 </li>
                 <li>
@@ -239,10 +252,16 @@
                     <a href="#"><i class="fa fa-pencil-square-o fa-fw"></i> Blog</a>
                 </li>
             </ul>
-        </div>
+
+        </ul>
+        <!-- /.navbar-top-links -->
+
+
         <!-- /.sidebar-collapse -->
     </div>
-    <!-- /.navbar-static-side -->
+    <!-- /.sidebar-collapse -->
+</div>
+<!-- /.navbar-static-side -->
 </nav>
 
 <!-- Page Content -->
