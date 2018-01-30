@@ -37,13 +37,6 @@ class RecruitmentTest extends TestCase
     }
 
      /** @test*/
-    public function a_recruitment_has_tags()
-    {	
-
-        $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $this->recruitment->tags);
-    }
-
-     /** @test*/
     public function a_recruitment_has_sections()
     {	
 
@@ -52,7 +45,7 @@ class RecruitmentTest extends TestCase
     }
 
      /** @test */
-     function it_has_tags(){
+     function a_recruitment_has_tags(){
         $tag = create('App\Tag');
         $this->recruitment->tags()->save($tag);
         $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $this->recruitment->tags);

@@ -29,14 +29,4 @@ class HomeController extends Controller
         return view('welcome', compact('recruitments'));
     }
 
-
-    public function test(){
-        return view('recruitments.test');
-    }
-
-    public function search(Request $request)
-    {
-
-    }
-
 }

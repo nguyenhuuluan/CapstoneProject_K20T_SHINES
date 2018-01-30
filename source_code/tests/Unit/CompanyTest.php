@@ -21,12 +21,12 @@ class CompanyTest extends TestCase
 	}
 
 	/** @test */
-	function it_has_address(){
+	function a_company_has_address(){
 		$this->assertInstanceOf('App\Address', $this->company->address);
 	}
 
 	/** @test */
-	function it_has_representatives(){
+	function a_company_has_representatives(){
 
 		$representative = create('App\Representative', ['company_id'=>$this->company->id]);
 
@@ -34,7 +34,7 @@ class CompanyTest extends TestCase
 	}
 
 	/** @test */
-	function it_has_recruitments(){
+	function a_company_has_recruitments(){
 
 		$recruitment = create('App\Recruitment', ['company_id'=>$this->company->id]);
 
@@ -42,16 +42,21 @@ class CompanyTest extends TestCase
 	}
 
 	/** @test */
-	function it_has_tags(){
+	function a_company_has_tags(){
 		$tag = create('App\Tag');
 		$this->company->tags()->save($tag);
 		$this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $this->company->tags);
 	}
 
 	/** @test */
-	function it_has_status(){
+	function a_company_has_status(){
 		$this->assertInstanceOf('App\Status', $this->company->status);
 	}
 
+	/** @test*/
+	public function a_company_has_sections()
+	{	
+		$this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $this->company->sections);
+	}
 
 }
