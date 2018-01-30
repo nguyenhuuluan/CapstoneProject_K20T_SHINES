@@ -47,6 +47,9 @@ Route::get('/recruitment/{id}', 'RecruitmentController@detailrecruitment')->name
 
 Route::get('/recruitments/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
 
+// Company - WEB
+Route::get('/company/detail/{id}', 'CompanyController@detail')->name('company.detail');
+
 
 
 // Student - WEB
@@ -116,8 +119,12 @@ Route::middleware(['representative', 'web'])->group(function () {
 
 });
 
+Route::GET('representative/reset-password/{token}','Representative\RepresentativeController@resetPassword')->name('representative.resetpassword');
+
+Route::GET('representative/update-success','Representative\ResetPasswordController@updateSuccess')->name('representative.update-success');
 
 
+Route::POST('representative/reset-password','Representative\ResetPasswordController@resetPassword')->name('representative.reset-password');
 
 
 

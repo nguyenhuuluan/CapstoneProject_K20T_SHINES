@@ -59,14 +59,10 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                @if ($comp->status_id == 7)
-                                                <button type="button" class="btn btn-default btn-approve" value = "{{$comp->id}}">
-                                                    {{-- <input type="hidden" name="" class="hidden-company-id" value="{{$comp->id}}"> --}}
-                                                    <span class="glyphicon glyphicon-globe"></span> Xác nhận
-                                                </button>
-                                                @endif
+                                                
+                                                <a class="btn btnreview btn-success" href="{{ route('company.detail', ['id'=> $comp->id]) }}">Xem</a>
 
-                                                <button type="button" class="btnreview btn-success">Xem</button>
+                                              {{--   <button type="button" class="btnreview btn-success">Xem</button> --}}
 
                                             </td>
 
@@ -121,6 +117,7 @@
                 keys: ['enter'],
                 btnClass: 'btn-green',
                 action: function(){
+                    
                     approveCompany(currentelement);
                 }
             },
@@ -191,46 +188,6 @@
              alertError();
          }            
      });
-    }
-
-    function approveCompany(element){
-        $('.modal-ajax-loading').show();
-        $.ajax({
-            url: 'company/approve/' + element.val(),
-            type: 'GET',
-            dataType: 'json',
-            success: function(){
-                $('.modal-ajax-loading').hide();
-               // location.reload();
-               element.remove();
-               $("input[value='" + element.val() + "']" ).attr({
-                 disabled: true
-             });
-           },
-           error: function(){
-            $('.modal-ajax-loading').hide();
-            alertError();
-        }            
-    });
-    }
-
-    function getCompanies(){
-
-        $('#dataTables-example').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: '{{Route('getcompanies')}}',
-            columns:[
-            {data:'name'},
-            {data:'phone'},
-            {data:'website'},
-            {data:'email'},
-            {data:'created_at'},
-
-            {data: 'action', name: 'action', orderable: false, searchable: false}
-            ]
-        });
-
     }
 
 </script>

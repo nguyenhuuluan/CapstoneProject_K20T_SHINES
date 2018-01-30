@@ -58,6 +58,8 @@
 				<div class="container">
 					<center><div class="alert alert-success">
 						<strong>Cập nhật thành công!</strong> Giờ bạn có thể đăng nhập và sử dụng dịch vụ, cảm ơn.
+						<br>
+						Quay về trang chủ <a class="logo-alt" href="{{ route('home') }}"> <b>Trang chủ</b></a>
 					</div></center>
 
 				</div>

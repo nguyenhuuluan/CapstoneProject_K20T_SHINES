@@ -15,6 +15,12 @@ use Mail;
 class CompanyController extends Controller
 {
 
+  public function detail($id)
+  {
+    $comp = Company::where('id', '=', $id)->first();
+
+    return view('companies.detail')->with(compact('comp'));
+  }
 
   public function companyRegistration()
   {
@@ -80,15 +86,15 @@ class CompanyController extends Controller
 
   }
 
-public function sendConfirmEmail($accID, $repreID, $compID)
-{
-  $acc = Account::Where('id', $accID)->first();
-  $repre = Representative::Where('id', $repreID)->first();
-  $comp = Company::Where('id', $compID)->first();
+  public function sendConfirmEmail($accID, $repreID, $compID)
+  {
+    $acc = Account::Where('id', $accID)->first();
+    $repre = Representative::Where('id', $repreID)->first();
+    $comp = Company::Where('id', $compID)->first();
 
-  $this->sendMailToResetPassword($repre, $comp, $acc);
+    $this->sendMailToResetPassword($repre, $comp, $acc);
 
-}
+  }
 
 
   public function createRepresentative($comp, $compRegis, $acc)
@@ -141,8 +147,8 @@ public function sendConfirmEmail($accID, $repreID, $compID)
     ]);
 
       //set role for account
-    $role = Role::findOrFail(3);
-    $role -> accounts() -> attach($acc["id"]);
+   $role = Role::findOrFail(3);
+   $role -> accounts() -> attach($acc["id"]);
 
    return $acc;
  }

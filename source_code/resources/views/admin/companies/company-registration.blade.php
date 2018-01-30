@@ -100,7 +100,7 @@
                     keys: ['enter'],
                     btnClass: 'btn-green',
                     action: function(){
-                        approveCompany(currentelement);
+                       approveCompany(currentelement);
                     }
                 },
                 Không: {
@@ -115,6 +115,8 @@
 
        });
 
+
+
         function approveCompany(element){
             $('.modal-ajax-loading').fadeIn("200");
             $.ajax({
@@ -123,7 +125,7 @@
                 dataType: 'json',
                 success: function(response){
                     $('.modal-ajax-loading').fadeOut("200");
-                    element.remove();
+                   element.parent().parent().remove();
                     sendConfirmEmail(response.account_id, response.id, response.company_id);
                 },
                 error: function(){

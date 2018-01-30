@@ -42,7 +42,7 @@ xmlns:o="urn:schemas-microsoft-com:office:office">
 
 									<p style="margin:0 10px 10px 10px;padding:0;">Rất vui vì bạn đã tham gia VanLang E-Recruiting, ấn nút phía dưới để cập nhật mật khẩu.</p>
 
-									<a style="display:inline-block;text-decoration:none;padding:15px 20px;border:1px solid #2baaed; background:#2baaed; border-radius:3px;color:white;font-weight:bold;" href="#" target="_blank">Cập nhật mật khẩu</a>
+									<a style="display:inline-block;text-decoration:none;padding:15px 20px;border:1px solid #2baaed; background:#2baaed; border-radius:3px;color:white;font-weight:bold;" href="{{Route('representative.resetpassword', ['token' => $account -> remember_token]) }}" target="_blank">Cập nhật mật khẩu</a>
 
 									
 									<p>

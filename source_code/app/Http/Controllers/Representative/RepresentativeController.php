@@ -11,6 +11,8 @@ use App\Recruitment;
 use App\Section;
 use App\Company;
 
+use App\Account;
+
 class RepresentativeController extends Controller
 {
     /**
@@ -23,6 +25,19 @@ class RepresentativeController extends Controller
         //
         return view('representative.index');
     }
+
+    public function resetPassword($token)
+    {
+        $acc = Account::where('remember_token', '=', $token)->first();
+
+        if (!$acc) {
+            return view('layouts2.custom-error-message')->with('errorMessage', 'Địa chỉ hiện tại không tồn tại');
+        }
+
+        return view('representative.confirm')->with(compact('acc'));
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
