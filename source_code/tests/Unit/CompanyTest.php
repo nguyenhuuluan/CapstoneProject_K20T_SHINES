@@ -47,4 +47,11 @@ class CompanyTest extends TestCase
 		$this->company->tags()->save($tag);
 		$this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $this->company->tags);
 	}
+
+	/** @test */
+	function it_has_status(){
+		$this->assertInstanceOf('App\Status', $this->company->status);
+	}
+
+
 }

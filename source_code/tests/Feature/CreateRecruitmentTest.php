@@ -77,7 +77,7 @@ class CreateRecruitmentTest extends TestCase
 		$recruitment = create('App\Recruitment', ['status_id'=>$status->id]);
 		
 		$this->get('/admin/recruitments/approve/'.$recruitment->id)
-		->assertRedirect('/admin');	
+		->assertRedirect('/admin/login');	
 	}
 
 	/** @test*/
@@ -126,7 +126,7 @@ class CreateRecruitmentTest extends TestCase
 		$status = create('App\Status',['type'=> 1, 'name'=>'inactive_recruitment', 'id'=>'2']);
 		$recruitment = create('App\Recruitment', ['status_id'=>$status->id]);
 		
-		$this->get('/admin/recruitments/active/'.$recruitment->id)->assertRedirect('/admin');
+		$this->get('/admin/recruitments/active/'.$recruitment->id)->assertRedirect('/admin/login');
 	}
 
 	/** @test*/
@@ -136,7 +136,7 @@ class CreateRecruitmentTest extends TestCase
 		$status = create('App\Status',['type'=> 1, 'name'=>'active_recruitment', 'id'=>'1']);
 		$recruitment = create('App\Recruitment', ['status_id'=>$status->id]);
 		
-		$this->get('/admin/recruitments/active/'.$recruitment->id)->assertRedirect('/admin');
+		$this->get('/admin/recruitments/active/'.$recruitment->id)->assertRedirect('/admin/login');
 	}
 
 	/** @test */
