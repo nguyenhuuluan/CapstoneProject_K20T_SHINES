@@ -28,7 +28,7 @@ class CompanyRegistrationController extends Controller
 			"representative_position" => $request["representative_position"],
 			"representative_phone" => $request["representative_phone"],
 			"representative_email" => $request["representative_email"],
-			"status_id" => 8
+			"status_id" => 9
 		]);
 
 

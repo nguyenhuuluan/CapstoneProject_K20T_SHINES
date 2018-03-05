@@ -107,13 +107,13 @@
      });
 
         function approveCompany(element){
-            $('.modal-ajax-loading').show();
+            $('.modal-ajax-loading').fadeIn("200");
             $.ajax({
                 url: '../recruitments/approve/' + element.val(),
                 type: 'GET',
                 dataType: 'json',
                 success: function(){
-                    //$('.modal-ajax-loading').hide();
+                    $('.modal-ajax-loading').fadeOut("200");
                     $.alert({
                         title: 'Thông báo!',
                         content: 'Xác nhận thành công',

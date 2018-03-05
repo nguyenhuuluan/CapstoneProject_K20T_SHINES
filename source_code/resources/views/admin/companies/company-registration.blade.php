@@ -38,7 +38,7 @@
                                     <tbody>
                                         @foreach ($compsRegis as $compRegis)
 
-                                        @if ($compRegis->status_id == 8)
+                                        @if ($compRegis->status_id == 9)
                                         <tr>
                                             <td>{{$compRegis->company_name}}</td>
 

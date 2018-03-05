@@ -14,7 +14,7 @@
 			<strong>
 				<p class="help-block">Bạn đã có tài khoản?</p>
 			</strong>
-			<strong><a href="mn-login-company.html" class="help-block" style="color: red;"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Đăng nhập</a></strong>
+			<strong><a href="{{ route('representative.login') }}" class="help-block" style="color: red;"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Đăng nhập</a></strong>
 		</div>
 	</div>
 	<div class="container">

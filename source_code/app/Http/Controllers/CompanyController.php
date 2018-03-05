@@ -60,6 +60,9 @@ class CompanyController extends Controller
     $repre = new Representative();
     $repre = $this->createRepresentative($comp, $compRegis, $account);
 
+    $address = Role::findOrFail(3);
+    $role -> accounts() -> attach($acc["id"]);
+
 
   //  $this->sendMailToResetPassword($repre, $comp, $account);
     
