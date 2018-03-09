@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
     //
-    protected $fillable = ['name','gender','email','phone','profile_photo','dateofbirth','account_id','faculty_id'];
+    protected $path = '/images/students/avatas/';
+    protected $fillable = ['name','gender','email','phone','photo','dateofbirth','account_id','faculty_id'];
 
 
     public $timestamp = true;
@@ -26,6 +27,12 @@ class Student extends Model
         return $this->belongsToMany('App\Tag', 'tag_student', 'student_id','tag_id')->withTimestamps();
     }
 
-
+        public function getPhotoAttribute($value){
+        if($value){
+            return $this->path.$value;
+        }else{
+            return 'http://via.placeholder.com/1205x1795';
+        }
+    }
 
 }

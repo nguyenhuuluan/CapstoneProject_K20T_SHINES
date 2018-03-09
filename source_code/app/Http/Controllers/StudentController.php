@@ -38,21 +38,15 @@ class StudentController extends Controller
 
 	public function register(Request $request)
 	{   
-
 		$whitelist = array("vanlanguni.vn"); //You can add basically whatever you want here because it checks for one of these strings to be at the end of the $email string.
 
 		$validatedData = $request->validate([
 			'email' => 'required',
 		]);
 
-
-
 		if (!$this->validateEmailDomain($request["email"], $whitelist)) {
-
 			$request->session()->flash('email-invalid', '<strong>Email không hợp lệ</strong>, hiện tại website chỉ cung cấp dịch vụ cho sinh viên học tại ĐH Văn Lang.');
-
 			return redirect()->route("home")->withInput();
-
 		}
 
 		if ($acc = Account::where('username', '=', $request["email"])->first()) {
@@ -141,6 +135,16 @@ class StudentController extends Controller
 	public function updateSuccess()
 	{
 		return view('layouts2.update-success');
+	}
+
+	public function profile()
+	{
+		return view('students.profile');
+	}
+
+	public function updateProfile()
+	{
+		return view('students.profile-update');
 	}
 
 	

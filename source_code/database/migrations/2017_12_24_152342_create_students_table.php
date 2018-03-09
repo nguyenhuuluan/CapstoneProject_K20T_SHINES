@@ -19,7 +19,7 @@ class CreateStudentsTable extends Migration
             $table->tinyInteger('gender');
             $table->string('email')->unique();
             $table->string('phone',20);
-            $table->string('profile_photo',255)->nullable();
+            $table->string('photo',255)->nullable();
             $table->date('dateofbirth');
             $table->integer('account_id')->index()->unsigned();
             $table->integer('faculty_id')->index()->unsigned();

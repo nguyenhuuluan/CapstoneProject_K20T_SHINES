@@ -20,7 +20,7 @@ Route::get('/' , 'HomeController@index')->name('index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
+Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::get('/test/{companyID}', 'CompanyController@test')->name('test');
 
 
@@ -58,6 +58,9 @@ Route::POST('student','StudentController@register')->name('student.register');
 Route::GET('student/confirm/{token}','StudentController@confirm')->name('student.confirm');
 Route::POST('student/confirm','StudentController@confirmInfomation')->name('student.confirm-information');
 Route::GET('student/update-success','StudentController@updateSuccess')->name('student.update-success');
+
+Route::get('student/profile', 'StudentController@profile')->name('student.profile')->middleware('student');
+Route::get('student/profile/update', 'StudentController@updateProfile')->name('student.profile.update')->middleware('student');
 
 
 

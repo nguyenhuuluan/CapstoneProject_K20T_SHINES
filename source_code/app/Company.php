@@ -41,7 +41,5 @@ class Company extends Model
         }else{
             return 'http://via.placeholder.com/100x100';
         }
-        
-
     }
 }	
