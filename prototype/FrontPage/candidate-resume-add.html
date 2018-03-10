@@ -114,16 +114,17 @@
 							<span class="help-block">Xin vui lòng chọn ảnh 4:6</span>
 							<br>
 						</div>
-						<center><div class="button-group">
-							<div class="action-buttons">
-								<div class="upload-button">
-									<button class="btn btn-block btn-primary">Tải lên CV</button>
-									<input id="cover_img_file" type="file">
-								</div>
-
-							</div>
+						<!-- Upload CV -->
+						<center>
+						<div style="position:relative;">
+							<a class='btn btn-primary' href='javascript:;'>
+								Tải lên CV...
+								<input type="file" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="file_source" size="40"  onchange='$("#upload-file-info").html($(this).val());'>
+							</a>
+							&nbsp;
+							<span class='label label-info' id="upload-file-info"></span>
 						</div>
-					</center>
+						</center>
 				</div>
 
 				<div class="col-xs-12 col-sm-8">
@@ -457,7 +458,7 @@
 
 
 		<!-- Submit -->
-		<section class=" bg-img" style="background-image: url(assets/img/bg-facts.jpg);">
+		<section class=" bg-img">
 			<div class="container">
 				<header class="section-header">
 					<h2>Gửi hồ sơ</h2>
