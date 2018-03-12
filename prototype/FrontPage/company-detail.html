@@ -13,6 +13,7 @@
   <link href="assets/css/app.min.css" rel="stylesheet">
   <link href="assets/css/thejobs.css" rel="stylesheet">
   <link href="assets/css/custom.css" rel="stylesheet">
+  <link href="assets/css/jquery.bxslider.css" rel="stylesheet">
 
   <!-- Fonts -->
   <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
@@ -205,7 +206,12 @@
         <p>Tháng 8 2015, Google thông báo kế hoạch tái cơ cấu tập đoàn dưới một công ty mẹ mới có tên là Alphabet Inc..[5][6][7] Đầu năm 2016,Google là công ty đầu tiên vượt mặt Apple để trở thành công ty có giá trị thị trường lớn nhất thế giới với 570 tỷ USD vốn hóa và Apple xếp thứ 2 với 535 tỷ USD.</p>
 
         <p>Tính đến tháng 9 năm 2016, Google là trang web được nhiều người truy cập nhất trên thế giới, đứng vị trí thứ 2 và thứ 3 là YouTube và mạng xã hội Facebook.</p>
-
+        <center>
+        <div class="bxslider">
+          <div><img src="assets/img/test_bck.jpg" title="Funky roots"></div>
+          <div><img src="assets/img/bg-banner1.jpg" title="The long and winding road"></div>
+        </div>
+        </center>
       </div>
     </section>
     <!-- END Company detail -->
@@ -224,7 +230,7 @@
           <div class="col-xs-12">
             <a class="item-block" href="job-detail.html">
               <header>
-                <img src="assets/img/logo-google.jpg" alt="">
+                <img src="assets/img/logo-google.png" alt="">
                 <div class="hgroup">
                   <h4>Senior front-end developer</h4>
                   <h5>Google <span class="label label-danger">Full-time</span></h5>
@@ -261,7 +267,7 @@
           <div class="col-xs-12">
             <a class="item-block" href="job-detail.html">
               <header>
-                <img src="assets/img/logo-google.jpg" alt="">
+                <img src="assets/img/logo-google.png" alt="">
                 <div class="hgroup">
                   <h4>Senior front-end developer</h4>
                   <h5>Google <span class="label label-danger">Full-time</span></h5>
@@ -298,7 +304,7 @@
           <div class="col-xs-12">
             <a class="item-block" href="job-detail.html">
               <header>
-                <img src="assets/img/logo-google.jpg" alt="">
+                <img src="assets/img/logo-google.png" alt="">
                 <div class="hgroup">
                   <h4>Senior front-end developer</h4>
                   <h5>Google <span class="label label-success">Full-time</span></h5>
@@ -335,7 +341,7 @@
           <div class="col-xs-12">
             <a class="item-block" href="job-detail.html">
               <header>
-                <img src="assets/img/logo-google.jpg" alt="">
+                <img src="assets/img/logo-google.png" alt="">
                 <div class="hgroup">
                   <h4>Senior front-end developer</h4>
                   <h5>Google <span class="label label-success">Full-time</span></h5>
@@ -372,7 +378,7 @@
           <div class="col-xs-12">
             <a class="item-block" href="job-detail.html">
               <header>
-                <img src="assets/img/logo-google.jpg" alt="">
+                <img src="assets/img/logo-google.png" alt="">
                 <div class="hgroup">
                   <h4>Senior front-end developer</h4>
                   <h5>Google <span class="label label-success">Full-time</span></h5>
@@ -512,6 +518,16 @@
   <script src="assets/js/app.min.js"></script>
   <script src="assets/js/thejobs.js"></script>
   <script src="assets/js/custom.js"></script>
+  <script src="assets/js/jquery.bxslider.js"></script>
+  <script>
+   $(function(){
+  $('.bxslider').bxSlider({
+    mode: 'fade',
+    captions: true,
+    slideWidth: 600
+  });
+});
+  </script>
   <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
   <script>
         function modalSignInOut(nameinout) {

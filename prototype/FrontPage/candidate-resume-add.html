@@ -11,9 +11,10 @@
 
 	<!-- Styles -->
 	<link href="assets/css/app.min.css" rel="stylesheet">
-	<link href="assets/vendors/summernote/summernote.css" rel="stylesheet">
 	<link href="assets/css/thejobs.css" rel="stylesheet">
 	<link href="assets/css/custom.css" rel="stylesheet">
+	<link href="assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
 
 	<!-- Fonts -->
 	<link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
@@ -133,10 +134,6 @@
 					</div>
 
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Tiêu đề (vd. Nhân viên bán hàng)">
-					</div>
-
-					<div class="form-group">
 						<textarea class="form-control" rows="3" placeholder="Mô tả ngắn về bạn"></textarea>
 					</div>
 
@@ -144,13 +141,16 @@
 
 					<h6>Thông tin cơ bản</h6>
 					<div class="row">
-
+						
 						<div class="form-group col-xs-12 col-sm-6">
 							<div class="input-group input-group-sm">
-								<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
-								<input type="text" class="form-control" placeholder="Địa chỉ">
+								<span class="input-group-addon"><i class="fa fa-birthday-cake"></i></span>
+								<div class="controls input-append date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+									<input size="16" type="text" value="" style="width: 85%;" readonly>
+									<span class="add-on" style="width: 15%;"><i class="fa fa-calendar"></i></span>
+								</div>
 							</div>
-						</div>
+						</div>							
 
 						<div class="form-group col-xs-12 col-sm-6">
 							<div class="input-group input-group-sm">
@@ -197,99 +197,8 @@
 			<br>
 		</div>
 
-		<!-- Education -->
-		<section class=" bg-alt">
-			<div class="container">
-
-				<header class="section-header">
-					<br>
-					<h2>Bằng cấp</h2>
-				</header>
-				
-				<div class="row">
-
-					<div class="col-xs-12">
-						<div class="item-block">
-							<div class="item-form">
-								
-								<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
-
-								<div class="row">
-									<div class="col-xs-12 col-sm-12">
-										<div class="form-group">
-											<input type="text" class="form-control" placeholder="Cấp bậc, vd. Cử nhân">
-										</div>
-
-										<div class="form-group">
-											<input type="text" class="form-control" placeholder="Chuyên Nghành, vd. CNTT">
-										</div>
-										<div class="form-group">
-											<input type="text" class="form-control" placeholder="Tên trường, vd. Đại học Văn Lang">
-										</div>
-
-										<div class="form-group">
-											<div class="input-group">
-												<span class="input-group-addon">Từ</span>
-												<input class="form-control" type="month" value="2011-08" id="example-month-input">
-												<span class="input-group-addon">Đến</span>
-												<input class="form-control" type="month" value="2011-08" id="example-month-input">
-											</div>
-										</div>
-									</div>
-								</div>
-
-							</div>
-						</div>
-					</div>
-
-					<div class="col-xs-12 duplicateable-content">
-						<div class="item-block">
-							<div class="item-form">
-								
-								<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
-
-								<div class="row">
-									<div class="col-xs-12 col-sm-12">
-										<div class="form-group">
-											<input type="text" class="form-control" placeholder="Cấp bậc, vd. Cử nhân">
-										</div>
-
-										<div class="form-group">
-											<input type="text" class="form-control" placeholder="Chuyên Nghành, vd. CNTT">
-										</div>
-										<div class="form-group">
-											<input type="text" class="form-control" placeholder="Tên trường, vd. Đại học Văn Lang">
-										</div>
-
-										<div class="form-group">
-											<div class="input-group">
-												<span class="input-group-addon">Từ</span>
-												<input class="form-control" type="month" value="2011-08" id="example-month-input">
-												<span class="input-group-addon">Đến</span>
-												<input class="form-control" type="month" value="2011-08" id="example-month-input">
-											</div>
-										</div>
-									</div>
-								</div>
-
-							</div>
-						</div>
-					</div>
-
-					<div class="col-xs-12 text-center">
-						<br>
-						<button class="btn btn-primary btn-duplicator">Thêm bằng cấp</button>
-					</div>
-
-
-				</div>
-			</div>
-		</section>
-		<!-- END Education -->
-
-
 		<!-- Work Experience -->
-		<section>
+		<section class="bg-alt">
 			<div class="container">
 				<header class="section-header">
 					<br>
@@ -349,7 +258,7 @@
 										<div class="form-group">
 											<div class="input-group col-xs-12 col-sm-12">
 												<span class="input-group-addon">Từ</span>
-												<input class="form-control" type="month" value="2011-08">
+												<input class="form-control" type="date" value="2011-08">
 												<span class="input-group-addon">Đến</span>
 												<input class="form-control" type="month" value="2011-08">
 											</div>
@@ -366,18 +275,16 @@
 						<br>
 						<button class="btn btn-primary btn-duplicator">Thêm kinh nghiệm làm việc</button>
 					</div>
-
-
 				</div>
-
 			</div>
 		</section>
 		<!-- END Work Experience -->
 
 
-		<!-- Skills -->
-		<section class=" bg-alt">
+		<!-- Skills-->
+		<section>
 			<div class="container">
+				
 				<header class="section-header">
 					<br>
 					<h2>Kĩ năng</h2>
@@ -447,30 +354,14 @@
 						<br>
 						<button class="btn btn-primary btn-duplicator">Thêm kĩ năng</button>
 					</div>
-
-
 				</div>
-
 			</div>
 		</section>
-		<!-- END Skills -->
+		<!-- END Skills-->
 
-
-
-		<!-- Submit -->
-		<section class=" bg-img">
-			<div class="container">
-				<header class="section-header">
-					<h2>Gửi hồ sơ</h2>
-					<p>Xin vui lòng kiểm tra lại hồ sơ trước khi gửi</p>
-				</header>
-
-				<p class="text-center"><button class="btn btn-success btn-xl btn-round">Gửi</button></p>
-
-			</div>
+		<section class="bg-alt">
+		<p class="text-center"><button class="btn btn-danger btn-xl btn-round">Cập nhật hồ sơ</button></p>
 		</section>
-		<!-- END Submit -->
-
 
 	</main>
 	<!-- END Main container -->
@@ -564,10 +455,43 @@
 
 <!-- Scripts -->
 <script src="assets/js/app.min.js"></script>
-<script src="assets/vendors/summernote/summernote.min.js"></script>
 <script src="assets/js/thejobs.js"></script>
 <script src="assets/js/custom.js"></script>
-
+<script src="assets/js/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap-datetimepicker.vi.js" charset="UTF-8"></script>
+<script type="text/javascript">
+    $('.form_datetime').datetimepicker({
+        //language:  'vie',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+        showMeridian: 1
+    });
+	$('.form_date').datetimepicker({
+        language:  'vie',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0
+    });
+	$('.form_time').datetimepicker({
+        language:  'vie',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 1,
+		minView: 0,
+		maxView: 1,
+		forceParse: 0
+    });
+</script>
 
 
 </body>
