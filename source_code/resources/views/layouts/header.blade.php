@@ -158,7 +158,7 @@
    <ul class="dropdown-menu dropdown-menu-right">
      <li><a href="mn-account-company.html"><i class="fa fa-user" aria-hidden="true"></i> Tài khoản</a></li>
      <li><a href="mn-dashboard-company.html"><i class="fa fa-tachometer" aria-hidden="true"></i> Bảng điều khiển</a></li>
-     <li><a href="mn-information-company.html"><i class="fa fa-building-o" aria-hidden="true"></i> Công ty của bạn</a></li>
+     <li><a href="{{ route('company.update',['id' => Auth::user()->representative->company->id]) }}"><i class="fa fa-building-o" aria-hidden="true"></i> Công ty của bạn</a></li>
      <li><a href="{{ route('recruitments.index') }}"><i class="fa fa-newspaper-o" aria-hidden="true"></i> Việc làm đã đăng</a></li>
      <li><a href="mn-application-list-company.html"><i class="fa fa-users" aria-hidden="true"></i> Danh sách ứng tuyển</a></li>
      <li><a href="{{ route('logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="fa fa-sign-out" aria-hidden="true"></i>Đăng xuất</a>

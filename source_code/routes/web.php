@@ -149,3 +149,5 @@ Route::POST('representative/reset-password','Representative\ResetPasswordControl
 
 Route::get('/test/{id}','RecruitmentController@test')->name('test');
 
+Route::get('/tags','TagController@getTags')->name('tags');
+
