@@ -15,7 +15,15 @@
 	<link href="{{ asset('assets/vendors/summernote/summernote.css') }} " rel="stylesheet">
 	<link href="{{ asset('assets/css/thejobs.css') }}" rel="stylesheet">
 	<link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
+	<link href="{{ asset('assets/css/bootstrap-datetimepicker.min.css')}} " rel="stylesheet">
 
+
+	<link href="{{ asset('assets/jquery.typeahead.min.css')}} " rel="stylesheet">
+	<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+
+	<link href="{{ asset('assets/jquery.typeahead.min.js')}} " rel="stylesheet">
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<!-- Fonts -->
 	<link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
 
@@ -34,8 +42,8 @@
 				<a class="navbar-toggle" href="#" data-toggle="offcanvas"><i class="ti-menu"></i></a>
 
 				<div class="logo-wrapper">
-					<a class="logo" href="index.html"><img src="{{ asset('assets/img/logo.png') }} " alt="logo"></a>
-					<a class="logo-alt" href="index.html"><img src="{{ asset('assets/img/logo-alt.png') }} " alt="logo-alt"></a>
+					<a class="logo" href="{{ route('home') }}"><img src="{{ asset('assets/img/logo.png') }} " alt="logo"></a>
+					<a class="logo-alt" href="{{ route('home') }}"><img src="{{ asset('assets/img/logo-alt.png') }} " alt="logo-alt"></a>
 				</div>
 
 			</div>
@@ -65,7 +73,7 @@
 			<!-- Navigation menu -->
 			<ul class="nav-menu">
 				<li>
-					<a class="active" href="index.html">Trang chủ</a>
+					<a class="active" href="{{ route('home') }}">Trang chủ</a>
 				</li>
 				<li>
 					<a href="company-list.html">Công ty</a>
@@ -86,494 +94,463 @@
 	</nav>
 	<!-- END Navigation bar -->
 
-	<form action="#">
+	
 
-		<!-- Page header -->
-		<header class="page-header">
-			<div class="container page-name">
-				<h1 class="text-center">Thêm hồ sơ của bạn</h1>
-				<p class="lead text-center">Tạo hồ sơ của bạn và cho nhà tuyển dụng nhìn thấy nó.</p>
+	<!-- Page header -->
+	<header class="page-header">
+		<div class="container page-name">
+			<h1 class="text-center">Thêm hồ sơ của bạn</h1>
+			<p class="lead text-center">Tạo hồ sơ của bạn và cho nhà tuyển dụng nhìn thấy nó.</p>
+		</div>
+	</header>
+	<!-- END Page header -->
+
+
+	<!-- Main container -->
+	<main>
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 col-sm-4">
+					<div class="form-group">
+						{!! Form::file('photo', ['class'=>'dropify', 'data-height'=>'300' ,'data-default-file'=> asset(Auth::user()->student->photo) ])!!}
+						<span class="help-block">Xin vui lòng chọn ảnh 4:6</span>
+						<center>
+							<div style="position:relative;">
+								<a class='btn btn-primary' href='javascript:;'>
+									Tải lên CV...
+									<input type="file" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="file_source" size="40"  onchange='$("#upload-file-info").html($(this).val());'>
+								</a>
+								&nbsp;
+								<span class='label label-info' id="upload-file-info"></span>
+							</div>
+						</center>
+					</div>
+				</div>
+
+				{!! Form::model( $student, ['method'=>'POST', 'action'=>'StudentController@updateProfile', $student->id, 'files'=>true]) !!}
+
+				<div class="col-xs-12 col-sm-8">
+					<div class="form-group">
+						{!! Form::text('name', null, ['class'=>'form-control input-lg', 'placeholder'=> 'Họ tên']) !!}
+					</div>
+
+					<div class="form-group">
+						{!! Form::textarea('description' , null,['class'=>'form-control', 'rows'=>3, 'placeholder'=>'Mô tả ngắn về bạn']) !!}
+					</div>
+
+					<hr class="hr-lg">
+
+					<h6>Thông tin cơ bản</h6>
+					<div class="row">
+
+						<div class="form-group col-xs-12 col-sm-6">
+							<div class="input-group input-group-sm">
+								<span class="input-group-addon"><i class="fa fa-birthday-cake"></i></span>
+
+								<div class="controls input-append date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+
+									{!! Form::text('dateofbirth', old('dateofbirth'), ['readonly', 'style'=>'width:90%']) !!}
+
+									<span class="add-on" style="width: 15%;"><i class="fa fa-calendar"></i></span>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="form-group col-xs-12 col-sm-6">
+							<div class="input-group input-group-sm">
+								<span class="input-group-addon"><i class="fa fa-graduation-cap"></i></span>
+								{!! Form::select('faculty_id', $faculties ,null, ['class'=>'form-control', 'title'=>'Chưa Khoa']) !!}
+
+							</div>
+						</div>
+
+						<div class="form-group col-xs-12 col-sm-6">
+							<div class="input-group input-group-sm">
+								<span class="input-group-addon"><i class="fa fa-phone"></i></span>
+								{!! Form::text('phone', null, ['class'=>'form-control', 'placeholder'=> 'Số điện thoại']) !!}
+							</div>
+						</div>
+
+						<div class="form-group col-xs-12 col-sm-6">
+							<div class="input-group input-group-sm">
+								<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+								{!! Form::text('email', null, ['class'=>'form-control', 'placeholder'=> 'Email']) !!}
+							</div>
+						</div>
+
+					</div>
+
+					<hr class="hr-lg">
+
+					<h6>Danh sách tag</h6>
+					<div class="form-group">
+						{!! Form::text('tags', $tags, ['data-role'=>'tagsinput', 'placeholder'=> 'Tên tag']) !!}
+						<span class="help-block">Viết tag và nhấn enter</span>
+
+						<form class="form-inline typeahead">search-input
+							<div class="form-group">
+								<input type="name" class="form-control search-input" id="name" autocomplete="off" placeholder="Nhập tên khách hàng">
+							</div>
+							<button type="submit" class="btn btn-default">Tìm kiếm</button>
+						</form>
+
+
+					</div>
+				</div>
 			</div>
-		</header>
-		<!-- END Page header -->
+		</div>
 
-
-		<!-- Main container -->
-		<main>
-			{!! Form::open(['method'=>'POST', 'action'=>'StudentController@updateProfile', 'files'=>true]) !!}
+		<!-- Work Experience -->
+		<section class="bg-alt">
 			<div class="container">
+				<header class="section-header">
+					<br>
+					<h2>Kinh nghiệm làm việc</h2>
+				</header>
+
 				<div class="row">
-					<div class="col-xs-12 col-sm-4">
-						<div class="form-group">
-							{!! Form::file('photo', ['class'=>'dropify', 'data-height'=>'300' ,'data-default-file'=> asset(Auth::user()->student->photo) ])!!}
-							<span class="help-block">Xin vui lòng chọn ảnh 4:6</span>
-							<center>
-								<div class="button-group">
-									<div class="action-buttons">
-										<div class="upload-button">
-											<button class="btn btn-block btn-primary">Tải lên CV</button>
-											<input id="cover_img_file" type="file">
+
+					<div class="col-xs-12">
+						<div class="item-block">
+							<div class="item-form">
+
+								<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
+
+								<div class="row">
+									<div class="col-xs-12 col-sm-12">
+										<div class="form-group">
+											{!! Form::text('exTitle', null, ['class'=>'form-control', 'placeholder'=> 'Tên công ty / Đồ án đã làm']) !!}
+										</div>
+
+										<div class="form-group">
+											{!! Form::text('exTitle', null, ['class'=>'form-control', 'placeholder'=> 'Vị trí / Vai trò']) !!}
+										</div>
+
+										<div class="form-group">
+											<div class="input-group">
+												<span class="input-group-addon">Từ</span>
+												<input class="form-control" type="month" value="2011-08">
+												<span class="input-group-addon">Đến</span>
+												<input class="form-control" type="month" value="2011-08">
+											</div>
 										</div>
 
 									</div>
 								</div>
-							</center>
+
+							</div>
 						</div>
 					</div>
 
-					<div class="col-xs-12 col-sm-8">
-						<div class="form-group">
-							{!! Form::text('name', null, ['class'=>'form-control input-lg', 'placeholder'=> 'Họ tên']) !!}
-						</div>
+					<div class="col-xs-12 duplicateable-content">
+						<div class="item-block">
+							<div class="item-form">
 
-						<div class="form-group">
-							{!! Form::text('title', null, ['class'=>'form-control', 'placeholder'=> 'Tiêu đề (vd. Nhân viên bán hàng)']) !!}
-						</div>
+								<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
 
-						<div class="form-group">
-							{!! Form::textarea('description' , null,['class'=>'form-control', 'rows'=>3, 'placeholder'=>'Mô tả ngắn về bạn']) !!}
-						</div>
+								<div class="row">
+									<div class="col-xs-12 col-sm-12">
+										<div class="form-group">
+											<input type="text" class="form-control" placeholder="Tên công ty, vd. KMS">
+										</div>
 
-						<hr class="hr-lg">
+										<div class="form-group">
+											<input type="text" class="form-control" placeholder="Vị trí, vd. Tester">
+										</div>
 
-						<h6>Thông tin cơ bản</h6>
-						<div class="row">
+										<div class="form-group">
+											<div class="input-group col-xs-12 col-sm-12">
+												<span class="input-group-addon">Từ</span>
+												<input class="form-control" type="date" value="2011-08">
+												<span class="input-group-addon">Đến</span>
+												<input class="form-control" type="month" value="2011-08">
+											</div>
+										</div>
 
-							<div class="form-group col-xs-12 col-sm-6">
-								<div class="input-group input-group-sm">
-									<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
-									{!! Form::text('address', null, ['class'=>'form-control', 'placeholder'=> 'Địa chỉ']) !!}
+									</div>
 								</div>
-							</div>
 
-							<div class="form-group col-xs-12 col-sm-6">
-								<div class="input-group input-group-sm">
-									<span class="input-group-addon"><i class="fa fa-graduation-cap"></i></span>
-									<select class="form-control selectpicker">
-										<option>CNTT</option>
-										<option>Sinh Học</option>
-										<option>Ngôn Ngữ Anh</option>
-										<option>MTCN</option>
-										<option>Kiến Xây</option>
-										<option>Du lịch</option>
-										<option>Tài chính - kế toán</option>
-										<option>QTKD</option>
-									</select>
-								</div>
 							</div>
-
-							<div class="form-group col-xs-12 col-sm-6">
-								<div class="input-group input-group-sm">
-									<span class="input-group-addon"><i class="fa fa-phone"></i></span>
-									{!! Form::text('phone', null, ['class'=>'form-control', 'placeholder'=> 'Số điện thoại']) !!}
-								</div>
-							</div>
-
-							<div class="form-group col-xs-12 col-sm-6">
-								<div class="input-group input-group-sm">
-									<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-									{!! Form::text('email', null, ['class'=>'form-control', 'placeholder'=> 'Email']) !!}
-								</div>
-							</div>
-
 						</div>
+					</div>
 
-						<hr class="hr-lg">
-
-						<h6>Danh sách tag</h6>
-						<div class="form-group">
-							{!! Form::text('tags', 'HTML,CSS,JavaScript', ['data-role'=>'tagsinput', 'placeholder'=> 'Tên tag']) !!}
-							<span class="help-block">Viết tag và nhấn enter</span>
-						</div>
+					<div class="col-xs-12 text-center">
+						<br>
+						<button class="btn btn-primary btn-duplicator">Thêm kinh nghiệm làm việc</button>
 					</div>
 				</div>
 			</div>
-			{!! Form::close() !!}
+		</section>
+		<!-- END Work Experience -->
 
-			<!-- Education -->
-			<section class=" bg-alt">
-				<div class="container">
 
-					<header class="section-header">
-						<br>
-						<h2>Bằng cấp</h2>
-					</header>
+		<!-- Skills-->
+		<section>
+			<div class="container">
 
-					<div class="row">
+				<header class="section-header">
+					<br>
+					<h2>Kĩ năng</h2>
+				</header>
 
-						<div class="col-xs-12">
-							<div class="item-block">
-								<div class="item-form">
+				<div class="row">
 
-									<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
+					<div class="col-xs-12">
+						<div class="item-block">
+							<div class="item-form">
 
-									<div class="row">
-										<div class="col-xs-12 col-sm-12">
-											<div class="form-group">
-												<input type="text" class="form-control" placeholder="Cấp bậc, vd. Cử nhân">
-											</div>
+								<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
 
-											<div class="form-group">
-												<input type="text" class="form-control" placeholder="Chuyên Nghành, vd. CNTT">
-											</div>
-											<div class="form-group">
-												<input type="text" class="form-control" placeholder="Tên trường, vd. Đại học Văn Lang">
-											</div>
-
-											<div class="form-group">
-												<div class="input-group">
-													<span class="input-group-addon">Từ</span>
-													<input class="form-control" type="month" value="2011-08" id="example-month-input">
-													<span class="input-group-addon">Đến</span>
-													<input class="form-control" type="month" value="2011-08" id="example-month-input">
-												</div>
-											</div>
+								<div class="row">
+									<div class="col-xs-12 col-sm-6">
+										<div class="form-group">
+											<input type="text" class="form-control" placeholder="Tên kĩ năng, vd. HTML">
 										</div>
 									</div>
 
-								</div>
-							</div>
-						</div>
+									<div class="col-xs-12 col-sm-6">
 
-						<div class="col-xs-12 duplicateable-content">
-							<div class="item-block">
-								<div class="item-form">
-
-									<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
-
-									<div class="row">
-										<div class="col-xs-12 col-sm-12">
-											<div class="form-group">
-												<input type="text" class="form-control" placeholder="Cấp bậc, vd. Cử nhân">
-											</div>
-
-											<div class="form-group">
-												<input type="text" class="form-control" placeholder="Chuyên Nghành, vd. CNTT">
-											</div>
-											<div class="form-group">
-												<input type="text" class="form-control" placeholder="Tên trường, vd. Đại học Văn Lang">
-											</div>
-
-											<div class="form-group">
-												<div class="input-group">
-													<span class="input-group-addon">Từ</span>
-													<input class="form-control" type="month" value="2011-08" id="example-month-input">
-													<span class="input-group-addon">Đến</span>
-													<input class="form-control" type="month" value="2011-08" id="example-month-input">
-												</div>
+										<div class="form-group">
+											<div class="input-group">
+												<input type="text" class="form-control" placeholder="Mức độ thông thạo, vd. 90">
+												<span class="input-group-addon">%</span>
 											</div>
 										</div>
-									</div>
 
+									</div>
 								</div>
+
 							</div>
 						</div>
-
-						<div class="col-xs-12 text-center">
-							<br>
-							<button class="btn btn-primary btn-duplicator">Thêm bằng cấp</button>
-						</div>
-
-
-					</div>
-				</div>
-			</section>
-			<!-- END Education -->
-
-
-			<!-- Work Experience -->
-			<section>
-				<div class="container">
-					<header class="section-header">
-						<br>
-						<h2>Kinh nghiệm làm việc</h2>
-					</header>
-
-					<div class="row">
-
-						<div class="col-xs-12">
-							<div class="item-block">
-								<div class="item-form">
-
-									<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
-
-									<div class="row">
-										<div class="col-xs-12 col-sm-12">
-											<div class="form-group">
-												<input type="text" class="form-control" placeholder="Tên công ty, vd. KMS">
-											</div>
-
-											<div class="form-group">
-												<input type="text" class="form-control" placeholder="Vị trí, vd. Tester">
-											</div>
-
-											<div class="form-group">
-												<div class="input-group">
-													<span class="input-group-addon">Từ</span>
-													<input class="form-control" type="month" value="2011-08">
-													<span class="input-group-addon">Đến</span>
-													<input class="form-control" type="month" value="2011-08">
-												</div>
-											</div>
-
-										</div>
-									</div>
-
-								</div>
-							</div>
-						</div>
-
-						<div class="col-xs-12 duplicateable-content">
-							<div class="item-block">
-								<div class="item-form">
-
-									<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
-
-									<div class="row">
-										<div class="col-xs-12 col-sm-12">
-											<div class="form-group">
-												<input type="text" class="form-control" placeholder="Tên công ty, vd. KMS">
-											</div>
-
-											<div class="form-group">
-												<input type="text" class="form-control" placeholder="Vị trí, vd. Tester">
-											</div>
-
-											<div class="form-group">
-												<div class="input-group col-xs-12 col-sm-12">
-													<span class="input-group-addon">Từ</span>
-													<input class="form-control" type="month" value="2011-08">
-													<span class="input-group-addon">Đến</span>
-													<input class="form-control" type="month" value="2011-08">
-												</div>
-											</div>
-
-										</div>
-									</div>
-
-								</div>
-							</div>
-						</div>
-
-						<div class="col-xs-12 text-center">
-							<br>
-							<button class="btn btn-primary btn-duplicator">Thêm kinh nghiệm làm việc</button>
-						</div>
-
-
 					</div>
 
-				</div>
-			</section>
-			<!-- END Work Experience -->
+					<div class="col-xs-12 duplicateable-content">
+						<div class="item-block">
+							<div class="item-form">
 
+								<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
 
-			<!-- Skills -->
-			<section class=" bg-alt">
-				<div class="container">
-					<header class="section-header">
-						<br>
-						<h2>Kĩ năng</h2>
-					</header>
-
-					<div class="row">
-
-						<div class="col-xs-12">
-							<div class="item-block">
-								<div class="item-form">
-
-									<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
-
-									<div class="row">
-										<div class="col-xs-12 col-sm-6">
-											<div class="form-group">
-												<input type="text" class="form-control" placeholder="Tên kĩ năng, vd. HTML">
-											</div>
-										</div>
-
-										<div class="col-xs-12 col-sm-6">
-
-											<div class="form-group">
-												<div class="input-group">
-													<input type="text" class="form-control" placeholder="Mức độ thông thạo, vd. 90">
-													<span class="input-group-addon">%</span>
-												</div>
-											</div>
-
+								<div class="row">
+									<div class="col-xs-12 col-sm-6">
+										<div class="form-group">
+											<input type="text" class="form-control" placeholder="Tên kĩ năng, vd. HTML">
 										</div>
 									</div>
 
-								</div>
-							</div>
-						</div>
+									<div class="col-xs-12 col-sm-6">
 
-						<div class="col-xs-12 duplicateable-content">
-							<div class="item-block">
-								<div class="item-form">
-
-									<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
-
-									<div class="row">
-										<div class="col-xs-12 col-sm-6">
-											<div class="form-group">
-												<input type="text" class="form-control" placeholder="Tên kĩ năng, vd. HTML">
+										<div class="form-group">
+											<div class="input-group">
+												<input type="text" class="form-control" placeholder="Mức độ thông thạo, vd. 90">
+												<span class="input-group-addon">%</span>
 											</div>
 										</div>
 
-										<div class="col-xs-12 col-sm-6">
-
-											<div class="form-group">
-												<div class="input-group">
-													<input type="text" class="form-control" placeholder="Mức độ thông thạo, vd. 90">
-													<span class="input-group-addon">%</span>
-												</div>
-											</div>
-
-										</div>
 									</div>
-
 								</div>
+
 							</div>
 						</div>
-
-						<div class="col-xs-12 text-center">
-							<br>
-							<button class="btn btn-primary btn-duplicator">Thêm kĩ năng</button>
-						</div>
-
-
 					</div>
 
+					<div class="col-xs-12 text-center">
+						<br>
+						<button class="btn btn-primary btn-duplicator">Thêm kĩ năng</button>
+					</div>
 				</div>
-			</section>
-			<!-- END Skills -->
+			</div>
+		</section>
+		<!-- END Skills-->
 
 
 
-			<!-- Submit -->
-			<section class=" bg-img" style="background-image: url(assets/img/bg-facts.jpg);">
-				<div class="container">
-					<header class="section-header">
-						<h2>Gửi hồ sơ</h2>
-						<p>Xin vui lòng kiểm tra lại hồ sơ trước khi gửi</p>
-					</header>
-
-					<p class="text-center"><button class="btn btn-success btn-xl btn-round">Gửi</button></p>
-
-				</div>
-			</section>
-			<!-- END Submit -->
+		<!-- Submit -->
+		<section class="bg-alt">
+			<p class="text-center"><button class="btn btn-danger btn-xl btn-round">Cập nhật hồ sơ</button></p>
+		</section>
+		<!-- END Submit -->
 
 
-		</main>
-		<!-- END Main container -->
 
+		{!! Form::close() !!}
+
+
+	</main>
+	<!-- END Main container -->
+
+	
+	<form class="form-inline typeahead">
+		<div class="form-group">
+			<input type="name" class="form-control search-input" id="name" autocomplete="off" placeholder="Nhập tên khách hàng">
+		</div>
+		<button type="submit" class="btn btn-default">Tìm kiếm</button>
 	</form>
 
-	<!-- Site footer -->
-	<footer class="site-footer">
-
-		<!-- Top section -->
-		<div class="container">
-			<div class="row">
-
-				<div class="col-xs-6 col-sm-6 col-md-3">
-					<h6>Việc làm theo nghành nghề</h6>
-					<ul class="footer-links">
-						<li><a href="job-list.html">Việc làm Kế toán</a></li>
-						<li><a href="job-list.html">Việc làm Ngân hàng</a></li>
-						<li><a href="job-list.html">Việc làm IT - Phần mềm</a></li>
-						<li><a href="job-list.html">Việc làm IT-Phần cứng/Mạng</a></li>
-						<li><a href="job-list.html">Việc làm Xây dựng</a></li>
-					</ul>
-				</div>
-
-				<div class="col-xs-6 col-sm-6 col-md-3">
-					<ul class="footer-links">
-						<br>
-						<li><a href="job-list.html">Việc làm Quảng cáo/Khuyến mãi</a></li>
-						<li><a href="job-list.html">Việc làm Hàng không/Du lịch</a></li>
-						<li><a href="job-list.html">Việc làm Giáo dục/Đào tạo</a></li>
-						<li><a href="job-list.html">Việc làm Điện/Điện tử</a></li>
-						<li><a href="job-list.html">Việc làm Bán hàng</a></li>
-					</ul>
-				</div>
-
-				<div class="col-xs-6 col-sm-6 col-md-3">
-					<h6>Việc làm IT theo công ty</h6>
-					<ul class="footer-links">
-						<li><a href="page-about.html">Global CyberSoft</a></li>
-						<li><a href="page-typography.html">Vingroup</a></li>
-						<li><a href="page-faq.html">Capella Holding</a></li>
-						<li><a href="page-typography.html">Vietjetair</a></li>
-						<li><a href="page-contact.html">Standard Charter</a></li>
-					</ul>
-				</div>
-
-
-				<div class="col-xs-6 col-sm-6 col-md-3">
-					<h6>Việc làm IT theo thành phố</h6>
-					<ul class="footer-links">
-						<li><a href="job-list.html">Hồ Chí Minh</a></li>
-						<li><a href="job-list.html">Hà Nội</a></li>
-						<li><a href="job-list.html">Đà Nẵng</a></li>
-						<li><a href="job-list.html">Thêm</a></li>
-					</ul>
-				</div>
-			</div>
-
-			<hr>
-		</div>
-		<!-- END Top section -->
-
-		<!-- Bottom section -->
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8 col-sm-6 col-xs-12">
-					<p class="copyright-text">Copyrights &copy; 2017 All Rights Reserved by <a href="#">Shines Team</a>.</p>
-				</div>
-
-				<div class="col-md-4 col-sm-6 col-xs-12">
-					<ul class="social-icons">
-						<li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-						<li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-						<li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
-						<li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-						<li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<!-- END Bottom section -->
-
-	</footer>
-	<!-- END Site footer -->
-
-
-
-	<!-- Back to top button -->
-	<a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
-	<!-- END Back to top button -->
-
-	<!-- Scripts -->
-	<script src="{{ asset('assets/js/app.min.js') }} "></script>
-	<script src="{{ asset('assets/vendors/summernote/summernote.min.js') }} "></script>
-	<script src="{{ asset('assets/js/thejobs.js') }} "></script>
-	<script src="{{ asset('assets/js/custom.js') }} "></script>
 
 	<script>
-		$('.dropify').dropify({
-			error: {
-				'fileSize': 'The file size is too big (30 max).',
-				'minWidth': 'The image width is too small (30 px min).',
-				'maxWidth': 'The image width is too big (30 px max).',
-				'minHeight': 'The image height is too small (30 px min).',
-				'maxHeight': 'The image height is too big (30 x max).',
-				'imageFormat': 'The image format is not allowed (30 only).'
+	// var a = $(".search-input").text();
+	// alert(a);
+
+	// 		function abc(){
+	// 			$(".search-input").change(
+	// 				alert('111');
+	// 				);
+	// 		}
+
+	// 		abc();
+
+	jQuery(document).ready(function($) {
+		var engine = new Bloodhound({
+			remote: {
+				url: 'api/find?q=%QUERY%',
+				wildcard: '%QUERY%'
+			},
+			datumTokenizer: Bloodhound.tokenizers.whitespace('q'),
+			queryTokenizer: Bloodhound.tokenizers.whitespace
+		});
+
+		$(".search-input").typeahead({
+			hint: true,
+			highlight: true,
+			minLength: 1
+		}, {
+			source: engine.ttAdapter(),
+			name: 'usersList',
+			templates: {
+				empty: [
+				'<div class="list-group search-results-dropdown"><div class="list-group-item">Không có kết quả phù hợp.</div></div>'
+				],
+				header: [
+				'<div class="list-group search-results-dropdown">'
+				],
+				suggestion: function (data) {
+					return '<a href="customer/' + data.id + '" class="list-group-item">' + data.name + '</a>'
+				}
 			}
 		});
-	</script>
+	});
+</script>
 
+
+<!-- Site footer -->
+@include('layouts.footer')
+
+<!-- END Site footer -->
+
+
+
+<!-- Back to top button -->
+<a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
+<!-- END Back to top button -->
+
+<!-- Scripts -->
+<script src="{{ asset('assets/js/app.min.js') }} "></script>
+<script src="{{ asset('assets/vendors/summernote/summernote.min.js') }} "></script>
+<script src="{{ asset('assets/js/thejobs.js') }} "></script>
+<script src="{{ asset('assets/js/custom.js') }} "></script>
+
+<script src="{{ asset('assets/js/bootstrap-datetimepicker.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/bootstrap-datetimepicker.vi.js') }} " charset="UTF-8"></script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
+
+
+<script>
+
+
+
+
+
+
+	$('.form_datetime').datetimepicker({
+        //language:  'vie',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1
+    });
+	$('.form_date').datetimepicker({
+		language:  'vie',
+		weekStart: 1,
+		todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0
+	});
+	$('.form_time').datetimepicker({
+		language:  'vie',
+		weekStart: 1,
+		todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 1,
+		minView: 0,
+		maxView: 1,
+		forceParse: 0
+	});
+
+	$('.dropify').dropify({
+		error: {
+			'fileSize': 'The file size is too big (30 max).',
+			'minWidth': 'The image width is too small (30 px min).',
+			'maxWidth': 'The image width is too big (30 px max).',
+			'minHeight': 'The image height is too small (30 px min).',
+			'maxHeight': 'The image height is too big (30 x max).',
+			'imageFormat': 'The image format is not allowed (30 only).'
+		}
+	});
+</script>
+
+<script type="text/javascript">
+
+	searchtags();
+
+	function searchtags(){
+		jQuery(document).ready(function($) {
+			var engine = new Bloodhound({
+				remote: {
+					url: '../../api/find?q=%QUERY%',
+					wildcard: '%QUERY%'
+				},
+				datumTokenizer: Bloodhound.tokenizers.whitespace('q'),
+				queryTokenizer: Bloodhound.tokenizers.whitespace
+			});
+
+			$(".search-input").typeahead({
+				hint: true,
+				highlight: true,
+				minLength: 1
+			}, {
+				source: engine.ttAdapter(),
+				name: 'usersList',
+				templates: {
+					empty: [
+					'<div class="list-group search-results-dropdown"><div class="list-group-item">Không có kết quả phù hợp.</div></div>'
+					],
+					header: [
+					'<div class="list-group search-results-dropdown">'
+					],
+					suggestion: function (data) {
+						return '<a href="customer/' + data.id + '" class="list-group-item">' + data.name + '</a>'
+					}
+				}
+			});
+		});
+
+	}
+
+
+
+</script>
 
 </body>
 </html>

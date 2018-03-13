@@ -172,7 +172,7 @@
 <!-- Navigation menu -->
 <ul class="nav-menu">
   <li>
-    <a class="active" href="index.html">Trang chủ</a>
+    <a class="active" href="{{ route('home') }}">Trang chủ</a>
   </li>
   <li>
     <a href="company-list.html">Công ty</a>

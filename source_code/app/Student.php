@@ -8,7 +8,7 @@ class Student extends Model
 {
     //
     protected $path = '/images/students/avatas/';
-    protected $fillable = ['name','gender','email','phone','photo','dateofbirth','account_id','faculty_id'];
+    protected $fillable = ['name','description','gender','email','phone','photo','dateofbirth','account_id','faculty_id'];
 
 
     public $timestamp = true;
@@ -25,6 +25,12 @@ class Student extends Model
     public function tags()
     {
         return $this->belongsToMany('App\Tag', 'tag_student', 'student_id','tag_id')->withTimestamps();
+    }
+
+    public function listTags()
+    {
+        return $this->belongsToMany('App\Tag', 'tag_student', 'student_id','tag_id')->withTimestamps()->withPivot('student_id');
+
     }
 
         public function getPhotoAttribute($value){

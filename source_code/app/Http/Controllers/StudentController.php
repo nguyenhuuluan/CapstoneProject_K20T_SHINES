@@ -12,6 +12,8 @@ use App\Faculty;
 use App\Company;
 use App\Student;
 use App\Role;
+use App\Tag;
+use Auth;
 
 
 
@@ -143,10 +145,31 @@ class StudentController extends Controller
 	}
 
 	public function updateProfile()
-	{
-		return view('students.profile-update');
+	{	
+		$student = Auth::user()->student;
+		$faculties = Faculty::pluck('name','id')->all();
+
+		
+		$tags = '';
+		foreach ($student->tags as $tag) {
+			$tags = $tags.$tag->name.',';
+		}
+		
+		return view('students.profile-update', compact('faculties', 'student', 'tags'));
 	}
 
+
+	public function find(Request $request) {
+    	$tags = Tag::where('name', 'like', '%' . $request->get('q') . '%')->get(['name']);
+
+    	$tags2[] ='';
+
+
+    	foreach ($tags as $key => $value) {
+    		$tags2[] = $value["name"];
+    	}
+    	return response()->json($tags2);
+    }
 	
 
 }

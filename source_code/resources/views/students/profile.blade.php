@@ -34,23 +34,25 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-12 col-sm-12 header-detail">
+
+          <img class="logo" src="{{ asset('assets/img/avatar.jpg') }} " alt="">
           <div class="hgroup">
             <h1>{!! Auth::user()->student->name!!}</h1>
             <h3>Front-end developer</h3>
           </div>
           <hr>
-
+          
+          
           <ul class="details cols-2">
             <li>
-              <i class="fa fa-map-marker"></i>
-              <span>Hồ Chí Minh</span>
+              <i class="fa fa-birthday-cake"></i>
+              <span>29/10/1996</span>
             </li>
 
             <li>
               <i class="fa fa-graduation-cap"></i>
               <span>{!! Auth::user()->student->faculty->name!!}</span>
             </li>
-
 
             <li>
               <i class="fa fa-phone"></i>
@@ -62,14 +64,13 @@
               <a href="#">{!! Auth::user()->student->email!!}</a>
             </li>
           </ul>
-        
-          <div class="tag-list">
-          <?php
-            foreach (Auth::user()->student->tags as $tag) {
-              echo '<span>'.$tag->name.'</span>';
-            }
-          ?>
-          </div>
+            <div class="tag-list">
+              <?php
+              foreach (Auth::user()->student->tags as $tag) {
+                echo '<span>'.$tag->name.'</span>';
+              }
+              ?>
+            </div>
         </div>
       </div>
 
@@ -98,43 +99,7 @@
         <p class="lead">The front end  is the part that users see and interact with, includes the User Interface, the animations, and usually a bunch of logic to talk to the backend. It is the visual bit that the user interacts with. This includes the design, images, colours, buttons, forms, typography, animations and content. It’s basically everything that you as a user of the website can see.</p>
         <br>
 
-        <header class="section-header">
-          <h2>Bằng cấp</h2>
-        </header>
-
-        <div class="row">
-          <div class="col-xs-12">
-            <div class="item-block">
-              <header>
-                <div class="hgroup">
-                  <h4>Master <small>Computer Science</small></h4>
-                  <h5>Massachusetts Institute of Technology</h5>
-                </div>
-                <h6 class="time">2012 - 2014</h6>
-              </header>
-            </div>
-          </div>
-
-          <div class="col-xs-12">
-            <div class="item-block">
-              <header>
-                <div class="hgroup">
-                  <h4>Master <small>Computer Science</small></h4>
-                  <h5>Massachusetts Institute of Technology</h5>
-                </div>
-                <h6 class="time">2012 - 2014</h6>
-              </header>
-            </div>
-          </div>
-
-      </div>
-    </section>
-    <!-- END Education -->
-
-
-    <!-- Work Experience -->
-    <section class="bg-alt">
-      <div class="container">
+        
         <header class="section-header">
           <h2>Kinh nghiệm làm việc</h2>
         </header>
@@ -188,13 +153,15 @@
 
         </div>
 
+
+
       </div>
     </section>
-    <!-- END Work Experience -->
+    <!-- END Education -->
 
 
-    <!-- Skills -->
-    <section>
+    <!-- Work Experience -->
+    <section class="bg-alt">
       <div class="container">
         <header class="section-header">
           <h2>Kĩ năng</h2>
@@ -262,12 +229,9 @@
             </div>
           </li>
         </ul>
-
       </div>
     </section>
-    <!-- END Skills -->
-
-
+    <!-- END Work Experience -->
   </main>
   <!-- END Main container -->
 
@@ -389,9 +353,9 @@
 
 
   <!-- Scripts -->
-<script src="{{ asset('assets/js/app.min.js') }} "></script>
-<script src="{{ asset('assets/js/thejobs.js') }} "></script>
-<script src="{{ asset('assets/js/custom.js') }} "></script>
+  <script src="{{ asset('assets/js/app.min.js') }} "></script>
+  <script src="{{ asset('assets/js/thejobs.js') }} "></script>
+  <script src="{{ asset('assets/js/custom.js') }} "></script>
 
 </body>
 </html>
