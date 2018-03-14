@@ -160,15 +160,17 @@ class StudentController extends Controller
 
 
 	public function find(Request $request) {
-    	$tags = Tag::where('name', 'like', '%' . $request->get('q') . '%')->get(['name']);
+    	$tags = Tag::where('name', 'like', '%' . $request->get('q') . '%')->get();
+    	//$tags = Tag::where('name', 'like', '%' . $request->get('q') . '%')->get(['name']);
 
-    	$tags2[] ='';
+    	// $tags2[] ='';
 
 
-    	foreach ($tags as $key => $value) {
-    		$tags2[] = $value["name"];
-    	}
-    	return response()->json($tags2);
+    	// foreach ($tags as $key => $value) {
+    	// 	$tags2[] = $value["name"];
+    	// }
+    	//return response()->json($tags2);
+    	return response()->json($tags);
     }
 	
 

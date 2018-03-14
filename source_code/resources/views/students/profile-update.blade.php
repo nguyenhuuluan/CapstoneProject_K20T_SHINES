@@ -188,13 +188,31 @@
 						{!! Form::text('tags', $tags, ['data-role'=>'tagsinput', 'placeholder'=> 'Tên tag']) !!}
 						<span class="help-block">Viết tag và nhấn enter</span>
 
-						<form class="form-inline typeahead">search-input
-							<div class="form-group">
-								<input type="name" class="form-control search-input" id="name" autocomplete="off" placeholder="Nhập tên khách hàng">
-							</div>
-							<button type="submit" class="btn btn-default">Tìm kiếm</button>
-						</form>
 
+						<script>
+							var cities = new Bloodhound({
+								datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
+								queryTokenizer: Bloodhound.tokenizers.whitespace,
+								prefetch: 'assets/cities.json'
+							});
+							cities.initialize();
+
+							var elt = $('input');
+							elt.tagsinput({
+								itemValue: 'value',
+								itemText: 'text',
+								typeaheadjs: {
+									name: 'cities',
+									displayKey: 'text',
+									source: cities.ttAdapter()
+								}
+							});
+							elt.tagsinput('add', { "value": 1 , "text": "Amsterdam"   , "continent": "Europe"    });
+							elt.tagsinput('add', { "value": 4 , "text": "Washington"  , "continent": "America"   });
+							elt.tagsinput('add', { "value": 7 , "text": "Sydney"      , "continent": "Australia" });
+							elt.tagsinput('add', { "value": 10, "text": "Beijing"     , "continent": "Asia"      });
+							elt.tagsinput('add', { "value": 13, "text": "Cairo"       , "continent": "Africa"    });
+						</script>
 
 					</div>
 				</div>
@@ -512,9 +530,9 @@
 
 <script type="text/javascript">
 
-	searchtags();
+	abc();
 
-	function searchtags(){
+	function abc(){
 		jQuery(document).ready(function($) {
 			var engine = new Bloodhound({
 				remote: {
@@ -552,5 +570,11 @@
 
 </script>
 
+
+<script type="text/javascript">
+	$('input').tagsinput({
+		tagClass: 'search-input'
+	});
+</script>
 </body>
 </html>
