@@ -12,18 +12,11 @@
 	<!-- Styles -->
 
 	<link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet">
-	<link href="{{ asset('assets/vendors/summernote/summernote.css') }} " rel="stylesheet">
 	<link href="{{ asset('assets/css/thejobs.css') }}" rel="stylesheet">
 	<link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
 	<link href="{{ asset('assets/css/bootstrap-datetimepicker.min.css')}} " rel="stylesheet">
 
-
-	<link href="{{ asset('assets/jquery.typeahead.min.css')}} " rel="stylesheet">
-	<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-
-	<link href="{{ asset('assets/jquery.typeahead.min.js')}} " rel="stylesheet">
 	
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<!-- Fonts -->
 	<link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
 
@@ -146,14 +139,10 @@
 						<div class="form-group col-xs-12 col-sm-6">
 							<div class="input-group input-group-sm">
 								<span class="input-group-addon"><i class="fa fa-birthday-cake"></i></span>
-
 								<div class="controls input-append date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-
-									{!! Form::text('dateofbirth', old('dateofbirth'), ['readonly', 'style'=>'width:90%']) !!}
-
-									<span class="add-on" style="width: 15%;"><i class="fa fa-calendar"></i></span>
+									{!! Form::text('dateofbirth', old('dateofbirth'), ['class'=>'form-control','readonly', 'style'=>'width:85%']) !!}
+									<span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
 								</div>
-
 							</div>
 						</div>
 
@@ -185,35 +174,8 @@
 
 					<h6>Danh sách tag</h6>
 					<div class="form-group">
-						{!! Form::text('tags', $tags, ['data-role'=>'tagsinput', 'placeholder'=> 'Tên tag']) !!}
+						{!! Form::text('tags', $tags, ['class'=>'tagsinput 123input tm-input form-control tm-input-info tagsinput-typeahead','data-role'=>'tagsinput', 'placeholder'=> 'Nhập tag']) !!}
 						<span class="help-block">Viết tag và nhấn enter</span>
-
-
-						<script>
-							var cities = new Bloodhound({
-								datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
-								queryTokenizer: Bloodhound.tokenizers.whitespace,
-								prefetch: 'assets/cities.json'
-							});
-							cities.initialize();
-
-							var elt = $('input');
-							elt.tagsinput({
-								itemValue: 'value',
-								itemText: 'text',
-								typeaheadjs: {
-									name: 'cities',
-									displayKey: 'text',
-									source: cities.ttAdapter()
-								}
-							});
-							elt.tagsinput('add', { "value": 1 , "text": "Amsterdam"   , "continent": "Europe"    });
-							elt.tagsinput('add', { "value": 4 , "text": "Washington"  , "continent": "America"   });
-							elt.tagsinput('add', { "value": 7 , "text": "Sydney"      , "continent": "Australia" });
-							elt.tagsinput('add', { "value": 10, "text": "Beijing"     , "continent": "Asia"      });
-							elt.tagsinput('add', { "value": 13, "text": "Cairo"       , "continent": "Africa"    });
-						</script>
-
 					</div>
 				</div>
 			</div>
@@ -232,31 +194,21 @@
 					<div class="col-xs-12">
 						<div class="item-block">
 							<div class="item-form">
-
 								<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
-
 								<div class="row">
 									<div class="col-xs-12 col-sm-12">
 										<div class="form-group">
 											{!! Form::text('exTitle', null, ['class'=>'form-control', 'placeholder'=> 'Tên công ty / Đồ án đã làm']) !!}
-										</div>
-
-										<div class="form-group">
 											{!! Form::text('exTitle', null, ['class'=>'form-control', 'placeholder'=> 'Vị trí / Vai trò']) !!}
-										</div>
-
-										<div class="form-group">
 											<div class="input-group">
 												<span class="input-group-addon">Từ</span>
-												<input class="form-control" type="month" value="2011-08">
+												<input class="form-control" type="date" value="2011-08">
 												<span class="input-group-addon">Đến</span>
-												<input class="form-control" type="month" value="2011-08">
+												<input class="form-control" type="date" value="2011-08">
 											</div>
 										</div>
-
 									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>
@@ -264,31 +216,21 @@
 					<div class="col-xs-12 duplicateable-content">
 						<div class="item-block">
 							<div class="item-form">
-
 								<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
-
 								<div class="row">
 									<div class="col-xs-12 col-sm-12">
 										<div class="form-group">
-											<input type="text" class="form-control" placeholder="Tên công ty, vd. KMS">
-										</div>
-
-										<div class="form-group">
-											<input type="text" class="form-control" placeholder="Vị trí, vd. Tester">
-										</div>
-
-										<div class="form-group">
-											<div class="input-group col-xs-12 col-sm-12">
+											{!! Form::text('exTitle', null, ['class'=>'form-control', 'placeholder'=> 'Tên công ty / Đồ án đã làm']) !!}
+											{!! Form::text('exTitle', null, ['class'=>'form-control', 'placeholder'=> 'Vị trí / Vai trò']) !!}
+											<div class="input-group">
 												<span class="input-group-addon">Từ</span>
 												<input class="form-control" type="date" value="2011-08">
 												<span class="input-group-addon">Đến</span>
-												<input class="form-control" type="month" value="2011-08">
+												<input class="form-control" type="date" value="2011-08">
 											</div>
 										</div>
-
 									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>
@@ -306,68 +248,52 @@
 		<!-- Skills-->
 		<section>
 			<div class="container">
-
 				<header class="section-header">
 					<br>
 					<h2>Kĩ năng</h2>
 				</header>
-
 				<div class="row">
-
 					<div class="col-xs-12">
 						<div class="item-block">
 							<div class="item-form">
-
 								<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
-
 								<div class="row">
 									<div class="col-xs-12 col-sm-6">
 										<div class="form-group">
-											<input type="text" class="form-control" placeholder="Tên kĩ năng, vd. HTML">
+											{!! Form::text('skills', null, ['class'=>'form-control', 'placeholder'=> 'Tên kĩ năng, vd. HTML']) !!}
 										</div>
 									</div>
-
 									<div class="col-xs-12 col-sm-6">
-
 										<div class="form-group">
 											<div class="input-group">
-												<input type="text" class="form-control" placeholder="Mức độ thông thạo, vd. 90">
+												{!! Form::text('skills', null, ['class'=>'form-control', 'placeholder'=> 'Mức độ thông thạo, vd. 90']) !!}
 												<span class="input-group-addon">%</span>
 											</div>
 										</div>
-
 									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>
-
 					<div class="col-xs-12 duplicateable-content">
 						<div class="item-block">
 							<div class="item-form">
-
 								<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
-
 								<div class="row">
 									<div class="col-xs-12 col-sm-6">
 										<div class="form-group">
-											<input type="text" class="form-control" placeholder="Tên kĩ năng, vd. HTML">
+											{!! Form::text('skills', null, ['class'=>'form-control', 'placeholder'=> 'Tên kĩ năng, vd. HTML']) !!}
 										</div>
 									</div>
-
 									<div class="col-xs-12 col-sm-6">
-
 										<div class="form-group">
 											<div class="input-group">
-												<input type="text" class="form-control" placeholder="Mức độ thông thạo, vd. 90">
+												{!! Form::text('skills', null, ['class'=>'form-control', 'placeholder'=> 'Mức độ thông thạo, vd. 90']) !!}
 												<span class="input-group-addon">%</span>
 											</div>
 										</div>
-
 									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>
@@ -388,69 +314,11 @@
 			<p class="text-center"><button class="btn btn-danger btn-xl btn-round">Cập nhật hồ sơ</button></p>
 		</section>
 		<!-- END Submit -->
-
-
-
 		{!! Form::close() !!}
 
 
 	</main>
 	<!-- END Main container -->
-
-	
-	<form class="form-inline typeahead">
-		<div class="form-group">
-			<input type="name" class="form-control search-input" id="name" autocomplete="off" placeholder="Nhập tên khách hàng">
-		</div>
-		<button type="submit" class="btn btn-default">Tìm kiếm</button>
-	</form>
-
-
-	<script>
-	// var a = $(".search-input").text();
-	// alert(a);
-
-	// 		function abc(){
-	// 			$(".search-input").change(
-	// 				alert('111');
-	// 				);
-	// 		}
-
-	// 		abc();
-
-	jQuery(document).ready(function($) {
-		var engine = new Bloodhound({
-			remote: {
-				url: 'api/find?q=%QUERY%',
-				wildcard: '%QUERY%'
-			},
-			datumTokenizer: Bloodhound.tokenizers.whitespace('q'),
-			queryTokenizer: Bloodhound.tokenizers.whitespace
-		});
-
-		$(".search-input").typeahead({
-			hint: true,
-			highlight: true,
-			minLength: 1
-		}, {
-			source: engine.ttAdapter(),
-			name: 'usersList',
-			templates: {
-				empty: [
-				'<div class="list-group search-results-dropdown"><div class="list-group-item">Không có kết quả phù hợp.</div></div>'
-				],
-				header: [
-				'<div class="list-group search-results-dropdown">'
-				],
-				suggestion: function (data) {
-					return '<a href="customer/' + data.id + '" class="list-group-item">' + data.name + '</a>'
-				}
-			}
-		});
-	});
-</script>
-
-
 <!-- Site footer -->
 @include('layouts.footer')
 
@@ -464,17 +332,48 @@
 
 <!-- Scripts -->
 <script src="{{ asset('assets/js/app.min.js') }} "></script>
-<script src="{{ asset('assets/vendors/summernote/summernote.min.js') }} "></script>
 <script src="{{ asset('assets/js/thejobs.js') }} "></script>
 <script src="{{ asset('assets/js/custom.js') }} "></script>
 
 <script src="{{ asset('assets/js/bootstrap-datetimepicker.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/bootstrap-datetimepicker.vi.js') }} " charset="UTF-8"></script>
+<script src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+   var tagnames = new Bloodhound({
+   datumTokenizer: Bloodhound.tokenizers.obj.whitespace("name"),
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  prefetch: {
+    url:'../../tags',
+    filter: function(list) {
+      return $.map(list, function(tagname) {
+        return { name: tagname }; });
+    }
+  }
+});
 
+tagnames.initialize();
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
+$('.tagsinput').tagsinput({
+  typeaheadjs: {
+    name: 'tags',
+    displayKey: 'name',
+    valueKey: 'name',
+    source: tagnames.ttAdapter(),
+    templates: {
+				empty: [
+				'<div class="list-group search-results-dropdown"><div class="list-group-item">Không có kết quả phù hợp.</div></div>'
+				],
+				header: [
+				'<div class="list-group search-results-dropdown">'
+				],
+				suggestion: function (data) {
+					return '<p class="list-group-item">' + data.name + '</p>'
+				}
+			}
+  }
+});
+</script>
+
 
 
 <script>
@@ -525,55 +424,6 @@
 			'maxHeight': 'The image height is too big (30 x max).',
 			'imageFormat': 'The image format is not allowed (30 only).'
 		}
-	});
-</script>
-
-<script type="text/javascript">
-
-	abc();
-
-	function abc(){
-		jQuery(document).ready(function($) {
-			var engine = new Bloodhound({
-				remote: {
-					url: '../../api/find?q=%QUERY%',
-					wildcard: '%QUERY%'
-				},
-				datumTokenizer: Bloodhound.tokenizers.whitespace('q'),
-				queryTokenizer: Bloodhound.tokenizers.whitespace
-			});
-
-			$(".search-input").typeahead({
-				hint: true,
-				highlight: true,
-				minLength: 1
-			}, {
-				source: engine.ttAdapter(),
-				name: 'usersList',
-				templates: {
-					empty: [
-					'<div class="list-group search-results-dropdown"><div class="list-group-item">Không có kết quả phù hợp.</div></div>'
-					],
-					header: [
-					'<div class="list-group search-results-dropdown">'
-					],
-					suggestion: function (data) {
-						return '<a href="customer/' + data.id + '" class="list-group-item">' + data.name + '</a>'
-					}
-				}
-			});
-		});
-
-	}
-
-
-
-</script>
-
-
-<script type="text/javascript">
-	$('input').tagsinput({
-		tagClass: 'search-input'
 	});
 </script>
 </body>

@@ -124,7 +124,6 @@
    <div class="dropdown user-account">
     <a class="user-account-text"> {!! Auth::user()->student->name!!}</a>
     <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-      <<<<<<< HEAD
       <img src={{ asset('assets/img/logo-envato.png') }} alt="avatar">
     </a>
     <ul class="dropdown-menu dropdown-menu-right">
