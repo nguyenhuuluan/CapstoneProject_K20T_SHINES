@@ -105,13 +105,15 @@
 @endif
 
 <script type="text/javascript">
-  $(document).ready(function(){
+  
     $('#testimonials').alpha({
       layout: 'alt',
       delay : 5300
     });
-  })
+  
 </script>
+
+@yield('scripts')
 
 </body>
 </html>

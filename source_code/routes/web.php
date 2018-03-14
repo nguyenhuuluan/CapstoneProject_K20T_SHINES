@@ -52,6 +52,7 @@ Route::get('/company/detail/{id}', 'CompanyController@detail')->name('company.de
 
 
 
+
 // Student - WEB
 
 Route::POST('student','StudentController@register')->name('student.register');
@@ -126,12 +127,15 @@ Route::GET('password/reset/{token}','Representative\ResetPasswordController@show
 
 
 //Representative Controller
-
+//Representative middleware
 Route::middleware(['representative', 'web'])->group(function () {
 	Route::GET('representative', 'Representative\RepresentativeController@index');   
 
 	Route::GET('representative/home', 'Representative\RepresentativeController@index');   
 	Route::resource('representative/recruitments', 'Representative\RepresentativeRecruitmentController');
+
+	//Company
+	Route::get('/company/update/{id}', 'CompanyController@update')->name('company.update');
 
 });
 
@@ -147,4 +151,6 @@ Route::POST('representative/reset-password','Representative\ResetPasswordControl
 
 
 Route::get('/test/{id}','RecruitmentController@test')->name('test');
+
+Route::get('/tags','TagController@getTags')->name('tags');
 

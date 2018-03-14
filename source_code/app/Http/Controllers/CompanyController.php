@@ -22,6 +22,15 @@ class CompanyController extends Controller
     return view('companies.detail')->with(compact('comp'));
   }
 
+  public function update($id)
+  {
+    $comp = Company::where('id', '=', $id)->first();
+
+    return view('companies.update')->with(compact('comp'));
+  }
+
+
+
   public function companyRegistration()
   {
     $compsRegis = CompanyRegistration::all();

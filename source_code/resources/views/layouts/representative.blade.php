@@ -21,7 +21,7 @@
 </head>
 <body class="nav-on-header smart-nav">
    <!-- Navigation bar -->
-   @include('layouts.header-representative')
+   @include('layouts.header')
    <!-- END Navigation bar -->
    <!-- Page header -->
    <header class="page-header">
