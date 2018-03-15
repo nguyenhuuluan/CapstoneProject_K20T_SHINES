@@ -13,8 +13,6 @@
 	<link href="assets/css/app.min.css" rel="stylesheet">
 	<link href="assets/css/thejobs.css" rel="stylesheet">
 	<link href="assets/css/custom.css" rel="stylesheet">
-	<link href="assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-
 
 	<!-- Fonts -->
 	<link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
@@ -22,6 +20,8 @@
 	<!-- Favicons -->
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 	<link rel="icon" href="assets/img/favicon.ico">
+
+
 </head>
 
 <body class="nav-on-header smart-nav">
@@ -91,7 +91,6 @@
 	</nav>
 	<!-- END Navigation bar -->
 
-	<form action="#">
 
 		<!-- Page header -->
   		<header class="page-header bg-img size-lg" style="background-image: url(assets/img/O7MF5N0.jpg)">
@@ -104,19 +103,31 @@
 
 
 		<!-- Main container -->
+
 		<main>
 
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-12 col-sm-4">
 						<div class="form-group">
-							<input type="file" class="dropify" data-default-file="assets/img/te3.jpg">
-							<span class="help-block">Xin vui lòng chọn ảnh 4:6  <a class="btn btn-danger btn-round btn-xs" style="float: right;" href="#">Lưu</a></span>
+							<img src="assets/img/te3.jpg" alt="Avatar" style="width: 358px; height: 198px;     border-radius: 50%;">
+							<span class="help-block"><a data-toggle="modal" data-target="#thong" href="#">Tải ảnh lên</a></span>
 							<br>
 						</div>
-						<!-- Upload CV -->
-						
+					<!-- Modal avatar-->
+						<div id="thong" class="modal">
+							<form class="modal-content animate">
+								<div class="login-block">
+									<input type="file" class="dropify" data-default-file="assets/img/te3.jpg">
+									<span class="help-block">Xin vui lòng chọn ảnh 4:6</span>
+									<a class="btn btn-black btn-round btn-xs" data-dismiss="modal">Hủy</a>
+									<a class="btn btn-danger btn-round btn-xs" href="#">Lưu</a>
+								</div>
+							</form>
+						</div>	
 				</div>
+
+
 
 				<div class="col-xs-12 col-sm-8">
 					<div class="form-group">
@@ -135,10 +146,7 @@
 						<div class="form-group col-xs-12 col-sm-6">
 							<div class="input-group input-group-sm">
 								<span class="input-group-addon"><i class="fa fa-birthday-cake"></i></span>
-								<div class="controls input-append date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-									<input class="form-control" type="text" value="" style="width: 85%;" readonly>
-									<span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
-								</div>
+								<input class="form-control" type="date" value="1996-08-22">
 							</div>
 						</div>							
 
@@ -297,11 +305,9 @@
 
 									<div class="col-xs-12 col-sm-6">
 
-										<div class="form-group">
-											<div class="input-group">
-												<input type="text" class="form-control" placeholder="Mức độ thông thạo, vd. 90">
-												<span class="input-group-addon">%</span>
-											</div>
+										<div class="slidecontainer">
+											<input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+											<center><p><span id="demo"></span>%</p></center>
 										</div>
 
 									</div>
@@ -326,11 +332,9 @@
 
 									<div class="col-xs-12 col-sm-6">
 
-										<div class="form-group">
-											<div class="input-group">
-												<input type="text" class="form-control" placeholder="Mức độ thông thạo, vd. 90">
-												<span class="input-group-addon">%</span>
-											</div>
+										<div class="slidecontainer">
+											<input type="range" min="1" max="100" value="50" class="slider" id="myRange"><center>
+											<center><p><span id="demo"></span>%</p></center>
 										</div>
 
 									</div>
@@ -413,7 +417,7 @@
 	</main>
 	<!-- END Main container -->
 
-</form>
+
 
 <!-- Site footer -->
 <footer class="site-footer">
@@ -504,40 +508,14 @@
 <script src="assets/js/app.min.js"></script>
 <script src="assets/js/thejobs.js"></script>
 <script src="assets/js/custom.js"></script>
-<script src="assets/js/bootstrap-datetimepicker.js"></script>
-<script type="text/javascript" src="assets/js/bootstrap-datetimepicker.vi.js" charset="UTF-8"></script>
 <script type="text/javascript">
-    $('.form_datetime').datetimepicker({
-        //language:  'vie',
-        weekStart: 1,
-        todayBtn:  1,
-		autoclose: 1,
-		todayHighlight: 1,
-		startView: 2,
-		forceParse: 0,
-        showMeridian: 1
-    });
-	$('.form_date').datetimepicker({
-        language:  'vie',
-        weekStart: 1,
-        todayBtn:  1,
-		autoclose: 1,
-		todayHighlight: 1,
-		startView: 2,
-		minView: 2,
-		forceParse: 0
-    });
-	$('.form_time').datetimepicker({
-        language:  'vie',
-        weekStart: 1,
-        todayBtn:  1,
-		autoclose: 1,
-		todayHighlight: 1,
-		startView: 1,
-		minView: 0,
-		maxView: 1,
-		forceParse: 0
-    });
+	var slider = document.getElementById("myRange");
+	var output = document.getElementById("demo");
+	output.innerHTML = slider.value;
+
+	slider.oninput = function() {
+	  output.innerHTML = this.value;
+	}
 </script>
 
 
