@@ -234,7 +234,9 @@ $(function() {
     });
   });
 
-  // Create button
+
+
+ // Create button
   $('.btn-duplicator').on('click', function(e) {
     e.preventDefault();
     var duplicateable = $(this).parent().siblings('.duplicateable-content');

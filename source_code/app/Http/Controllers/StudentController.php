@@ -143,6 +143,10 @@ class StudentController extends Controller
 	{
 		return view('students.profile');
 	}
+	public function editProfile(Request $request)
+	{
+		return $request;
+	}
 
 	public function updateProfile()
 	{	
