@@ -143,9 +143,19 @@ class StudentController extends Controller
 	{
 		return view('students.profile');
 	}
-	public function editProfile(Request $request)
+	public function editProfile(Request $request, $id)
 	{
-		return $request;
+
+		$tags = explode(',', request('tags')); 
+		$request->request->add(['tags' => $tags]); 
+
+		$input = $request->except(['tags', 'exTitle', 'position', 'datestart', 'dateend', 'skills', 'valueofskill']);
+
+		$student = Student::findOrFail($id);
+
+		$student->update($input);
+		return redirect()->back();
+		return $student->name;
 	}
 
 	public function updateProfile()
@@ -164,7 +174,7 @@ class StudentController extends Controller
 
 
 	public function find(Request $request) {
-    	$tags = Tag::where('name', 'like', '%' . $request->get('q') . '%')->get();
+		$tags = Tag::where('name', 'like', '%' . $request->get('q') . '%')->get();
     	//$tags = Tag::where('name', 'like', '%' . $request->get('q') . '%')->get(['name']);
 
     	// $tags2[] ='';
@@ -174,8 +184,8 @@ class StudentController extends Controller
     	// 	$tags2[] = $value["name"];
     	// }
     	//return response()->json($tags2);
-    	return response()->json($tags);
-    }
+		return response()->json($tags);
+	}
 	
 
 }

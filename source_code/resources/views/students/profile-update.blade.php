@@ -124,13 +124,18 @@
 
 
 				<div>
-					{!! Form::model( $student, ['method'=>'POST', 'action'=>'StudentController@editProfile', $student->id, 'files'=>true]) !!}
+					{!! Form::model( $student, ['method'=>'PATCH', 'action'=>['StudentController@editProfile', $student->id]]) !!}
 					<div class="form-group col-xs-12 col-sm-8">
-						{!! Form::text('name', null, ['class'=>'form-control input-lg', 'placeholder'=> 'Họ tên']) !!}
+						{!! Form::text('name', old('name'), ['class'=>'form-control input-lg', 'placeholder'=> 'Họ tên']) !!}
+						@if ($errors->has('name'))
+						<span class="help-block">
+							<strong style="color:red">Tên không được bỏ trống!</strong>
+						</span>
+						@endif
 					</div>
 
 					<div class="form-group col-xs-12 col-sm-8">
-						{!! Form::textarea('description' , null,['class'=>'form-control', 'rows'=>3, 'placeholder'=>'Mô tả ngắn về bạn']) !!}
+						{!! Form::textarea('description' , old('description'),['class'=>'form-control', 'rows'=>3, 'placeholder'=>'Mô tả ngắn về bạn']) !!}
 					</div>
 
 					<hr class="hr-lg">
@@ -140,15 +145,24 @@
 							<div class="input-group input-group-sm">
 								<span class="input-group-addon"><i class="fa fa-birthday-cake"></i></span>
 								<div class="controls input-append date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-									{!! Form::text('dateofbirth', old('dateofbirth'), ['class'=>'form-control','readonly', 'style'=>'width:85%']) !!}
+									{!! Form::text('dateofbirth', old('dateofbirth'), ['class'=>'form-control','readonly', 'style'=>'width:85%', 'id' => 'datepicker']) !!}
 									<span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
 								</div>
+
+								<div class='input-group date' id='datetimepicker10'>
+									<input type='text' class="form-control" />
+									<span class="input-group-addon">
+										<span class="glyphicon glyphicon-calendar">
+										</span>
+									</span>
+								</div>
+
 							</div>
 						</div>
 						<div class="form-group col-xs-12 col-sm-6">
 							<div class="input-group input-group-sm">
 								<span class="input-group-addon"><i class="fa fa-graduation-cap"></i></span>
-								{!! Form::select('faculty_id', $faculties ,null, ['class'=>'form-control', 'title'=>'Chưa Khoa']) !!}
+								{!! Form::select('faculty_id', $faculties ,null, ['class'=>'form-control', 'title'=>'Chưa chọn Khoa']) !!}
 							</div>
 						</div>
 					</div>
@@ -157,13 +171,13 @@
 						<div class="form-group col-xs-12 col-sm-6">
 							<div class="input-group input-group-sm">
 								<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-								{!! Form::text('email', null, ['class'=>'form-control', 'placeholder'=> 'Email']) !!}
+								{!! Form::email('email', null, ['class'=>'form-control', 'placeholder'=> 'Email', 'required']) !!}
 							</div>
 						</div>
 						<div class="form-group col-xs-12 col-sm-6">
 							<div class="input-group input-group-sm">
 								<span class="input-group-addon"><i class="fa fa-phone"></i></span>
-								{!! Form::text('phone', null, ['class'=>'form-control', 'placeholder'=> 'Số điện thoại']) !!}
+								{!! Form::text('phone', null, ['class'=>'form-control', 'placeholder'=> 'Số điện thoại', 'required']) !!}
 							</div>
 						</div>
 					</div>
@@ -350,7 +364,11 @@
 		});
 
 		tagnames.initialize();
-
+		$(function() {
+			$( "#datepicker" ).datepicker();
+			$( "#datepicker" ).datepicker( "option", "dateFormat", 'dd/mm/yy');
+			
+		});
 		$('.tagsinput').tagsinput({
 			typeaheadjs: {
 				name: 'tags',
@@ -424,5 +442,14 @@
 			}
 		});
 	</script>
+
+	<script type="text/javascript">
+        $(function () {
+            $('#datetimepicker10').datetimepicker({
+                viewMode: 'years',
+                format: 'MM/YYYY'
+            });
+        });
+    </script>
 </body>
 </html>
