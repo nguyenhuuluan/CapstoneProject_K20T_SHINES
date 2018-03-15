@@ -144,6 +144,17 @@ class StudentController extends Controller
 		return view('students.profile');
 	}
 
+	public function editProfile(Request $request, $id)
+	{
+		return $request;
+	}
+
+	public function editPhoto(Request $request, $id)
+	{
+		return $request;
+	}
+
+		
 	public function updateProfile()
 	{	
 		$student = Auth::user()->student;

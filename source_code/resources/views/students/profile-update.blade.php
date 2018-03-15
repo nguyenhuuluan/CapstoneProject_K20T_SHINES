@@ -104,8 +104,9 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12 col-sm-4">
+					{!! Form::model($student, ['method'=>'POST', 'action'=>['StudentController@editPhoto', $student->id], 'files'=>true]) !!}
 					<div class="form-group">
-						{!! Form::file('photo', ['class'=>'dropify', 'data-height'=>'300' ,'data-default-file'=> asset(Auth::user()->student->photo) ])!!}
+						{!! Form::file('photo', ['class'=>'dropify', 'data-height'=>'300' ,'data-default-file'=> asset($student->photo) ])!!}
 						<span class="help-block">Xin vui lòng chọn ảnh 4:6</span>
 						<center>
 							<div style="position:relative;">
@@ -117,10 +118,11 @@
 								<span class='label label-info' id="upload-file-info"></span>
 							</div>
 						</center>
+					{!! Form::close() !!}
 					</div>
 				</div>
 
-				{!! Form::model( $student, ['method'=>'POST', 'action'=>'StudentController@updateProfile', $student->id, 'files'=>true]) !!}
+				{!! Form::model( $student, ['method'=>'POST', 'action'=>['StudentController@editProfile', $student->id]]) !!}
 
 				<div class="col-xs-12 col-sm-8">
 					<div class="form-group">
@@ -135,7 +137,6 @@
 
 					<h6>Thông tin cơ bản</h6>
 					<div class="row">
-
 						<div class="form-group col-xs-12 col-sm-6">
 							<div class="input-group input-group-sm">
 								<span class="input-group-addon"><i class="fa fa-birthday-cake"></i></span>
@@ -198,8 +199,8 @@
 								<div class="row">
 									<div class="col-xs-12 col-sm-12">
 										<div class="form-group">
-											{!! Form::text('exTitle', null, ['class'=>'form-control', 'placeholder'=> 'Tên công ty / Đồ án đã làm']) !!}
-											{!! Form::text('exTitle', null, ['class'=>'form-control', 'placeholder'=> 'Vị trí / Vai trò']) !!}
+											{!! Form::text('exTitle[]', null, ['class'=>'form-control', 'placeholder'=> 'Tên công ty / Đồ án đã làm']) !!}
+											{!! Form::text('role[]', null, ['class'=>'form-control', 'placeholder'=> 'Vị trí / Vai trò']) !!}
 											<div class="input-group">
 												<span class="input-group-addon">Từ</span>
 												<input class="form-control" type="date" value="2011-08">
@@ -220,8 +221,8 @@
 								<div class="row">
 									<div class="col-xs-12 col-sm-12">
 										<div class="form-group">
-											{!! Form::text('exTitle', null, ['class'=>'form-control', 'placeholder'=> 'Tên công ty / Đồ án đã làm']) !!}
-											{!! Form::text('exTitle', null, ['class'=>'form-control', 'placeholder'=> 'Vị trí / Vai trò']) !!}
+											{!! Form::text('exTitle[]', null, ['class'=>'form-control', 'placeholder'=> 'Tên công ty / Đồ án đã làm']) !!}
+											{!! Form::text('role[]', null, ['class'=>'form-control', 'placeholder'=> 'Vị trí / Vai trò']) !!}
 											<div class="input-group">
 												<span class="input-group-addon">Từ</span>
 												<input class="form-control" type="date" value="2011-08">
