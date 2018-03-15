@@ -12,7 +12,6 @@
    <link href="assets/vendors/summernote/summernote.css" rel="stylesheet">
    <link href="assets/css/thejobs.css" rel="stylesheet">
    <link href="assets/css/custom.css" rel="stylesheet">
-   <link href="assets/css/bootstrap-tagsinput.css" rel="stylesheet">
    <!-- Fonts -->
    <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
    <!-- Favicons -->
@@ -149,35 +148,7 @@
 <!-- END Back to top button -->
 <!-- Scripts -->
 <script src="assets/js/app.min.js"></script>
-<script src="assets/vendors/summernote/summernote.min.js"></script>
 <script src="assets/js/thejobs.js"></script>
 <script src="assets/js/custom.js"></script>
-<script src="assets/js/bootstrap3-typeahead.js"></script>
-<script src="assets/js/cbootstrap-tagsinput.js"></script>
-<!-- Gợi ý tag -->
-<script>
-   var places = [{
-     name: "PHP"
-  }, {
-     name: "JavaScript"
-  }, {
-     name: "BIM"
-  }, {
-     name: "HTML"
-  }, {
-     name: "CSS"
-  }];
-
-  $('.tagsinput-typeahead').tagsinput({
-     typeahead: {
-       source: places.map(function(item) {
-         return item.name
-      }),
-       afterSelect: function() {
-         this.$element[0].value = '';
-      }
-   }
-})
-</script>
 </body>
 </html>
