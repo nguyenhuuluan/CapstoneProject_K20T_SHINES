@@ -57,7 +57,7 @@ class LoginController extends Controller
     {
         return view('auth.login');
     }
-    public function login(Request $request)
+    public function login(Request $request) 
     {
         $this->validate($request,[
          'email'=>'required|string|email|max:255',

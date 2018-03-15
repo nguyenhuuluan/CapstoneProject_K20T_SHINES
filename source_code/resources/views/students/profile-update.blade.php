@@ -124,67 +124,63 @@
 
 
 				<div>
-
 					{!! Form::model( $student, ['method'=>'POST', 'action'=>'StudentController@editProfile', $student->id, 'files'=>true]) !!}
-
-
-
-
-					<div class="form-group">
+					<div class="form-group col-xs-12 col-sm-8">
 						{!! Form::text('name', null, ['class'=>'form-control input-lg', 'placeholder'=> 'Họ tên']) !!}
 					</div>
 
-					<div class="form-group">
+					<div class="form-group col-xs-12 col-sm-8">
 						{!! Form::textarea('description' , null,['class'=>'form-control', 'rows'=>3, 'placeholder'=>'Mô tả ngắn về bạn']) !!}
 					</div>
 
 					<hr class="hr-lg">
-
 					<h6>Thông tin cơ bản</h6>
-
-
-
-					<div class="form-group col-xs-12 col-sm-6">
-						<div class="input-group input-group-sm">
-							<span class="input-group-addon"><i class="fa fa-birthday-cake"></i></span>
-							<div class="controls input-append date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-								{!! Form::text('dateofbirth', old('dateofbirth'), ['class'=>'form-control','readonly', 'style'=>'width:85%']) !!}
-								<span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
+					<div class="col-xs-12 col-sm-8">
+						<div class="form-group col-xs-12 col-sm-6">
+							<div class="input-group input-group-sm">
+								<span class="input-group-addon"><i class="fa fa-birthday-cake"></i></span>
+								<div class="controls input-append date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+									{!! Form::text('dateofbirth', old('dateofbirth'), ['class'=>'form-control','readonly', 'style'=>'width:85%']) !!}
+									<span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
+								</div>
+							</div>
+						</div>
+						<div class="form-group col-xs-12 col-sm-6">
+							<div class="input-group input-group-sm">
+								<span class="input-group-addon"><i class="fa fa-graduation-cap"></i></span>
+								{!! Form::select('faculty_id', $faculties ,null, ['class'=>'form-control', 'title'=>'Chưa Khoa']) !!}
 							</div>
 						</div>
 					</div>
 
-					<div class="form-group col-xs-12 col-sm-6">
-						<div class="input-group input-group-sm">
-							<span class="input-group-addon"><i class="fa fa-graduation-cap"></i></span>
-							{!! Form::select('faculty_id', $faculties ,null, ['class'=>'form-control', 'title'=>'Chưa Khoa']) !!}
-
+					<div class="col-xs-12 col-sm-8">
+						<div class="form-group col-xs-12 col-sm-6">
+							<div class="input-group input-group-sm">
+								<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+								{!! Form::text('email', null, ['class'=>'form-control', 'placeholder'=> 'Email']) !!}
+							</div>
 						</div>
-					</div>
-
-					<div class="form-group col-xs-12 col-sm-6">
-						<div class="input-group input-group-sm">
-							<span class="input-group-addon"><i class="fa fa-phone"></i></span>
-							{!! Form::text('phone', null, ['class'=>'form-control', 'placeholder'=> 'Số điện thoại']) !!}
-						</div>
-					</div>
-
-					<div class="form-group col-xs-12 col-sm-6">
-						<div class="input-group input-group-sm">
-							<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-							{!! Form::text('email', null, ['class'=>'form-control', 'placeholder'=> 'Email']) !!}
+						<div class="form-group col-xs-12 col-sm-6">
+							<div class="input-group input-group-sm">
+								<span class="input-group-addon"><i class="fa fa-phone"></i></span>
+								{!! Form::text('phone', null, ['class'=>'form-control', 'placeholder'=> 'Số điện thoại']) !!}
+							</div>
 						</div>
 					</div>
 
 					<hr class="hr-lg">
 
 					<h6>Danh sách tag</h6>
-					<div class="form-group">
-						{!! Form::text('tags', $tags, ['class'=>'tagsinput 123input tm-input form-control tm-input-info tagsinput-typeahead','data-role'=>'tagsinput', 'placeholder'=> 'Nhập tag']) !!}
-						<span class="help-block">Viết tag và nhấn enter</span>
+					<div class="col-xs-12 col-sm-8">
+						<div class="form-group col-xs-12 col-sm-12">
+							<div class="input-group input-group-sm">
+								{!! Form::text('tags', $tags, ['class'=>'tagsinput 123input tm-input form-control tm-input-info tagsinput-typeahead','data-role'=>'tagsinput', 'placeholder'=> 'Nhập tag']) !!}
+								<span class="help-block">Viết tag và nhấn enter</span>
+							</div>
+						</div>
 					</div>
-					
-
+					<br>
+					<hr class="hr-lg">
 
 
 					<!-- Work Experience -->
@@ -194,9 +190,7 @@
 								<br>
 								<h2>Kinh nghiệm làm việc</h2>
 							</header>
-
 							<div class="row">
-
 								<div class="col-xs-12">
 									<div class="item-block">
 										<div class="item-form">
@@ -208,9 +202,9 @@
 														{!! Form::text('position[]', null, ['class'=>'form-control', 'placeholder'=> 'Vị trí / Vai trò']) !!}
 														<div class="input-group">
 															<span class="input-group-addon">Từ</span>
-															<input class="form-control" type="date" name="datestart[]" value="2011-08">
+															{!! Form::date('datestart[]', null, ['class'=>'form-control']) !!}
 															<span class="input-group-addon">Đến</span>
-															<input class="form-control" type="date" name="dateend[]" value="2011-08">
+															{!! Form::date('dateend[]', null, ['class'=>'form-control']) !!}
 														</div>
 													</div>
 												</div>
@@ -230,9 +224,9 @@
 														{!! Form::text('position[]', null, ['class'=>'form-control', 'placeholder'=> 'Vị trí / Vai trò']) !!}
 														<div class="input-group">
 															<span class="input-group-addon">Từ</span>
-															<input class="form-control" type="date" name="datestart[]" value="2011-08">
+															{!! Form::date('datestart[]', null, ['class'=>'form-control']) !!}
 															<span class="input-group-addon">Đến</span>
-															<input class="form-control" type="date" name="dateend[]" value="2011-08">
+															{!! Form::date('dateend[]', null, ['class'=>'form-control']) !!}
 														</div>
 													</div>
 												</div>
