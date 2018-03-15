@@ -241,7 +241,7 @@ $(function() {
     var html = $('<div>').append(duplicateable.clone()).html();
     $(html).insertBefore(duplicateable);
     var new_el = duplicateable.prev('.duplicateable-content');
-    new_el.fadeIn(600).removeClass('duplicateable-content');
+    new_el.removeClass('duplicateable-content').fadeIn(600);
 
     // Remove button
     new_el.find(".btn-remove").on('click', function(e) {
