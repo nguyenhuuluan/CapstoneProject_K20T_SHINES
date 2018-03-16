@@ -146,6 +146,7 @@ class StudentController extends Controller
 	public function editProfile(Request $request, $id)
 	{
 
+		return $request;
 		$tags = explode(',', request('tags')); 
 		$request->request->add(['tags' => $tags]); 
 
@@ -156,6 +157,11 @@ class StudentController extends Controller
 		$student->update($input);
 		return redirect()->back();
 		return $student->name;
+	}
+
+	public function editPhoto(Request $request, $id)
+	{
+
 	}
 
 	public function updateProfile()

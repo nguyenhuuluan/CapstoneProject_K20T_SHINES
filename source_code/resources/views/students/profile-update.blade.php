@@ -14,7 +14,6 @@
 	<link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('assets/css/thejobs.css') }}" rel="stylesheet">
 	<link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
-	<link href="{{ asset('assets/css/bootstrap-datetimepicker.min.css')}} " rel="stylesheet">
 
 	
 	<!-- Fonts -->
@@ -90,7 +89,7 @@
 	
 
 	<!-- Page header -->
-	<header class="page-header">
+	<header class="page-header bg-img size-lg" style="background-image: url({{ asset('assets/img/O7MF5N0.jpg') }} )">
 		<div class="container page-name">
 			<h1 class="text-center">Thêm hồ sơ của bạn</h1>
 			<p class="lead text-center">Tạo hồ sơ của bạn và cho nhà tuyển dụng nhìn thấy nó.</p>
@@ -104,27 +103,27 @@
 
 
 		<div class="container">
-			<div class="row">
-				<div class="col-xs-12 col-sm-4">
-					<div class="form-group">
-						{!! Form::file('photo', ['class'=>'dropify', 'data-height'=>'300' ,'data-default-file'=> asset(Auth::user()->student->photo) ])!!}
-						<span class="help-block">Xin vui lòng chọn ảnh 4:6</span>
-						<center>
-							<div style="position:relative;">
-								<a class='btn btn-primary' href='javascript:;'>
-									Tải lên CV...
-									<input type="file" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="file_source" size="40"  onchange='$("#upload-file-info").html($(this).val());'>
-								</a>
-								&nbsp;
-								<span class='label label-info' id="upload-file-info"></span>
-							</div>
-						</center>
-					</div>
+			<div class="col-xs-12 col-sm-4">
+				<div class="form-group">
+					<img src="{{ asset($student->photo) }}" alt="Avatar" style="width: 358px; height: 198px;     border-radius: 50%;">
+					<span class="help-block"><a data-toggle="modal" data-target="#thong" href="#">Tải ảnh lên</a></span>
+					<br>
+					<!-- Modal avatar-->
+					<div id="thong" class="modal">
+						{!! Form::model($student, ['method'=>'POST', 'action'=>['StudentController@editPhoto', $student->id], 'files'=>true, 'class'=>'modal-content animate']) !!}
+						<div class="login-block">
+							{!! Form::file('photo', ['class'=>'dropify', 'data-height'=>'300' ,'data-default-file'=> asset(Auth::user()->student->photo) ])!!}
+							<span class="help-block">Xin vui lòng chọn ảnh 4:6</span>
+							<a class="btn btn-black btn-round btn-xs" data-dismiss="modal">Hủy</a>
+							<a class="btn btn-danger btn-round btn-xs" href="#">Lưu</a>
+						</div>
+						{!! Form::close() !!}
+					</div>	
 				</div>
-
-
-				<div>
-					{!! Form::model( $student, ['method'=>'PATCH', 'action'=>['StudentController@editProfile', $student->id]]) !!}
+			</div>
+			<div>
+				{!! Form::model( $student, ['method'=>'PATCH', 'action'=>['StudentController@editProfile', $student->id]]) !!}
+				<div class="container">
 					<div class="form-group col-xs-12 col-sm-8">
 						{!! Form::text('name', old('name'), ['class'=>'form-control input-lg', 'placeholder'=> 'Họ tên']) !!}
 						@if ($errors->has('name'))
@@ -137,9 +136,11 @@
 					<div class="form-group col-xs-12 col-sm-8">
 						{!! Form::textarea('description' , old('description'),['class'=>'form-control', 'rows'=>3, 'placeholder'=>'Mô tả ngắn về bạn']) !!}
 					</div>
+				</div>
 
-					<hr class="hr-lg">
-					<h6>Thông tin cơ bản</h6>
+				<hr class="hr-lg">
+				<h6>Thông tin cơ bản</h6>
+				<div class="container">
 					<div class="col-xs-12 col-sm-8">
 						<div class="form-group col-xs-12 col-sm-6">
 							<div class="input-group input-group-sm">
@@ -193,140 +194,139 @@
 							</div>
 						</div>
 					</div>
-					<br>
-					<hr class="hr-lg">
-
-
-					<!-- Work Experience -->
-					<section class="bg-alt">
-						<div class="container">
-							<header class="section-header">
-								<br>
-								<h2>Kinh nghiệm làm việc</h2>
-							</header>
-							<div class="row">
-								<div class="col-xs-12">
-									<div class="item-block">
-										<div class="item-form">
-											<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
-											<div class="row">
-												<div class="col-xs-12 col-sm-12">
-													<div class="form-group">
-														{!! Form::text('exTitle[]', null, ['class'=>'form-control', 'placeholder'=> 'Tên công ty / Đồ án đã làm']) !!}
-														{!! Form::text('position[]', null, ['class'=>'form-control', 'placeholder'=> 'Vị trí / Vai trò']) !!}
-														<div class="input-group">
-															<span class="input-group-addon">Từ</span>
-															{!! Form::date('datestart[]', null, ['class'=>'form-control']) !!}
-															<span class="input-group-addon">Đến</span>
-															{!! Form::date('dateend[]', null, ['class'=>'form-control']) !!}
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-xs-12 duplicateable-content">
-									<div class="item-block">
-										<div class="item-form">
-											<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
-											<div class="row">
-												<div class="col-xs-12 col-sm-12">
-													<div class="form-group">
-														{!! Form::text('exTitle[]', null, ['class'=>'form-control', 'placeholder'		=> 'Tên công ty / Đồ án đã làm']) !!}
-														{!! Form::text('position[]', null, ['class'=>'form-control', 'placeholder'=> 'Vị trí / Vai trò']) !!}
-														<div class="input-group">
-															<span class="input-group-addon">Từ</span>
-															{!! Form::date('datestart[]', null, ['class'=>'form-control']) !!}
-															<span class="input-group-addon">Đến</span>
-															{!! Form::date('dateend[]', null, ['class'=>'form-control']) !!}
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-xs-12 text-center">
-									<br>
-									<button class="btn btn-primary btn-duplicator">Thêm kinh nghiệm làm việc</button>
-								</div>
-							</div>
-						</div>
-					</section>
-					<!-- END Work Experience -->
-
-					<!-- Skills-->
-					<section>
-						<div class="container">
-							<header class="section-header">
-								<br>
-								<h2>Kĩ năng</h2>
-							</header>
-							<div class="row">
-								<div class="col-xs-12">
-									<div class="item-block">
-										<div class="item-form">
-											<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
-											<div class="row">
-												<div class="col-xs-12 col-sm-6">
-													<div class="form-group">
-														{!! Form::text('skills[]', null, ['class'=>'form-control', 'placeholder'=> 'Tên kĩ năng, vd. HTML']) !!}
-													</div>
-												</div>
-												<div class="col-xs-12 col-sm-6">
-													<div class="form-group">
-														<div class="input-group">
-															{!! Form::text('valueofskill[]', null, ['class'=>'form-control', 'placeholder'=> 'Mức độ thông thạo, vd. 90']) !!}
-															<span class="input-group-addon">%</span>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-xs-12 duplicateable-content">
-									<div class="item-block">
-										<div class="item-form">
-											<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
-											<div class="row">
-												<div class="col-xs-12 col-sm-6">
-													<div class="form-group">
-														{!! Form::text('skills[]', null, ['class'=>'form-control', 'placeholder'=> 'Tên kĩ năng, vd. HTML']) !!}
-													</div>
-												</div>
-												<div class="col-xs-12 col-sm-6">
-													<div class="form-group">
-														<div class="input-group">
-															{!! Form::text('valueofskill[]', null, ['class'=>'form-control', 'placeholder'=> 'Mức độ thông thạo, vd. 90']) !!}
-															<span class="input-group-addon">%</span>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-xs-12 text-center">
-									<br>
-									<button class="btn btn-primary btn-duplicator">Thêm kĩ năng</button>
-								</div>
-							</div>
-						</div>
-					</section>
-					<!-- END Skills-->
-
-					<section class="bg-alt">
-						<p class="text-center"><button class="btn btn-danger btn-xl btn-round">Cập nhật hồ sơ</button></p>
-					</section>
-
-					{!! Form::close() !!}
-
 				</div>
+				<br>
+				<hr class="hr-lg">
+
+
+				<!-- Work Experience -->
+				<section class="bg-alt">
+					<div class="container">
+						<header class="section-header">
+							<br>
+							<h2>Kinh nghiệm làm việc</h2>
+						</header>
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="item-block">
+									<div class="item-form">
+										<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
+										<div class="row">
+											<div class="col-xs-12 col-sm-12">
+												<div class="form-group">
+													{!! Form::text('exTitle[]', null, ['class'=>'form-control', 'placeholder'=> 'Tên công ty / Đồ án đã làm']) !!}
+													{!! Form::text('position[]', null, ['class'=>'form-control', 'placeholder'=> 'Vị trí / Vai trò']) !!}
+													<div class="input-group">
+														<span class="input-group-addon">Từ</span>
+														{!! Form::date('datestart[]', null, ['class'=>'form-control']) !!}
+														<span class="input-group-addon">Đến</span>
+														{!! Form::date('dateend[]', null, ['class'=>'form-control']) !!}
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xs-12 duplicateable-content">
+								<div class="item-block">
+									<div class="item-form">
+										<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
+										<div class="row">
+											<div class="col-xs-12 col-sm-12">
+												<div class="form-group">
+													{!! Form::text('exTitle[]', null, ['class'=>'form-control', 'placeholder'		=> 'Tên công ty / Đồ án đã làm']) !!}
+													{!! Form::text('position[]', null, ['class'=>'form-control', 'placeholder'=> 'Vị trí / Vai trò']) !!}
+													<div class="input-group">
+														<span class="input-group-addon">Từ</span>
+														{!! Form::date('datestart[]', null, ['class'=>'form-control']) !!}
+														<span class="input-group-addon">Đến</span>
+														{!! Form::date('dateend[]', null, ['class'=>'form-control']) !!}
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xs-12 text-center">
+								<br>
+								<button class="btn btn-primary btn-duplicator">Thêm kinh nghiệm làm việc</button>
+							</div>
+						</div>
+					</div>
+				</section>
+				<!-- END Work Experience -->
+
+				<!-- Skills-->
+				<section>
+					<div class="container">
+						<header class="section-header">
+							<br>
+							<h2>Kĩ năng</h2>
+						</header>
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="item-block">
+									<div class="item-form">
+										<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
+										<div class="row">
+											<div class="col-xs-12 col-sm-6">
+												<div class="form-group">
+													{!! Form::text('skills[]', null, ['class'=>'form-control', 'placeholder'=> 'Tên kĩ năng, vd. HTML']) !!}
+												</div>
+											</div>
+											<div class="col-xs-12 col-sm-6">
+												<div class="form-group">
+													<div class="input-group">
+														{!! Form::text('valueofskill[]', null, ['class'=>'form-control', 'placeholder'=> 'Mức độ thông thạo, vd. 90']) !!}
+														<span class="input-group-addon">%</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 duplicateable-content">
+								<div class="item-block">
+									<div class="item-form">
+										<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
+										<div class="row">
+											<div class="col-xs-12 col-sm-6">
+												<div class="form-group">
+													{!! Form::text('skills[]', null, ['class'=>'form-control', 'placeholder'=> 'Tên kĩ năng, vd. HTML']) !!}
+												</div>
+											</div>
+											<div class="col-xs-12 col-sm-6">
+												<div class="form-group">
+													<div class="input-group">
+														{!! Form::text('valueofskill[]', null, ['class'=>'form-control', 'placeholder'=> 'Mức độ thông thạo, vd. 90']) !!}
+														<span class="input-group-addon">%</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xs-12 text-center">
+								<br>
+								<button class="btn btn-primary btn-duplicator">Thêm kĩ năng</button>
+							</div>
+						</div>
+					</div>
+				</section>
+				<!-- END Skills-->
+
+				<section class="bg-alt">
+					<p class="text-center"><button class="btn btn-danger btn-xl btn-round">Cập nhật hồ sơ</button></p>
+				</section>
+
+				{!! Form::close() !!}
 			</div>
 		</div>
 	</main>
@@ -347,9 +347,17 @@
 	<script src="{{ asset('assets/js/thejobs.js') }} "></script>
 	<script src="{{ asset('assets/js/custom.js') }} "></script>
 
-	<script src="{{ asset('assets/js/bootstrap-datetimepicker.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('assets/js/bootstrap-datetimepicker.vi.js') }} " charset="UTF-8"></script>
 	<script src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js" type="text/javascript" charset="utf-8"></script>
+
+	<script type="text/javascript">
+		var slider = document.getElementById("myRange");
+		var output = document.getElementById("demo");
+		output.innerHTML = slider.value;
+
+		slider.oninput = function() {
+			output.innerHTML = this.value;
+		}
+	</script>
 	<script type="text/javascript">
 		var tagnames = new Bloodhound({
 			datumTokenizer: Bloodhound.tokenizers.obj.whitespace("name"),
@@ -367,7 +375,7 @@
 		$(function() {
 			$( "#datepicker" ).datepicker();
 			$( "#datepicker" ).datepicker( "option", "dateFormat", 'dd/mm/yy');
-			
+
 		});
 		$('.tagsinput').tagsinput({
 			typeaheadjs: {
@@ -444,12 +452,12 @@
 	</script>
 
 	<script type="text/javascript">
-        $(function () {
-            $('#datetimepicker10').datetimepicker({
-                viewMode: 'years',
-                format: 'MM/YYYY'
-            });
-        });
-    </script>
+		$(function () {
+			$('#datetimepicker10').datetimepicker({
+				viewMode: 'years',
+				format: 'MM/YYYY'
+			});
+		});
+	</script>
 </body>
 </html>

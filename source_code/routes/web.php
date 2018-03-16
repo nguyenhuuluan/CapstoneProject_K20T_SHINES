@@ -63,6 +63,7 @@ Route::GET('student/update-success','StudentController@updateSuccess')->name('st
 Route::get('student/profile', 'StudentController@profile')->name('student.profile')->middleware('student');
 Route::get('student/profile/update', 'StudentController@updateProfile')->name('student.profile.update')->middleware('student');
 Route::PATCH('student/profile/update/{id}', 'StudentController@editProfile')->name('student.profile.edit')->middleware('student');
+Route::POST('student/profile/update/photo/{id}', 'StudentController@editPhoto')->name('student.photo.edit')->middleware('student');
 
 
 
