@@ -1,5 +1,5 @@
-<script src="{{ asset('assets/js/app.min.js') }} "></script>
-<script type="text/javascript" src="{{ asset('assets/js/alpha.js') }} "></script>
+{{-- <script src="{{ asset('assets/js/app.min.js') }} "></script>
+<script type="text/javascript" src="{{ asset('assets/js/alpha.js') }} "></script> --}}
 <nav class="navbar">
   <div class="container">
     <!-- Logo -->

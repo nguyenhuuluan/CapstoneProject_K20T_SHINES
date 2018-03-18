@@ -32,6 +32,14 @@ class Student extends Model
         return $this->belongsToMany('App\Tag', 'tag_student', 'student_id','tag_id')->withTimestamps()->withPivot('student_id');
 
     }
+    public function experiences()
+    {
+        return $this->hasMany('App\Experience');
+    }
+    public function skills()
+    {
+        return $this->hasMany('App\Skill');
+    }
 
         public function getPhotoAttribute($value){
         if($value){

@@ -89,7 +89,7 @@
 	
 
 	<!-- Page header -->
-	<header class="page-header bg-img size-lg" style="background-image: url({{ asset('assets/img/O7MF5N0.jpg') }} )">
+	<header class="page-header">
 		<div class="container page-name">
 			<h1 class="text-center">Thêm hồ sơ của bạn</h1>
 			<p class="lead text-center">Tạo hồ sơ của bạn và cho nhà tuyển dụng nhìn thấy nó.</p>
@@ -100,364 +100,390 @@
 
 	<!-- Main container -->
 	<main>
-
-
 		<div class="container">
-			<div class="col-xs-12 col-sm-4">
-				<div class="form-group">
-					<img src="{{ asset($student->photo) }}" alt="Avatar" style="width: 358px; height: 198px;     border-radius: 50%;">
-					<span class="help-block"><a data-toggle="modal" data-target="#thong" href="#">Tải ảnh lên</a></span>
-					<br>
-					<!-- Modal avatar-->
-					<div id="thong" class="modal">
-						{!! Form::model($student, ['method'=>'POST', 'action'=>['StudentController@editPhoto', $student->id], 'files'=>true, 'class'=>'modal-content animate']) !!}
-						<div class="login-block">
-							{!! Form::file('photo', ['class'=>'dropify', 'data-height'=>'300' ,'data-default-file'=> asset(Auth::user()->student->photo) ])!!}
-							<span class="help-block">Xin vui lòng chọn ảnh 4:6</span>
-							<a class="btn btn-black btn-round btn-xs" data-dismiss="modal">Hủy</a>
-							<a class="btn btn-danger btn-round btn-xs" href="#">Lưu</a>
-						</div>
-						{!! Form::close() !!}
-					</div>	
-				</div>
-			</div>
-			<div>
-				{!! Form::model( $student, ['method'=>'PATCH', 'action'=>['StudentController@editProfile', $student->id]]) !!}
-				<div class="container">
-					<div class="form-group col-xs-12 col-sm-8">
-						{!! Form::text('name', old('name'), ['class'=>'form-control input-lg', 'placeholder'=> 'Họ tên']) !!}
-						@if ($errors->has('name'))
-						<span class="help-block">
-							<strong style="color:red">Tên không được bỏ trống!</strong>
-						</span>
-						@endif
-					</div>
-
-					<div class="form-group col-xs-12 col-sm-8">
-						{!! Form::textarea('description' , old('description'),['class'=>'form-control', 'rows'=>3, 'placeholder'=>'Mô tả ngắn về bạn']) !!}
+			<div class="row">
+				<div class="col-xs-12 col-sm-4">
+					<div class="form-group">
+						{!! Form::file('photo', ['class'=>'dropify', 'data-height'=>'300' ,'data-default-file'=> asset(Auth::user()->student->photo) ])!!}
+						<span class="help-block">Xin vui lòng chọn ảnh 4:6</span>
 					</div>
 				</div>
 
-				<hr class="hr-lg">
-				<h6>Thông tin cơ bản</h6>
-				<div class="container">
+
+
+				<div>
+
+					{!! Form::model( $student, ['method'=>'POST', 'action'=>['StudentController@editProfile', $student->id], 'files'=>true]) !!}
+
 					<div class="col-xs-12 col-sm-8">
+						<div class="form-group col-xs-12 col-sm-12">
+							{!! Form::text('name', null, ['class'=>'form-control input-lg', 'placeholder'=> 'Họ tên', 'required']) !!}
+						</div>
+						<div class="form-group col-xs-12 col-sm-12">
+							{!! Form::textarea('description' , null,['class'=>'form-control', 'rows'=>3, 'placeholder'=>'Mô tả ngắn về bạn']) !!}
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-8">
+						<h6 class="col-xs-12 col-sm-12">Thông tin cơ bản</h6>
 						<div class="form-group col-xs-12 col-sm-6">
 							<div class="input-group input-group-sm">
 								<span class="input-group-addon"><i class="fa fa-birthday-cake"></i></span>
-								<div class="controls input-append date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-									{!! Form::text('dateofbirth', old('dateofbirth'), ['class'=>'form-control','readonly', 'style'=>'width:85%', 'id' => 'datepicker']) !!}
-									<span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
-								</div>
-
-								<div class='input-group date' id='datetimepicker10'>
-									<input type='text' class="form-control" />
-									<span class="input-group-addon">
-										<span class="glyphicon glyphicon-calendar">
-										</span>
-									</span>
-								</div>
-
+								{!! Form::date('dateofbirth', old('dateofbirth'), ['class'=>'form-control', 'required']) !!}
 							</div>
 						</div>
+
 						<div class="form-group col-xs-12 col-sm-6">
 							<div class="input-group input-group-sm">
 								<span class="input-group-addon"><i class="fa fa-graduation-cap"></i></span>
 								{!! Form::select('faculty_id', $faculties ,null, ['class'=>'form-control', 'title'=>'Chưa chọn Khoa']) !!}
 							</div>
 						</div>
-					</div>
 
-					<div class="col-xs-12 col-sm-8">
-						<div class="form-group col-xs-12 col-sm-6">
-							<div class="input-group input-group-sm">
-								<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-								{!! Form::email('email', null, ['class'=>'form-control', 'placeholder'=> 'Email', 'required']) !!}
-							</div>
-						</div>
 						<div class="form-group col-xs-12 col-sm-6">
 							<div class="input-group input-group-sm">
 								<span class="input-group-addon"><i class="fa fa-phone"></i></span>
 								{!! Form::text('phone', null, ['class'=>'form-control', 'placeholder'=> 'Số điện thoại', 'required']) !!}
 							</div>
 						</div>
-					</div>
 
-					<hr class="hr-lg">
-
-					<h6>Danh sách tag</h6>
-					<div class="col-xs-12 col-sm-8">
-						<div class="form-group col-xs-12 col-sm-12">
+						<div class="form-group col-xs-12 col-sm-6">
 							<div class="input-group input-group-sm">
-								{!! Form::text('tags', $tags, ['class'=>'tagsinput 123input tm-input form-control tm-input-info tagsinput-typeahead','data-role'=>'tagsinput', 'placeholder'=> 'Nhập tag']) !!}
-								<span class="help-block">Viết tag và nhấn enter</span>
+								<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+								{!! Form::text('email', null, ['class'=>'form-control', 'placeholder'=> 'Email', ' disabled']) !!}
 							</div>
 						</div>
+
+{{-- 		@if (count($errors))
+		<ul class="alert alert-danger">
+			@foreach ($errors->all() as $error)
+			<li>{{ $error }}</li>
+			@endforeach
+		</ul>
+		@endif --}}
+	</div>
+
+	<div class="col-xs-12 col-sm-8">
+		<h6 class="col-xs-12 col-sm-12">Danh sách tag</h6>
+		<span class="col-xs-12 col-sm-12 help-block">Viết tag và nhấn enter</span>
+
+		<div class="form-group col-xs-12 col-sm-12 {{ $errors->has('tags2.*') ? ' has-error' : '' }}">
+
+			{!! Form::text('tags', $tags, ['class'=>'tagsinput 123input tm-input form-control tm-input-info tagsinput-typeahead','data-role'=>'tagsinput', 'placeholder'=> 'Nhập tag', 'value'=> old('tags')]) !!}
+
+			@if ($errors->has('tags2.*'))
+			<span class="help-block">
+				<strong>Tồn tại TAG không có trong hệ thống!</strong>
+			</span>
+			@endif
+		</div>
+	</div>
+
+	<div class="col-xs-12 col-sm-12">
+		<hr class="hr-lg">
+		<!-- Work Experience -->
+		<section class="bg-alt">
+			<div class="container">
+				<header class="section-header">
+					<br>
+					<h2>Kinh nghiệm làm việc</h2>
+				</header>
+
+				<div class="row">
+					@if(count($exps)>0)
+					@foreach ($exps as $exp)
+					<div class="col-xs-12" style="width: 97.5%;">
+						<div class="item-block">
+							<div class="item-form">
+								<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
+								<div class="row">
+									<div class="col-xs-12 col-sm-12">
+										<div class="form-group">
+											{!! Form::text('exTitle[]', $exp->title, ['class'=>'form-control', 'placeholder'=> 'Tên công ty / Đồ án đã làm']) !!}
+											{!! Form::text('position[]', $exp->role, ['class'=>'form-control', 'placeholder'=> 'Vị trí / Vai trò']) !!}
+											<div class="input-group">
+												<span class="input-group-addon">Từ</span>
+												{!! Form::date('datestart[]', $exp->from, ['class'=>'form-control']) !!}
+												{{-- <input class="form-control" type="date" name="datestart[]" value="2011-08"> --}}
+												<span class="input-group-addon">Đến</span>
+												{!! Form::date('dateend[]', $exp->to, ['class'=>'form-control']) !!}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					@endforeach
+					@else
+					<div class="col-xs-12" style="width: 97.5%;">
+						<div class="item-block">
+							<div class="item-form">
+								<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
+								<div class="row">
+									<div class="col-xs-12 col-sm-12">
+										<div class="form-group">
+											{!! Form::text('exTitle[]', null, ['class'=>'form-control', 'placeholder'		=> 'Tên công ty / Đồ án đã làm']) !!}
+											{!! Form::text('position[]', null, ['class'=>'form-control', 'placeholder'=> 'Vị trí / Vai trò']) !!}
+											<div class="input-group">
+												<span class="input-group-addon">Từ</span>
+												{!! Form::date('datestart[]', null, ['class'=>'form-control']) !!}
+												<span class="input-group-addon">Đến</span>
+												{!! Form::date('dateend[]', null, ['class'=>'form-control']) !!}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					@endif
+
+
+					<div class="col-xs-12 duplicateable-content" style="width: 97.5%;">
+						<div class="item-block">
+							<div class="item-form">
+								<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
+								<div class="row">
+									<div class="col-xs-12 col-sm-12">
+										<div class="form-group">
+											{!! Form::text('exTitle[]', null, ['class'=>'form-control', 'placeholder'		=> 'Tên công ty / Đồ án đã làm']) !!}
+											{!! Form::text('position[]', null, ['class'=>'form-control', 'placeholder'=> 'Vị trí / Vai trò']) !!}
+											<div class="input-group">
+												<span class="input-group-addon">Từ</span>
+												{!! Form::date('datestart[]', null, ['class'=>'form-control']) !!}
+												<span class="input-group-addon">Đến</span>
+												{!! Form::date('dateend[]', null, ['class'=>'form-control']) !!}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 text-center">
+						<br>
+						<button class="btn btn-primary btn-duplicator">Thêm kinh nghiệm làm việc</button>
 					</div>
 				</div>
+			</div>
+		</section>
+		<!-- END Work Experience -->
+		<hr>
+		<!-- Skills-->
+		<section class="bg-alt">
+			<div class="container">
+				<header class="section-header">
+					<br>
+					<h2>Kĩ năng</h2>
+				</header>
+				<div class="row">
+
+					@if(count($skills)>0)
+					@foreach ($skills as $skill)
+					<div class="col-xs-12" style="width: 97.5%">''
+						<div class="item-block">
+							<div class="item-form">
+								<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
+								<div class="row">
+									<div class="col-xs-12 col-sm-6">
+										<div class="form-group">
+											{!! Form::text('skills[]', $skill->name, ['class'=>'form-control', 'placeholder'=> 'Tên kĩ năng, vd. HTML']) !!}
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-6">
+										<div class="form-group">
+											{{ Form::selectRangeWithInterval('rating[]', 0, 100, 5, $skill->rating, ['class' => 'form-control input-xs']) }}
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					@endforeach
+					@else
+					<div class="col-xs-12" style="width: 97.5%">''
+						<div class="item-block">
+							<div class="item-form">
+								<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
+								<div class="row">
+									<div class="col-xs-12 col-sm-6">
+										<div class="form-group">
+											{!! Form::text('skills[]', '', ['class'=>'form-control', 'placeholder'=> 'Tên kĩ năng, vd. HTML']) !!}
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-6">
+										<div class="form-group">
+											{{ Form::selectRangeWithInterval('rating[]', 0, 100, 5, '50', ['class' => 'form-control input-xs']) }}
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					@endif
+					<div class="col-xs-12 duplicateable-content" style="width: 97.5%">
+						<div class="item-block">
+							<div class="item-form">
+								<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
+								<div class="row">
+									<div class="col-xs-12 col-sm-6">
+										<div class="form-group">
+											{!! Form::text('skills[]', '', ['class'=>'form-control', 'placeholder'=> 'Tên kĩ năng, vd. HTML']) !!}
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-6">
+										<div class="form-group">
+											{{ Form::selectRangeWithInterval('rating[]', 0, 100, 5, '50', ['class' => 'form-control input-xs']) }}
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 text-center">
+						<br>
+						<button class="btn btn-primary btn-duplicator">Thêm kĩ năng</button>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- END Skills-->
+		<section class="bg-alt">
+			<p class="text-center"><button class="btn btn-danger btn-xl btn-round">Cập nhật hồ sơ</button></p>
+		</section>
+		{!! Form::close() !!}
+		<hr>
+	</div>
+</div>
+</div>
+<div class="row">
+	
+	<section class="bg-alt">
+		
+		<div class="container">
+
+			<header class="section-header">
 				<br>
-				<hr class="hr-lg">
+				<h2>Quản lý CV</h2>
+			</header>
 
-
-				<!-- Work Experience -->
-				<section class="bg-alt">
-					<div class="container">
-						<header class="section-header">
-							<br>
-							<h2>Kinh nghiệm làm việc</h2>
-						</header>
-						<div class="row">
-							<div class="col-xs-12">
-								<div class="item-block">
-									<div class="item-form">
-										<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
-										<div class="row">
-											<div class="col-xs-12 col-sm-12">
-												<div class="form-group">
-													{!! Form::text('exTitle[]', null, ['class'=>'form-control', 'placeholder'=> 'Tên công ty / Đồ án đã làm']) !!}
-													{!! Form::text('position[]', null, ['class'=>'form-control', 'placeholder'=> 'Vị trí / Vai trò']) !!}
-													<div class="input-group">
-														<span class="input-group-addon">Từ</span>
-														{!! Form::date('datestart[]', null, ['class'=>'form-control']) !!}
-														<span class="input-group-addon">Đến</span>
-														{!! Form::date('dateend[]', null, ['class'=>'form-control']) !!}
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-xs-12 duplicateable-content">
-								<div class="item-block">
-									<div class="item-form">
-										<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
-										<div class="row">
-											<div class="col-xs-12 col-sm-12">
-												<div class="form-group">
-													{!! Form::text('exTitle[]', null, ['class'=>'form-control', 'placeholder'		=> 'Tên công ty / Đồ án đã làm']) !!}
-													{!! Form::text('position[]', null, ['class'=>'form-control', 'placeholder'=> 'Vị trí / Vai trò']) !!}
-													<div class="input-group">
-														<span class="input-group-addon">Từ</span>
-														{!! Form::date('datestart[]', null, ['class'=>'form-control']) !!}
-														<span class="input-group-addon">Đến</span>
-														{!! Form::date('dateend[]', null, ['class'=>'form-control']) !!}
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-xs-12 text-center">
-								<br>
-								<button class="btn btn-primary btn-duplicator">Thêm kinh nghiệm làm việc</button>
+			<div class="row">
+				<div class="col-xs-12">
+					
+					<div class="table-responsive">
+						<table class="table table-striped table-bordered-company">
+							<thead>
+								<tr>
+									<th>Tên CV</th>
+									<th>Ngảy tải lên</th>
+									<th>Thao tác</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><a href="#" target="_blank">GlobalCyberSoft.pdf</a></td>
+									<td>22/3/2018</td>
+									<td>
+										<a href="#"><abbr title="Xóa"><i class="fa fa-trash" aria-hidden="true"></i></abbr></a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<h4>Tải lên CV</h4>
+					<form method="POST" action="#" enctype="multipart/form-data">
+						<!-- COMPONENT START -->
+						<div class="form-group">
+							<div class="input-group input-file" name="Fichier1">
+								<input type="text" class="form-control" placeholder='Chọn CV của bạn...' />			
+								<span class="input-group-btn">
+									<button class="btn btn-success btn-choose" type="button">Chọn</button>
+								</span>
 							</div>
 						</div>
-					</div>
-				</section>
-				<!-- END Work Experience -->
-
-				<!-- Skills-->
-				<section>
-					<div class="container">
-						<header class="section-header">
-							<br>
-							<h2>Kĩ năng</h2>
-						</header>
-						<div class="row">
-							<div class="col-xs-12">
-								<div class="item-block">
-									<div class="item-form">
-										<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
-										<div class="row">
-											<div class="col-xs-12 col-sm-6">
-												<div class="form-group">
-													{!! Form::text('skills[]', null, ['class'=>'form-control', 'placeholder'=> 'Tên kĩ năng, vd. HTML']) !!}
-												</div>
-											</div>
-											<div class="col-xs-12 col-sm-6">
-												<div class="form-group">
-													<div class="input-group">
-														{!! Form::text('valueofskill[]', null, ['class'=>'form-control', 'placeholder'=> 'Mức độ thông thạo, vd. 90']) !!}
-														<span class="input-group-addon">%</span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xs-12 duplicateable-content">
-								<div class="item-block">
-									<div class="item-form">
-										<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
-										<div class="row">
-											<div class="col-xs-12 col-sm-6">
-												<div class="form-group">
-													{!! Form::text('skills[]', null, ['class'=>'form-control', 'placeholder'=> 'Tên kĩ năng, vd. HTML']) !!}
-												</div>
-											</div>
-											<div class="col-xs-12 col-sm-6">
-												<div class="form-group">
-													<div class="input-group">
-														{!! Form::text('valueofskill[]', null, ['class'=>'form-control', 'placeholder'=> 'Mức độ thông thạo, vd. 90']) !!}
-														<span class="input-group-addon">%</span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-xs-12 text-center">
-								<br>
-								<button class="btn btn-primary btn-duplicator">Thêm kĩ năng</button>
-							</div>
+						<!-- COMPONENT END -->
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary pull-right">Tải lên</button>
+							<button type="reset" class="btn btn-danger">Xóa</button>
 						</div>
-					</div>
-				</section>
-				<!-- END Skills-->
+					</form>
 
-				<section class="bg-alt">
-					<p class="text-center"><button class="btn btn-danger btn-xl btn-round">Cập nhật hồ sơ</button></p>
-				</section>
-
-				{!! Form::close() !!}
+				</div>
 			</div>
 		</div>
-	</main>
-	<!-- END Main container -->
-	<!-- Site footer -->
-	@include('layouts.footer')
-
-	<!-- END Site footer -->
+	</section>
+</div>
 
 
+</main>
+<!-- END Main container -->
+<!-- Site footer -->
+@include('layouts.footer')
 
-	<!-- Back to top button -->
-	<a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
-	<!-- END Back to top button -->
+<!-- END Site footer -->
 
-	<!-- Scripts -->
-	<script src="{{ asset('assets/js/app.min.js') }} "></script>
-	<script src="{{ asset('assets/js/thejobs.js') }} "></script>
-	<script src="{{ asset('assets/js/custom.js') }} "></script>
 
-	<script src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js" type="text/javascript" charset="utf-8"></script>
 
-	<script type="text/javascript">
-		var slider = document.getElementById("myRange");
-		var output = document.getElementById("demo");
-		output.innerHTML = slider.value;
+<!-- Back to top button -->
+<a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
+<!-- END Back to top button -->
 
-		slider.oninput = function() {
-			output.innerHTML = this.value;
+<!-- Scripts -->
+<script src="{{ asset('assets/js/app.min.js') }} "></script>
+<script src="{{ asset('assets/js/thejobs.js') }} "></script>
+<script src="{{ asset('assets/js/custom.js') }} "></script>
+<script src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var tagnames = new Bloodhound({
+		datumTokenizer: Bloodhound.tokenizers.obj.whitespace("name"),
+		queryTokenizer: Bloodhound.tokenizers.whitespace,
+		prefetch: {
+			url:'../../tags',
+			filter: function(list) {
+				return $.map(list, function(tagname) {
+					return { name: tagname }; });
+			}
 		}
-	</script>
-	<script type="text/javascript">
-		var tagnames = new Bloodhound({
-			datumTokenizer: Bloodhound.tokenizers.obj.whitespace("name"),
-			queryTokenizer: Bloodhound.tokenizers.whitespace,
-			prefetch: {
-				url:'../../tags',
-				filter: function(list) {
-					return $.map(list, function(tagname) {
-						return { name: tagname }; });
+	});
+	tagnames.initialize();
+	$('.tagsinput').tagsinput({
+		typeaheadjs: {
+			name: 'tags',
+			displayKey: 'name',
+			valueKey: 'name',
+			source: tagnames.ttAdapter(),
+			templates: {
+				empty: [
+				'<div class="list-group search-results-dropdown"><div class="list-group-item">Không có kết quả phù hợp.</div></div>'
+				],
+				header: [
+				'<div class="list-group search-results-dropdown">'
+				],
+				suggestion: function (data) {
+					return '<p class="list-group-item">' + data.name + '</p>'
 				}
 			}
-		});
+		}
+	});
+</script>
 
-		tagnames.initialize();
-		$(function() {
-			$( "#datepicker" ).datepicker();
-			$( "#datepicker" ).datepicker( "option", "dateFormat", 'dd/mm/yy');
+<script>
 
-		});
-		$('.tagsinput').tagsinput({
-			typeaheadjs: {
-				name: 'tags',
-				displayKey: 'name',
-				valueKey: 'name',
-				source: tagnames.ttAdapter(),
-				templates: {
-					empty: [
-					'<div class="list-group search-results-dropdown"><div class="list-group-item">Không có kết quả phù hợp.</div></div>'
-					],
-					header: [
-					'<div class="list-group search-results-dropdown">'
-					],
-					suggestion: function (data) {
-						return '<p class="list-group-item">' + data.name + '</p>'
-					}
-				}
-			}
-		});
-	</script>
-
-
-
-	<script>
-
-
-
-
-
-
-		$('.form_datetime').datetimepicker({
-        //language:  'vie',
-        weekStart: 1,
-        todayBtn:  1,
-        autoclose: 1,
-        todayHighlight: 1,
-        startView: 2,
-        forceParse: 0,
-        showMeridian: 1
-    });
-		$('.form_date').datetimepicker({
-			language:  'vie',
-			weekStart: 1,
-			todayBtn:  1,
-			autoclose: 1,
-			todayHighlight: 1,
-			startView: 2,
-			minView: 2,
-			forceParse: 0
-		});
-		$('.form_time').datetimepicker({
-			language:  'vie',
-			weekStart: 1,
-			todayBtn:  1,
-			autoclose: 1,
-			todayHighlight: 1,
-			startView: 1,
-			minView: 0,
-			maxView: 1,
-			forceParse: 0
-		});
-
-		$('.dropify').dropify({
-			error: {
-				'fileSize': 'The file size is too big (30 max).',
-				'minWidth': 'The image width is too small (30 px min).',
-				'maxWidth': 'The image width is too big (30 px max).',
-				'minHeight': 'The image height is too small (30 px min).',
-				'maxHeight': 'The image height is too big (30 x max).',
-				'imageFormat': 'The image format is not allowed (30 only).'
-			}
-		});
-	</script>
-
-	<script type="text/javascript">
-		$(function () {
-			$('#datetimepicker10').datetimepicker({
-				viewMode: 'years',
-				format: 'MM/YYYY'
-			});
-		});
-	</script>
+	$('.dropify').dropify({
+		error: {
+			'fileSize': 'The file size is too big (30 max).',
+			'minWidth': 'The image width is too small (30 px min).',
+			'maxWidth': 'The image width is too big (30 px max).',
+			'minHeight': 'The image height is too small (30 px min).',
+			'maxHeight': 'The image height is too big (30 x max).',
+			'imageFormat': 'The image format is not allowed (30 only).'
+		}
+	});
+</script>
 </body>
 </html>

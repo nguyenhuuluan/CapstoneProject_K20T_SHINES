@@ -13,12 +13,22 @@ use App\Company;
 use App\Student;
 use App\Role;
 use App\Tag;
+use App\Experience;
+use App\Skill;
+use App\Cv;
 use Auth;
 
 
 
-use Mail;
 
+use Mail;
+function renameKey($oldkey, $newkey, $array) {
+	$val = $array[$oldkey];
+	$tmp_A = array_flip($array);
+	$tmp_A[$val] = $newkey;
+	return array_flip($tmp_A);
+
+}
 class StudentController extends Controller
 {
 
@@ -143,20 +153,67 @@ class StudentController extends Controller
 	{
 		return view('students.profile');
 	}
+
+
 	public function editProfile(Request $request, $id)
-	{
+	{	
+		//kiểm tra tag tồn tại trong hệ thống
+		$tags1 = explode(',', request('tags')); 
+		$request->request->add(['tags1' => $tags1]); 
 
-		return $request;
-		$tags = explode(',', request('tags')); 
-		$request->request->add(['tags' => $tags]); 
+		//return $request;
+		$this->validate($request,[
+			'name'=>'required',
+			'dateofbirth'=>'required',
+			'phone'=>'required',
+			'faculty_id'=>'required|exists:faculties,id',
+            //'hidden-tags'=>'required|array|exists:tags,name',
+			'tags2.*'=>'required|exists:tags,name',
+            //'hidden-tags'=>'required',
+		]);
 
-		$input = $request->except(['tags', 'exTitle', 'position', 'datestart', 'dateend', 'skills', 'valueofskill']);
-
+		//update thông tin sinh viên cơ bản
+		$input = $request->except(['tags', 'exTitle', 'position', 'datestart', 'dateend', 'skills', 'valueofskill', 'tags1']);
 		$student = Student::findOrFail($id);
-
 		$student->update($input);
+
+		
+		$tags2;
+		//change right id key tags
+		foreach ($tags1 as $key => $value) {
+			$id = Tag::where('name', $value)->first(['id'])['id'];
+			$tags2[$id] = $tags1[$key];
+		}
+		//update tags
+		$student->tags()->sync(array_keys($tags2));
+		//update Experience
+		$student->experiences()->delete();
+
+		foreach (request('exTitle') as $key => $value) {
+			if(request('exTitle')[$key]){
+				$exp = new Experience([
+					'title'=>$value,
+					'role'=>request('position')[$key],
+					'from'=>request('datestart')[$key],
+					'to'=>request('dateend')[$key]
+				]);
+				$student->experiences()->save($exp);
+			}
+		}
+
+		//Update SKills
+		$student->skills()->delete();
+		foreach (request('skills') as $key => $value) {
+			if(request('skills')[$key]){
+				$exp = new Skill([
+					'name'=>$value,
+					'rating'=>request('rating')[$key],
+				]);
+				$student->skills()->save($exp);
+			}
+		}
+
 		return redirect()->back();
-		return $student->name;
 	}
 
 	public function editPhoto(Request $request, $id)
@@ -168,14 +225,16 @@ class StudentController extends Controller
 	{	
 		$student = Auth::user()->student;
 		$faculties = Faculty::pluck('name','id')->all();
+		$exps = Experience::where('student_id', $student->id)->get();
+		$skills = Skill::where('student_id', $student->id)->get();
+		//$cvs = Cv::where('')
 
-		
 		$tags = '';
 		foreach ($student->tags as $tag) {
 			$tags = $tags.$tag->name.',';
 		}
 		
-		return view('students.profile-update', compact('faculties', 'student', 'tags'));
+		return view('students.profile-update', compact('faculties', 'student', 'tags', 'exps', 'skills'));
 	}
 
 

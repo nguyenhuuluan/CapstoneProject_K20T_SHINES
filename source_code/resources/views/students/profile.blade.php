@@ -34,31 +34,25 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-12 col-sm-12 header-detail">
-
           <img class="logo" src="{{ asset('assets/img/avatar.jpg') }} " alt="">
           <div class="hgroup">
             <h1>{!! Auth::user()->student->name!!}</h1>
             <h3>Front-end developer</h3>
           </div>
           <hr>
-          
-          
           <ul class="details cols-2">
             <li>
               <i class="fa fa-birthday-cake"></i>
               <span>29/10/1996</span>
             </li>
-
             <li>
               <i class="fa fa-graduation-cap"></i>
               <span>{!! Auth::user()->student->faculty->name!!}</span>
             </li>
-
             <li>
               <i class="fa fa-phone"></i>
               <span>{!! Auth::user()->student->phone!!}</span>
             </li>
-
             <li>
               <i class="fa fa-envelope"></i>
               <a href="#">{!! Auth::user()->student->email!!}</a>
