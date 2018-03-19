@@ -221,6 +221,53 @@ class StudentController extends Controller
 
 	}
 
+	public function editCv(Request $request, $id)
+	{
+		if($file = $request->file('cv'))
+		{
+			$validator = Validator::make($request->all(), [
+				'cv' => 'required|mimes:jpeg,png,jpg,pdf,docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document|max:1024',
+			]);
+
+			if ($validator->passes()) 
+			{
+				return response()->json(['success'=>'success1']);
+
+			}
+			else
+			{
+				return response()->json(['error'=>$validator->errors()->all()]);
+
+			}
+		}
+		else
+		{
+			return response()->json(['error'=>'error']);
+		}
+
+
+		
+
+
+    //   if ($validator->passes()) {
+
+
+    //     $input = $request->all();
+    //     $input['image'] = time().'.'.$request->image->getClientOriginalExtension();
+    //     $request->image->move(public_path('images'), $input['image']);
+
+
+    //     AjaxImage::create($input);
+
+
+    //     return response()->json(['success'=>'done']);
+    //   }
+
+    //   return response()->json(['error'=>$validator->errors()->all()]);
+    // }
+
+	}
+
 	public function updateProfile()
 	{	
 		$student = Auth::user()->student;

@@ -17,8 +17,10 @@ class CreateCvsTable extends Migration
             $table->increments('id');
             $table->string('name',255);
             $table->string('file',255);
-            //$table->integer('student_id')->index()->unsigned();
+            $table->integer('student_id')->index()->unsigned();
             $table->timestamps();
+
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
 
         });
     }
