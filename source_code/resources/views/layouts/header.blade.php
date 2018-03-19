@@ -124,7 +124,7 @@
    <div class="dropdown user-account">
     <a class="user-account-text"> {!! Auth::user()->student->name!!}</a>
     <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-      <img src={{ asset('assets/img/logo-envato.png') }} alt="avatar">
+      <img src={{ asset(Auth::user()->student->photo) }} alt="avatar">
     </a>
     <ul class="dropdown-menu dropdown-menu-right">
       <li><a href="{{ route('student.profile.update') }}">Tài khoản</a></li>

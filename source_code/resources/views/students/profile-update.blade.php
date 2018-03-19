@@ -50,7 +50,7 @@
 				<div class="dropdown user-account">
 					<a class="user-account-text"> {!! Auth::user()->student->name!!}</a>
 					<a class="dropdown-toggle" href="#" data-toggle="dropdown">
-						<img src={{ asset('assets/img/logo-envato.png') }} alt="avatar">
+						<img src={!!asset(Auth::user()->student->photo) !!} alt="avatar">
 					</a>
 					<ul class="dropdown-menu dropdown-menu-right">
 						<li><a href="{{ route('student.profile.update') }}">Tài khoản</a></li>
@@ -93,7 +93,7 @@
 	
 
 	<!-- Page header -->
-	<header class="page-header">
+	<header class="page-header bg-img size-lg" style="background-image: url({{ asset('assets/img/O7MF5N0.jpg') }} )">
 		<div class="container page-name">
 			<h1 class="text-center">Thêm hồ sơ của bạn</h1>
 			<p class="lead text-center">Tạo hồ sơ của bạn và cho nhà tuyển dụng nhìn thấy nó.</p>
