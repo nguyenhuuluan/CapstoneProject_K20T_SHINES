@@ -43,7 +43,7 @@ function bs_input_file() {
   $(".input-file").before(
     function() {
       if ( ! $(this).prev().hasClass('input-ghost') ) {
-        var element = $("<input type='file' class='input-ghost' style='visibility:hidden; height:0'>");
+        var element = $("<input type='file' id='fileli' accept='.doc, .docx, .pdf' size='1MB' class='input-ghost' style='visibility:hidden; height:0'>");
         element.attr("name",$(this).attr("name"));
         element.change(function(){
           element.next(element).find('input').val((element.val()).split('\\').pop());
@@ -67,4 +67,13 @@ function bs_input_file() {
 }
 $(function() {
   bs_input_file();
+
+  //Limit file size
+  var uploadField = document.getElementById("fileli");
+  uploadField.onchange = function() {
+    if(this.files[0].size > 1000000){
+       document.getElementById("filenull").innerHTML = "File quá lớn, vui lòng tải lên file dưới 1MB!";
+       this.value = "";
+    };
+};
 });

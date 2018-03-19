@@ -33,3 +33,47 @@ function initMap() {
 
   map.set('styles', [{"featureType":"landscape","stylers":[{"hue":"#FFBB00"},{"saturation":43.400000000000006},{"lightness":37.599999999999994},{"gamma":1}]},{"featureType":"road.highway","stylers":[{"hue":"#FFC200"},{"saturation":-61.8},{"lightness":45.599999999999994},{"gamma":1}]},{"featureType":"road.arterial","stylers":[{"hue":"#FF0300"},{"saturation":-100},{"lightness":51.19999999999999},{"gamma":1}]},{"featureType":"road.local","stylers":[{"hue":"#FF0300"},{"saturation":-100},{"lightness":52},{"gamma":1}]},{"featureType":"water","stylers":[{"hue":"#0078FF"},{"saturation":-13.200000000000003},{"lightness":2.4000000000000057},{"gamma":1}]},{"featureType":"poi","stylers":[{"hue":"#00FF6A"},{"saturation":-1.0989010989011234},{"lightness":11.200000000000017},{"gamma":1}]}]);
 }
+
+
+//
+// Bootstrap file input
+//
+
+function bs_input_file() {
+  $(".input-file").before(
+    function() {
+      if ( ! $(this).prev().hasClass('input-ghost') ) {
+        var element = $("<input type='file' id='fileli' accept='.doc, .docx, .pdf' size='1MB' class='input-ghost' style='visibility:hidden; height:0'>");
+        element.attr("name",$(this).attr("name"));
+        element.change(function(){
+          element.next(element).find('input').val((element.val()).split('\\').pop());
+        });
+        $(this).find("button.btn-choose").click(function(){
+          element.click();
+        });
+        $(this).find("button.btn-reset").click(function(){
+          element.val(null);
+          $(this).parents(".input-file").find('input').val('');
+        });
+        $(this).find('input').css("cursor","pointer");
+        $(this).find('input').mousedown(function() {
+          $(this).parents('.input-file').prev().click();
+          return false;
+        });
+        return element;
+      }
+    }
+  );
+}
+$(function() {
+  bs_input_file();
+
+  //Limit file size
+  var uploadField = document.getElementById("fileli");
+  uploadField.onchange = function() {
+    if(this.files[0].size > 1000000){
+       document.getElementById("filenull").innerHTML = "File quá lớn, vui lòng tải lên file dưới 1MB!";
+       this.value = "";
+    };
+};
+});
