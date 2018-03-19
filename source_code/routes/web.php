@@ -65,9 +65,8 @@ Route::get('student/profile/update', 'StudentController@updateProfile')->name('s
 Route::POST('student/profile/update/{id}', 'StudentController@editProfile')->name('student.profile.edit')->middleware('student');
 Route::POST('student/profile/update/photo/{id}', 'StudentController@editPhoto')->name('student.photo.edit')->middleware('student');
 
-// Route::resource('student/profile/update/cv', 'Student\StudentCvController')->middleware('student');
-
 Route::POST('student/profile/update/cv/{id}', 'Student\StudentCvController@store')->name('student.cv.store')->middleware('student');
+Route::POST('student/profile/update/photo/{id}', 'StudentController@editPhoto')->name('student.photo.store')->middleware('student');
 
 Route::GET('student/profile/update/cv', 'Student\StudentCvController@show')->name('student.cv.show')->middleware('student');
 

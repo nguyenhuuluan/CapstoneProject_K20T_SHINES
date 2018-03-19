@@ -220,13 +220,42 @@ class StudentController extends Controller
 		return redirect()->back();
 	}
 
-	public function editPhoto(Request $request, $id)
+	public function editPhoto(Request $request,$id)
 	{
 
+		if($file = $request->file('photo'))
+		{
+			$validator = Validator::make($request->all(), [
+				'photo' => 'required|image|mimes:jpeg,png,jpg|max:1024',
+			]);
+
+			if ($validator->passes()) 
+			{	
+				$student = Student::findOrFail($id);
+                $name  = time().$file->getClientOriginalName();
+
+                unlink(public_path().$student->photo);
+
+                $student['photo']=$name;
+                $student->update();
+                $file->move('images/students/avatas', $name);
+                return response($student);
+
+				// return response()->json(['success'=>'success']);
+			}
+			else
+			{
+				return response()->json(['error'=>$validator->errors()->all()]);
+			}
+		}
+		else
+		{
+			return response()->json(['error'=>'error']);
+		}
 	}
 
 	public function editCv(Request $request, $id)
-	{
+	{	
 		if($file = $request->file('cv'))
 		{
 			$validator = Validator::make($request->all(), [

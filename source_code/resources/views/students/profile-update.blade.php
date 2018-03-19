@@ -106,15 +106,19 @@
 	<main>
 		<div class="container">
 			<div class="row">
-				{!! Form::model($student, ['method'=>'POST', 'action'=> ['StudentController@editPhoto', $student->id], 'files'=>true]) !!}
-				<div class="col-xs-12 col-sm-4">
-					<div class="form-group">
-						{!! Form::file('photo', ['class'=>'dropify', 'data-height'=>'300' ,'data-default-file'=> asset(Auth::user()->student->photo) ])!!}
-						<span class="help-block">Xin vui lòng chọn ảnh 4:6</span>
-					</div>
-				</div>
-				{!! Form::close() !!}
+				<div>
+					{!! Form::open(['method'=>'POST', 'action'=> ['StudentController@editPhoto', $student->id], 'files'=>true, 'id'=>'upload_ava']) !!}
+					<div class="col-xs-12 col-sm-4">
+						<div class="form-group">
+							{!! Form::file('photo', ['class'=>'dropify', 'data-height'=>'300' ,'data-default-file'=> asset(Auth::user()->student->photo), 'id'=>'photo' ])!!}
 
+							<span class="help-block">Xin vui lòng chọn ảnh 4:6</span>
+							{!! Form::submit('Cập nhật avatar', ['class'=>'btn btn-xs btn-danger pull-right upload-ava']) !!}
+
+						</div>
+					</div>
+					{!! Form::close() !!}
+				</div>
 				<div>
 					{!! Form::model( $student, ['method'=>'POST', 'action'=>['StudentController@editProfile', $student->id], 'files'=>true]) !!}
 
@@ -426,7 +430,6 @@
 		<script type="text/javascript">
 			showCv();
 			$(document).ready(function (e) {
-
 				// -----upload cv
 				$('#upload_cv').on('submit',(function(e) {
 					e.preventDefault();
@@ -459,6 +462,33 @@
 						}
 					});
 				}));
+
+
+
+				//--Cap nhat avatar
+				$('#upload_ava').on('submit',(function(e) {
+					e.preventDefault();
+					var formData = new FormData(this);
+
+					$.ajax({
+						type:'POST',
+						url: $(this).attr('action'),
+						data:formData,
+						cache:false,
+						contentType: false,
+						processData: false,
+						success:function(data){
+							alert('Cập nhật avatar thành công!');
+							location.reload();
+						},
+						error: function(data){
+							alert('Kiểm tra lại avatar upload đúng định dạng!');
+						}
+					});
+				}));
+
+
+
 
 
 				// -----Delete cv
