@@ -150,8 +150,12 @@ class StudentController extends Controller
 	}
 
 	public function profile()
-	{
-		return view('students.profile');
+	{	
+		$student = Auth::user()->student;
+		$exps = Experience::where('student_id', $student->id)->get();
+		$skills = Skill::where('student_id', $student->id)->get();
+		//$cvs = Cv::where('')
+		return view('students.profile', compact('student', 'exps', 'skills'));
 	}
 
 

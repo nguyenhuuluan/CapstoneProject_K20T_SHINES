@@ -34,33 +34,33 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-12 col-sm-12 header-detail">
-          <img class="logo" src="{{ asset('assets/img/avatar.jpg') }} " alt="">
+          <img class="logo" src="{{ asset($student->photo) }} " alt="">
           <div class="hgroup">
-            <h1>{!! Auth::user()->student->name!!}</h1>
-            <h3>Front-end developer</h3>
+            <h1>{!! $student->name!!}</h1>
+            {{-- <h3>Front-end developer</h3> --}}
           </div>
           <hr>
           <ul class="details cols-2">
             <li>
               <i class="fa fa-birthday-cake"></i>
-              <span>29/10/1996</span>
+              <span>{!! $student->dateofbirth!!}</span>
             </li>
             <li>
               <i class="fa fa-graduation-cap"></i>
-              <span>{!! Auth::user()->student->faculty->name!!}</span>
+              <span>{!! $student->faculty->name!!}</span>
             </li>
             <li>
               <i class="fa fa-phone"></i>
-              <span>{!! Auth::user()->student->phone!!}</span>
+              <span>{!! $student->phone!!}</span>
             </li>
             <li>
               <i class="fa fa-envelope"></i>
-              <a href="#">{!! Auth::user()->student->email!!}</a>
+              <a href="#">{!! $student->email!!}</a>
             </li>
           </ul>
             <div class="tag-list">
               <?php
-              foreach (Auth::user()->student->tags as $tag) {
+              foreach ($student->tags as $tag) {
                 echo '<span>'.$tag->name.'</span>';
               }
               ?>
@@ -90,7 +90,7 @@
     <section>
       <div class="container">
         <br>
-        <p class="lead">The front end  is the part that users see and interact with, includes the User Interface, the animations, and usually a bunch of logic to talk to the backend. It is the visual bit that the user interacts with. This includes the design, images, colours, buttons, forms, typography, animations and content. It’s basically everything that you as a user of the website can see.</p>
+        <p class="lead">{!! $student->description !!}.</p>
         <br>
 
         
@@ -101,50 +101,20 @@
         <div class="row">
 
           <!-- Work item -->
-          <div class="col-xs-12">
+          @foreach ($exps as $exp)
+            <div class="col-xs-12">
             <div class="item-block">
               <header>
                 <div class="hgroup">
-                  <h4>Google</h4>
-                  <h5>Senior front-end developer</h5>
+                  <h4>{!! $exp->title !!}</h4>
+                  <h5>{!! $exp->role !!}</h5>
                 </div>
-                <h6 class="time">Tháng 1 2016 - Hiện nay</h6>
+                <h6 class="time">{!! $exp->from !!} --- {!! $exp->to !!}</h6>
               </header>
             </div>
           </div>
+          @endforeach
           <!-- END Work item -->
-
-
-          <!-- Work item -->
-          <div class="col-xs-12">
-            <div class="item-block">
-              <header>
-                <div class="hgroup">
-                  <h4>Facebook</h4>
-                  <h5>Interface developer</h5>
-                </div>
-                <h6 class="time">Tháng 8 2014 - Tháng 1 2016</h6>
-              </header>
-            </div>
-          </div>
-          <!-- END Work item -->
-
-
-          <!-- Work item -->
-          <div class="col-xs-12">
-            <div class="item-block">
-              <header>
-                <div class="hgroup">
-                  <h4>Envato</h4>
-                  <h5>Quality assurance engineer</h5>
-                </div>
-                <h6 class="time">Tháng 3 2012 - Tháng 6 2014</h6>
-              </header>
-            </div>
-          </div>
-          <!-- END Work item -->
-
-
         </div>
 
 
@@ -160,68 +130,21 @@
         <header class="section-header">
           <h2>Kĩ năng</h2>
         </header>
-
+  
         <br>
         <ul class="skills cols-3">
-          <li>
+          @foreach ($skills as $skill)
+            <li>
             <div>
-              <span class="skill-name">HTML</span>
-              <span class="skill-value">50%</span>
+              <span class="skill-name">{!! $skill->name !!}</span>
+              <span class="skill-value">{!! $skill->rating !!}</span>
             </div>
             <div class="progress">
-              <div class="progress-bar" style="width: 50%;"></div>
+              <div class="progress-bar" style="width: {!!$skill->rating !!}%;"></div>
             </div>
           </li>
-
-          <li>
-            <div>
-              <span class="skill-name">CSS</span>
-              <span class="skill-value">95%</span>
-            </div>
-            <div class="progress">
-              <div class="progress-bar" style="width: 95%;"></div>
-            </div>
-          </li>
-
-          <li>
-            <div>
-              <span class="skill-name">Javascript</span>
-              <span class="skill-value">80%</span>
-            </div>
-            <div class="progress">
-              <div class="progress-bar" style="width: 80%;"></div>
-            </div>
-          </li>
-
-          <li>
-            <div>
-              <span class="skill-name">Photoshop</span>
-              <span class="skill-value">60%</span>
-            </div>
-            <div class="progress">
-              <div class="progress-bar" style="width: 60%;"></div>
-            </div>
-          </li>
-
-          <li>
-            <div>
-              <span class="skill-name">ReactJS</span>
-              <span class="skill-value">70%</span>
-            </div>
-            <div class="progress">
-              <div class="progress-bar" style="width: 70%;"></div>
-            </div>
-          </li>
-
-          <li>
-            <div>
-              <span class="skill-name">Team work</span>
-              <span class="skill-value">90%</span>
-            </div>
-            <div class="progress">
-              <div class="progress-bar" style="width: 90%;"></div>
-            </div>
-          </li>
+          @endforeach
+          
         </ul>
       </div>
     </section>
