@@ -110,21 +110,10 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-4">
 						<div class="form-group">
-							<img src="assets/img/te3.jpg" alt="Avatar" style="width: 358px; height: 198px;     border-radius: 50%;">
-							<span class="help-block"><a data-toggle="modal" data-target="#thong" href="#">Tải ảnh lên</a></span>
+							<input type="file" accept="image/*" class="dropify" data-default-file="assets/img/te3.jpg">
+							<span class="help-block">Xin vui lòng chọn ảnh 4:6</span>
 							<br>
 						</div>
-					<!-- Modal avatar-->
-						<div id="thong" class="modal">
-							<form class="modal-content animate">
-								<div class="login-block">
-									<input type="file" class="dropify" data-default-file="assets/img/te3.jpg">
-									<span class="help-block">Xin vui lòng chọn ảnh 4:6</span>
-									<a class="btn btn-black btn-round btn-xs" data-dismiss="modal">Hủy</a>
-									<a class="btn btn-danger btn-round btn-xs" href="#">Lưu</a>
-								</div>
-							</form>
-						</div>	
 				</div>
 
 
@@ -398,9 +387,8 @@
 					            <span class="input-group-btn">
 					        		<button class="btn btn-success btn-choose" type="button">Chọn</button>
 					    		</span>
-
-
 							</div>
+							<p><span class="help-block" id="filenull" style="color: red;"></span></p>
 						</div>
 						<!-- COMPONENT END -->
 						<div class="form-group">
