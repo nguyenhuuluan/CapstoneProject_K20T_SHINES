@@ -9,6 +9,7 @@ use App\Account;
 use App\Company;
 use App\CompanyRegistration;
 use App\Role;
+use App\SocialNetwork;
 
 use Mail;
 
@@ -24,9 +25,17 @@ class CompanyController extends Controller
 
   public function update($id)
   {
-    $comp = Company::where('id', '=', $id)->first();
+    $company = Company::findOrFail($id);
 
-    return view('companies.update')->with(compact('comp'));
+    return view('companies.update')->with(compact('company'));
+
+  }
+
+  public function edit($id, Request $request)
+  {
+
+
+    return $request;
   }
 
 

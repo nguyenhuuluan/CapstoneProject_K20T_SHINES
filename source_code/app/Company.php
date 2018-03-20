@@ -41,7 +41,9 @@ class Company extends Model
         }else{
             return 'http://via.placeholder.com/100x100';
         }
-        
+    }
 
+    public function socialNetworks(){
+        return $this->hasMany('App\CompaniesSocialNetwork');
     }
 }	

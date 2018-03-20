@@ -133,7 +133,7 @@ Route::middleware(['representative', 'web'])->group(function () {
 
 	//Company
 	Route::get('/company/update/{id}', 'CompanyController@update')->name('company.update');
-
+	Route::POST('/company/edit/{id}', 'CompanyController@edit')->name('company.edit');
 });
 
 Route::GET('representative/reset-password/{token}','Representative\RepresentativeController@resetPassword')->name('representative.resetpassword');

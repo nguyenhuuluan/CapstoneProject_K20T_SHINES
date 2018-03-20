@@ -16,7 +16,6 @@
 	<link href="{{asset('assets/css/custom.css')}}" rel="stylesheet">
 	<link href="{{asset('assets/vendors/summernote/summernote.css')}}" rel="stylesheet">
 	
-
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
 	
