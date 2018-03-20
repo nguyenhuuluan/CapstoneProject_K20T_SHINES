@@ -281,7 +281,7 @@
 
 									@if(count($skills)>0)
 									@foreach ($skills as $skill)
-									<div class="col-xs-12" style="width: 97.5%">''
+									<div class="col-xs-12" style="width: 97.5%">
 										<div class="item-block">
 											<div class="item-form">
 												<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
