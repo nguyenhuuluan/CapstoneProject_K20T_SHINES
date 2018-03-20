@@ -4,14 +4,13 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Post a job position or create your online resume by TheJobs!">
+	<meta name="description" content="">
 	<meta name="keywords" content="">
 
 	<title>Jobee - Thêm hồ sơ</title>
 
 	<!-- Styles -->
 	<link href="assets/css/app.min.css" rel="stylesheet">
-	<link href="assets/vendors/summernote/summernote.css" rel="stylesheet">
 	<link href="assets/css/thejobs.css" rel="stylesheet">
 	<link href="assets/css/custom.css" rel="stylesheet">
 
@@ -21,6 +20,8 @@
 	<!-- Favicons -->
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 	<link rel="icon" href="assets/img/favicon.ico">
+
+
 </head>
 
 <body class="nav-on-header smart-nav">
@@ -90,10 +91,9 @@
 	</nav>
 	<!-- END Navigation bar -->
 
-	<form action="#">
 
 		<!-- Page header -->
-		<header class="page-header">
+  		<header class="page-header bg-img size-lg" style="background-image: url(assets/img/O7MF5N0.jpg)">
 			<div class="container page-name">
 				<h1 class="text-center">Thêm hồ sơ của bạn</h1>
 				<p class="lead text-center">Tạo hồ sơ của bạn và cho nhà tuyển dụng nhìn thấy nó.</p>
@@ -103,37 +103,24 @@
 
 
 		<!-- Main container -->
-		<main>
 
+		<main>
 
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-12 col-sm-4">
 						<div class="form-group">
-							<input type="file" class="dropify" data-default-file="assets/img/te3.jpg">
+							<input type="file" accept="image/*" class="dropify" data-default-file="assets/img/te3.jpg">
 							<span class="help-block">Xin vui lòng chọn ảnh 4:6</span>
 							<br>
 						</div>
-						<!-- Upload CV -->
-						<center>
-						<div style="position:relative;">
-							<a class='btn btn-primary' href='javascript:;'>
-								Tải lên CV...
-								<input type="file" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="file_source" size="40"  onchange='$("#upload-file-info").html($(this).val());'>
-							</a>
-							&nbsp;
-							<span class='label label-info' id="upload-file-info"></span>
-						</div>
-						</center>
 				</div>
+
+
 
 				<div class="col-xs-12 col-sm-8">
 					<div class="form-group">
 						<input type="text" class="form-control input-lg" placeholder="Họ tên">
-					</div>
-
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Tiêu đề (vd. Nhân viên bán hàng)">
 					</div>
 
 					<div class="form-group">
@@ -144,13 +131,13 @@
 
 					<h6>Thông tin cơ bản</h6>
 					<div class="row">
-
+						
 						<div class="form-group col-xs-12 col-sm-6">
 							<div class="input-group input-group-sm">
-								<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
-								<input type="text" class="form-control" placeholder="Địa chỉ">
+								<span class="input-group-addon"><i class="fa fa-birthday-cake"></i></span>
+								<input class="form-control" type="date" value="1996-08-22">
 							</div>
-						</div>
+						</div>							
 
 						<div class="form-group col-xs-12 col-sm-6">
 							<div class="input-group input-group-sm">
@@ -188,7 +175,7 @@
 
 					<h6>Danh sách tag</h6>
 					<div class="form-group">
-						<input type="text" value="HTML,CSS,JavaScript" data-role="tagsinput" placeholder="Tên tag">
+						<input type="text" class="123" value="HTML,CSS,JavaScript" data-role="tagsinput" placeholder="Tên tag">
 						<span class="help-block">Viết tag và nhấn enter</span>
 					</div>
 
@@ -197,99 +184,8 @@
 			<br>
 		</div>
 
-		<!-- Education -->
-		<section class=" bg-alt">
-			<div class="container">
-
-				<header class="section-header">
-					<br>
-					<h2>Bằng cấp</h2>
-				</header>
-				
-				<div class="row">
-
-					<div class="col-xs-12">
-						<div class="item-block">
-							<div class="item-form">
-								
-								<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
-
-								<div class="row">
-									<div class="col-xs-12 col-sm-12">
-										<div class="form-group">
-											<input type="text" class="form-control" placeholder="Cấp bậc, vd. Cử nhân">
-										</div>
-
-										<div class="form-group">
-											<input type="text" class="form-control" placeholder="Chuyên Nghành, vd. CNTT">
-										</div>
-										<div class="form-group">
-											<input type="text" class="form-control" placeholder="Tên trường, vd. Đại học Văn Lang">
-										</div>
-
-										<div class="form-group">
-											<div class="input-group">
-												<span class="input-group-addon">Từ</span>
-												<input class="form-control" type="month" value="2011-08" id="example-month-input">
-												<span class="input-group-addon">Đến</span>
-												<input class="form-control" type="month" value="2011-08" id="example-month-input">
-											</div>
-										</div>
-									</div>
-								</div>
-
-							</div>
-						</div>
-					</div>
-
-					<div class="col-xs-12 duplicateable-content">
-						<div class="item-block">
-							<div class="item-form">
-								
-								<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
-
-								<div class="row">
-									<div class="col-xs-12 col-sm-12">
-										<div class="form-group">
-											<input type="text" class="form-control" placeholder="Cấp bậc, vd. Cử nhân">
-										</div>
-
-										<div class="form-group">
-											<input type="text" class="form-control" placeholder="Chuyên Nghành, vd. CNTT">
-										</div>
-										<div class="form-group">
-											<input type="text" class="form-control" placeholder="Tên trường, vd. Đại học Văn Lang">
-										</div>
-
-										<div class="form-group">
-											<div class="input-group">
-												<span class="input-group-addon">Từ</span>
-												<input class="form-control" type="month" value="2011-08" id="example-month-input">
-												<span class="input-group-addon">Đến</span>
-												<input class="form-control" type="month" value="2011-08" id="example-month-input">
-											</div>
-										</div>
-									</div>
-								</div>
-
-							</div>
-						</div>
-					</div>
-
-					<div class="col-xs-12 text-center">
-						<br>
-						<button class="btn btn-primary btn-duplicator">Thêm bằng cấp</button>
-					</div>
-
-
-				</div>
-			</div>
-		</section>
-		<!-- END Education -->
-
-
 		<!-- Work Experience -->
-		<section>
+		<section class="bg-alt">
 			<div class="container">
 				<header class="section-header">
 					<br>
@@ -317,9 +213,9 @@
 										<div class="form-group">
 											<div class="input-group">
 												<span class="input-group-addon">Từ</span>
-												<input class="form-control" type="month" value="2011-08">
+												<input class="form-control" type="date" value="2011-08-22">
 												<span class="input-group-addon">Đến</span>
-												<input class="form-control" type="month" value="2011-08">
+												<input class="form-control" type="date" value="2011-08-30">
 											</div>
 										</div>
 
@@ -349,9 +245,9 @@
 										<div class="form-group">
 											<div class="input-group col-xs-12 col-sm-12">
 												<span class="input-group-addon">Từ</span>
-												<input class="form-control" type="month" value="2011-08">
+												<input class="form-control" type="date" value="2011-08-22">
 												<span class="input-group-addon">Đến</span>
-												<input class="form-control" type="month" value="2011-08">
+												<input class="form-control" type="date" value="2011-08-30">
 											</div>
 										</div>
 
@@ -366,18 +262,16 @@
 						<br>
 						<button class="btn btn-primary btn-duplicator">Thêm kinh nghiệm làm việc</button>
 					</div>
-
-
 				</div>
-
 			</div>
 		</section>
 		<!-- END Work Experience -->
 
 
-		<!-- Skills -->
-		<section class=" bg-alt">
+		<!-- Skills-->
+		<section>
 			<div class="container">
+				
 				<header class="section-header">
 					<br>
 					<h2>Kĩ năng</h2>
@@ -400,11 +294,9 @@
 
 									<div class="col-xs-12 col-sm-6">
 
-										<div class="form-group">
-											<div class="input-group">
-												<input type="text" class="form-control" placeholder="Mức độ thông thạo, vd. 90">
-												<span class="input-group-addon">%</span>
-											</div>
+										<div class="slidecontainer">
+											<input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+											<center><p><span id="demo"></span>%</p></center>
 										</div>
 
 									</div>
@@ -429,11 +321,9 @@
 
 									<div class="col-xs-12 col-sm-6">
 
-										<div class="form-group">
-											<div class="input-group">
-												<input type="text" class="form-control" placeholder="Mức độ thông thạo, vd. 90">
-												<span class="input-group-addon">%</span>
-											</div>
+										<div class="slidecontainer">
+											<input type="range" min="1" max="100" value="50" class="slider" id="myRange"><center>
+											<center><p><span id="demo"></span>%</p></center>
 										</div>
 
 									</div>
@@ -447,35 +337,75 @@
 						<br>
 						<button class="btn btn-primary btn-duplicator">Thêm kĩ năng</button>
 					</div>
+				</div>
+			</div>
+		</section>
+		<!-- END Skills-->
 
+		<section class="bg-alt">
+		<p class="text-center"><button class="btn btn-danger btn-xl btn-round">Cập nhật hồ sơ</button></p>
+		</section>
+
+
+		<section class="bg-alt">
+		<div class="container">
+
+			<header class="section-header">
+				<br>
+				<h2>Quản lý CV</h2>
+			</header>
+
+			<div class="row">
+				<div class="col-xs-12">
+					
+					 <div class="table-responsive">
+               <table class="table table-striped table-bordered-company">
+                  <thead>
+                     <tr>
+                        <th>Tên CV</th>
+                        <th>Ngảy tải lên</th>
+                        <th>Thao tác</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td><a href="#" target="_blank">GlobalCyberSoft.pdf</a></td>
+                        <td>22/3/2018</td>
+                        <td>
+                            <a href="#"><abbr title="Xóa"><i class="fa fa-trash" aria-hidden="true"></i></abbr></a>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            		<h4>Tải lên CV</h4>
+					<form method="POST" action="#" enctype="multipart/form-data">
+						<!-- COMPONENT START -->
+						<div class="form-group">
+							<div class="input-group input-file" name="Fichier1">
+					    		<input type="text" class="form-control" placeholder='Chọn CV của bạn...' />			
+					            <span class="input-group-btn">
+					        		<button class="btn btn-success btn-choose" type="button">Chọn</button>
+					    		</span>
+							</div>
+							<p><span class="help-block" id="filenull" style="color: red;"></span></p>
+						</div>
+						<!-- COMPONENT END -->
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary pull-right">Tải lên</button>
+							<button type="reset" class="btn btn-danger">Xóa</button>
+						</div>
+					</form>
 
 				</div>
-
 			</div>
+		</div>
 		</section>
-		<!-- END Skills -->
-
-
-
-		<!-- Submit -->
-		<section class=" bg-img">
-			<div class="container">
-				<header class="section-header">
-					<h2>Gửi hồ sơ</h2>
-					<p>Xin vui lòng kiểm tra lại hồ sơ trước khi gửi</p>
-				</header>
-
-				<p class="text-center"><button class="btn btn-success btn-xl btn-round">Gửi</button></p>
-
-			</div>
-		</section>
-		<!-- END Submit -->
-
 
 	</main>
 	<!-- END Main container -->
 
-</form>
+
 
 <!-- Site footer -->
 <footer class="site-footer">
@@ -564,10 +494,17 @@
 
 <!-- Scripts -->
 <script src="assets/js/app.min.js"></script>
-<script src="assets/vendors/summernote/summernote.min.js"></script>
 <script src="assets/js/thejobs.js"></script>
 <script src="assets/js/custom.js"></script>
+<script type="text/javascript">
+	var slider = document.getElementById("myRange");
+	var output = document.getElementById("demo");
+	output.innerHTML = slider.value;
 
+	slider.oninput = function() {
+	  output.innerHTML = this.value;
+	}
+</script>
 
 
 </body>
