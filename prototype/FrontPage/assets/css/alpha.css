@@ -27,8 +27,8 @@ span#prev{ top:-25px; left: 15px; color: indianred; }
 span#next{ top:-25px; right: 15px; color: indianred;}
 span#prev:hover, span#next:hover{cursor: pointer;}
 span#prev.visible, span#next.visible{display: block;}
-span#prev{background: url(../images/left.png) center no-repeat;}
-span#next{background: url(../images/right.png) center no-repeat;}
+span#prev{background: url(../img/left.png) center no-repeat;}
+span#next{background: url(../img/right.png) center no-repeat;}
 #testimonials.responsive .testimonials-line{bottom: 45px;}
 #testimonials.tswd .testimonials-line{bottom: 20px;}
 #testimonials.tswd #prev{left: 5px;}
