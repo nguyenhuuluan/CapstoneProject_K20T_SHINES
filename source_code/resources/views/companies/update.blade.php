@@ -302,6 +302,7 @@
    queryTokenizer: Bloodhound.tokenizers.whitespace,
    prefetch: {
        url:'../../tags',
+       cache: false,
        filter: function(list) {
           return $.map(list, function(tagname) {
              return { name: tagname }; });
