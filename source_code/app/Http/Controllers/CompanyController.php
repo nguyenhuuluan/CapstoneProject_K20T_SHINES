@@ -9,6 +9,9 @@ use App\Account;
 use App\Company;
 use App\CompanyRegistration;
 use App\Role;
+use App\SocialNetwork;
+use App\City;
+use App\District;
 
 use Mail;
 
@@ -24,9 +27,23 @@ class CompanyController extends Controller
 
   public function update($id)
   {
-    $comp = Company::where('id', '=', $id)->first();
+    $company = Company::findOrFail($id);
 
-    return view('companies.update')->with(compact('comp'));
+    $cities = City::all();
+
+     $countaddress =count($company->address);
+
+     $districts = District::where('city_id' , $countaddress != 0 ? $company->address->district->id :$cities[0]->id )->get()->sortBy('name');
+
+     return view('companies.update')->with(compact('company','cities','districts'));
+
+  }
+
+  public function edit($id, Request $request)
+  {
+
+
+    return $request;
   }
 
 
