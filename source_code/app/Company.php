@@ -8,7 +8,7 @@ class Company extends Model
 {
     //
     protected $path = '/images/companies/logos/';
-    protected $fillable = ['name', 'website', 'email', 'phone', 'working_day', 'status_id', 'logo'];
+    protected $fillable = ['name', 'website', 'email', 'phone', 'working_day', 'status_id', 'logo','field','code_business'];
 
     public function address(){
     	return $this->hasOne('App\Address');

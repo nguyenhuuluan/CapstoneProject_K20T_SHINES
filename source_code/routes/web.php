@@ -134,6 +134,7 @@ Route::middleware(['representative', 'web'])->group(function () {
 	//Company
 	Route::get('/company/update/{id}', 'CompanyController@update')->name('company.update');
 	Route::POST('/company/edit/{id}', 'CompanyController@edit')->name('company.edit');
+	Route::POST('/company/updateimage', 'CompanyController@updateImage')->name('company.updateImage');
 });
 
 Route::GET('representative/reset-password/{token}','Representative\RepresentativeController@resetPassword')->name('representative.resetpassword');
@@ -144,6 +145,8 @@ Route::GET('representative/update-success','Representative\ResetPasswordControll
 
 Route::POST('representative/reset-password','Representative\ResetPasswordController@resetPassword')->name('representative.reset-password');
 
+// District
+Route::get('/districts/{cityID}','AddressController@getDistricts')->name('address.districts');
 
 
 

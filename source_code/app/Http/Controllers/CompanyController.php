@@ -10,6 +10,8 @@ use App\Company;
 use App\CompanyRegistration;
 use App\Role;
 use App\SocialNetwork;
+use App\City;
+use App\District;
 
 use Mail;
 
@@ -27,7 +29,11 @@ class CompanyController extends Controller
   {
     $company = Company::findOrFail($id);
 
-    return view('companies.update')->with(compact('company'));
+    $cities = City::all();  
+
+     $districts = District::where('city_id' , count($company->address) != 0 ? $company->address->district->id :$cities[0]->id )->get()->sortBy('name');
+
+     return view('companies.update')->with(compact('company','cities','districts'));
 
   }
 
