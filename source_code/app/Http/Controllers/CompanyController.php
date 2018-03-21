@@ -29,9 +29,11 @@ class CompanyController extends Controller
   {
     $company = Company::findOrFail($id);
 
-    $cities = City::all();  
+    $cities = City::all();
 
-     $districts = District::where('city_id' , count($company->address) != 0 ? $company->address->district->id :$cities[0]->id )->get()->sortBy('name');
+     $countaddress =count($company->address);
+
+     $districts = District::where('city_id' , $countaddress != 0 ? $company->address->district->id :$cities[0]->id )->get()->sortBy('name');
 
      return view('companies.update')->with(compact('company','cities','districts'));
 
