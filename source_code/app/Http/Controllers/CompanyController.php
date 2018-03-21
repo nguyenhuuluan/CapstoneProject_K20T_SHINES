@@ -56,26 +56,9 @@ class CompanyController extends Controller
       $comp->save();
 
       return response()->json(200);
-
     }
 
      return response()->json(500);
-
-
-
-
-
-    // // if ($file = $request->file('file')) {
-    // //   $name = $file->getClientOriginalName();
-
-    //   return response()->json(
-    //     1
-    //   );
-    //     // $file->move('images', $name);
-
-    //     // $input['path'] = $name;
-
-    // //} 
   }
 
 
