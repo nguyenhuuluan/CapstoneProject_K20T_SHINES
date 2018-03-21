@@ -31,19 +31,51 @@ class CompanyController extends Controller
 
     $cities = City::all();
 
-     $countaddress =count($company->address);
+    $districts = District::where('city_id' , count($company->address) != 0 ? $company->address->district->id :$cities[0]->id )->get()->sortBy('name');
 
-     $districts = District::where('city_id' , $countaddress != 0 ? $company->address->district->id :$cities[0]->id )->get()->sortBy('name');
-
-     return view('companies.update')->with(compact('company','cities','districts'));
+    return view('companies.update')->with(compact('company','cities','districts'));
 
   }
 
   public function edit($id, Request $request)
   {
-
-
     return $request;
+  }
+
+  public function updateimage(Request $request)
+  {
+    if ($file = $request->file('imagefile')) {
+      $name = $file->getClientOriginalName();
+
+      $file->move('images/companies/logos', $name);
+
+      $input['path'] = $name;
+
+      $comp = Company::Where('id', $request->id)->first();
+      $comp->logo = $name;
+      $comp->save();
+
+      return response()->json(200);
+
+    }
+
+     return response()->json(500);
+
+
+
+
+
+    // // if ($file = $request->file('file')) {
+    // //   $name = $file->getClientOriginalName();
+
+    //   return response()->json(
+    //     1
+    //   );
+    //     // $file->move('images', $name);
+
+    //     // $input['path'] = $name;
+
+    // //} 
   }
 
 
@@ -60,6 +92,7 @@ class CompanyController extends Controller
     $comp = Company::create([
       "name" => $compRegis["company_name"],
       "website" => $compRegis["company_website"],
+      "logo" => 'default-company-logo.jpg',
       "status_id" => 3
     ]);
 
