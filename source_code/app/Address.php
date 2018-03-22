@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Address extends Model
 {
     //
-    protected $fillable = ['address', 'latitude', 'longtitude', 'company_id'];
+    protected $fillable = ['address', 'latitude', 'longtitude', 'company_id', 'district_id'];
 
     public function district(){
     	return $this->belongsTo('App\District');

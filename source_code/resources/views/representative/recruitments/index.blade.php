@@ -56,9 +56,9 @@
                               <td>
                                  @if ($recruitment->status->id == '1')
                                  <span class="label label-success">Đã duyệt</span>
-                                 @elseif ($recruitment->status->name == '8')
+                                 @elseif ($recruitment->status->id == '8')
                                  <span class="label label-warning">Đang chờ</span>
-                                 @else
+                                 @elseif ($recruitment->status->id == '2')
                                  <span class="label label-danger">Tạm dừng</span>
                                  @endif
                               </td>

@@ -59,7 +59,7 @@
                                             </td>
                                             <td>
                                                 
-                                                <a class="btn btnreview btn-success" href="{{ route('company.detail', ['id'=> $comp->id]) }}">Xem</a>
+                                                <a class="btn btnreview btn-success" href="{{ route('company.details', ['id'=> $comp->id]) }}">Xem</a>
 
                                               {{--   <button type="button" class="btnreview btn-success">Xem</button> --}}
 

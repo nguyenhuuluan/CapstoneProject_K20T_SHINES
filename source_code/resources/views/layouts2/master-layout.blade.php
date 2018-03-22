@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Post a job position or create your online resume by TheJobs!">
   <meta name="keywords" content="">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <title>{{$title}}</title>
 
@@ -43,6 +44,7 @@
 @if ($isDisplaySearchHeader)
  @include('layouts2.search-header')
 @else
+
 <header class="page-header"></header>
 @endif
  <!-- Main container -->
