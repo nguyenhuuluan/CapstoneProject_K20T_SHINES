@@ -26,7 +26,7 @@
             <center>
                 <p>Liên hệ với VLU Jobs</p>
                 <strong>08 123 4568</strong><br><br>
-                <a href="company-detail-preview.html" target="_blank" class="btn btn-warning">Xem công ty của bạn</a>
+                <a href="{{ route('company.details',['id' => $company->id]) }}" target="_blank" class="btn btn-warning">Xem công ty của bạn</a>
             </center>
             <br>
         </div>
@@ -192,7 +192,7 @@
     <td>TAG</td>
     <td>
 
-        <input class="tagsinput" type="text" name="tags" class="123input tm-input form-control tm-input-info tagsinput-typeahead" data-role="tagsinput" placeholder="Nhập tag" />
+        <input class="tagsinput" type="text" name="tags" class="123input tm-input form-control tm-input-info tagsinput-typeahead" data-role="tagsinput" placeholder="Nhập tag" value="{{implode(",",$tags)}}" />
         
     </td>
 </tr>

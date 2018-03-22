@@ -33,7 +33,7 @@ class CompanyController extends Controller
     $company = Company::findOrFail($id);
 
     $cities = City::all();
-    $tags = Tag::all();
+    $tags = Tag::pluck('name')->toArray();
 
     $districts = District::where('city_id' , count($company->address) != 0 ? $company->address->district->city->id :$cities[0]->id )->get()->sortBy('name');
 
@@ -92,10 +92,8 @@ class CompanyController extends Controller
     $currenttags = array_map('strtolower', Tag::pluck('name')->toArray());
     $tags = array_map('strtolower', array_map('trim', explode(",", $request->tags)));
 
-
-    $diff = array_diff($tags,$currenttags);
     $intersect = array_intersect($tags,$currenttags);
-
+    $diff = array_diff($tags,$currenttags);
 
     foreach ($intersect as $value) {
      $tag2 = new Tag();
@@ -103,16 +101,24 @@ class CompanyController extends Controller
      $tag2 -> companies() -> attach($request->id);     
    }
 
-   foreach ($diff as $value) {
-    $tag = Tag::create([
-      "name" => $value
-    ]);
+   if (count($diff) != 0) {
+     foreach ($diff as $value) {
+      $tag = Tag::create([
+        "name" => $value
+      ]);
 
-    $tag -> companies() -> attach($request->id);
+      $tag -> companies() -> attach($request->id);
 
+    }
   }
 
+}
 
+public function details($id)
+{
+  $company = Company::findOrFail($id);
+
+  return view('companies.details')->with(compact('company'));
 
 }
 

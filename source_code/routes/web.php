@@ -48,7 +48,7 @@ Route::get('/recruitment/searchtag', 'RecruitmentController@searchtag')->name('s
 Route::get('/recruitments/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
 
 // Company - WEB
-Route::get('/company/detail/{id}', 'CompanyController@detail')->name('company.detail');
+Route::get('/company/details/{id}', 'CompanyController@details')->name('company.details');
 
 
 
