@@ -16,10 +16,10 @@ class CreateCompaniesTable extends Migration
         Schema::create('companies', function (Blueprint $table) {
           $table->increments('id');
           $table->string('name');
-          $table->string('website');
-          $table->string('email');
-          $table->string('phone',20);
-          $table->string('working_day',255);
+          $table->string('website')->nullable();
+          $table->string('email')->nullable();
+          $table->string('phone',20)->nullable();
+          $table->string('working_day',255)->nullable();
           $table->string('logo',255)->nullable();
           $table->integer('status_id')->index()->unsigned();
           $table->timestamps();

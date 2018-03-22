@@ -14,8 +14,8 @@ class AddFieldColumnAndBusinessCodeColumnToCompaniesTable extends Migration
     public function up()
     {
         Schema::table('companies', function (Blueprint $table) {
-            $table->string('field');
-            $table->string('business_code');
+            $table->string('field')->nullable();
+            $table->string('business_code')->nullable();
         });
     }
 

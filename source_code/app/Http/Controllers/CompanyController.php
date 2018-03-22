@@ -59,7 +59,9 @@ class CompanyController extends Controller
 
     $comp = Company::create([
       "name" => $compRegis["company_name"],
+      "email" => $compRegis["representative_email"],
       "website" => $compRegis["company_website"],
+      "phone" => $compRegis["representative_phone"],
       "status_id" => 3
     ]);
 
@@ -90,7 +92,7 @@ class CompanyController extends Controller
     // $role -> accounts() -> attach($acc["id"]);
 
 
-   //$this->sendMailToResetPassword($repre, $comp, $account);
+    $this->sendMailToResetPassword($repre, $comp, $account);
     
     return $repre;
 

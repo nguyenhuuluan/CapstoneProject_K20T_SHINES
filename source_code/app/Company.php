@@ -39,7 +39,7 @@ class Company extends Model
         if($value){
             return $this->path.$value;
         }else{
-            return 'http://via.placeholder.com/100x100';
+            return $this->path.$value.'logo-default.jpg';
         }
 
     }

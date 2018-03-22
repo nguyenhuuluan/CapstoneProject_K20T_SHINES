@@ -45,7 +45,7 @@ class Student extends Model
         if($value){
             return $this->path.$value;
         }else{
-            return 'http://via.placeholder.com/1205x1795';
+            return $this->path.'avatar.jpg';
         }
     }
 
