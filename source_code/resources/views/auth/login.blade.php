@@ -31,7 +31,7 @@
       <img src="{{ asset('assets/img/logo.png') }} " alt="">
       <h1>Đăng Nhập</h1>
 
-      <form class="form-horizontal" method="POST" action="{{ route('representative.login') }}">
+      <form class="form-horizontal" method="POST" action="{{ route('login') }}">
 
         <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
           <div class="input-group">

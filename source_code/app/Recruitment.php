@@ -22,7 +22,9 @@ class Recruitment extends Model
         ];
     }
     public function path(){
-         return "/recruitments/{$this->slug}";
+         return "../recruitments/{$this->slug}";
+         // host
+         // return "../recruitments/{$this->slug}";
     }
     public function company(){
     	return $this->belongsTo('App\Company');

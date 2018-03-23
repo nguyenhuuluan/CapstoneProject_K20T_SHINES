@@ -117,51 +117,53 @@
     <a class="user-account-text">
       @if (Auth::user()->isStudent())
       {!! Auth::user()->student->name !!}
+      @elseif(Auth::user()->isAdmin())
+      <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#id02" href="#">Đăng nhập</a> | <a href="{{route('company.partnership')}}">Nhà tuyển dụng</a>
       @elseif(Auth::user()->isRepresentative())
       {!! Auth::user()->representative->name !!}
       @endif
     </a>
     <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-               <img src="{{ asset('assets/img/logo-envato.png') }} " alt="avatar">
-            </a>
-    <ul class="dropdown-menu dropdown-menu-right">
+     <img src="{{ asset('assets/img/logo-envato.png') }} " alt="avatar">
+   </a>
+   <ul class="dropdown-menu dropdown-menu-right">
 
-      @if(Session::get('representative', true))
-      <li>
-        <a href="mn-account-company.html"><i class="fa fa-user" aria-hidden="true"></i> Tài khoản</a>
-      </li>
-      <li>
-        <a href="mn-dashboard-company.html"><i class="fa fa-tachometer" aria-hidden="true"></i> Bảng điều khiển</a>
-      </li>
-      <li>
-        <a href="{{ route('company.update',['id' => Auth::user()->representative->company->id]) }}"><i class="fa fa-building-o" aria-hidden="true"></i> Công ty của bạn</a>
-      </li>
-      <li>
-        <a href="{{ route('recruitments.index') }}"><i class="fa fa-newspaper-o" aria-hidden="true"></i> Việc làm đã đăng</a>
-      </li>
-      <li>
-        <a href="mn-application-list-company.html"><i class="fa fa-users" aria-hidden="true"></i> Danh sách ứng tuyển</a>
-      </li>
-      <li><a href="{{ route('logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="fa fa-sign-out" aria-hidden="true"></i>Đăng xuất</a>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-         {{ csrf_field() }}
-       </form>
-     </li>
-     @else
-     <li><a href="user-login.html">Tài khoản</a>
-     </li>
-     <li><a href="user-register.html">Hồ sơ</a>
-     </li>
-     <li><a href="{{ route('logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();">Đăng xuất</a>
-      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-        {{ csrf_field() }}
-      </form>
+    @if(Session::get('representative', true))
+    <li>
+      <a href="mn-account-company.html"><i class="fa fa-user" aria-hidden="true"></i> Tài khoản</a>
     </li>
-     @endif
+    <li>
+      <a href="mn-dashboard-company.html"><i class="fa fa-tachometer" aria-hidden="true"></i> Bảng điều khiển</a>
+    </li>
+    <li>
+      <a href="{{ route('company.update',['id' => Auth::user()->representative->company->id]) }}"><i class="fa fa-building-o" aria-hidden="true"></i> Công ty của bạn</a>
+    </li>
+    <li>
+      <a href="{{ route('recruitments.index') }}"><i class="fa fa-newspaper-o" aria-hidden="true"></i> Việc làm đã đăng</a>
+    </li>
+    <li>
+      <a href="mn-application-list-company.html"><i class="fa fa-users" aria-hidden="true"></i> Danh sách ứng tuyển</a>
+    </li>
+    <li><a href="{{ route('logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="fa fa-sign-out" aria-hidden="true"></i>Đăng xuất</a>
+      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+       {{ csrf_field() }}
+     </form>
+   </li>
+   @else
+   <li><a href="user-login.html">Tài khoản</a>
+   </li>
+   <li><a href="user-register.html">Hồ sơ</a>
+   </li>
+   <li><a href="{{ route('logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();">Đăng xuất</a>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+      {{ csrf_field() }}
+    </form>
+  </li>
+  @endif
 
-     
-     
-  </ul>
+  
+  
+</ul>
 </div>
 </div>
 @endguest        

@@ -44,6 +44,7 @@
 @if ($isDisplaySearchHeader)
  @include('layouts2.search-header')
 @else
+
 <header class="page-header"></header>
 @endif
  <!-- Main container -->

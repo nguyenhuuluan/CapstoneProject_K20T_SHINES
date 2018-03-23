@@ -54,11 +54,11 @@
                               <td>{{ $recruitment->expire_date }}</td>
                               <td><center>{{ $recruitment->number_of_view }}</center></td>
                               <td>
-                                 @if ($recruitment->status->name == 'active_recruitment')
+                                 @if ($recruitment->status->id == '1')
                                  <span class="label label-success">Đã duyệt</span>
-                                 @elseif ($recruitment->status->name == 'approve_recruitment')
+                                 @elseif ($recruitment->status->id == '8')
                                  <span class="label label-warning">Đang chờ</span>
-                                 @else
+                                 @elseif ($recruitment->status->id == '2')
                                  <span class="label label-danger">Tạm dừng</span>
                                  @endif
                               </td>

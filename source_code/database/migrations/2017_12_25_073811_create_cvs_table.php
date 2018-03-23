@@ -21,6 +21,7 @@ class CreateCvsTable extends Migration
             $table->timestamps();
 
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
+
         });
     }
 

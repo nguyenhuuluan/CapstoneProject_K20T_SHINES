@@ -23,7 +23,7 @@
                                 <table width="100%" class="table table-striped table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-
+                                            <th>ID</th>                                          
                                             <th>Tên</th>                                          
                                             <th>Điện thoại</th>
                                             <th>Website</th>
@@ -36,6 +36,7 @@
                                     <tbody>
                                         @foreach ($comps as $comp)
                                         <tr>
+                                            <td>{{$comp->id}}</td>
                                             <td>{{$comp->name}}</td>
                                             <td>{{$comp->phone}}</td>
                                             <td><a href="{{$comp->website}}">{{$comp->website}}</a></td>
@@ -58,7 +59,7 @@
                                             </td>
                                             <td>
                                                 
-                                                <a class="btn btnreview btn-success" href="{{ route('company.detail', ['id'=> $comp->id]) }}">Xem</a>
+                                                <a class="btn btnreview btn-success" href="{{ route('company.details', ['id'=> $comp->id]) }}">Xem</a>
 
                                               {{--   <button type="button" class="btnreview btn-success">Xem</button> --}}
 

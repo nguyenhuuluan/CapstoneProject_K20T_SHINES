@@ -14,6 +14,8 @@
   <link href="{{ asset('assets/css/thejobs.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/css/alpha.css') }}" rel="stylesheet">
+  <script src="{{ asset('assets/js/app.min.js') }} "></script>
+<script type="text/javascript" src="{{ asset('assets/js/alpha.js') }} "></script>
 
   <!-- Fonts -->
   <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
@@ -27,12 +29,12 @@
 <body class="nav-on-header smart-nav">
 
  <!-- Navigation bar -->
-  @include('layouts.header')
-<!-- END Navigation bar -->
+ @include('layouts.header')
+ <!-- END Navigation bar -->
 
 
-<!-- Site header -->
-<header class="site-header size-lg text-center" style="background-image: url({{ asset('assets/img/bg-banner1.jpg') }} )">
+ <!-- Site header -->
+ <header class="site-header size-lg text-center" style="background-image: url({{ asset('assets/img/bg-banner1.jpg') }} )">
   <div class="container">
     <div class="col-xs-12">
       <br><br>
@@ -68,7 +70,9 @@
   <!-- Recent jobs -->
   @yield('recentjobs')
   <!-- <section></section> -->
+
   <!-- END Recent jobs -->
+
   <section class="bg-img bg-repeat no-overlay section-sm" style="background-image: url({{ asset('assets/img/bg-pattern.png') }} )">
     <div class="container">
 
@@ -154,7 +158,6 @@
       <h6>Capgemini</h6>
       <span>Đà Nẵng</span>
     </a>
-
   </div>
 </div>
 </section>
@@ -227,6 +230,7 @@
     </div>
   </div>
   <!-- /blog -->
+</div>
 </section>
 <!-- END Categories -->
 
@@ -241,12 +245,6 @@
 @include('layouts.footer')
 
 <!-- Facts -->
-
-
-
-<!-- Back to top button -->
-<a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
-<!-- END Back to top button -->
 
 <!-- Scripts -->
 <script src="{{ asset('assets/js/app.min.js') }} "></script>

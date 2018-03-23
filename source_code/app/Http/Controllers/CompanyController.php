@@ -159,6 +159,7 @@ return redirect()->route("company.details",['id' => $comp->id]);
 
 }
 
+
 public function details($id)
 {
   $company = Company::findOrFail($id);
@@ -204,6 +205,17 @@ public function createCompany($compRegis)
     "status_id" => 3
   ]);
 
+      //tao du lieu address tam thoi
+  $address = Address::create(
+    [
+      "address"=> '45 Nguyễn Khắc Nhu',
+      "latitude"=> 11111,
+      "longtitude"=> 11111,
+      "company_id"=> $comp->id,
+      "district_id"=> 1,
+    ]);
+
+
   return $comp;
 }
 
@@ -229,6 +241,7 @@ public function approveCompany($companyID)
 
   // $address = Role::findOrFail(3);
   // $role -> accounts() -> attach($acc["id"]);
+
 
   //$this->sendMailToResetPassword($repre, $comp, $account);
 
