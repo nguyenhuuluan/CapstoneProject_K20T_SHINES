@@ -17,8 +17,8 @@ class CreateCompaniesTable extends Migration
           $table->increments('id');
           $table->string('name');
           $table->string('website');
-          $table->string('email');
-          $table->string('phone',20);
+          $table->string('email')->nullable();
+          $table->string('phone',20)->nullable();
           $table->string('working_day',255);
           $table->string('logo',255)->nullable();
           $table->integer('status_id')->index()->unsigned();

@@ -14,7 +14,7 @@ class AddIntroduceColumnToCompaniesTable extends Migration
     public function up()
     {
         Schema::table('companies', function (Blueprint $table) {
-            $table->string('introduce');
+            $table->string('introduce')->nullable();
         });
     }
 
