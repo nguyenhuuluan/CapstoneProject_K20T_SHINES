@@ -95,17 +95,19 @@
           <td>
             <div class="form-group{{ $errors->has('facebook') ? ' has-error' : 'ERROR' }}">
                 <div class="col-sm-9">
-                    {!! Form::text('facebook', $company->socialNetworks()->where('name', 'facebook')->first()["url"], ['class' => 'form-control input-sm', 'required' => 'required', 'placeholder' => 'Facebook']) !!}
+                    {!! Form::text('facebook', $company->socialNetworks()->where('name', 'facebook')->first()["url"], ['class' => 'form-control input-sm', 'placeholder' => 'Facebook']) !!}
                     <small class="text-danger">{{ $errors->first('facebook') }}</small>
                 </div>
             </div>
+            <input type="hidden" name="socialnetworkfbID" value="{{$company->socialNetworks()->where('name', 'facebook')->first()["id"]}}">
 
             <div class="form-group{{ $errors->has('linkedin') ? ' has-error' : 'ERROR' }}">
                 <div class="col-sm-9" style="margin-top: 5px;">
-                    {!! Form::text('linkedin', $company->socialNetworks()->where('name', 'linkedin')->first()["url"], ['class' => 'form-control input-sm', 'required' => 'required', 'placeholder' => 'LinkedIn']) !!}
+                    {!! Form::text('linkedin', $company->socialNetworks()->where('name', 'linkedin')->first()["url"], ['class' => 'form-control input-sm', 'placeholder' => 'LinkedIn']) !!}
                     <small class="text-danger">{{ $errors->first('linkedin') }}</small>
                 </div>
             </div>
+            <input type="hidden" name="socialnetworkinID" value="{{$company->socialNetworks()->where('name', 'linkedin')->first()["id"]}}">
         </td>
     </tr>
 
@@ -184,7 +186,7 @@
     <td>Giới thiệu</td>
     <td>
 
-        <textarea style="margin-left: 15px; width: 440px;" class="form-control" rows="3" name="introduce"></textarea>
+        <textarea style="margin-left: 15px; width: 440px;" class="form-control" rows="3" name="introduce">{{$company->introduce}}</textarea>
     </td>
 </tr>
 

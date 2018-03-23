@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Database\Eloquent\Collection;
+
 use App\Representative;
 use App\Account;
 use App\Company;
@@ -14,6 +16,7 @@ use App\City;
 use App\District;
 use App\Address;
 use App\Tag;
+use App\CompaniesSocialNetwork;
 
 use Mail;
 use GuzzleHttp\Client;
@@ -33,7 +36,7 @@ class CompanyController extends Controller
     $company = Company::findOrFail($id);
 
     $cities = City::all();
-    $tags = Tag::pluck('name')->toArray();
+    $tags = $company->tags()->pluck('name')->toArray();
 
     $districts = District::where('city_id' , count($company->address) != 0 ? $company->address->district->city->id :$cities[0]->id )->get()->sortBy('name');
 
@@ -44,9 +47,10 @@ class CompanyController extends Controller
   public function edit($id, Request $request)
   { 
 
+
     $client = new Client();
 
-    $res = $client->request('GET', 'http://maps.google.com/maps/api/geocode/json?address='.$request->address. $request->districtname. $request->cityname);
+    $res = $client->request('GET', 'https://maps.google.com/maps/api/geocode/json?key=AIzaSyBTKdxpxRWTD9UnpMVrGfdnNCmFZLde8Rw&address='.$request->address. $request->districtname. $request->cityname);
 
     $jsonObj  = json_decode($res->getBody());
 
@@ -67,6 +71,8 @@ class CompanyController extends Controller
     $comp->introduce = $request->introduce;
 
     $comp->save();
+
+
 
     $compaddress = $comp->address;
 
@@ -92,25 +98,64 @@ class CompanyController extends Controller
     $currenttags = array_map('strtolower', Tag::pluck('name')->toArray());
     $tags = array_map('strtolower', array_map('trim', explode(",", $request->tags)));
 
-    $intersect = array_intersect($tags,$currenttags);
+   // $intersect = array_intersect($tags,$currenttags);
     $diff = array_diff($tags,$currenttags);
 
-    foreach ($intersect as $value) {
-     $tag2 = new Tag();
-     $tag2 = Tag::where('name', $value)->first();
-     $tag2 -> companies() -> attach($request->id);     
-   }
-
-   if (count($diff) != 0) {
+    if (count($diff) != 0) {
      foreach ($diff as $value) {
       $tag = Tag::create([
         "name" => $value
       ]);
-
-      $tag -> companies() -> attach($request->id);
-
     }
   }
+
+
+
+  $collectionTags = collect([]);
+
+  foreach ($tags as $tag) {
+   $collectionTags->push(Tag::where('name', $tag)->first());
+ }
+
+
+  $comp->tags()->sync((Tag::all()->intersect($collectionTags)));
+
+ if ($request->facebook) {
+  if ($request->socialnetworkfbID) {
+    $social = CompaniesSocialNetwork::findOrFail($request->socialnetworkfbID);
+    $social->url = $request->facebook;
+    $social->company_id = $request->id;
+
+    $social->save();
+  }else{
+   $social = CompaniesSocialNetwork::create([
+    "name" => "Facebook",
+    "url" => $request->facebook,
+    "company_id" => $request->id
+  ]); 
+ }
+
+}
+
+
+if ($request->linkedin) {
+  if ($request->socialnetworkinID) {
+    $social = CompaniesSocialNetwork::findOrFail($request->socialnetworkinID);
+    $social->url = $request->linkedin;
+    $social->company_id = $request->id;
+
+    $social->save();
+  }else{
+   $social = CompaniesSocialNetwork::create([
+    "name" => "LinkedIn",
+    "url" => $request->linkedin,
+    "company_id" => $request->id
+  ]); 
+ }
+
+}
+
+return redirect()->route("company.details",['id' => $comp->id]);
 
 }
 
