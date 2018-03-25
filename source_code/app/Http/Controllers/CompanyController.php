@@ -118,7 +118,7 @@ class CompanyController extends Controller
  }
 
 
-  $comp->tags()->sync((Tag::all()->intersect($collectionTags)));
+ $comp->tags()->sync((Tag::all()->intersect($collectionTags)));
 
  if ($request->facebook) {
   if ($request->socialnetworkfbID) {

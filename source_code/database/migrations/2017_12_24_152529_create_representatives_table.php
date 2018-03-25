@@ -17,6 +17,7 @@ class CreateRepresentativesTable extends Migration
             $table->increments('id');
             $table->string('name',255);
             $table->string('email')->unique();
+            $table->string('position')->nullable();
             $table->string('phone',20);
             $table->integer('account_id')->index()->unsigned();
             $table->integer('company_id')->index()->unsigned();
