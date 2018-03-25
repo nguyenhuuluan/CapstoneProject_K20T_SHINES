@@ -166,15 +166,15 @@
 						<h6 class="col-xs-12 col-sm-12">Danh sách tag</h6>
 						<span class="col-xs-12 col-sm-12 help-block">Viết tag và nhấn enter</span>
 
-						<div class="form-group col-xs-12 col-sm-12 {{ $errors->has('tags2.*') ? ' has-error' : '' }}">
+						<div class="form-group col-xs-12 col-sm-12 {{ $errors->has('tags.*') ? ' has-error' : '' }}">
 
 							{!! Form::text('tags', $tags, ['class'=>'tagsinput 123input tm-input form-control tm-input-info tagsinput-typeahead','data-role'=>'tagsinput', 'placeholder'=> 'Nhập tag', 'value'=> old('tags')]) !!}
 
-							@if ($errors->has('tags2.*'))
+						{{-- 	@if ($errors->has('tags2.*'))
 							<span class="help-block">
 								<strong>Tồn tại TAG không có trong hệ thống!</strong>
 							</span>
-							@endif
+							@endif --}}
 						</div>
 					</div>
 

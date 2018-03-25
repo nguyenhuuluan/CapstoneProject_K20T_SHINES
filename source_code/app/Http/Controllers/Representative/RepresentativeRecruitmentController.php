@@ -55,9 +55,12 @@ class RepresentativeRecruitmentController extends Controller
     public function store(Request $request)
     {    
 
+        // return count(Tag::Where('name','php')->get());
         //return $request;
-        $tags = explode(',', request('hidden-tags')); 
-        $request->request->add(['tags' => $tags]); 
+        //$tags = explode(',', request('hidden-tags'));
+
+        $tags = explode(',', request('tags')); 
+        $request->request->add(['tags2' => $tags]); 
         $sections =  request('sections');
 
         $this->validate($request,[
@@ -66,7 +69,7 @@ class RepresentativeRecruitmentController extends Controller
             'expire_date'=>'required',
             'category_id'=>'required|array|exists:categories,id',
             //'hidden-tags'=>'required|array|exists:tags,name',
-            'tags.*'=>'required|exists:tags,name',
+            //'tags.*'=>'required|exists:tags,name',
             //'hidden-tags'=>'required',
         ]);
 
@@ -91,7 +94,8 @@ class RepresentativeRecruitmentController extends Controller
             $company = Company::findOrFail($data['company_id']);
             $categories = Category::find(request('category_id'));
             foreach ($tags as $key => $value) {
-                $tags2[]= Tag::where('name', $value)->first();
+                //$tags2[]= Tag::where('name', $value)->first();
+                $tags2[]= $value;
             }
             foreach ($sections as $key => $value) {
                 $sections[$key] = Section::find($key);
@@ -106,7 +110,7 @@ class RepresentativeRecruitmentController extends Controller
 
             foreach ($sections as $key => $value) {
                 $sections[$key] = Section::find($key);
-                 $recruitment->sections()->save(Section::find($key), ['content'=>$value]);
+                $recruitment->sections()->save(Section::find($key), ['content'=>$value]);
             }
 
             /*Save categories*/
@@ -114,21 +118,31 @@ class RepresentativeRecruitmentController extends Controller
                 $recruitment->categories()->save(Category::find($value));
             }
 
-            /*Save tagss*/
-
+           /*Save tagss*/
             foreach ($tags as $key => $value) {
-                $recruitment->tags()->save(Tag::where('name',$value)->first());
+                if(count(Tag::Where('name',$value)->get()) !=0)
+                    {
+
+                        $recruitment->tags()->save(Tag::where('name',$value)->first());
+
+                    }
+                    else
+                    {
+                        $tg = Tag::create(['name'=>$value]);
+                        $recruitment->tags()->save($tg);
+
+                    }
+                }
+
+                /* Create successful*/
+                $request->session()->flash('comment_message','Tạo mới tin tuyển dụng thành công');
+
+                return redirect(route('recruitments.index'));
+            //return redirect($recruitment->path());
+                break;
             }
 
-            /* Create successful*/
-            $request->session()->flash('comment_message','Tạo mới tin tuyển dụng thành công');
-
-            return redirect(route('recruitments.index'));
-            //return redirect($recruitment->path());
-            break;
         }
-       
-    }
 
     /**
      * Display the specified resource.

@@ -1,72 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Post a job position or create your online resume by TheJobs!">
-  <meta name="keywords" content="">
-
-  <title>Jobee</title>
-
-  <!-- Styles -->
-  <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('assets/css/thejobs.css') }}" rel="stylesheet">
-  <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
-  <link href="{{ asset('assets/css/alpha.css') }}" rel="stylesheet">
-  <script src="{{ asset('assets/js/app.min.js') }} "></script>
-<script type="text/javascript" src="{{ asset('assets/js/alpha.js') }} "></script>
-
-  <!-- Fonts -->
-  <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
-
-  <!-- Favicons -->
-  <link rel="apple-touch-icon" href="{{ asset('/apple-touch-icon.png') }}">
-  <link rel="icon" href="{{ asset('assets/img/favicon.ico') }} ">
-</head>
-{{-- @extends('layouts.masterlayout')
-@section('content') --}}
-<body class="nav-on-header smart-nav">
-
- <!-- Navigation bar -->
- @include('layouts.header')
- <!-- END Navigation bar -->
+@extends('layouts.master-layout',['title' => 'Jobee - Trang chủ', 'isDisplaySearchHeader' => true])
 
 
- <!-- Site header -->
- <header class="site-header size-lg text-center" style="background-image: url({{ asset('assets/img/bg-banner1.jpg') }} )">
-  <div class="container">
-    <div class="col-xs-12">
-      <br><br>
-      <h2>Chúng tôi hiện có <mark>1,259</mark> công việc dành cho bạn!</h2>
-      <h5 class="font-alt">Tìm công việc mơ ước của bạn ngay bây giờ</h5>
-      <br><br><br>
-      <form class="header-job-search">
-        <div class="input-keyword">
-          <input type="text" class="form-control" placeholder="Tìm công việc hoặc công ty yêu thích">
-        </div>
-
-        <div class="input-location">
-          <input type="text" class="form-control" placeholder="Thành phố bạn muốn làm việc">
-
-        </div>
-
-        <div class="btn-search">
-          <button class="btn btn-primary" type="submit">Tìm</button>
-        </div>
-      </form>
-    </div>
-
-  </div>
-</header>
-<!-- END Site header -->
-
-
-<!-- Main container -->
+@section('content')
 <main>
-
-
-
+  
   <!-- Recent jobs -->
   @yield('recentjobs')
   <!-- <section></section> -->
@@ -237,46 +174,8 @@
 <!-- START TESTIMONIAL -->
 @include('layouts.testimonial')
 <!-- END TESTIMONIAL -->
+
 </main>
-<!-- END Main container -->
 
+@endsection
 
-<!-- Site footer -->
-@include('layouts.footer')
-
-<!-- Facts -->
-
-<!-- Scripts -->
-<script src="{{ asset('assets/js/app.min.js') }} "></script>
-<script src="{{ asset('assets/js/thejobs.js') }} "></script>
-<script src="{{ asset('assets/js/custom.js') }} "></script>
-<script type="text/javascript" src="{{ asset('assets/js/alpha.js') }} "></script>
-
-@if(Session::has('resigter-success') || Session::has('email-invalid') || Session::has('email-exist'))
-
-<script type="text/javascript" charset="utf-8">
-  $("#id02").modal("show");
-
-  $('.nav-tabs li:first-child').removeClass('active');
-  $('.nav-tabs li:last-child').addClass('active');
-  modalSignInOut('dangky');
-
-
-  // $('.nav-tabs li:last-child a').attr("aria-expanded", true);
-  //$('.login-block').css( "display", "none");
-  
-
-</script>
-@endif
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('#testimonials').alpha({
-      layout: 'alt',
-      delay : 5300
-    });
-  })
-</script>
-
-</body>
-</html>
