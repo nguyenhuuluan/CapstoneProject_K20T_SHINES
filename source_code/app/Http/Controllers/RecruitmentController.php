@@ -27,7 +27,6 @@ class RecruitmentController extends Controller
     public function store(Request $request)
     {   
         //
-        return 'dsadas';
         
     }
 
@@ -80,24 +79,13 @@ class RecruitmentController extends Controller
         $recruitment = Recruitment::findBySlugOrFail($slug);
         if($recruitment->status_id==1)
         {
-        return view('recruitments.index',compact('recruitment'));
+            return view('recruitments.detail',compact('recruitment'));
 
-    }else{
-        abort(404);
-
-    }
-
-    }
-    public function searchtag(Request $request){
-        $term = $request['query'];
-        $tags = Tag::where('name', 'LIKE', '%'.$term.'%')->get();
-        if(count($tags) ==0){
-            return 'not tag';
         }else{
-            foreach ($tags as $key => $value) {
-               $result[] = $value->name;
-           }
-       }
-       return json_encode($result);
-   }
+            abort(404);
+
+        }
+
+    }
+
 }
