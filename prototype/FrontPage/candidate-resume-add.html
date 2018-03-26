@@ -21,6 +21,34 @@
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 	<link rel="icon" href="assets/img/favicon.ico">
 
+	<style type="text/css">
+	#myBtn {
+		display: none;
+		position: fixed;
+		bottom: 50%;
+		left: 0px;
+		z-index: 99;
+		font-size: 18px;
+		border: none;
+		outline: none;
+		background-color: red;
+		color: white;
+		cursor: pointer;
+		padding: 15px;
+		border-radius: 4px;
+		opacity: 0.5;
+		transform: rotate(270deg);
+		-webkit-transform: rotate(270deg);
+		-ms-transform: rotate(270deg);
+		-moz-transform: rotate(270deg);
+	}
+
+	#myBtn:hover {
+		background-color: red;
+		opacity: 1;
+	}
+	</style>
+
 
 </head>
 
@@ -114,6 +142,7 @@
 							<span class="help-block">Xin vui lòng chọn ảnh 4:6</span>
 							<br>
 						</div>
+						<button onclick="topFunction()" id="myBtn">Cập nhật hồ sơ</button>
 				</div>
 
 
@@ -343,7 +372,7 @@
 		<!-- END Skills-->
 
 		<section class="bg-alt">
-		<p class="text-center"><button class="btn btn-danger btn-xl btn-round">Cập nhật hồ sơ</button></p>
+		
 		</section>
 
 
@@ -506,6 +535,19 @@
 	}
 </script>
 
+<!-- Scroll button update -->
+<script>
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById("myBtn").style.display = "block";
+    } else {
+        document.getElementById("myBtn").style.display = "none";
+    }
+}
+</script>
 
 </body>
 </html>
