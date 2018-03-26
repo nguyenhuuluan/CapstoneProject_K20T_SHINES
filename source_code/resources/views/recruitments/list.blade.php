@@ -1,4 +1,4 @@
-@extends('layouts.master-layout',['title' => 'Cập nhật thông tin công ty', 'isDisplaySearchHeader' => false])
+@extends('layouts.master-layout',['title' => 'Jobee - Danh sách tin tuyển dụng', 'isDisplaySearchHeader' => false])
 
 @section('page-header')
 <header class="page-header bg-img" style="background-image: url({{ asset('assets/img/bg-banner1.jpg') }} );">
