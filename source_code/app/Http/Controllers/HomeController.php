@@ -41,7 +41,7 @@ class HomeController extends Controller
                         ->select('recruitments.*', 'section_recruitment.content as content','companies.name as company', 'districts.name as district' ,'addresses.address as address', 'cities.name as city')
                         ->where('section_recruitment.section_id', '=', '1')
                         ->where('recruitments.status_id', '=', '1')
-                        ->orderBy('recruitments.id','ASC')
+                        ->orderBy('recruitments.created_at','DESC')
                         ->paginate($this->per_page_number);
 
          // return $recruitments;
