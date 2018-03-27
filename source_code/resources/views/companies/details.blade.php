@@ -1,5 +1,6 @@
 @extends('layouts2.master-layout',['title' => 'Thông tin công ty', 'isDisplaySearchHeader' => false])
 
+@section('sub-header')
 <header class="page-header bg-img size-lg" style="background-image: url(assets/img/bg-banner1.jpg)">
     <div class="container">
       <div class="header-detail">
@@ -17,7 +18,7 @@
         </li>
 
         <li>
-            
+
         </li>
 
         <li>
@@ -33,17 +34,33 @@
 
         <li>
             <i class="fa fa-envelope"></i>
-            <a href="#">info@google.com</a>
+            <a href="#">{{$company->email}}</a>
+        </li>
+        <li>
+            <i class="fa fa-calendar"></i>
+            <span>{{$company->working_day}}</span>
         </li>
     </ul>
 
     <div class="button-group">
       <ul class="social-icons">
-        <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-        <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-        <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
-        <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-        <li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
+
+        @if ($socials[0]->name === 'Facebook')
+        <li><a class="facebook" href="{{$socials[0]->url}}"><i class="fa fa-facebook"></i></a></li>
+        @endif  
+
+        @if ($socials[1]->name === 'Facebook')
+        <li><a class="facebook" href="{{$socials[0]->url}}"><i class="fa fa-facebook"></i></a></li>
+        @endif  
+
+        @if($socials[0]->name === 'LinkedIn')
+        <li><a class="facebook" href="{{$socials[0]->url}}"><i class="fa fa-linkedin"></i></a></li>
+        @endif
+
+        @if($socials[1]->name === 'LinkedIn')
+        <li><a class="facebook" href="{{$socials[0]->url}}"><i class="fa fa-linkedin"></i></a></li>
+        @endif      
+
     </ul>
 
     <div class="action-buttons">
@@ -52,8 +69,25 @@
 </div>
 
 </div>
+
 </div>
 </header>
+<br>
+<br>
+
+<div class="widget widget_tag_cloud" style="margin-left: 10%;">
+    <div class="widget-body">
+
+
+     @foreach ($company->tags()->get() as $tag)
+     <a href="#">{{$tag->name}}</a>
+     @endforeach
+ </div>
+</div>
+
+@endsection
+
+
 @section('content')
 <section>
   <div class="container">
@@ -273,9 +307,41 @@
 <!-- END Open positions -->
 <header class="section-header-map">
   <center><h2>Vị trí</h2></center>
-  <center><strong><span>45 Nguyễn Khắc Nhu, Quận 1, Tp. Hồ Chí Minh</span></strong></center>
+  <center><strong><span>{{$company->address->address}}, {{$company->address->district->name}}, {{ $company->address->district->city->name}}</span></strong></center>
   <br>
 </header>
 
 <div id="contact-map" style="height: 400px"></div>
+@endsection
+
+@section('scripts')
+
+<script>
+    $('.temp-header').hide();
+
+</script>
+
+
+<script>
+
+var lat = {{$company->address->latitude}};
+var lng= {{$company->address->longtitude}};
+
+
+  function initMap() {
+    var uluru = {lat: lat, lng: lng};
+    var map = new google.maps.Map(document.getElementById('contact-map'), {
+        zoom: 15,
+        center: uluru
+    });
+    var marker = new google.maps.Marker({
+      position: uluru,
+      map: map
+  });
+}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?callback=initMap&key=AIzaSyBTKdxpxRWTD9UnpMVrGfdnNCmFZLde8Rw" async defer></script>
+
+
 @endsection

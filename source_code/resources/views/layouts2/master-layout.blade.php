@@ -45,9 +45,12 @@
  @include('layouts2.search-header')
 @else
 
-<header class="page-header"></header>
+<header class="page-header temp-header"></header>
 @endif
+
+@yield('sub-header')
  <!-- Main container -->
+
  <main>
 
   <!-- Recent jobs -->

@@ -50,7 +50,7 @@
                 <td>
                     <div class="form-group{{ $errors->has('name') ? ' has-error' : 'ERROR' }}">
                         <div class="col-sm-9">
-                            {!! Form::text('name', $company->name, ['class' => 'form-control', 'required' => 'required']) !!}
+                            {!! Form::text('name', $company->name, ['class' => 'form-control']) !!}
                             <small class="text-danger">{{ $errors->first('name') }}</small>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                 <td>
                     <div class="form-group{{ $errors->has('business_code') ? ' has-error' : 'ERROR' }}">
                         <div class="col-sm-9">
-                            {!! Form::text('business_code', $company->business_code, ['class' => 'form-control', 'required' => 'required']) !!}
+                            {!! Form::text('business_code', $company->business_code, ['class' => 'form-control']) !!}
                             <small class="text-danger">{{ $errors->first('business_code') }}</small>
                         </div>
                     </div>
@@ -84,7 +84,7 @@
               <td>
                 <div class="form-group{{ $errors->has('website') ? ' has-error' : 'ERROR' }}">
                     <div class="col-sm-9">
-                        {!! Form::text('website', $company->website, ['class' => 'form-control', 'required' => 'required']) !!}
+                        {!! Form::text('website', $company->website, ['class' => 'form-control']) !!}
                         <small class="text-danger">{{ $errors->first('website') }}</small>
                     </div>
                 </div>
@@ -116,7 +116,7 @@
      <td>
         <div class="form-group{{ $errors->has('phone') ? ' has-error' : 'ERROR' }}">
             <div class="col-sm-9">
-                {!! Form::text('phone', $company->phone, ['class' => 'form-control input-sm', 'required' => 'required']) !!}
+                {!! Form::text('phone', $company->phone, ['class' => 'form-control input-sm']) !!}
                 <small class="text-danger">{{ $errors->first('phone') }}</small>
             </div>
         </div>
@@ -185,8 +185,13 @@
 <tr>
     <td>Giới thiệu</td>
     <td>
-
-        <textarea style="margin-left: 15px; width: 440px;" class="form-control" rows="3" name="introduce">{{$company->introduce}}</textarea>
+        <div class="form-group{{ $errors->has('introduce') ? ' has-error' : 'ERROR' }}">
+            <div class="col-sm-9">
+                <textarea width: 440px;" class="form-control" rows="3" name="introduce">{{$company->introduce}}</textarea>
+                <small class="text-danger">{{ $errors->first('introduce') }}</small>
+            </div>
+        </div>
+        
     </td>
 </tr>
 
