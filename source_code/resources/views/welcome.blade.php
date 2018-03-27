@@ -38,7 +38,7 @@
   </div>
 
   <br><br>
-  <p class="text-center"><a class="btn btn-info" href="">Xem thêm</a></p>
+  <p class="text-center"><a class="btn btn-info" href="{{ route('lst.recruitment') }}">Xem thêm</a></p>
 </div>
 </section>
 

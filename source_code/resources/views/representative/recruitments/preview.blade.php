@@ -116,9 +116,9 @@
 
       <div class="widget widget_tag_cloud">
         <div class="widget-body">
-          @foreach ($tags2 as $tag)
+          @foreach ($tags2 as $key => $value)
           {{-- expr --}}
-          <a href="#">{!! $tag->name !!}</a>
+          <a href="#">{!! $value !!}</a>
           @endforeach
         </div>
       </div>

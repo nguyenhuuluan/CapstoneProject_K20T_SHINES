@@ -232,14 +232,19 @@ class StudentController extends Controller
 			if ($validator->passes()) 
 			{	
 				$student = Student::findOrFail($id);
-                $name  = time().$file->getClientOriginalName();
+				$name  = time().$file->getClientOriginalName();
 
-                unlink(public_path().$student->photo);
+				if(strpos($student->photo, '/images/students/avatar.jpg'))
+				{
+					// unlink(base_path().'/public_html/'.$student->photo);
+					unlink(public_path().$student->photo);
+				}
 
-                $student['photo']=$name;
-                $student->update();
-                $file->move('images/students/avatas', $name);
-                return response($student);
+
+				$student['photo']=$name;
+				$student->update();
+				$file->move('images/students/avatas', $name);
+				return response($student);
 
 				// return response()->json(['success'=>'success']);
 			}

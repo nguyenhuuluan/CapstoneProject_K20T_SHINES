@@ -1,4 +1,4 @@
-@extends('layouts.recruitment-detail')
+@extends('layouts.master-layout', ['title' => 'Jobee-Tin tuyển dụng','isDisplaySearchHeader' => false])
 
 @section('page-header')
 
@@ -42,17 +42,16 @@
           <div class="action-buttons">
             <a class="btn btn-success-detail" href="job-apply.html">Ứng tuyển ngay</a>
           </div>
+
         </div>
-
-
+        
       </div>
     </div>
   </header>
-
 @endsection
 
 
-@section('main-container')
+@section('content')
 
 
 <main class="container blog-page">

@@ -21,7 +21,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::get('/test/{companyID}', 'CompanyController@test')->name('test');
+Route::get('/recruitments', 'HomeController@listRecruitments')->name('lst.recruitment');
 
 
 //Password reset routes
