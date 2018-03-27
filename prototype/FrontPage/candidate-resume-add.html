@@ -21,6 +21,62 @@
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 	<link rel="icon" href="assets/img/favicon.ico">
 
+	<style type="text/css">
+
+	/* Tooltip container */
+	.tooltipsave {
+		position: relative;
+		display: inline-block;
+		border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+	}
+
+	/* Tooltip text */
+	.tooltipsave .tooltiptext {
+		visibility: hidden;
+		width: 120px;
+		background-color: black;
+		color: #fff;
+		text-align: center;
+		border-radius: 6px;
+		top: -5px;
+		right: 105%; 
+
+		/* Position the tooltip text - see examples below! */
+		position: absolute;
+		z-index: 1;
+	}
+
+	/* Show the tooltip text when you mouse over the tooltip container */
+	.tooltipsave:hover .tooltiptext {
+		visibility: visible;
+	}
+
+	#myBtn {
+		position: fixed;
+		display: inline-block;
+		bottom: 72px;
+		right: 30px;
+		z-index: 99;
+		width: 40px;
+		height: 40px;
+		line-height: 40px;
+		font-size: 22px;
+		text-align: center;
+		border: none;
+		outline: none;
+		background-color: red;
+		color: white;
+
+		border-radius: 4px;
+		opacity: 0.5;
+	}
+
+	#myBtn:hover {
+		background-color: red;
+		opacity: 1;
+	}
+	</style>
+
 
 </head>
 
@@ -114,6 +170,7 @@
 							<span class="help-block">Xin vui lòng chọn ảnh 4:6</span>
 							<br>
 						</div>
+						<button class="tooltipsave" onclick="topFunction()" id="myBtn"><i class="fa fa-save" aria-hidden="true"></i><span class="tooltiptext">Lưu hồ sơ</span></button>
 				</div>
 
 
@@ -343,7 +400,7 @@
 		<!-- END Skills-->
 
 		<section class="bg-alt">
-		<p class="text-center"><button class="btn btn-danger btn-xl btn-round">Cập nhật hồ sơ</button></p>
+		
 		</section>
 
 
@@ -506,6 +563,19 @@
 	}
 </script>
 
+<!-- Scroll button update -->
+<script>
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById("myBtn").style.display = "block";
+    } else {
+        document.getElementById("myBtn").style.display = "none";
+    }
+}
+</script>
 
 </body>
 </html>

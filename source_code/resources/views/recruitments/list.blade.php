@@ -1,7 +1,7 @@
 @extends('layouts.master-layout',['title' => 'Cập nhật thông tin công ty', 'isDisplaySearchHeader' => false])
 
 @section('page-header')
-<header class="page-header bg-img" style="background-image: url(assets/img/bg-banner1.jpg);">
+<header class="page-header bg-img" style="background-image: url({{ asset('assets/img/bg-banner1.jpg') }} );">
   <div class="container page-name" style="padding-bottom: 100px">
     <form class="header-job-search" >
       <div class="input-keyword">
@@ -31,25 +31,27 @@
           <h5>Chúng tôi đã tìm thấy <strong>357</strong> việc làm cho <strong>@Tìm kiếm</strong> </h5>
         </div>
         
-        @foreach ($recruitments as $recruitment)
-        <!-- Job item -->
-        <div class="col-xs-12">
-          <a class="item-block" href="{{ route('detailrecruitment', $recruitment->slug) }}">
-            <header>
-              <img src="assets/img/logo-google.jpg" alt="">
-              <div class="hgroup">
-                <h4>{!! $recruitment->title !!}</h4>
+        <div class="recruitments endless-pagination" data-next-page="{{ $recruitments->nextPageUrl() }}">
+
+          @foreach ($recruitments as $recruitment)
+          <!-- Job item -->
+          <div class="col-xs-12">
+            <a class="item-block" href="{!! route('detailrecruitment', $recruitment->slug) !!}">
+              <header>
+                <img src={!! asset(App\Recruitment::findOrFail($recruitment->id)->company->logo)  !!} alt="">
+                <div class="hgroup">
+                  <h4>{!! $recruitment->title !!}</h4>
                 {{-- <h5>{!! $recruitment->company !!} <span class="label label-success">Full-time</span>
                 </h5> --}}
                 @foreach (App\Recruitment::findOrFail($recruitment->id)->categories as $category)
                 @if($category->name =='FULL-TIME')
-                <span class="label label-success">{{ $category->name }}</span>
+                <span class="label label-success">{!! $category->name !!}</span>
                 @else
-                <span class="label label-danger">{{ $category->name }}</span>
+                <span class="label label-danger">{!! $category->name !!}</span>
                 @endif
                 @endforeach
               </div>
-              <time datetime="2016-03-10 20:00">34 min ago</time>
+              <time>{!! Carbon\Carbon::parse($recruitment->created_at)->diffForHumans() !!}</time>
             </header>
 
             <div class="item-body">
@@ -62,18 +64,15 @@
                   <i class="fa fa-map-marker"></i>
                   <span>{!! $recruitment->district .', '. $recruitment->city !!}</span>
                 </li>
-
                 <li>
                   <i class="fa fa-money"></i>
                   <span class="salary">{!! $recruitment->salary !!}</span>
                 </li>
-
                 <li>
                   <i class="fa fa-tag"></i>
                   @foreach (App\Recruitment::findOrFail($recruitment->id)->tags as $tag)
                   <span>{!! $tag->name !!}</span>
                   @endforeach
-                  
                 </li>
               </ul>
             </footer>
@@ -81,33 +80,54 @@
         </div>
         <!-- END Job item -->
         @endforeach
-
       </div>
-
-
-      <!-- Page navigation -->
-      <nav class="text-center">
-        <ul class="pagination">
-          <li>
-            <a href="#" aria-label="Previous">
-              <i class="ti-angle-left"></i>
-            </a>
-          </li>
-          <li><a href="#">1</a></li>
-          <li class="active"><a href="#">2</a></li>
-          <li><a href="#">3</a></li>
-          <li><a href="#">4</a></li>
-          <li>
-            <a href="#" aria-label="Next">
-              <i class="ti-angle-right"></i>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <!-- END Page navigation -->
-
+      
+      <div class="loading" style="text-align: center;">
+        <img src="{{ asset('assets/img/loading.gif') }}" style="width: 85px; height: 85px">
+      </div>
     </div>
-  </section>
+
+  </div>
+</section>
 </main>
 <!-- END Main container -->
+@endsection
+
+@section('scripts')
+<script type="text/javascript">
+  $(document).ready(function(){
+
+    $('.loading').hide();
+    $(window).scroll(fetchPost);
+
+
+    function fetchPost()
+    {
+      var page = $('.endless-pagination').data('next-page');
+      if (page!==null)
+      {
+        $('.loading').show();
+        clearTimeout($.data(this, 'scrollCheck'));
+        $.data(this,'scrollCheck', setTimeout(function(){
+
+          var scroll_position_for_recruitments_load = $(window).height() + $(window).scrollTop() +100;
+
+          if(scroll_position_for_recruitments_load>=$(document).height())
+          {
+            $.get(page, function(data){
+              $('.recruitments').append(data.recruitments);
+              $('.endless-pagination').data('next-page', data.next_page);
+            })
+            $('.loading').hide();
+          }
+
+        },350))
+      }else
+      {
+            $('.loading').hide();
+      }
+    }
+
+  })
+</script>
 @endsection

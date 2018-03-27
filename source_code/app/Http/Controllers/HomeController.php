@@ -8,7 +8,8 @@ use App\Tag;
 use Response;
 use DB;
 class HomeController extends Controller
-{
+{   
+    protected $per_page_number = 1;
     /**
      * Create a new controller instance.
      *
@@ -29,7 +30,7 @@ class HomeController extends Controller
         $recruitments = Recruitment::where('status_id', 1)->orderBy('created_at','desc')->take(5)->get();
         return view('welcome', compact('recruitments'));
     }
-    public function listRecruitments()
+    public function listRecruitments(Request $request)
     {   
         $recruitments = DB::table('recruitments')
                         ->join('companies', 'recruitments.company_id', '=', 'companies.id')
@@ -40,9 +41,17 @@ class HomeController extends Controller
                         ->select('recruitments.*', 'section_recruitment.content as content','companies.name as company', 'districts.name as district' ,'addresses.address as address', 'cities.name as city')
                         ->where('section_recruitment.section_id', '=', '1')
                         ->where('recruitments.status_id', '=', '1')
-                        ->get();
+                        ->orderBy('recruitments.created_at','DESC')
+                        ->paginate($this->per_page_number);
 
-        // return $recruitments;
+         // return $recruitments;
+
+        if($request->ajax())
+        {
+            return ['recruitments'=>view('ajax.recruitmentList')->with(compact('recruitments'))->render(),
+                    'next_page'=>$recruitments->nextPageUrl()
+                    ];
+        }
 
         return view('recruitments.list', compact('recruitments'));
     }

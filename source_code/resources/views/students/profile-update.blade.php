@@ -445,13 +445,16 @@
 						success:function(data){
 							alert('Upload Cv thành công!');
 
+							var url = '{{ route("student.cv.destroy", ":id") }}';
+							url = url.replace(':id', data.id);
+
 							var tr = $("<tr/>");
 							tr.append($("<td/>",{
 								text : data.name
 							})).append($("<td/>",{
 								text : data.created_at
 							})).append($("<td/>",{
-								html: '<a href="#" data-id="'+data.id+'" id="delete"><abbr title="Xóa"><i class="fa fa-trash" aria-hidden="true"></i></abbr></a>'
+								html: '<a href="'+url+'" data-id="'+data.id+'" id="delete"><abbr title="Xóa"><i class="fa fa-trash" aria-hidden="true"></i></abbr></a>'
 							}));
 							$('.cv-info').append(tr);
 							$("#cv").val('');
