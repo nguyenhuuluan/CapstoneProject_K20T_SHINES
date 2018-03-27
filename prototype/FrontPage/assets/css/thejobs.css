@@ -1959,7 +1959,7 @@ dl.icon-holder dd {
   right:0;
   bottom:0;
   z-index:-1;
-  background-color:rgba(0,24,40,0.55);
+  background-color:rgba(0,24,40,0.2);
 }
 
 .site-header.bg-repeat {
