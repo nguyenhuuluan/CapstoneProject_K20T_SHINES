@@ -1,4 +1,4 @@
-@extends('layouts.master-layout',['title' => 'Jobee - Danh sách tin tuyển dụng', 'isDisplaySearchHeader' => false])
+@extends('layouts.master-layout',['title' => 'Cập nhật thông tin công ty', 'isDisplaySearchHeader' => false])
 
 @section('page-header')
 <header class="page-header bg-img" style="background-image: url({{ asset('assets/img/bg-banner1.jpg') }} );">
@@ -36,7 +36,7 @@
           @foreach ($recruitments as $recruitment)
           <!-- Job item -->
           <div class="col-xs-12">
-            <a class="item-block" href="{{ route('detailrecruitment', $recruitment->slug) }}">
+            <a class="item-block" href="{!! route('detailrecruitment', $recruitment->slug) !!}">
               <header>
                 <img src={!! asset(App\Recruitment::findOrFail($recruitment->id)->company->logo)  !!} alt="">
                 <div class="hgroup">
@@ -45,13 +45,13 @@
                 </h5> --}}
                 @foreach (App\Recruitment::findOrFail($recruitment->id)->categories as $category)
                 @if($category->name =='FULL-TIME')
-                <span class="label label-success">{{ $category->name }}</span>
+                <span class="label label-success">{!! $category->name !!}</span>
                 @else
-                <span class="label label-danger">{{ $category->name }}</span>
+                <span class="label label-danger">{!! $category->name !!}</span>
                 @endif
                 @endforeach
               </div>
-              <time datetime="2016-03-10 20:00">34 min ago</time>
+              <time>{!! Carbon\Carbon::parse($recruitment->created_at)->diffForHumans() !!}</time>
             </header>
 
             <div class="item-body">
@@ -83,7 +83,7 @@
       </div>
       
       <div class="loading" style="text-align: center;">
-        <img src="{{ asset('assets/img/loading.gif') }}" style="width: 100px; height: 100px">
+        <img src="{{ asset('assets/img/bx_loader.gif') }}" style="width: 85px; height: 85px">
       </div>
     </div>
 
@@ -121,7 +121,7 @@
             $('.loading').hide();
           }
 
-        },350))
+        },400))
       }else
       {
             $('.loading').hide();

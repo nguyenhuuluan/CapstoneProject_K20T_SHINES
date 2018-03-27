@@ -146,7 +146,7 @@ Route::middleware(['representative', 'web'])->group(function () {
 	Route::resource('representative/recruitments', 'Representative\RepresentativeRecruitmentController');
 
 	//Company
-	Route::get('/company/update/{id}', 'CompanyController@update')->name('company.update');
+	Route::get('/company/update/', 'CompanyController@update')->name('company.update');
 	Route::POST('/company/edit/{id}', 'CompanyController@edit')->name('company.edit');
 	Route::POST('/company/updateimage', 'CompanyController@updateImage')->name('company.updateImage');
 });

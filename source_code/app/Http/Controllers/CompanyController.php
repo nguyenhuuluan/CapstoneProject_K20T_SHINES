@@ -17,7 +17,7 @@ use App\District;
 use App\Address;
 use App\Tag;
 use App\CompaniesSocialNetwork;
-
+use Auth;
 use Mail;
 use GuzzleHttp\Client;
 
@@ -31,8 +31,9 @@ class CompanyController extends Controller
     return view('companies.detail')->with(compact('comp'));
   }
 
-  public function update($id)
+  public function update()
   {
+    $id = Auth::user()->representative->company->id;
     $company = Company::findOrFail($id);
 
     $cities = City::all();
