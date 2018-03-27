@@ -27,91 +27,48 @@
 <body class="nav-on-header smart-nav">
 
  <!-- Navigation bar -->
- @include('layouts2.header')
+ @include('layouts.header')
  <!-- END Navigation bar -->
 
+@if ($isDisplaySearchHeader)
+ @include('layouts.search-header')
+@else
 
- <!-- Site header -->
- @include('layouts2.search-header')
- <!-- END Site header -->
+@yield('page-header')
+{{-- <header class="page-header"></header> --}}
+@endif
 
 
  <!-- Main container -->
- <main>
 
-  <!-- Recent jobs -->
+
   @yield('content')
-  <!-- <section></section> -->
-  <!-- END Recent jobs -->
-  <section class="bg-img bg-repeat no-overlay section-sm" style="background-image: url({{ asset('assets/img/bg-pattern.png') }} )">
-    @include('layouts2.general-value')
-  </section>
-  <!-- END Facts -->
 
-
-  <!-- How it works -->
-  <section>
-    @include('layouts2.higlight-companies')
-  </section>
-  <!-- END How it works -->
-
-
-  <!-- Categories -->
-  <section class="bg-alt">
-   @include('layouts2.blog')
-    <!-- /blog -->
-  </section>
-  <!-- END Categories -->
-
-  <!-- START TESTIMONIAL -->
-  @include('layouts2.testimonial')
-  <!-- END TESTIMONIAL -->
-</main>
+  
 <!-- END Main container -->
 
 
 <!-- Site footer -->
-@include('layouts2.footer')
-
-<!-- Facts -->
+@include('layouts.footer')
 
 
-
-<!-- Back to top button -->
-<a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
-<!-- END Back to top button -->
 
 <!-- Scripts -->
-<script src="{{ asset('assets/js/app.min.js') }} "></script>
-<script src="{{ asset('assets/js/thejobs.js') }} "></script>
-<script src="{{ asset('assets/js/custom.js') }} "></script>
+<script type="text/javascript" src="{{ asset('assets/js/app.min.js') }} "></script>
+<script type="text/javascript" src="{{ asset('assets/js/thejobs.js') }} "></script>
+<script type="text/javascript" src="{{ asset('assets/js/custom.js') }} "></script>
 <script type="text/javascript" src="{{ asset('assets/js/alpha.js') }} "></script>
 
-@if(Session::has('resigter-success') || Session::has('email-invalid') || Session::has('email-exist'))
-
-<script type="text/javascript" charset="utf-8">
-  $("#id02").modal("show");
-
-  $('.nav-tabs li:first-child').removeClass('active');
-  $('.nav-tabs li:last-child').addClass('active');
-  modalSignInOut('dangky');
-
-
-  // $('.nav-tabs li:last-child a').attr("aria-expanded", true);
-  //$('.login-block').css( "display", "none");
-  
-
-</script>
-@endif
-
 <script type="text/javascript">
-  $(document).ready(function(){
+  
     $('#testimonials').alpha({
       layout: 'alt',
       delay : 5300
     });
-  })
+  
 </script>
+
+@yield('scripts')
 
 </body>
 </html>

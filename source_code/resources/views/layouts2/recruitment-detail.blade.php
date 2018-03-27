@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,5 +54,5 @@
 <script src="../assets/js/custom.js"></script>
 
 </body>
-{{-- @endsection --}}
+
 </html>

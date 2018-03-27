@@ -1,4 +1,4 @@
-@extends('layouts.recruitment-detail')
+@extends('layouts.master-layout', ['title' => 'Jobee-Tin tuyển dụng','isDisplaySearchHeader' => false])
 
 @section('page-header')
 
@@ -6,7 +6,7 @@
 <header class="page-header bg-img size-lg" style="background-image: url({{ asset('assets/img/bg-banner2.jpg') }} )">
     <div class="container">
       <div class="header-detail">
-        <img class="logo" height="60" src="{!! $recruitment->company->logo !!}" alt="">
+        <img class="logo" height="60" src={!! asset($recruitment->company->logo) !!} alt="">
         <div class="hgroup">
           <h1>{!! $recruitment->title !!}</h1>
         </div>
@@ -42,17 +42,16 @@
           <div class="action-buttons">
             <a class="btn btn-success-detail" href="job-apply.html">Ứng tuyển ngay</a>
           </div>
+
         </div>
-
-
+        
       </div>
     </div>
   </header>
-
 @endsection
 
 
-@section('main-container')
+@section('content')
 
 
 <main class="container blog-page">

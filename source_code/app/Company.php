@@ -8,7 +8,7 @@ class Company extends Model
 {
     //
     protected $path = '/images/companies/logos/';
-    protected $fillable = ['name', 'website', 'email', 'phone', 'working_day', 'status_id', 'logo'];
+    protected $fillable = ['name', 'website', 'email', 'phone', 'working_day', 'status_id', 'logo','field','code_business'];
 
     public function address(){
     	return $this->hasOne('App\Address');
@@ -39,9 +39,12 @@ class Company extends Model
         if($value){
             return $this->path.$value;
         }else{
-            return 'http://via.placeholder.com/100x100';
+            return $this->path.$value.'logo-default.jpg';
         }
-        
 
+    }
+
+    public function socialNetworks(){
+        return $this->hasMany('App\CompaniesSocialNetwork');
     }
 }	

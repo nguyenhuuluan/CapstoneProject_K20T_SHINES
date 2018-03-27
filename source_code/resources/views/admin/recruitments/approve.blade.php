@@ -81,9 +81,9 @@
 
         $('.btn-approve').click(function() {
 
-         var currentelement = $(this);
+           var currentelement = $(this);
 
-         $.confirm({
+           $.confirm({
             title: 'Thông báo!!',
             content: 'Bạn có muốn xác nhận tin tuyển dụng này?',
             buttons: {
@@ -104,7 +104,7 @@
 
         });
 
-     });
+       });
 
         function approveCompany(element){
             $('.modal-ajax-loading').fadeIn("200");
@@ -118,6 +118,7 @@
                         title: 'Thông báo!',
                         content: 'Xác nhận thành công',
                     });
+                    element.parent().parent().remove();
                     
                //location.reload();
                //element.remove();

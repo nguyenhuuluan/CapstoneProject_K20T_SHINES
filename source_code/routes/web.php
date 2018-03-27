@@ -20,8 +20,8 @@ Route::get('/' , 'HomeController@index')->name('index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/test/{companyID}', 'CompanyController@test')->name('test');
+Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::get('/recruitments', 'HomeController@listRecruitments')->name('lst.recruitment');
 
 
 //Password reset routes
@@ -48,7 +48,8 @@ Route::get('/recruitment/searchtag', 'RecruitmentController@searchtag')->name('s
 Route::get('/recruitments/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
 
 // Company - WEB
-Route::get('/company/detail/{id}', 'CompanyController@detail')->name('company.detail');
+Route::get('/company/details/{id}', 'CompanyController@details')->name('company.details');
+
 
 
 
@@ -58,6 +59,20 @@ Route::POST('student','StudentController@register')->name('student.register');
 Route::GET('student/confirm/{token}','StudentController@confirm')->name('student.confirm');
 Route::POST('student/confirm','StudentController@confirmInfomation')->name('student.confirm-information');
 Route::GET('student/update-success','StudentController@updateSuccess')->name('student.update-success');
+
+Route::get('student/profile', 'StudentController@profile')->name('student.profile')->middleware('student');
+Route::get('student/profile/update', 'StudentController@updateProfile')->name('student.profile.update')->middleware('student');
+Route::POST('student/profile/update/{id}', 'StudentController@editProfile')->name('student.profile.edit')->middleware('student');
+Route::POST('student/profile/update/photo/{id}', 'StudentController@editPhoto')->name('student.photo.edit')->middleware('student');
+
+Route::POST('student/profile/update/cv/{id}', 'Student\StudentCvController@store')->name('student.cv.store')->middleware('student');
+Route::POST('student/profile/update/photo/{id}', 'StudentController@editPhoto')->name('student.photo.store')->middleware('student');
+
+Route::GET('student/profile/update/cv', 'Student\StudentCvController@show')->name('student.cv.show')->middleware('student');
+
+Route::GET('student/cv/{id}', 'Student\StudentCvController@destroy')->name('student.cv.destroy')->middleware('student');
+
+// Route::post('ajaxImageUpload', ['as'=>'ajaxImageUpload','uses'=>'Student\StudentCvController@store']);
 
 
 
@@ -123,13 +138,17 @@ Route::GET('password/reset/{token}','Representative\ResetPasswordController@show
 
 
 //Representative Controller
-
+//Representative middleware
 Route::middleware(['representative', 'web'])->group(function () {
 	Route::GET('representative', 'Representative\RepresentativeController@index');   
 
 	Route::GET('representative/home', 'Representative\RepresentativeController@index');   
 	Route::resource('representative/recruitments', 'Representative\RepresentativeRecruitmentController');
 
+	//Company
+	Route::get('/company/update/{id}', 'CompanyController@update')->name('company.update');
+	Route::POST('/company/edit/{id}', 'CompanyController@edit')->name('company.edit');
+	Route::POST('/company/updateimage', 'CompanyController@updateImage')->name('company.updateImage');
 });
 
 Route::GET('representative/reset-password/{token}','Representative\RepresentativeController@resetPassword')->name('representative.resetpassword');
@@ -140,8 +159,12 @@ Route::GET('representative/update-success','Representative\ResetPasswordControll
 
 Route::POST('representative/reset-password','Representative\ResetPasswordController@resetPassword')->name('representative.reset-password');
 
+// District
+Route::get('/districts/{cityID}','AddressController@getDistricts')->name('address.districts');
 
 
 
 Route::get('/test/{id}','RecruitmentController@test')->name('test');
+
+Route::get('/tags','TagController@getTags')->name('tags');
 

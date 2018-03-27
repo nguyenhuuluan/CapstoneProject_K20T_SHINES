@@ -57,7 +57,7 @@ class LoginController extends Controller
     {
         return view('auth.login');
     }
-    public function login(Request $request)
+    public function login(Request $request) 
     {
         $this->validate($request,[
          'email'=>'required|string|email|max:255',
@@ -69,9 +69,13 @@ class LoginController extends Controller
 
             return $this->sendLockoutResponse($request);
         }
-        if(Auth::attempt(['username'=>$request->email, 'password'=>$request->password] ) &&Auth::user()->roles->first()->name == 'Student' ){
+        if(Auth::attempt(['username'=>$request->email, 'password'=>$request->password] ) && Auth::user()->roles->first()->name == 'Student'){
             return redirect('/home');
-        }elseif(Auth::attempt(['username'=>$request->email, 'password'=>$request->password] ) && (Auth::user()->roles->first()->name == 'Representative' || Auth::user()->roles->first()->name == 'Admin')){
+        }
+        elseif(Auth::attempt(['username'=>$request->email, 'password'=>$request->password] ) && Auth::user()->roles->first()->name == 'Representative'){
+            return redirect('/representative/home');
+        }
+        elseif(Auth::attempt(['username'=>$request->email, 'password'=>$request->password] ) && (Auth::user()->roles->first()->name == 'Admin')){
             $this->guard()->logout();
 
             $request->session()->invalidate();
