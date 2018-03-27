@@ -110,7 +110,7 @@
         clearTimeout($.data(this, 'scrollCheck'));
         $.data(this,'scrollCheck', setTimeout(function(){
 
-          var scroll_position_for_recruitments_load = $(window).height() + $(window).scrollTop() +100;
+          var scroll_position_for_recruitments_load = $(window).height() + $(window).scrollTop() +50;
 
           if(scroll_position_for_recruitments_load>=$(document).height())
           {
@@ -121,7 +121,7 @@
             $('.loading').hide();
           }
 
-        },400))
+        },450))
       }else
       {
             $('.loading').hide();

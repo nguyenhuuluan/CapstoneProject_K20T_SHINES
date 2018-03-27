@@ -17,9 +17,15 @@ use App\District;
 use App\Address;
 use App\Tag;
 use App\CompaniesSocialNetwork;
+
 use Auth;
+
+
+use App\Http\Requests\CompanyRequest;
 use Mail;
 use GuzzleHttp\Client;
+
+
 
 class CompanyController extends Controller
 {
@@ -45,7 +51,7 @@ class CompanyController extends Controller
 
   }
 
-  public function edit($id, Request $request)
+  public function edit($id, CompanyRequest $request)
   { 
 
 
@@ -53,7 +59,7 @@ class CompanyController extends Controller
 
     $res = $client->request('GET', 'https://maps.google.com/maps/api/geocode/json?key=AIzaSyBTKdxpxRWTD9UnpMVrGfdnNCmFZLde8Rw&address='.$request->address. $request->districtname. $request->cityname);
 
-    $jsonObj  = json_decode($res->getBody());
+    $jsonObj  = json_decode($res->getBody());  
 
     $address = $jsonObj->results[0]->formatted_address;
 
@@ -121,7 +127,7 @@ class CompanyController extends Controller
 
  $comp->tags()->sync((Tag::all()->intersect($collectionTags)));
 
- if ($request->facebook) {
+ if ( !empty(trim($request->facebook)) ) {
   if ($request->socialnetworkfbID) {
     $social = CompaniesSocialNetwork::findOrFail($request->socialnetworkfbID);
     $social->url = $request->facebook;
@@ -135,11 +141,13 @@ class CompanyController extends Controller
     "company_id" => $request->id
   ]); 
  }
-
+}else{
+  $social = CompaniesSocialNetwork::findOrFail($request->socialnetworkfbID);
+  $social->delete();
 }
 
 
-if ($request->linkedin) {
+if (!empty(trim($request->linkedin))) {
   if ($request->socialnetworkinID) {
     $social = CompaniesSocialNetwork::findOrFail($request->socialnetworkinID);
     $social->url = $request->linkedin;
@@ -154,6 +162,9 @@ if ($request->linkedin) {
   ]); 
  }
 
+}else{
+  $social = CompaniesSocialNetwork::findOrFail($request->socialnetworkinID);
+  $social->delete();
 }
 
 return redirect()->route("company.details",['id' => $comp->id]);
@@ -164,9 +175,9 @@ return redirect()->route("company.details",['id' => $comp->id]);
 public function details($id)
 {
   $company = Company::findOrFail($id);
+  $socials = CompaniesSocialNetwork::where('company_id',$company->id)->get()->sortBy('name');
 
-  return view('companies.details')->with(compact('company'));
-
+  return view('companies.details')->with(compact('company','socials'));
 }
 
 public function updateimage(Request $request)
@@ -240,13 +251,11 @@ public function approveCompany($companyID)
   $repre = new Representative();
   $repre = $this->createRepresentative($comp, $compRegis, $account);
 
-    // $address = Role::findOrFail(3);
-    // $role -> accounts() -> attach($acc["id"]);
+  // $address = Role::findOrFail(3);
+  // $role -> accounts() -> attach($acc["id"]);
 
 
-
-
-   //$this->sendMailToResetPassword($repre, $comp, $account);
+  //$this->sendMailToResetPassword($repre, $comp, $account);
 
   return $repre;
 
