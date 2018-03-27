@@ -58,35 +58,36 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                
+
                                                 <a class="btn btnreview btn-success" href="{{ route('company.details', ['id'=> $comp->id]) }}">Xem</a>
+                                                
 
-                                              {{--   <button type="button" class="btnreview btn-success">Xem</button> --}}
+                                             {{--   <button type="button" class="btnreview btn-success">Xem</button> --}}
 
-                                            </td>
+                                         </td>
 
-                                        </tr>
-                                        @endforeach
+                                     </tr>
+                                     @endforeach
 
 
 
-                                    </tbody>
+                                 </tbody>
 
-                                </table>
-                            </div>
-                            <!-- /.table-responsive -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
+                             </table>
+                         </div>
+                         <!-- /.table-responsive -->
+                     </div>
+                     <!-- /.panel-body -->
+                 </div>
+                 <!-- /.panel -->
+             </div>
 
-            </div>
-            <!-- /.col-lg-12 -->
-        </div>
-        <!-- /.row -->
-    </div>
-    <!-- /.container-fluid -->
+         </div>
+         <!-- /.col-lg-12 -->
+     </div>
+     <!-- /.row -->
+ </div>
+ <!-- /.container-fluid -->
 </div>
 
 
@@ -94,7 +95,21 @@
 @endsection
 
 @section('scripts')
+
+
 <script type="text/javascript">
+
+
+
+    // $('.table-responsive').on('click', '.btn-approve1', function(event) {
+    //     event.preventDefault();
+    //     $.alert({
+    //         title: 'Alert!',
+    //         content: 'Simple alert!',
+    //     });
+    // });
+
+
 
     $('.switch').bootstrapSwitch({
         size: 'mini',
@@ -104,7 +119,7 @@
         offColor: 'danger'     
     });
 
-    $('.btn-approve').click(function() {
+    $('.table-responsive').on('click', '.btn-approve').click(function() {
 
        var currentelement = $(this);
 
@@ -116,7 +131,7 @@
                 keys: ['enter'],
                 btnClass: 'btn-green',
                 action: function(){
-                    
+
                     approveCompany(currentelement);
                 }
             },
@@ -133,8 +148,8 @@
    });
 
 
-    $('.status-switch').on('switchChange.bootstrapSwitch', function (e, data) {
-
+    $('.table-responsive').on('switchChange.bootstrapSwitch', '.status-switch',  function (e, data) {
+        event.preventDefault();
         var element = $(this);
 
         element.bootstrapSwitch('state', !data, true);
@@ -160,6 +175,34 @@
             }
         });
     });
+
+    // $('.status-switch').on('switchChange.bootstrapSwitch', function (e, data) {
+    //     var element = $(this);
+
+    //     element.bootstrapSwitch('state', !data, true);
+
+    //     $.confirm({
+    //         title: 'Thông báo!!',
+    //         content: 'Bạn có muốn thay đổi trạng thái của công ty này?',
+    //         buttons: {
+    //             Có: {
+    //                 keys: ['enter'],
+    //                 btnClass: 'btn-green',
+    //                 action: function(){
+    //                     activeCompany(element.val());
+    //                     element.bootstrapSwitch('toggleState', true, true);
+    //                 }
+    //             },
+    //             Không: {
+    //                 keys: ['esc'],
+    //                 btnClass: 'btn-red'
+
+    //             }
+
+    //         }
+    //     });
+        
+    // });
 
 
     function alertError(){
