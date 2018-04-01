@@ -10,21 +10,31 @@
   <section>
    <div class="container">
     <div class="row">
+
+      <h6>Bạn hiện có:</h6>
+      <ul>
+        <li><a href="">{{$recruitcount}} tin tuyển dụng </a>với <a href="">... hồ sơ </a>đã ứng tuyển</li>
+        <li>{{$totalrepresentative}} tài khoản thành viên</li>
+      </ul>
+      <br>
+
+    </div>
+    <div class="row">
      <h6>Trang báo cáo công ty</h6>
      <div class="table-responsive">
       <table class="table table-striped table-bordered-company">
        <thead>
         <tr>
          <th>Tổng số lượt xem</th>
-         <th>Lượt xem trong 30 ngày</th>
-         <th>Lượt xem trong 7 ngày</th>
+         <th>Lượt xem của sinh viên</th>
+         <th>Lượt xem không là sinh viên</th>
        </tr>
      </thead>
      <tbody>
       <tr>
-       <td>4500 (0.5 / ngày)</td>
-       <td>300 (1.2 / ngày)</td>
-       <td>50 (0.7 / ngày)</td>
+       <td>{{ $studentview + $anonymousview }}</td>
+       <td>{{ $studentview }}</td>
+       <td>{{ $anonymousview }}</td>
      </tr>
    </tbody>
  </table>

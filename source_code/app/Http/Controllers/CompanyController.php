@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\Collection;
 
 use App\Representative;
 use App\Account;
 use App\Company;
+use App\Recruitment;
 use App\CompanyRegistration;
 use App\Role;
 use App\SocialNetwork;
@@ -17,9 +19,12 @@ use App\District;
 use App\Address;
 use App\Tag;
 use App\CompaniesSocialNetwork;
+use File;
+
+use Auth;
+
 
 use App\Http\Requests\CompanyRequest;
-
 use Mail;
 use GuzzleHttp\Client;
 
@@ -33,10 +38,11 @@ class CompanyController extends Controller
     $comp = Company::where('id', '=', $id)->first();
 
     return view('companies.detail')->with(compact('comp'));
-  }
+}
 
-  public function update($id)
-  {
+public function update()
+{
+    $id = Auth::user()->representative->company->id;
     $company = Company::findOrFail($id);
 
     $cities = City::all();
@@ -46,10 +52,10 @@ class CompanyController extends Controller
 
     return view('companies.update')->with(compact('company','cities','districts','tags'));
 
-  }
+}
 
-  public function edit($id, CompanyRequest $request)
-  { 
+public function edit($id, CompanyRequest $request)
+{ 
 
 
     $client = new Client();
@@ -58,29 +64,35 @@ class CompanyController extends Controller
 
     $jsonObj  = json_decode($res->getBody());  
 
-    $address = $jsonObj->results[0]->formatted_address;
-
-    $lat = $jsonObj->results[0]->geometry->location->lat;
-    $lng = $jsonObj->results[0]->geometry->location->lng;
-
-
-    $comp = Company::Where('id', $request->id)->first();
-    $comp->name = $request->name;
-    $comp->website = $request->website;
-    $comp->email = $request->email;
-    $comp->phone = $request->phone;
-    $comp->working_day = $request->working_day;
-    $comp->field = $request->field;
-    $comp->business_code = $request->business_code;
-    $comp->introduce = $request->introduce;
-
-    $comp->save();
+    if ($jsonObj->status != 'OK') {
+      $request->session()->flash('address-invalid', '<span> Địa chỉ không tồn tại </span>');
+      return redirect()->route("company.update")->withInput();
+  }
 
 
+  $address = $jsonObj->results[0]->formatted_address;
 
-    $compaddress = $comp->address;
+  $lat = $jsonObj->results[0]->geometry->location->lat;
+  $lng = $jsonObj->results[0]->geometry->location->lng;
 
-    if (count($compaddress) == 0) {
+
+  $comp = Company::Where('id', $request->id)->first();
+  $comp->name = $request->name;
+  $comp->website = $request->website;
+  $comp->email = $request->email;
+  $comp->phone = $request->phone;
+  $comp->working_day = $request->working_day;
+  $comp->field = $request->field;
+  $comp->business_code = $request->business_code;
+  $comp->introduce = $request->introduce;
+
+  $comp->save();
+
+
+
+  $compaddress = $comp->address;
+
+  if (count($compaddress) == 0) {
 
       $address = Address::create([
         "address" => $request->address,
@@ -88,8 +100,8 @@ class CompanyController extends Controller
         "longtitude" => $lng,
         "district_id" => $request->district,
         "company_id" => $comp->id
-      ]);
-    }else{
+    ]);
+  }else{
       $compaddress->address = $request->address;
       $compaddress->latitude = $lat;
       $compaddress->longtitude = $lng;
@@ -97,47 +109,47 @@ class CompanyController extends Controller
       $compaddress->company_id = $comp->id;
 
       $compaddress->save();
-    }
-
-    $currenttags = array_map('strtolower', Tag::pluck('name')->toArray());
-    $tags = array_map('strtolower', array_map('trim', explode(",", $request->tags)));
-
-   // $intersect = array_intersect($tags,$currenttags);
-    $diff = array_diff($tags,$currenttags);
-
-    if (count($diff) != 0) {
-     foreach ($diff as $value) {
-      $tag = Tag::create([
-        "name" => $value
-      ]);
-    }
   }
 
+  $currenttags = array_map('strtolower', Tag::pluck('name')->toArray());
+  $tags = array_map('strtolower', array_map('trim', explode(",", $request->tags)));
+
+   // $intersect = array_intersect($tags,$currenttags);
+  $diff = array_diff($tags,$currenttags);
+
+  if (count($diff) != 0) {
+   foreach ($diff as $value) {
+      $tag = Tag::create([
+        "name" => $value
+    ]);
+  }
+}
 
 
-  $collectionTags = collect([]);
 
-  foreach ($tags as $tag) {
-   $collectionTags->push(Tag::where('name', $tag)->first());
- }
+$collectionTags = collect([]);
+
+foreach ($tags as $tag) {
+ $collectionTags->push(Tag::where('name', $tag)->first());
+}
 
 
- $comp->tags()->sync((Tag::all()->intersect($collectionTags)));
+$comp->tags()->sync((Tag::all()->intersect($collectionTags)));
 
- if ( !empty(trim($request->facebook)) ) {
+if ( !empty(trim($request->facebook)) ) {
   if ($request->socialnetworkfbID) {
     $social = CompaniesSocialNetwork::findOrFail($request->socialnetworkfbID);
     $social->url = $request->facebook;
     $social->company_id = $request->id;
 
     $social->save();
-  }else{
-   $social = CompaniesSocialNetwork::create([
+}else{
+ $social = CompaniesSocialNetwork::create([
     "name" => "Facebook",
     "url" => $request->facebook,
     "company_id" => $request->id
-  ]); 
- }
+]); 
+}
 }else{
   $social = CompaniesSocialNetwork::findOrFail($request->socialnetworkfbID);
   $social->delete();
@@ -151,13 +163,13 @@ if (!empty(trim($request->linkedin))) {
     $social->company_id = $request->id;
 
     $social->save();
-  }else{
-   $social = CompaniesSocialNetwork::create([
+}else{
+ $social = CompaniesSocialNetwork::create([
     "name" => "LinkedIn",
     "url" => $request->linkedin,
     "company_id" => $request->id
-  ]); 
- }
+]); 
+}
 
 }else{
   $social = CompaniesSocialNetwork::findOrFail($request->socialnetworkinID);
@@ -179,21 +191,61 @@ public function details($id)
 
 public function updateimage(Request $request)
 {
-  if ($file = $request->file('imagefile')) {
-    $name = $file->getClientOriginalName();
+  // if ($file = $request->file('imagefile')) {
+  //   $name = time().$file->getClientOriginalName();
+
+
+  //   $comp = Company::Where('id', $request->id)->first();
+
+  //   File::delete($comp->logo);
+
+  //   $comp->logo = $name;
+  //   $comp->update();
+
+  //   $file->move('images/companies/logos', $name);
+
+
+  //   return response()->json(200);
+  // }
+
+  // return response()->json(500);
+
+
+  if($file = $request->file('imagefile'))
+  {
+    $validator = Validator::make($request->all(), [
+      'imagefile' => 'required|image|mimes:jpeg,png,jpg|max:1024',
+  ]);
+
+    if ($validator->passes()) 
+    { 
+      $comp = Company::Where('id', $request->id)->first();
+      $name  = time().$file->getClientOriginalName();
+
+      if( strpos($comp->logo, 'default-company-logo.jpg') == false )
+      {
+          // unlink(base_path().'/public_html/'.$student->photo);
+        unlink(public_path().$comp->logo);
+
+        //  return "OK";
+    }
+
+    $comp->logo = $name;
+    $comp->update();
 
     $file->move('images/companies/logos', $name);
 
-    $input['path'] = $name;
-
-    $comp = Company::Where('id', $request->id)->first();
-    $comp->logo = $name;
-    $comp->save();
-
     return response()->json(200);
-  }
-
-  return response()->json(500);
+}
+else
+{
+  return response()->json(['error'=>$validator->errors()->all()]);
+}
+}
+else
+{
+ return response()->json(500);
+}
 }
 
 
@@ -212,7 +264,7 @@ public function createCompany($compRegis)
     "website" => $compRegis["company_website"],
     "logo" => 'default-company-logo.jpg',
     "status_id" => 3
-  ]);
+]);
 
       //tao du lieu address tam thoi
   $address = Address::create(
@@ -222,7 +274,7 @@ public function createCompany($compRegis)
       "longtitude"=> 11111,
       "company_id"=> $comp->id,
       "district_id"=> 1,
-    ]);
+  ]);
 
 
   return $comp;
@@ -272,7 +324,7 @@ public function sendMailToResetPassword($represen, $com, $acc)
 
   Mail::send('admin.representatives.email-confirm', ['company' => $com, 'representative' => $represen,'account' => $acc],  function ($message) use($represen)
   {
-   $message->to($represen['email'])->subject('Chấp thuận doanh  nghiệp / công ty | Reset password');
+     $message->to($represen['email'])->subject('Chấp thuận doanh  nghiệp / công ty | Reset password');
  });
 
 }
@@ -292,12 +344,12 @@ public function createRepresentative($comp, $compRegis, $acc)
 {
 
   $repre = Representative::create([
-   "name" => $compRegis["representative_name"],        
-   "email" => $compRegis["representative_email"],
-   "phone" => $compRegis["representative_phone"],
-   "position" => $compRegis["representative_position"],
-   "account_id" => $acc["id"],
-   "company_id" => $comp["id"]
+     "name" => $compRegis["representative_name"],        
+     "email" => $compRegis["representative_email"],
+     "phone" => $compRegis["representative_phone"],
+     "position" => $compRegis["representative_position"],
+     "account_id" => $acc["id"],
+     "company_id" => $comp["id"]
  ]);
 
   return $repre;
@@ -317,9 +369,9 @@ public function setActiveCompany($company_id){
   $comp = Company::Where('id', $company_id)->first();
 
   if ($comp->status_id != 3) {
-   $comp->status_id = 3;
+     $comp->status_id = 3;
  }else {
-   $comp->status_id = 4;
+     $comp->status_id = 4;
  }
 
  $comp->save();     
@@ -330,18 +382,18 @@ public function setActiveCompany($company_id){
 public function createAccountRepresentative($compRegis)
 {
 
- $acc = Account::create([
-  'username'=>$compRegis["representative_email"],
-  'password'=>bcrypt(str_random(40)),
+   $acc = Account::create([
+      'username'=>$compRegis["representative_email"],
+      'password'=>bcrypt(str_random(40)),
       'status_id'=>5, // set active account
       'remember_token'=>str_random(40)
-    ]);
+  ]);
 
       //set role for account
- $role = Role::findOrFail(3);
- $role -> accounts() -> attach($acc["id"]);
+   $role = Role::findOrFail(3);
+   $role -> accounts() -> attach($acc["id"]);
 
- return $acc;
+   return $acc;
 }
 
 public function getCompanies()
@@ -349,33 +401,48 @@ public function getCompanies()
   $comps = Company::all();
 
   return datatables()->of($comps)->addColumn('action', function ($comps) {
-   $btn;
+     $btn;
 
-   $btn = $comps['status_id'] == 3? '<td><input type="checkbox" id="something" checked data-toggle="toggle" data-onstyle="success" data-size="mini"  value="'.$comps['id'].'"></td>' : '<td><input type="checkbox" id="something" data-toggle="toggle" data-onstyle="success" data-size="mini" value="'.$comps['id'].'"></td>';
-   return $btn;
+     $btn = $comps['status_id'] == 3? '<td><input type="checkbox" id="something" checked data-toggle="toggle" data-onstyle="success" data-size="mini"  value="'.$comps['id'].'"></td>' : '<td><input type="checkbox" id="something" data-toggle="toggle" data-onstyle="success" data-size="mini" value="'.$comps['id'].'"></td>';
+     return $btn;
  })->toJson();
 }
 
 
 public function store(Request $request)
 {
- $input = $request->all();
+   $input = $request->all();
 
  // Validation
- $this->validate($request, [
-  'name'=>'required',
-  'email'=>'required|email',
-  'website'=>'required',
-  'phone'=>'required'
-]);
+   $this->validate($request, [
+      'name'=>'required',
+      'email'=>'required|email',
+      'website'=>'required',
+      'phone'=>'required'
+  ]);
 
- $input['status_id'] = 7;
+   $input['status_id'] = 7;
 
- Company::create($input);
+   Company::create($input);
 
- $request->session()->flash('resigter-success', '<strong>Đăng ký thành công</strong>, chúng tôi sẽ liên lạc với bạn sớm để xác nhận, cảm ơn.');
+   $request->session()->flash('resigter-success', '<strong>Đăng ký thành công</strong>, chúng tôi sẽ liên lạc với bạn sớm để xác nhận, cảm ơn.');
 
- return redirect()->route("home");
+   return redirect()->route("home");
 
 }
+
+public function statistic()
+{
+    $currentcompID = Auth::user()->representative->company->id;
+    $recruitcount = Recruitment::where('company_id', $currentcompID)->count();
+
+    $studentview = Recruitment::where('company_id', $currentcompID)->pluck('number_of_view')->sum();
+
+    $anonymousview = Recruitment::where('company_id', $currentcompID)->pluck('number_of_anonymous_view')->sum();
+
+    return view ('representative.index',compact('$recruitcount', '$studentview', '$anonymousview'));
+
+}
+
+
 }

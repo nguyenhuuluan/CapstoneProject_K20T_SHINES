@@ -83,7 +83,11 @@
       </div>
       
       <div class="loading" style="text-align: center;">
+<<<<<<< HEAD
         <img src="{{ asset('assets/img/loading.gif') }}" style="width: 85px; height: 85px">
+=======
+        <img src="{{ asset('assets/img/bx_loader.gif') }}" style="width: 85px; height: 85px">
+>>>>>>> Luan-UpdateStudentProfile
       </div>
     </div>
 
@@ -110,7 +114,7 @@
         clearTimeout($.data(this, 'scrollCheck'));
         $.data(this,'scrollCheck', setTimeout(function(){
 
-          var scroll_position_for_recruitments_load = $(window).height() + $(window).scrollTop() +100;
+          var scroll_position_for_recruitments_load = $(window).height() + $(window).scrollTop() +50;
 
           if(scroll_position_for_recruitments_load>=$(document).height())
           {
@@ -121,7 +125,7 @@
             $('.loading').hide();
           }
 
-        },350))
+        },450))
       }else
       {
             $('.loading').hide();

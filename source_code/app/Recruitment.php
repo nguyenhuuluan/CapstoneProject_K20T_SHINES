@@ -10,7 +10,7 @@ class Recruitment extends Model
     //
     use Sluggable;
     use SluggableScopeHelpers;
-    protected $fillable = ['title','salary','number_of_view','expire_date','is_hot','company_id','status_id', 'slug'];
+    protected $fillable = ['title','salary','number_of_view','number_of_anonymous_view','expire_date','is_hot','company_id','status_id', 'slug'];
 
     public function sluggable()
     {

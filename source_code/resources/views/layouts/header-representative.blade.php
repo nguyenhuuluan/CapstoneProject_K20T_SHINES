@@ -23,10 +23,10 @@
                   <a href="mn-account-company.html"><i class="fa fa-user" aria-hidden="true"></i> Tài khoản</a>
                </li>
                <li>
-                  <a href="mn-dashboard-company.html"><i class="fa fa-tachometer" aria-hidden="true"></i> Bảng điều khiển</a>
+                  <a href="{{ route('company.statistic') }}"><i class="fa fa-tachometer" aria-hidden="true"></i> Bảng điều khiển</a>
                </li>
                <li>
-                  <a href="{{ route('company.update',['id' => Auth::user()->representative->company->id]) }}"><i class="fa fa-building-o" aria-hidden="true"></i> Công ty của bạn</a>
+                  <a href="{{ route('company.update')}}"><i class="fa fa-building-o" aria-hidden="true"></i> Công ty của bạn</a>
                </li>
                <li>
                   <a href="{{ route('recruitments.index') }}"><i class="fa fa-newspaper-o" aria-hidden="true"></i> Việc làm đã đăng</a>

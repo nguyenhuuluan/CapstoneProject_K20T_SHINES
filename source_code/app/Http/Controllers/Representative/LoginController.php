@@ -54,34 +54,36 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    
     public function showLoginForm()
     {
-       return view('representative.auth.login');
+     return view('representative.auth.login');
+ }
+
+ public function login(Request $request)
+ {
+    $this->validate($request,[
+     'email'=>'required|string|email|max:255',
+     'password' => 'required|string|min:6',
+ ]);
+
+    if ($this->hasTooManyLoginAttempts($request)) {
+        $this->fireLockoutEvent($request);
+
+        return $this->sendLockoutResponse($request);
     }
-    public function login(Request $request)
-    {
-        $this->validate($request,[
-           'email'=>'required|string|email|max:255',
-           'password' => 'required|string|min:6',
-       ]);
 
-        if ($this->hasTooManyLoginAttempts($request)) {
-            $this->fireLockoutEvent($request);
+    if(Auth::attempt(['username'=>$request->email, 'password'=>$request->password] ) && Auth::user()->roles->first()->name == 'Representative' ){
+        return redirect('/representative/home');
+    }elseif(Auth::attempt(['username'=>$request->email, 'password'=>$request->password] ) && (Auth::user()->roles->first()->name == 'Admin' || Auth::user()->roles->first()->name == 'Student')) {
+        $this->guard()->logout();
 
-            return $this->sendLockoutResponse($request);
-        }
-
-        if(Auth::attempt(['username'=>$request->email, 'password'=>$request->password] ) && Auth::user()->roles->first()->name == 'Representative' ){
-            return redirect('/representative/home');
-        }elseif(Auth::attempt(['username'=>$request->email, 'password'=>$request->password] ) && (Auth::user()->roles->first()->name == 'Admin' || Auth::user()->roles->first()->name == 'Student')) {
-            $this->guard()->logout();
-
-            $request->session()->invalidate();
-            $request->session()->flash('comment_message','Email hoặc mật khẩu không chính xác!');
-            return redirect('/representative');
-        }
-         $this->incrementLoginAttempts($request);
-
-        return $this->sendFailedLoginResponse($request);
+        $request->session()->invalidate();
+        $request->session()->flash('comment_message','Email hoặc mật khẩu không chính xác!');
+        return redirect('/representative');
     }
+    $this->incrementLoginAttempts($request);
+
+    return $this->sendFailedLoginResponse($request);
+}
 }

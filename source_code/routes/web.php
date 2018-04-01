@@ -47,6 +47,8 @@ Route::get('/recruitment/searchtag', 'RecruitmentController@searchtag')->name('s
 
 Route::get('/recruitments/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
 
+Route::get('/recruitment/increaseView/{recruitmentID}', 'RecruitmentController@increaseView')->name('recruitment.increaseview');
+
 // Company - WEB
 Route::get('/company/details/{id}', 'CompanyController@details')->name('company.details');
 
@@ -140,13 +142,13 @@ Route::GET('password/reset/{token}','Representative\ResetPasswordController@show
 //Representative Controller
 //Representative middleware
 Route::middleware(['representative', 'web'])->group(function () {
-	Route::GET('representative', 'Representative\RepresentativeController@index');   
+	Route::GET('representative', 'Representative\RepresentativeController@index')->name('company.statistic');   
 
 	Route::GET('representative/home', 'Representative\RepresentativeController@index');   
 	Route::resource('representative/recruitments', 'Representative\RepresentativeRecruitmentController');
 
 	//Company
-	Route::get('/company/update/{id}', 'CompanyController@update')->name('company.update');
+	Route::get('/company/update', 'CompanyController@update')->name('company.update');
 	Route::POST('/company/edit/{id}', 'CompanyController@edit')->name('company.edit');
 	Route::POST('/company/updateimage', 'CompanyController@updateImage')->name('company.updateImage');
 });
