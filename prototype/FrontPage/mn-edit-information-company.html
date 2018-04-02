@@ -14,6 +14,7 @@
    <link href="assets/css/bootstrap-tagsinput.css" rel="stylesheet">
    <link href="assets/css/tagmanager.min.css" rel="stylesheet">
    <link href="assets/css/imageuploadify.min.css" rel="stylesheet">
+   <link href="assets/css/jquery.bxslider.css" rel="stylesheet">
 
 
    <!-- Fonts -->
@@ -259,20 +260,26 @@
       </div>
    </section>
    <!-- Submit -->
-         <div class="container">
-            <div class="container">
-            <form>
-                <input type="file" accept="image/*" multiple>
-            </form>
-         </div>
-         <br>
-            <p class="text-center">
-               <a href="mn-information-company.html" class="btn btn-danger btn-xl btn-round">Hủy</a>
-               <a href="#" class="btn btn-success btn-xl btn-round">Cập nhật</a>
-            </p>
-            <br>
-         </div>
-         <!-- END Submit -->
+   <div class="container">
+   	<div class="container">
+   		<center>
+   			<div class="bxslider">
+   				<div><img src="assets/img/test_bck.jpg" title="test_bck.jpg"></div>
+   				<div><img src="assets/img/bg-banner1.jpg" title="bg-banner1.jpg"></div>
+   			</div>
+   		</center>
+   		<form>
+   			<input type="file" accept="image/*" multiple>
+   		</form>
+   	</div>
+   	<br>
+   	<p class="text-center">
+   		<a href="mn-information-company.html" class="btn btn-danger btn-xl btn-round">Hủy</a>
+   		<a href="#" class="btn btn-success btn-xl btn-round">Cập nhật</a>
+   	</p>
+   	<br>
+   </div>
+   <!-- END Submit -->
 </main>
 <!-- END Main container -->
 <!-- Site footer -->
@@ -299,7 +306,17 @@
 <script src="assets/js/bootstrap-tagsinput.js"></script>
 <script src="assets/js/tagmanager.min.js"></script>
 <script src="assets/js/imageuploadify.min.js"></script>
-
+<script src="assets/js/jquery.bxslider.js"></script>
+<!-- Bxslider -->
+ <script>
+	$(function(){
+	  $('.bxslider').bxSlider({
+	    mode: 'fade',
+	    captions: true,
+	    slideWidth: 600
+	  });
+	});
+  </script>
 <!-- Image upload -->
 <script type="text/javascript">
             $(document).ready(function() {
