@@ -45,7 +45,7 @@ class HomeController extends Controller
                         ->paginate($this->per_page_number);
 
          // return $recruitments;
-
+        $total = $recruitments->total();
         if($request->ajax())
         {
             return ['recruitments'=>view('ajax.recruitmentList')->with(compact('recruitments'))->render(),
@@ -53,7 +53,7 @@ class HomeController extends Controller
                     ];
         }
 
-        return view('recruitments.list', compact('recruitments'));
+        return view('recruitments.list', compact('recruitments', 'total'));
     }
 
 }

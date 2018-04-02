@@ -1,10 +1,21 @@
-@extends('layouts.master-layout',['title' => 'Cập nhật thông tin công ty', 'isDisplaySearchHeader' => false])
+@extends('layouts.master-layout',['title' => 'Tìm kiếm tin tuyển dụng', 'isDisplaySearchHeader' => true])
 
 @section('page-header')
 <header class="page-header bg-img" style="background-image: url({{ asset('assets/img/bg-banner1.jpg') }} );">
   <div class="container page-name" style="padding-bottom: 100px">
-    
-    @include('layouts.search-box')
+    <form class="header-job-search" >
+      <div class="input-keyword">
+        <input type="text" class="form-control" placeholder="Tìm công việc hoặc công ty yêu thích">
+      </div>
+
+      <div class="input-location">
+        <input type="text" class="form-control" placeholder="Thành phố bạn muốn làm việc">
+      </div>
+
+      <div class="btn-search">
+        <button class="btn btn-primary" type="submit">Tìm</button>
+      </div>
+    </form>
   </div>
 </header>
 @endsection
@@ -17,7 +28,7 @@
 
         <div class="searchcontent col-xs-12">
           <br>
-          <h5>Chúng tôi đã tìm thấy <strong>{!! $total !!}</strong> việc làm cho <strong>Bạn</strong> </h5>
+          <h5>Chúng tôi đã tìm thấy <strong>{!! $total !!}</strong> việc làm cho <strong style="color: red">{!! strtoupper($_GET['searchtext'])!!}</strong> </h5>
         </div>
         
         <div class="recruitments endless-pagination" data-next-page="{{ $recruitments->nextPageUrl() }}">
@@ -70,7 +81,7 @@
         <!-- END Job item -->
         @endforeach
       </div>
-      
+      {{-- {{ $recruitments->render() }} --}}
       <div class="loading" style="text-align: center;">
 
         <img src="{{ asset('assets/img/bx_loader.gif') }}" style="width: 85px; height: 85px">
@@ -95,7 +106,9 @@
     function fetchPost()
     {
       var page = $('.endless-pagination').data('next-page');
-      if (page!==null)
+      // console.log(page.split('page=')[1]);
+      // var tmp = window.location.href;
+      if (page!==null && page.split('page=')[1]!=null)
       {
         $('.loading').show();
         clearTimeout($.data(this, 'scrollCheck'));
@@ -105,7 +118,9 @@
 
           if(scroll_position_for_recruitments_load>=$(document).height())
           {
-            $.get(page, function(data){
+          	var url = window.location.href+'&page='+page.split('page=')[1];
+
+           $.get(url, function(data){
               $('.recruitments').append(data.recruitments);
               $('.endless-pagination').data('next-page', data.next_page);
             })

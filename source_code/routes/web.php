@@ -43,9 +43,8 @@ Route::POST('/partnership/register', 'CompanyRegistrationController@registerPart
 
 
 // Recruitment - WEB
-Route::get('/recruitment/searchtag', 'RecruitmentController@searchtag')->name('searchtag');
-
 Route::get('/recruitments/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
+Route::get('search', 'RecruitmentController@search')->name('recruitments.search');
 
 // Company - WEB
 Route::get('/company/details/{id}', 'CompanyController@details')->name('company.details');

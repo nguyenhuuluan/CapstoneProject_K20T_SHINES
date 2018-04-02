@@ -1,7 +1,7 @@
  @foreach ($recruitments as $recruitment)
  <!-- Job item -->
  <div class="col-xs-12">
-  <a class="item-block" href="{{ route('detailrecruitment', $recruitment->slug) }}">
+  <a class="item-block" href="{!! route('detailrecruitment', $recruitment->slug) !!}">
     <header>
       <img src={!! asset(App\Recruitment::findOrFail($recruitment->id)->company->logo)  !!} alt="">
       <div class="hgroup">
@@ -10,13 +10,14 @@
                 </h5> --}}
                 @foreach (App\Recruitment::findOrFail($recruitment->id)->categories as $category)
                 @if($category->name =='FULL-TIME')
-                <span class="label label-success">{{ $category->name }}</span>
+                <span class="label label-success">{!! $category->name !!}</span>
                 @else
-                <span class="label label-danger">{{ $category->name }}</span>
+                <span class="label label-danger">{!! $category->name !!}</span>
                 @endif
                 @endforeach
               </div>
-              <time datetime="2016-03-10 20:00">34 min ago</time>
+              <time>{!! Carbon\Carbon::parse($recruitment->created_at)->diffForHumans() !!}</time>
+              
             </header>
 
             <div class="item-body">
@@ -36,7 +37,7 @@
                 <li>
                   <i class="fa fa-tag"></i>
                   @foreach (App\Recruitment::findOrFail($recruitment->id)->tags as $tag)
-                  <span>{!! $tag->name !!}</span>
+                  <span class="btn btn-info btn-xs">{!! $tag->name !!}</span>
                   @endforeach
                 </li>
               </ul>

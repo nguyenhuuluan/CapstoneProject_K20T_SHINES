@@ -10,6 +10,7 @@ use App\Section;
 use App\Account;
 use App\Tag;
 use App\Company;
+use DB;
 class RecruitmentController extends Controller
 {
     /**
@@ -17,6 +18,7 @@ class RecruitmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $per_page_number = 3;
     public function index()
     {
         //
@@ -39,6 +41,48 @@ class RecruitmentController extends Controller
     public function show($id)
     {
         //
+    }
+
+
+    public function search(Request $request)
+    {       
+
+        // $text = explode(" ", $request['searchtext']);
+        // return $text;
+
+        $recruitments = DB::table('recruitments')
+                        ->join('companies', 'recruitments.company_id', '=', 'companies.id')
+                        ->join('addresses', 'addresses.company_id', '=', 'companies.id')
+                        ->join('districts', 'addresses.district_id', '=', 'districts.id')
+                        ->join('cities', 'districts.city_id', '=', 'cities.id')
+                        ->join('section_recruitment', 'recruitments.id', '=', 'section_recruitment.recruitment_id')
+                        ->join('tag_recruitment', 'recruitments.id', '=', 'tag_recruitment.recruitment_id')
+                        ->join('tags', 'tags.id', '=', 'tag_recruitment.tag_id')
+                        ->select('recruitments.*', 'section_recruitment.content as content','companies.name as company', 'districts.name as district' ,'addresses.address as address', 'cities.name as city')
+                        ->where('section_recruitment.section_id', '=', '1')
+                        ->where('recruitments.status_id', '=', '1')
+                        ->where(function($q) use ($request){
+                                $q->where('recruitments.slug', 'like', '%'.$request['searchtext'].'%')
+                                    ->orWhere('tags.name', 'like', '%'.$request['searchtext'].'%');
+                                 })
+                        ->groupBy(
+                            'recruitments.title', 'recruitments.id', 'recruitments.salary', 'recruitments.number_of_view',
+                            'recruitments.expire_date','recruitments.is_hot','recruitments.status_id','recruitments.company_id',
+                            'recruitments.created_at','recruitments.updated_at','recruitments.slug','section_recruitment.content',
+                            'luan_tdvl.companies.name','addresses.address','districts.name', 'cities.name'
+                                        )
+                        ->orderBy('recruitments.id','ASC')
+                        ->paginate($this->per_page_number);
+
+        $total = $recruitments->total();
+        if($request->ajax())
+        {
+            return ['recruitments'=>view('ajax.recruitmentList')->with(compact('recruitments'))->render(),
+                    'next_page'=>$recruitments->nextPageUrl()
+                    ];
+        }
+
+        return view('recruitments.search', compact('recruitments', 'total'));
     }
 
     /**
