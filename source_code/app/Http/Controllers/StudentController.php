@@ -213,7 +213,7 @@ class StudentController extends Controller
 					'name'=>$value,
 					'rating'=>request('rating')[$key],
 				]);
-				$student->skills()->save($exp);
+			$student->skills()->save($exp);
 			}
 		}
 
@@ -234,7 +234,7 @@ class StudentController extends Controller
 				$student = Student::findOrFail($id);
 				$name  = time().$file->getClientOriginalName();
 
-				if(strpos($student->photo, '/images/students/avatar.jpg'))
+				if(!strpos($student->photo, '/images/students/avatar.jpg'))
 				{
 					// unlink(base_path().'/public_html/'.$student->photo);
 					unlink(public_path().$student->photo);

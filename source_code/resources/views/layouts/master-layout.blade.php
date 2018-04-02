@@ -21,9 +21,11 @@
   <!-- Favicons -->
   <link rel="apple-touch-icon" href="{{ asset('/apple-touch-icon.png') }}">
   <link rel="icon" href="{{ asset('assets/img/favicon.ico') }} ">
+  @yield('stylesheet')
 </head>
 {{-- @extends('layouts.masterlayout')
 @section('content') --}}
+
 <body class="nav-on-header smart-nav">
 
  <!-- Navigation bar -->

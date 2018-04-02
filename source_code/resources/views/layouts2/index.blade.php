@@ -61,9 +61,6 @@
 
 <!-- Main container -->
 <main>
-
-
-
   <!-- Recent jobs -->
   @yield('recentjobs')
   <!-- <section></section> -->
@@ -96,8 +93,7 @@
     </div>
   </section>
   <!-- END Facts -->
-
-
+  
   <!-- How it works -->
   <section>
    <div class="container">

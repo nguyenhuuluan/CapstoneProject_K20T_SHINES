@@ -83,7 +83,6 @@
 </main>
 <!-- END Main container -->
 
-
 <!-- Site footer -->
 @include('layouts.footer')
 

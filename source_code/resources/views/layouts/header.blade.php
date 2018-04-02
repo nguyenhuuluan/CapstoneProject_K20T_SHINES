@@ -127,8 +127,10 @@
       <img src={{ asset(Auth::user()->student->photo) }} alt="avatar">
     </a>
     <ul class="dropdown-menu dropdown-menu-right">
-      <li><a href="{{ route('student.profile.update') }}">Tài khoản</a></li>
-      <li><a href="{{ route('student.profile') }}">Hồ sơ</a></li> 
+      <li><a href="{{ route('student.profile.update') }}"><i class="fa fa-user" aria-hidden="true"></i>Tài khoản</a></li>
+      <li><a href="{{ route('student.profile') }}"><i class="fa fa-file" aria-hidden="true"></i>Hồ sơ</a></li>
+      <li><a href="#"><i class="fa fa-save" aria-hidden="true"></i> Việc làm đã lưu</a></li>
+      <li><a href="#"><i class="fa fa-check-circle" aria-hidden="true"></i> Việc làm đã ứng tuyển</a></li> 
       <li>
         <a href="{{ route('logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();">Đăng xuất</a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

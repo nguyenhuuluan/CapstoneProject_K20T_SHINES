@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Recruitment;
 use App\Tag;
+use App\Company;
 use Response;
 use DB;
 class HomeController extends Controller
@@ -28,7 +29,9 @@ class HomeController extends Controller
     public function index()
     {   
         $recruitments = Recruitment::where('status_id', 1)->orderBy('created_at','desc')->take(5)->get();
-        return view('welcome', compact('recruitments'));
+        $companies =Company::where('status_id', 3)->orderBy('created_at','desc')->take(8)->get();
+
+        return view('welcome', compact('recruitments', 'companies'));
     }
     public function listRecruitments(Request $request)
     {   
