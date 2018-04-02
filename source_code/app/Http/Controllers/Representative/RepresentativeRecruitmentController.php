@@ -110,6 +110,7 @@ class RepresentativeRecruitmentController extends Controller
 
             foreach ($sections as $key => $value) {
                 $sections[$key] = Section::find($key);
+                if($value!=null)
                 $recruitment->sections()->save(Section::find($key), ['content'=>$value]);
             }
 

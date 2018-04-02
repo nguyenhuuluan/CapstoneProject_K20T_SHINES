@@ -122,7 +122,7 @@ class RecruitmentController extends Controller
 
         $recruitment = Recruitment::findBySlugOrFail($slug);
         if($recruitment->status_id==1)
-        {
+        {   
             return view('recruitments.detail',compact('recruitment'));
 
         }else{
