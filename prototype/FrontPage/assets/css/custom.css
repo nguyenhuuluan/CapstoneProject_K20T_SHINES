@@ -220,3 +220,13 @@ span.positionwork {
 }
 
 /* End Modal Content Box, link to app.min.css, line 6933*/
+
+/* Menu login responsive */
+@media (max-width:991px) {
+  #menu-desktop {
+    display: none;
+  }
+  #menu-mobile {
+    display: initial;
+  }
+}
