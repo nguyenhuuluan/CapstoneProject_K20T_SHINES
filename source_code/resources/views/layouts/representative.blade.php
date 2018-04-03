@@ -26,7 +26,7 @@
    <!-- Page header -->
    <header class="page-header">
       <div class="container page-name">
-         <h1 class="text-center">Danh sách tin tuyển dụng của bạn</h1>
+         <h1 class="text-center">Thống kê sơ bộ</h1>
       </div>
    </header>
    <!-- END Page header -->

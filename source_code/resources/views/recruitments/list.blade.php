@@ -72,9 +72,7 @@
       </div>
       
       <div class="loading" style="text-align: center;">
-
         <img src="{{ asset('assets/img/bx_loader.gif') }}" style="width: 85px; height: 85px">
-
       </div>
     </div>
 

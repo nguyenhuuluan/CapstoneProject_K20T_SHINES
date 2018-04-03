@@ -3,6 +3,7 @@
 @section('stylesheet')
 
 <link href="{{asset('assets/vendors/summernote/summernote.css')}}" rel="stylesheet">
+<link href="{{asset('assets/css/imageuploadify.min.css')}}" rel="stylesheet">
 
 @endsection
 
@@ -15,8 +16,9 @@
                 {{ csrf_field() }}
                 <center>
                     <div class="form-group">
-                        <input id="logoname" type="file" class="dropify" data-default-file="{{ asset($company->logo) }}" name="logo">
+                        <input id="logoname" type="file" class="dropify" accept="image/x-png,image/gif,image/jpeg" data-default-file="{{ asset($company->logo) }}" name="logo">
                         <span class="help-block">Logo công ty</span>
+                        <small class="text-success update-logo-noti" style="display: none;">Đã cập nhật logo</small>
                     </div>
                 </center>
 
@@ -125,10 +127,15 @@
     <tr>
        <td>Địa chỉ</td>
        <td>
-        <div class="form-group{{ $errors->has('address') ? ' has-error' : 'ERROR' }}">
+
+        <div class="form-group{{ ($errors->has('address') || Session::has('address-invalid'))  ? ' has-error' : 'ERROR' }}">
             <div class="col-sm-6">
                 {!! Form::text('address', count($company->address) == 0 ? "" : $company->address->address, ['class' => 'form-control input-sm', 'required' => 'required', 'placeholder' => '45 Nguyễn Khắc Nhu, Phường Cô Giang']) !!}
                 <small class="text-danger">{{ $errors->first('address') }}</small>
+
+                @if(Session::has('address-invalid'))
+                <small class="text-danger">{!! session('address-invalid') !!}</small>
+                @endif
             </div>
 
             <div class="col-sm-3">
@@ -203,6 +210,15 @@
         
     </td>
 </tr>
+<tr>
+    <td>Hình ảnh</td>
+    <td>
+
+       <input class="images" type="file" accept="image/*" multiple>
+        
+    </td>
+</tr>
+
 </tbody>
 </table>
 
@@ -226,8 +242,11 @@
 <script src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js" type="text/javascript" charset="utf-8"></script>
 
 <script src="{{ asset('assets/vendors/summernote/summernote.min.js') }}"></script>
+<script src="{{ asset('assets/js/imageuploadify.min.js') }}"></script>
 
 <script type="text/javascript">
+
+    $('.images').imageuploadify();
 
     $('#district-name').val($('#lst-district option:selected').text());
     $('#city-name').val($('#lst-cities option:selected').text());
@@ -274,7 +293,7 @@
    }
 
    function updateLogo(){
-    
+
       var id = $('#companyID').val();
       var imagefile = document.getElementById("logoname").files[0];
       var urlImg = '{{ route('company.updateImage') }}';
@@ -294,10 +313,11 @@
         data: data,
         success: function (response) {
            if (response == 200) {
-            alert("Cập nhật logo thành công");
-        }
-    },
-    error: function () {
+
+               $( ".update-logo-noti" ).fadeIn( 300 ).delay( 2000 ).fadeOut( 00 );
+           }
+       },
+       error: function () {
         alert('Đã có lỗi xảy ra');
     }
 });

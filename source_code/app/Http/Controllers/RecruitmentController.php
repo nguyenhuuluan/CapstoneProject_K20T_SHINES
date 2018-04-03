@@ -10,7 +10,11 @@ use App\Section;
 use App\Account;
 use App\Tag;
 use App\Company;
+
 use DB;
+use Auth;
+
+
 class RecruitmentController extends Controller
 {
     /**
@@ -130,6 +134,23 @@ class RecruitmentController extends Controller
 
         }
 
+    }
+
+    public function increaseView($recruitmentID)
+    {
+
+        $recruitment = Recruitment::where('id', $recruitmentID)->first();
+
+        if (Auth::user()->isStudent()) {
+           $recruitment->number_of_view = $recruitment->number_of_view + 1;
+        }else{
+             $recruitment->number_of_anonymous_view = $recruitment->number_of_anonymous_view + 1;
+        }
+        
+        $recruitment->update();
+
+        return response()->json(200);
+       
     }
 
 }

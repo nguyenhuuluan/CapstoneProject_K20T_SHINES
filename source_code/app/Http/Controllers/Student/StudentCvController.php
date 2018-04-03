@@ -114,7 +114,9 @@ class StudentCvController extends Controller
     {
         $cv = CV::findOrFail($id);
         if(Auth::user()->student->id == $cv->student_id){
+
             //unlink(base_path().'/public_html'.'/cvs/'.$cv->file);
+            
             unlink(public_path().'\\cvs\\'.$cv->file);
             $cv->delete();
 

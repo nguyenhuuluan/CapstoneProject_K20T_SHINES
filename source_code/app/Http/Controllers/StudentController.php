@@ -236,7 +236,7 @@ class StudentController extends Controller
 
 				if(!strpos($student->photo, '/images/students/avatar.jpg'))
 				{
-					// unlink(base_path().'/public_html/'.$student->photo);
+					//unlink(base_path().'/public_html/'.$student->photo);
 					unlink(public_path().$student->photo);
 				}
 
