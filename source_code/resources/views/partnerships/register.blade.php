@@ -86,7 +86,7 @@
       <div class="form-group">
         <div class="input-group">
           <span class="input-group-addon"><i class="ti-email"></i></span>
-          <input name="representative_email" type="email" class="form-control" placeholder="Email của bạn">
+          <input name="representative_email" type="text" class="form-control" placeholder="Email của bạn">
           
         </div>
         <small class="text-danger">{{ $errors->first('representative_email') }}</small>
