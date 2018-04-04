@@ -30,11 +30,10 @@ class CompanyRegistrationRequest extends FormRequest
         return [
             'company_name' => 'required',
             'company_website' => 'required',
-            'representative_name' => 'required',
+            'representative_name' => 'required|regex:/^[\pL\s\-]+$/u',
             'representative_position' => 'required',
             'representative_email' => 'required|email',
-            'representative_phone' => 'required|numeric',
-                     
+            'representative_phone' => 'required|numeric|regex:/^[0][0-9]{4,}/'
         ];
     }
 
@@ -43,12 +42,16 @@ class CompanyRegistrationRequest extends FormRequest
         return [
             'company_name.required' => 'Vui lòng nhập tên công ty đầy đủ',
             'company_website.required' => 'Vui lòng nhập website công ty', 
-            'representative_name.required' => 'Vui lòng nhập tên của bạn', 
+            'representative_name.required' => 'Vui lòng nhập tên của bạn',
+            'representative_name.regex' => 'Tên không chứa ký tự đặc biệt', 
             'representative_position.required' => 'Vui lòng nhập tên chức vụ của bạn', 
             'representative_email.required' => 'Vui lòng nhập email của bạn', 
             'representative_email.email' => 'Email không đúng định dạng', 
             'representative_phone.required' => 'Vui lòng nhập số điện thoại của bạn', 
-            'representative_phone.numeric' => 'Số điện thoại chưa đúng định dạng',   
+            'representative_phone.numeric' => 'Số điện thoại chưa đúng định dạng',
+            'representative_phone.regex' => 'Số điện thoại chưa đúng định dạng',
+
+ 
         ];
     }
 }

@@ -68,7 +68,7 @@ class RecruitmentController extends Controller
         ->where(function($q) use ($texts){
             foreach ($texts as $key => $value) {
                 $q->orWhere('recruitments.slug', 'like', '%'.$value.'%');
-                     $q->orWhere('tags.name', 'like', '%'.$value.'%');
+                $q->orWhere('tags.name', 'like', '%'.$value.'%');
             }
         })
         ->groupBy(
@@ -125,34 +125,46 @@ class RecruitmentController extends Controller
     {
         //
     }
-    public function detailrecruitment($slug){
+    public function detailrecruitment($slug, Request $request){
 
-        $recruitment = Recruitment::findBySlugOrFail($slug);
-        if($recruitment->status_id==1)
-        {   
-            return view('recruitments.detail',compact('recruitment'));
+     $currentURL = $request->url();
 
-        }else{
-            abort(404);
+     $recruitment = Recruitment::findBySlugOrFail($slug);
 
-        }
+     if($recruitment->status_id==1)
+     {
+        return view('recruitments.detail',compact('recruitment', 'currentURL'));
+
+    }else{
+        abort(404);
 
     }
 
-    public function increaseView($recruitmentID)
-    {
+}
 
-        $recruitment = Recruitment::where('id', $recruitmentID)->first();
+public function totalRecruitments()
+{
+ $total = Recruitment::where('status_id', 1)->get()->count();
+ return response()->json($total);
+}
 
-        if (Auth::user()->isStudent()) {
-         $recruitment->number_of_view = $recruitment->number_of_view + 1;
-     }else{
+public function increaseView($recruitmentID)
+{
+
+    $recruitment = Recruitment::where('id', $recruitmentID)->first();
+
+    if (Auth::user() == null ) {
        $recruitment->number_of_anonymous_view = $recruitment->number_of_anonymous_view + 1;
-   }
+   }elseif (Auth::user()->isStudent()) {
+       $recruitment->number_of_view = $recruitment->number_of_view + 1;
+   }else{
+     $recruitment->number_of_anonymous_view = $recruitment->number_of_anonymous_view + 1;
+ }
 
-   $recruitment->update();
+ $recruitment->update();
 
-   return response()->json(200);
+ return response()->json(200);
+
 
 }
 

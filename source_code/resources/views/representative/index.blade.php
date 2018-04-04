@@ -13,7 +13,8 @@
 
       <h6>Bạn hiện có:</h6>
       <ul>
-        <li><a href="">{{$recruitcount}} tin tuyển dụng </a>với <a href="">... hồ sơ </a>đã ứng tuyển</li>
+        {{-- <li><a href="">{{$recruitcount}} tin tuyển dụng </a>với <a href="">... hồ sơ </a>đã ứng tuyển</li> --}}
+        <li>{{$recruitcount}} tin tuyển dụng </li>
         <li>{{$totalrepresentative}} tài khoản thành viên</li>
       </ul>
       <br>

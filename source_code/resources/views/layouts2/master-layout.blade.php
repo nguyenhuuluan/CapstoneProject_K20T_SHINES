@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Post a job position or create your online resume by TheJobs!">
-  <meta name="keywords" content="">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
+  
+ <title>{{$title}}</title>
 
-  <title>{{$title}}</title>
+ @yield('meta-data')
+ <meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+ <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+ <meta name="keywords" content="">
+ <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <!-- Styles -->
   <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet">
@@ -20,6 +21,27 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116938224-1"></script>
+
+  <script> 
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','//www.google-analytics.com/analytics.js','ga'); 
+    ga('create', 'UA-116938224-1', 'auto'); 
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures'); 
+    ga('send', 'pageview'); 
+  </script>
+
+
+{{--   <script>
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.12&appId=415131908928137&autoLogAppEvents=1';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script> --}}
 
   <!-- Fonts -->
   <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
@@ -31,32 +53,40 @@
 {{-- @extends('layouts.masterlayout')
 @section('content') --}}
 <body class="nav-on-header smart-nav">
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.12&appId=415131908928137&autoLogAppEvents=1';
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+  <!-- Navigation bar -->
+  @include('layouts2.header')
+  <!-- END Navigation bar -->
 
- <!-- Navigation bar -->
- @include('layouts2.header')
- <!-- END Navigation bar -->
 
-
- <!-- Site header -->
+  <!-- Site header -->
   {{-- @include('layouts2.search-header') --}}
- <!-- END Site header -->
+  <!-- END Site header -->
 
-@if ($isDisplaySearchHeader)
- @include('layouts2.search-header')
-@else
+  @if ($isDisplaySearchHeader)
+  @include('layouts2.search-header')
+  @else
 
-<header class="page-header temp-header"></header>
-@endif
+  <header class="page-header temp-header"></header>
+  @endif
 
-@yield('sub-header')
- <!-- Main container -->
+  @yield('sub-header')
+  <!-- Main container -->
 
- <main>
+  <main>
 
-  <!-- Recent jobs -->
-  @yield('content')
-  <!-- <section></section> -->
-  <!-- END Recent jobs -->
+    <!-- Recent jobs -->
+    @yield('content')
+
+    <!-- <section></section> -->
+    <!-- END Recent jobs -->
  {{--  <section class="bg-img bg-repeat no-overlay section-sm" style="background-image: url({{ asset('assets/img/bg-pattern.png') }} )">
     @include('layouts2.general-value')
   </section>
@@ -93,10 +123,11 @@
 <!-- END Back to top button -->
 
 <!-- Scripts -->
-<script src="{{ asset('assets/js/app.min.js') }} "></script>
-<script src="{{ asset('assets/js/thejobs.js') }} "></script>
-<script src="{{ asset('assets/js/custom.js') }} "></script>
+<script type="text/javascript" src="{{ asset('assets/js/app.min.js') }} "></script>
+<script type="text/javascript" src="{{ asset('assets/js/thejobs.js') }} "></script>
+<script type="text/javascript" src="{{ asset('assets/js/custom.js') }} "></script>
 <script type="text/javascript" src="{{ asset('assets/js/alpha.js') }} "></script>
+
 
 
 

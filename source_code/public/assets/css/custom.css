@@ -1,3 +1,39 @@
+
+
+.truncate span ul{
+
+  list-style-position: inside;
+  overflow: hidden;
+  height: 50px;
+
+}
+
+.truncate span{
+
+  list-style-position: inside;
+  overflow: hidden;
+  height: 50px;
+
+}
+
+.truncate span p{
+
+ white-space: nowrap;
+ overflow: hidden;
+ text-overflow: ellipsis; 
+ line-height: 25px;
+
+}
+
+.truncate span ul li {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  line-height: 25px;
+}
+
+
+
 .demo-btn-margin .btn {
   margin-bottom: 6px;
 }
@@ -79,7 +115,7 @@ span.positionwork {
 }
 
 .fa-money-recruitment:before {
-    content: "\f0d6";
+  content: "\f0d6";
 }
 
 .user-account-text,
@@ -93,37 +129,37 @@ span.positionwork {
 
 /*------------------------------------*\
   Blog index
-\*------------------------------------*/
+  \*------------------------------------*/
 
-.blog {
+  .blog {
     margin: 15px 0px;
-}
+  }
 
-.blog .blog-content {
+  .blog .blog-content {
     padding: 20px 20px 40px;
-}
+  }
 
-.blog .blog-meta {
+  .blog .blog-meta {
     margin-bottom: 20px;
-}
+  }
 
-.blog .blog-meta li {
+  .blog .blog-meta li {
     display: inline-block;
     font-size: 14px;
     color: #10161A;
     margin-right: 10px;
-}
+  }
 
-.blog .blog-meta li i {
+  .blog .blog-meta li i {
     color: #6195FF;
     margin-right: 5px;
-}
+  }
 
 /*------------------------------------*\
   Không cho thao tác trên web 
-\*------------------------------------*/
+  \*------------------------------------*/
 
-.preview{
+  .preview{
     -webkit-touch-callout: none;
     -webkit-user-select: none; 
     -moz-user-select: none;    
@@ -132,20 +168,20 @@ span.positionwork {
     user-select: none;
     opacity: 0.6;
   }
-#watermark {
-  color: #d0d0d0;
-  font-size: 50pt;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  z-index: 1;
-  top: 230px;
-  left: 600px;
-}
+  #watermark {
+    color: #d0d0d0;
+    font-size: 50pt;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    z-index: 1;
+    top: 230px;
+    left: 600px;
+  }
 
-/*application list*/
-.btnview {
+  /*application list*/
+  .btnview {
     display: inline-block;
     padding: 2px 4px;
     margin-bottom: 0;
@@ -165,58 +201,68 @@ span.positionwork {
     background-image: none;
     border: 1px solid transparent;
     border-radius: 4px;
-}
+  }
 
-/*information company*/
-.table-bordered-company
-{
-      border:1px solid #ddd !important;
-}
+  /*information company*/
+  .table-bordered-company
+  {
+    border:1px solid #ddd !important;
+  }
 
-#img-company{
-  border:1px solid #ddd !important;
-}
+  #img-company{
+    border:1px solid #ddd !important;
+  }
 
 
-/* Modal Content Box */
-.modal-content {
+  /* Modal Content Box */
+  .modal-content {
     background-color: #fefefe;
     margin: 5px auto; /* 15% from the top and centered */
     border: 1px solid #888;
     width: 40%; /* Could be more or less, depending on screen size */
     border-radius: 20%;
-}
+  }
 
-@media (max-width:991px) {
-  .modal-content {
-    background-color: #fefefe;
-    margin: 5px auto; /* 15% from the top and centered */
-    border: 1px solid #888;
-    width: 70%; /* Could be more or less, depending on screen size */
-}
+  @media (max-width:991px) {
+    .modal-content {
+      background-color: #fefefe;
+      margin: 5px auto; /* 15% from the top and centered */
+      border: 1px solid #888;
+      width: 70%; /* Could be more or less, depending on screen size */
+    }
 
-@media (max-width:480px) {
-  .modal-content {
-    background-color: #fefefe;
-    margin: 5px auto; /* 15% from the top and centered */
-    border: 1px solid #888;
-    width: 90%; /* Could be more or less, depending on screen size */
-}
+    @media (max-width:480px) {
+      .modal-content {
+        background-color: #fefefe;
+        margin: 5px auto; /* 15% from the top and centered */
+        border: 1px solid #888;
+        width: 90%; /* Could be more or less, depending on screen size */
+      }
 
-/* Add Zoom Animation */
-.animate {
-    -webkit-animation: animatezoom 0.6s;
-    animation: animatezoom 0.6s
-}
+      /* Add Zoom Animation */
+      .animate {
+        -webkit-animation: animatezoom 0.6s;
+        animation: animatezoom 0.6s
+      }
 
-@-webkit-keyframes animatezoom {
-    from {-webkit-transform: scale(0)} 
-    to {-webkit-transform: scale(1)}
-}
+      @-webkit-keyframes animatezoom {
+        from {-webkit-transform: scale(0)} 
+        to {-webkit-transform: scale(1)}
+      }
 
-@keyframes animatezoom {
-    from {transform: scale(0)} 
-    to {transform: scale(1)}
-}
+      @keyframes animatezoom {
+        from {transform: scale(0)} 
+        to {transform: scale(1)}
+      }
 
-/* End Modal Content Box, link to app.min.css, line 6933*/
+      /* End Modal Content Box, link to app.min.css, line 6933*/
+
+      /* Menu login responsive */
+      @media (max-width:991px) {
+        #menu-desktop {
+          display: none;
+        }
+        #menu-mobile {
+          display: initial;
+        }
+      }

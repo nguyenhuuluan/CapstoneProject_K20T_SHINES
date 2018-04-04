@@ -28,8 +28,8 @@
                            <tr>
                               <th>ID</th>
                               <th>Tiêu đề việc làm</th>
-                              <th>Lĩnh Vực</th>
                               <th>Lương</th>
+                              <th>Tags</th>
                               <th>Ngày đăng</th>
                               <th>Ngày hết hạn</th>
                               <th>Lượt xem</th>

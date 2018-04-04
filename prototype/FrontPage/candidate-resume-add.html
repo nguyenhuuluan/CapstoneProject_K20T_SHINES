@@ -33,12 +33,11 @@
 	/* Tooltip text */
 	.tooltipsave .tooltiptext {
 		visibility: hidden;
-		width: 120px;
-		background-color: black;
-		color: #fff;
+		width: 90px;
+		background: transparent;
+		color: black;
 		text-align: center;
 		border-radius: 6px;
-		top: -5px;
 		right: 105%; 
 
 		/* Position the tooltip text - see examples below! */
@@ -123,6 +122,9 @@
                      <li>
                         <a href="candidate-resume-add.html"><i class="fa fa-file" aria-hidden="true"></i> Hồ sơ</a>
                      </li>
+                     <li>
+                        <a href="candidate-resume-add.html"><i class="fa fa-eye" aria-hidden="true"></i> Xem Hồ sơ</a>
+                     </li>
                       <li>
                         <a href="candidate-jobs-saved.html"><i class="fa fa-save" aria-hidden="true"></i> Việc làm đã lưu</a>
                      </li>
@@ -184,7 +186,7 @@
 							<span class="help-block">Xin vui lòng chọn ảnh 4:6</span>
 							<br>
 						</div>
-						<button class="tooltipsave" onclick="topFunction()" id="myBtn"><i class="fa fa-save" aria-hidden="true"></i><span class="tooltiptext">Lưu hồ sơ</span></button>
+						<button class="tooltipsave" onclick="topFunction()" id="myBtn"><i class="fa fa-save" aria-hidden="true"></i><span style="font-weight: bold; font-size: 14px;" class="tooltiptext">Lưu hồ sơ</span></button>
 				</div>
 
 
@@ -575,20 +577,6 @@
 	slider.oninput = function() {
 	  output.innerHTML = this.value;
 	}
-</script>
-
-<!-- Scroll button update -->
-<script>
-// When the user scrolls down 20px from the top of the document, show the button
-window.onscroll = function() {scrollFunction()};
-
-function scrollFunction() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        document.getElementById("myBtn").style.display = "block";
-    } else {
-        document.getElementById("myBtn").style.display = "none";
-    }
-}
 </script>
 
 </body>

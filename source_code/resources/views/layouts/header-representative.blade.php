@@ -20,7 +20,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-right">
                <li>
-                  <a href="mn-account-company.html"><i class="fa fa-user" aria-hidden="true"></i> Tài khoản</a>
+                  <a href="#"><i class="fa fa-user" aria-hidden="true"></i> Tài khoản</a>
                </li>
                <li>
                   <a href="{{ route('company.statistic') }}"><i class="fa fa-tachometer" aria-hidden="true"></i> Bảng điều khiển</a>

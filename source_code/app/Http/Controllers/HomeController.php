@@ -33,6 +33,8 @@ class HomeController extends Controller
 
         return view('welcome', compact('recruitments', 'companies'));
     }
+
+    
     public function listRecruitments(Request $request)
     {   
         $recruitments = DB::table('recruitments')
