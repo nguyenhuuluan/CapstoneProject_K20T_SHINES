@@ -40,10 +40,10 @@ class CompanyController extends Controller
     $recruitments = $comp->recruitments()->where('status_id', 1)->orderBy('created_at','desc')->get();
     
     return view('companies.detail')->with(compact('comp', 'recruitments'));
-}
+  }
 
-public function update()
-{
+  public function update()
+  {
     $id = Auth::user()->representative->company->id;
     $company = Company::findOrFail($id);
 
@@ -54,10 +54,10 @@ public function update()
 
     return view('companies.update')->with(compact('company','cities','districts','tags'));
 
-}
+  }
 
-public function edit($id, CompanyRequest $request)
-{ 
+  public function edit($id, CompanyRequest $request)
+  { 
 
 
     $client = new Client();
@@ -69,32 +69,32 @@ public function edit($id, CompanyRequest $request)
     if ($jsonObj->status != 'OK') {
       $request->session()->flash('address-invalid', '<span> Địa chỉ không tồn tại </span>');
       return redirect()->route("company.update")->withInput();
-  }
+    }
 
 
-  $address = $jsonObj->results[0]->formatted_address;
+    $address = $jsonObj->results[0]->formatted_address;
 
-  $lat = $jsonObj->results[0]->geometry->location->lat;
-  $lng = $jsonObj->results[0]->geometry->location->lng;
-
-
-  $comp = Company::Where('id', $request->id)->first();
-  $comp->name = $request->name;
-  $comp->website = $request->website;
-  $comp->email = $request->email;
-  $comp->phone = $request->phone;
-  $comp->working_day = $request->working_day;
-  $comp->field = $request->field;
-  $comp->business_code = $request->business_code;
-  $comp->introduce = $request->introduce;
-
-  $comp->save();
+    $lat = $jsonObj->results[0]->geometry->location->lat;
+    $lng = $jsonObj->results[0]->geometry->location->lng;
 
 
+    $comp = Company::Where('id', $request->id)->first();
+    $comp->name = $request->name;
+    $comp->website = $request->website;
+    $comp->email = $request->email;
+    $comp->phone = $request->phone;
+    $comp->working_day = $request->working_day;
+    $comp->field = $request->field;
+    $comp->business_code = $request->business_code;
+    $comp->introduce = $request->introduce;
 
-  $compaddress = $comp->address;
+    $comp->save();
 
-  if (count($compaddress) == 0) {
+
+
+    $compaddress = $comp->address;
+
+    if (count($compaddress) == 0) {
 
       $address = Address::create([
         "address" => $request->address,
@@ -102,8 +102,8 @@ public function edit($id, CompanyRequest $request)
         "longtitude" => $lng,
         "district_id" => $request->district,
         "company_id" => $comp->id
-    ]);
-  }else{
+      ]);
+    }else{
       $compaddress->address = $request->address;
       $compaddress->latitude = $lat;
       $compaddress->longtitude = $lng;
@@ -111,46 +111,46 @@ public function edit($id, CompanyRequest $request)
       $compaddress->company_id = $comp->id;
 
       $compaddress->save();
-  }
+    }
 
-  $currenttags = array_map('strtolower', Tag::pluck('name')->toArray());
-  $tags = array_map('strtolower', array_map('trim', explode(",", $request->tags)));
+    $currenttags = array_map('strtolower', Tag::pluck('name')->toArray());
+    $tags = array_map('strtolower', array_map('trim', explode(",", $request->tags)));
 
    // $intersect = array_intersect($tags,$currenttags);
-  $diff = array_diff($tags,$currenttags);
+    $diff = array_diff($tags,$currenttags);
 
-  if (count($diff) != 0) {
+    if (count($diff) != 0) {
      foreach ($diff as $value) {
       $tag = Tag::create([
         "name" => $value
-    ]);
+      ]);
+    }
   }
-}
 
-$collectionTags = collect();
+  $collectionTags = collect();
 // $collectionTags = collect([]);
 
-foreach ($tags as $tag) {
+  foreach ($tags as $tag) {
    $collectionTags->push(Tag::where('name', $tag)->first());
-}
+ }
 
 
-$comp->tags()->sync((Tag::all()->intersect($collectionTags)));
+ $comp->tags()->sync((Tag::all()->intersect($collectionTags)));
 
-if ( !empty(trim($request->facebook)) ) {
+ if ( !empty(trim($request->facebook)) ) {
   if ($request->socialnetworkfbID) {
     $social = CompaniesSocialNetwork::findOrFail($request->socialnetworkfbID);
     $social->url = $request->facebook;
     $social->company_id = $request->id;
 
     $social->save();
-}else{
+  }else{
    $social = CompaniesSocialNetwork::create([
     "name" => "Facebook",
     "url" => $request->facebook,
     "company_id" => $request->id
-]); 
-}
+  ]); 
+ }
 }else{
   $social = CompaniesSocialNetwork::findOrFail($request->socialnetworkfbID);
   $social->delete();
@@ -164,31 +164,40 @@ if (!empty(trim($request->linkedin))) {
     $social->company_id = $request->id;
 
     $social->save();
-}else{
+  }else{
    $social = CompaniesSocialNetwork::create([
     "name" => "LinkedIn",
     "url" => $request->linkedin,
     "company_id" => $request->id
-]); 
-}
+  ]); 
+ }
 
 }else{
   $social = CompaniesSocialNetwork::findOrFail($request->socialnetworkinID);
   $social->delete();
 }
 
-return redirect()->route("company.details",['id' => $comp->id]);
+return redirect()->route("company.details",$comp->slug);
 
 }
 
 
-public function details($id)
+public function details($slug)
 {
-  $company = Company::findOrFail($id);
-  $socials = CompaniesSocialNetwork::where('company_id',$company->id)->get()->sortBy('name');
-  $recruitments = $company->recruitments()->where('status_id', 1)->orderBy('created_at','desc')->get();
 
-  return view('companies.details')->with(compact('company','socials', 'recruitments'));
+
+  //$currentURL = $request->url();
+
+ $company = Company::findBySlugOrFail($slug);
+ if($company->status_id==3)
+ {
+   $socials = CompaniesSocialNetwork::where('company_id',$company->id)->get()->sortBy('name');
+   $recruitments = $company->recruitments()->where('status_id', 1)->orderBy('created_at','desc')->get();
+   return view('companies.details')->with(compact('company','socials', 'recruitments'));
+   //return view('companies.details',compact('company', 'currentURL'));
+
+ }
+ else{abort(404);}
 }
 
 public function updateImages(Request $request)
@@ -200,7 +209,7 @@ public function updateImages(Request $request)
 
    $validator = Validator::make($request->all(), [
      'imagefile' => 'image|mimes:jpeg,png,jpg|max:1024',
- ]);
+   ]);
 
 
    if ($validator->passes()) {
@@ -215,7 +224,7 @@ public function updateImages(Request $request)
 
       $photo = Photo::create([
         "name" => $fileName
-    ]);
+      ]);
 
       array_push($arrayFileNames, $fileName);
 
@@ -223,28 +232,30 @@ public function updateImages(Request $request)
 
       $file->move('images/companies', $fileName);
 
-  }
+    }
 
-  return response()->json($arrayFileNames);
+    return response()->json($arrayFileNames);
 
-}else  {
+  }else  {
    return response()->json(['error'=>$validator->errors()->all()]);
-}
-return response()->json(200);
+ }
+ return response()->json(200);
 }
 
 }
+
+
 
 public function deleteImage(Request $request)
 {
     // unlink(base_path()."/images/companies/public_html/'.$ImageName);
-     unlink(public_path()."/images/companies/".$request->ImageName);
+ unlink(public_path()."/images/companies/".$request->ImageName);
 
-    $photo = Photo::where('name', $request->ImageName);
+ $photo = Photo::where('name', $request->ImageName);
 
-    $photo->delete();
+ $photo->delete();
 
-    return response()->json(200);
+ return response()->json(200);
 }
 
 public function updateLogo(Request $request)
@@ -254,7 +265,7 @@ public function updateLogo(Request $request)
   {
     $validator = Validator::make($request->all(), [
       'imagefile' => 'required|image|mimes:jpeg,png,jpg|max:1024',
-  ]);
+    ]);
 
     if ($validator->passes()) 
     { 
@@ -269,24 +280,24 @@ public function updateLogo(Request $request)
         unlink(public_path().$comp->logo);
 
         //  return "OK";
+      }
+
+      $comp->logo = $name;
+      $comp->update();
+
+      $file->move('images/companies/logos', $name);
+
+      return response()->json(200);
     }
-
-    $comp->logo = $name;
-    $comp->update();
-
-    $file->move('images/companies/logos', $name);
-
-    return response()->json(200);
-}
-else
-{
-  return response()->json(['error'=>$validator->errors()->all()]);
-}
-}
-else
-{
+    else
+    {
+      return response()->json(['error'=>$validator->errors()->all()]);
+    }
+  }
+  else
+  {
    return response()->json(500);
-}
+ }
 }
 
 
@@ -305,7 +316,7 @@ public function createCompany($compRegis)
     "website" => $compRegis["company_website"],
     "logo" => 'default-company-logo.jpg',
     "status_id" => 3
-]);
+  ]);
 
       //tao du lieu address tam thoi
   $address = Address::create(
@@ -315,7 +326,7 @@ public function createCompany($compRegis)
       "longtitude"=> 11111,
       "company_id"=> $comp->id,
       "district_id"=> 1,
-  ]);
+    ]);
 
 
   return $comp;
@@ -366,7 +377,7 @@ public function sendMailToResetPassword($represen, $com, $acc)
   Mail::send('admin.representatives.email-confirm', ['company' => $com, 'representative' => $represen,'account' => $acc],  function ($message) use($represen)
   {
    $message->to($represen['email'])->subject('Chấp thuận doanh  nghiệp / công ty | Reset password');
-});
+ });
 
 }
 
@@ -391,7 +402,7 @@ public function createRepresentative($comp, $compRegis, $acc)
    "position" => $compRegis["representative_position"],
    "account_id" => $acc["id"],
    "company_id" => $comp["id"]
-]);
+ ]);
 
   return $repre;
 }
@@ -411,13 +422,13 @@ public function setActiveCompany($company_id){
 
   if ($comp->status_id != 3) {
    $comp->status_id = 3;
-}else {
+ }else {
    $comp->status_id = 4;
-}
+ }
 
-$comp->save();     
+ $comp->save();     
 
-return $comp;
+ return $comp;
 }
 
 public function createAccountRepresentative($compRegis)
@@ -428,7 +439,7 @@ public function createAccountRepresentative($compRegis)
   'password'=>bcrypt(str_random(40)),
       'status_id'=>5, // set active account
       'remember_token'=>str_random(40)
-  ]);
+    ]);
 
       //set role for account
  $role = Role::findOrFail(3);
@@ -446,7 +457,7 @@ public function getCompanies()
 
    $btn = $comps['status_id'] == 3? '<td><input type="checkbox" id="something" checked data-toggle="toggle" data-onstyle="success" data-size="mini"  value="'.$comps['id'].'"></td>' : '<td><input type="checkbox" id="something" data-toggle="toggle" data-onstyle="success" data-size="mini" value="'.$comps['id'].'"></td>';
    return $btn;
-})->toJson();
+ })->toJson();
 }
 
 

@@ -51,7 +51,7 @@
   <div class="category-grid">
   
     @foreach ($companies as $company)
-     <a href="job-list-1.html">
+     <a href="{{ route('company.details', $company->slug ) }}">
      <img src="{{ asset($company->logo) }}" alt="" style="height: 200px">
      <h6>{!! $company->name !!}</h6>
      <span>{!! $company->address->district->city->name !!}</span>

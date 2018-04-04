@@ -28,7 +28,7 @@
             <center>
                 <p>Liên hệ với VLU Jobs</p>
                 <strong>08 123 4568</strong><br><br>
-                <a href="{{ route('company.details',['id' => $company->id]) }}" target="_blank" class="btn btn-warning">Xem công ty của bạn</a>
+                <a href="{{ route('company.details', $company->slug) }}" target="_blank" class="btn btn-warning">Xem công ty của bạn</a>
             </center>
             <br>
         </div>

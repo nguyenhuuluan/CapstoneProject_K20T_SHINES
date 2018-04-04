@@ -50,8 +50,9 @@ Route::get('search', 'RecruitmentController@search')->name('recruitments.search'
 Route::get('/recruitment/increaseView/{recruitmentID}', 'RecruitmentController@increaseView')->name('recruitment.increaseview');
 
 // Company - WEB
-Route::get('/company/details/{id}', 'CompanyController@details')->name('company.details');
-
+// Route::get('/company/details/{id}', 'CompanyController@details')->name('company.details');
+// Route::get('/company/details/{id}', 'CompanyController@details')->name('company.details');
+Route::get('/companies/{id}', 'CompanyController@details')->name('company.details');
 
 
 
