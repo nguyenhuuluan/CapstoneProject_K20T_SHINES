@@ -48,6 +48,8 @@
          @if ($errors->has('email'))
          <span class="help-block">
           <strong style="color: red">{{ $errors->first('email') }}</strong>
+          <script src="{{ asset('assets/js/app.min.js') }} "></script>
+          <script type="text/javascript" src="{{ asset('assets/js/alpha.js') }} "></script>
           <script type="text/javascript">
             $('#id02').modal('show');
           </script>
@@ -56,6 +58,8 @@
 
         @if(Session::has('comment_message'))  
         <strong style="color: red">{{ session('comment_message') }}</strong>
+        <script src="{{ asset('assets/js/app.min.js') }} "></script>
+        <script type="text/javascript" src="{{ asset('assets/js/alpha.js') }} "></script>
         <script type="text/javascript">
           $('#id02').modal('show');
         </script>
@@ -64,6 +68,8 @@
         @if ($errors->has('password'))
         <span class="help-block">
           <strong style="color: red">{{ $errors->first('password') }}</strong>
+          <script src="{{ asset('assets/js/app.min.js') }} "></script>
+          <script type="text/javascript" src="{{ asset('assets/js/alpha.js') }} "></script>
           <script type="text/javascript">
             $('#id02').modal('show');
           </script>
