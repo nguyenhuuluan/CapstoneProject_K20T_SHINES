@@ -33,7 +33,7 @@ class RecruitmentController extends Controller
     public function store(Request $request)
     {   
         //
-        
+
     }
 
     /**
@@ -51,43 +51,46 @@ class RecruitmentController extends Controller
     public function search(Request $request)
     {       
 
-        // $text = explode(" ", $request['searchtext']);
-        // return $text;
+        $texts = explode(" ", $request['searchtext']);
+        // return $texts;
 
         $recruitments = DB::table('recruitments')
-                        ->join('companies', 'recruitments.company_id', '=', 'companies.id')
-                        ->join('addresses', 'addresses.company_id', '=', 'companies.id')
-                        ->join('districts', 'addresses.district_id', '=', 'districts.id')
-                        ->join('cities', 'districts.city_id', '=', 'cities.id')
-                        ->join('section_recruitment', 'recruitments.id', '=', 'section_recruitment.recruitment_id')
-                        ->join('tag_recruitment', 'recruitments.id', '=', 'tag_recruitment.recruitment_id')
-                        ->join('tags', 'tags.id', '=', 'tag_recruitment.tag_id')
-                        ->select('recruitments.*', 'section_recruitment.content as content','companies.name as company', 'districts.name as district' ,'addresses.address as address', 'cities.name as city')
-                        ->where('section_recruitment.section_id', '=', '1')
-                        ->where('recruitments.status_id', '=', '1')
-                        ->where(function($q) use ($request){
-                                $q->where('recruitments.slug', 'like', '%'.$request['searchtext'].'%')
-                                    ->orWhere('tags.name', 'like', '%'.$request['searchtext'].'%');
-                                 })
-                        ->groupBy(
-                            'recruitments.title', 'recruitments.id', 'recruitments.salary', 'recruitments.number_of_view',
-                            'recruitments.expire_date','recruitments.is_hot','recruitments.status_id','recruitments.company_id',
-                            'recruitments.created_at','recruitments.updated_at','recruitments.slug','section_recruitment.content',
-                            'luan_tdvl.companies.name','addresses.address','districts.name', 'cities.name'
-                                        )
-                        ->orderBy('recruitments.id','ASC')
-                        ->paginate($this->per_page_number);
+        ->leftjoin('companies', 'recruitments.company_id', '=', 'companies.id')
+        ->leftjoin('addresses', 'addresses.company_id', '=', 'companies.id')
+        ->leftjoin('districts', 'addresses.district_id', '=', 'districts.id')
+        ->leftjoin('cities', 'districts.city_id', '=', 'cities.id')
+        ->leftjoin('section_recruitment', 'recruitments.id', '=', 'section_recruitment.recruitment_id')
+        ->leftjoin('tag_recruitment', 'recruitments.id', '=', 'tag_recruitment.recruitment_id')
+        ->leftjoin('tags', 'tags.id', '=', 'tag_recruitment.tag_id')
+        ->select('recruitments.*', 'section_recruitment.content as content','companies.name as company', 'districts.name as district' ,'addresses.address as address', 'cities.name as city')
+        ->where('section_recruitment.section_id', '=', '1')
+        ->where('recruitments.status_id', '=', '1')
+        ->where(function($q) use ($texts){
+            foreach ($texts as $key => $value) {
+                $q->orWhere('recruitments.slug', 'like', '%'.$value.'%');
+                     $q->orWhere('tags.name', 'like', '%'.$value.'%');
+            }
+        })
+        ->groupBy(
+            'recruitments.title','recruitments.number_of_anonymous_view','recruitments.id', 'recruitments.salary', 'recruitments.number_of_view',
+            'recruitments.expire_date','recruitments.is_hot','recruitments.status_id','recruitments.company_id',
+            'recruitments.created_at','recruitments.updated_at','recruitments.slug','section_recruitment.content',
+            'companies.name','addresses.address','districts.name', 'cities.name'
+        )
+        ->orderBy('recruitments.id','ASC')
+        ->paginate($this->per_page_number);
 
         $total = $recruitments->total();
         if($request->ajax())
         {
             return ['recruitments'=>view('ajax.recruitmentList')->with(compact('recruitments'))->render(),
-                    'next_page'=>$recruitments->nextPageUrl()
-                    ];
-        }
-
-        return view('recruitments.search', compact('recruitments', 'total'));
+            'next_page'=>$recruitments->nextPageUrl()
+        ];
     }
+    // $q->where('recruitments.slug', 'like', '%'.$request['searchtext'].'%')
+    // ->orWhere('tags.name', 'like', '%'.$request['searchtext'].'%');
+    return view('recruitments.search', compact('recruitments', 'total'));
+}
 
     /**
      * Show the form for editing the specified resource.
@@ -142,15 +145,15 @@ class RecruitmentController extends Controller
         $recruitment = Recruitment::where('id', $recruitmentID)->first();
 
         if (Auth::user()->isStudent()) {
-           $recruitment->number_of_view = $recruitment->number_of_view + 1;
-        }else{
-             $recruitment->number_of_anonymous_view = $recruitment->number_of_anonymous_view + 1;
-        }
-        
-        $recruitment->update();
+         $recruitment->number_of_view = $recruitment->number_of_view + 1;
+     }else{
+       $recruitment->number_of_anonymous_view = $recruitment->number_of_anonymous_view + 1;
+   }
 
-        return response()->json(200);
-       
-    }
+   $recruitment->update();
+
+   return response()->json(200);
+
+}
 
 }
