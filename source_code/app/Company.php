@@ -26,6 +26,11 @@ class Company extends Model
         return $this->belongsToMany('App\Tag', 'tag_company', 'company_id','tag_id')->withTimestamps();
     }
 
+    public function photos()
+    {
+        return $this->belongsToMany('App\Photo', 'photo_company', 'company_id', 'photo_id')->withTimestamps();
+    }
+
     public function sections()
     {
         return $this->belongsToMany('App\Section', 'section_company', 'company_id','section_id')->withPivot('content')->withTimestamps();

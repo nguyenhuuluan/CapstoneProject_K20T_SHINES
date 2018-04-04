@@ -22,6 +22,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::get('/recruitments', 'HomeController@listRecruitments')->name('lst.recruitment');
+Route::get('/recruitments/total', 'RecruitmentController@totalRecruitments')->name('recruitment.total');
 
 
 //Password reset routes
@@ -150,7 +151,10 @@ Route::middleware(['representative', 'web'])->group(function () {
 	//Company
 	Route::get('/company/update', 'CompanyController@update')->name('company.update');
 	Route::POST('/company/edit/{id}', 'CompanyController@edit')->name('company.edit');
-	Route::POST('/company/updateimage', 'CompanyController@updateImage')->name('company.updateImage');
+	Route::POST('/company/updateLogo', 'CompanyController@updateLogo')->name('company.updateLogo');
+	Route::POST('/company/updateImages', 'CompanyController@updateImages')->name('company.updateImages');
+	Route::POST('/company/deleteImage', 'CompanyController@deleteImage')->name('company.deleteImage');
+	
 });
 
 Route::GET('representative/reset-password/{token}','Representative\RepresentativeController@resetPassword')->name('representative.resetpassword');

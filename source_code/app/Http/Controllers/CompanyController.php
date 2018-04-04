@@ -19,6 +19,7 @@ use App\District;
 use App\Address;
 use App\Tag;
 use App\CompaniesSocialNetwork;
+use App\Photo;
 use File;
 
 use Auth;
@@ -36,8 +37,9 @@ class CompanyController extends Controller
   public function detail($id)
   {
     $comp = Company::where('id', '=', $id)->first();
-
-    return view('companies.detail')->with(compact('comp'));
+    $recruitments = $comp->recruitments()->where('status_id', 1)->orderBy('created_at','desc')->get();
+    
+    return view('companies.detail')->with(compact('comp', 'recruitments'));
 }
 
 public function update()
@@ -118,19 +120,18 @@ public function edit($id, CompanyRequest $request)
   $diff = array_diff($tags,$currenttags);
 
   if (count($diff) != 0) {
-   foreach ($diff as $value) {
+     foreach ($diff as $value) {
       $tag = Tag::create([
         "name" => $value
     ]);
   }
 }
 
-
-
-$collectionTags = collect([]);
+$collectionTags = collect();
+// $collectionTags = collect([]);
 
 foreach ($tags as $tag) {
- $collectionTags->push(Tag::where('name', $tag)->first());
+   $collectionTags->push(Tag::where('name', $tag)->first());
 }
 
 
@@ -144,7 +145,7 @@ if ( !empty(trim($request->facebook)) ) {
 
     $social->save();
 }else{
- $social = CompaniesSocialNetwork::create([
+   $social = CompaniesSocialNetwork::create([
     "name" => "Facebook",
     "url" => $request->facebook,
     "company_id" => $request->id
@@ -164,7 +165,7 @@ if (!empty(trim($request->linkedin))) {
 
     $social->save();
 }else{
- $social = CompaniesSocialNetwork::create([
+   $social = CompaniesSocialNetwork::create([
     "name" => "LinkedIn",
     "url" => $request->linkedin,
     "company_id" => $request->id
@@ -185,31 +186,69 @@ public function details($id)
 {
   $company = Company::findOrFail($id);
   $socials = CompaniesSocialNetwork::where('company_id',$company->id)->get()->sortBy('name');
+  $recruitments = $company->recruitments()->where('status_id', 1)->orderBy('created_at','desc')->get();
 
-  return view('companies.details')->with(compact('company','socials'));
+  return view('companies.details')->with(compact('company','socials', 'recruitments'));
 }
 
-public function updateimage(Request $request)
+public function updateImages(Request $request)
 {
-  // if ($file = $request->file('imagefile')) {
-  //   $name = time().$file->getClientOriginalName();
+
+  if($files = $request->file('Images'))
+  {
 
 
-  //   $comp = Company::Where('id', $request->id)->first();
-
-  //   File::delete($comp->logo);
-
-  //   $comp->logo = $name;
-  //   $comp->update();
-
-  //   $file->move('images/companies/logos', $name);
+   $validator = Validator::make($request->all(), [
+     'imagefile' => 'image|mimes:jpeg,png,jpg|max:1024',
+ ]);
 
 
-  //   return response()->json(200);
-  // }
+   if ($validator->passes()) {
 
-  // return response()->json(500);
+    $comp = Company::Where('id', $request->id)->first();
 
+    $arrayFileNames = array();
+
+    foreach ($files as $file) {
+
+      $fileName = time().'_'.$file->getClientOriginalName();
+
+      $photo = Photo::create([
+        "name" => $fileName
+    ]);
+
+      array_push($arrayFileNames, $fileName);
+
+      $comp->photos()->attach($photo->id);
+
+      $file->move('images/companies', $fileName);
+
+  }
+
+  return response()->json($arrayFileNames);
+
+}else  {
+   return response()->json(['error'=>$validator->errors()->all()]);
+}
+return response()->json(200);
+}
+
+}
+
+public function deleteImage(Request $request)
+{
+    // unlink(base_path()."/images/companies/public_html/'.$ImageName);
+     unlink(public_path()."/images/companies/".$request->ImageName);
+
+    $photo = Photo::where('name', $request->ImageName);
+
+    $photo->delete();
+
+    return response()->json(200);
+}
+
+public function updateLogo(Request $request)
+{
 
   if($file = $request->file('imagefile'))
   {
@@ -219,8 +258,9 @@ public function updateimage(Request $request)
 
     if ($validator->passes()) 
     { 
+
       $comp = Company::Where('id', $request->id)->first();
-      $name  = time().$file->getClientOriginalName();
+      $name  = time().'_'.$file->getClientOriginalName();
 
       if( strpos($comp->logo, 'default-company-logo.jpg') == false )
       {
@@ -244,7 +284,7 @@ else
 }
 else
 {
- return response()->json(500);
+   return response()->json(500);
 }
 }
 
@@ -324,8 +364,8 @@ public function sendMailToResetPassword($represen, $com, $acc)
 
   Mail::send('admin.representatives.email-confirm', ['company' => $com, 'representative' => $represen,'account' => $acc],  function ($message) use($represen)
   {
-     $message->to($represen['email'])->subject('Chấp thuận doanh  nghiệp / công ty | Reset password');
- });
+   $message->to($represen['email'])->subject('Chấp thuận doanh  nghiệp / công ty | Reset password');
+});
 
 }
 
@@ -344,13 +384,13 @@ public function createRepresentative($comp, $compRegis, $acc)
 {
 
   $repre = Representative::create([
-     "name" => $compRegis["representative_name"],        
-     "email" => $compRegis["representative_email"],
-     "phone" => $compRegis["representative_phone"],
-     "position" => $compRegis["representative_position"],
-     "account_id" => $acc["id"],
-     "company_id" => $comp["id"]
- ]);
+   "name" => $compRegis["representative_name"],        
+   "email" => $compRegis["representative_email"],
+   "phone" => $compRegis["representative_phone"],
+   "position" => $compRegis["representative_position"],
+   "account_id" => $acc["id"],
+   "company_id" => $comp["id"]
+]);
 
   return $repre;
 }
@@ -369,31 +409,31 @@ public function setActiveCompany($company_id){
   $comp = Company::Where('id', $company_id)->first();
 
   if ($comp->status_id != 3) {
-     $comp->status_id = 3;
- }else {
-     $comp->status_id = 4;
- }
+   $comp->status_id = 3;
+}else {
+   $comp->status_id = 4;
+}
 
- $comp->save();     
+$comp->save();     
 
- return $comp;
+return $comp;
 }
 
 public function createAccountRepresentative($compRegis)
 {
 
-   $acc = Account::create([
-      'username'=>$compRegis["representative_email"],
-      'password'=>bcrypt(str_random(40)),
+ $acc = Account::create([
+  'username'=>$compRegis["representative_email"],
+  'password'=>bcrypt(str_random(40)),
       'status_id'=>5, // set active account
       'remember_token'=>str_random(40)
   ]);
 
       //set role for account
-   $role = Role::findOrFail(3);
-   $role -> accounts() -> attach($acc["id"]);
+ $role = Role::findOrFail(3);
+ $role -> accounts() -> attach($acc["id"]);
 
-   return $acc;
+ return $acc;
 }
 
 public function getCompanies()
@@ -401,46 +441,46 @@ public function getCompanies()
   $comps = Company::all();
 
   return datatables()->of($comps)->addColumn('action', function ($comps) {
-     $btn;
+   $btn;
 
-     $btn = $comps['status_id'] == 3? '<td><input type="checkbox" id="something" checked data-toggle="toggle" data-onstyle="success" data-size="mini"  value="'.$comps['id'].'"></td>' : '<td><input type="checkbox" id="something" data-toggle="toggle" data-onstyle="success" data-size="mini" value="'.$comps['id'].'"></td>';
-     return $btn;
- })->toJson();
+   $btn = $comps['status_id'] == 3? '<td><input type="checkbox" id="something" checked data-toggle="toggle" data-onstyle="success" data-size="mini"  value="'.$comps['id'].'"></td>' : '<td><input type="checkbox" id="something" data-toggle="toggle" data-onstyle="success" data-size="mini" value="'.$comps['id'].'"></td>';
+   return $btn;
+})->toJson();
 }
 
 
 public function store(Request $request)
 {
-   $input = $request->all();
+ $input = $request->all();
 
  // Validation
-   $this->validate($request, [
-      'name'=>'required',
-      'email'=>'required|email',
-      'website'=>'required',
-      'phone'=>'required'
-  ]);
+ $this->validate($request, [
+  'name'=>'required',
+  'email'=>'required|email',
+  'website'=>'required',
+  'phone'=>'required'
+]);
 
-   $input['status_id'] = 7;
+ $input['status_id'] = 7;
 
-   Company::create($input);
+ Company::create($input);
 
-   $request->session()->flash('resigter-success', '<strong>Đăng ký thành công</strong>, chúng tôi sẽ liên lạc với bạn sớm để xác nhận, cảm ơn.');
+ $request->session()->flash('resigter-success', '<strong>Đăng ký thành công</strong>, chúng tôi sẽ liên lạc với bạn sớm để xác nhận, cảm ơn.');
 
-   return redirect()->route("home");
+ return redirect()->route("home");
 
 }
 
 public function statistic()
 {
-    $currentcompID = Auth::user()->representative->company->id;
-    $recruitcount = Recruitment::where('company_id', $currentcompID)->count();
+  $currentcompID = Auth::user()->representative->company->id;
+  $recruitcount = Recruitment::where('company_id', $currentcompID)->count();
 
-    $studentview = Recruitment::where('company_id', $currentcompID)->pluck('number_of_view')->sum();
+  $studentview = Recruitment::where('company_id', $currentcompID)->pluck('number_of_view')->sum();
 
-    $anonymousview = Recruitment::where('company_id', $currentcompID)->pluck('number_of_anonymous_view')->sum();
+  $anonymousview = Recruitment::where('company_id', $currentcompID)->pluck('number_of_anonymous_view')->sum();
 
-    return view ('representative.index',compact('$recruitcount', '$studentview', '$anonymousview'));
+  return view ('representative.index',compact('$recruitcount', '$studentview', '$anonymousview'));
 
 }
 

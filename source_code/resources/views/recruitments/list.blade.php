@@ -1,4 +1,4 @@
-@extends('layouts.master-layout',['title' => 'Cập nhật thông tin công ty', 'isDisplaySearchHeader' => false])
+@extends('layouts.master-layout',['title' => 'Danh sách tin tuyển dụng', 'isDisplaySearchHeader' => false])
 
 @section('page-header')
 <header class="page-header bg-img" style="background-image: url({{ asset('assets/img/bg-banner1.jpg') }} );">
@@ -83,11 +83,9 @@
       </div>
       
       <div class="loading" style="text-align: center;">
-<<<<<<< HEAD
-        <img src="{{ asset('assets/img/loading.gif') }}" style="width: 85px; height: 85px">
-=======
+
         <img src="{{ asset('assets/img/bx_loader.gif') }}" style="width: 85px; height: 85px">
->>>>>>> Luan-UpdateStudentProfile
+
       </div>
     </div>
 

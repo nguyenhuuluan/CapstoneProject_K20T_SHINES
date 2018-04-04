@@ -29,7 +29,7 @@ class RecruitmentController extends Controller
     public function store(Request $request)
     {   
         //
-        
+
     }
 
     /**
@@ -76,35 +76,47 @@ class RecruitmentController extends Controller
     {
         //
     }
-    public function detailrecruitment($slug){
+    public function detailrecruitment($slug, Request $request){
 
-        $recruitment = Recruitment::findBySlugOrFail($slug);
-        if($recruitment->status_id==1)
-        {
-            return view('recruitments.detail',compact('recruitment'));
+       $currentURL = $request->url();
 
-        }else{
-            abort(404);
+       $recruitment = Recruitment::findBySlugOrFail($slug);
 
-        }
+       if($recruitment->status_id==1)
+       {
+        return view('recruitments.detail',compact('recruitment', 'currentURL'));
+
+    }else{
+        abort(404);
 
     }
 
-    public function increaseView($recruitmentID)
-    {
+}
 
-        $recruitment = Recruitment::where('id', $recruitmentID)->first();
+public function totalRecruitments()
+{
+ $total = Recruitment::where('status_id', 1)->get()->count();
 
-        if (Auth::user()->isStudent()) {
-           $recruitment->number_of_view = $recruitment->number_of_view + 1;
-        }else{
-             $recruitment->number_of_anonymous_view = $recruitment->number_of_anonymous_view + 1;
-        }
-        
-        $recruitment->update();
+ return response()->json($total);
+}
 
-        return response()->json(200);
-       
-    }
+public function increaseView($recruitmentID)
+{
+
+    $recruitment = Recruitment::where('id', $recruitmentID)->first();
+
+    if (Auth::user() == null ) {
+     $recruitment->number_of_anonymous_view = $recruitment->number_of_anonymous_view + 1;
+ }elseif (Auth::user()->isStudent()) {
+     $recruitment->number_of_view = $recruitment->number_of_view + 1;
+ }else{
+   $recruitment->number_of_anonymous_view = $recruitment->number_of_anonymous_view + 1;
+}
+
+$recruitment->update();
+
+return response()->json(200);
+
+}
 
 }

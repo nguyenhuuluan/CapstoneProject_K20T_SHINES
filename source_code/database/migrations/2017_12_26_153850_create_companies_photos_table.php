@@ -19,7 +19,7 @@ class CreateCompaniesPhotosTable extends Migration
             $table->timestamps();
 
             $table->primary(['company_id','photo_id']);
-            $table->foreign('company_id')->references('id')->on('blogs')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
             $table->foreign('photo_id')->references('id')->on('photos')->onDelete('cascade');
         });
     }

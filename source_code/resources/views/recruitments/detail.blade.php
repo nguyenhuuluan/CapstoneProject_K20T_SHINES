@@ -1,4 +1,22 @@
-@extends('layouts.master-layout', ['title' => 'Jobee-Tin tuyển dụng','isDisplaySearchHeader' => false])
+@extends('layouts.master-layout', ['title' => $recruitment->title,'isDisplaySearchHeader' => false])
+
+@section('meta-data')
+<meta property="og:title"         content="{{$recruitment->title}}" />
+<meta property="og:type"          content="website" />
+<meta property="og:image"         content="{{ asset($recruitment->company->logo) }}" />
+<meta property="og:url"           content="{{$currentURL}}" />
+{{-- <meta property="og:description" content="aaaaaaaaaaaaaaa"> --}}
+
+<meta property="og:description"   content="@foreach ($recruitment->sections as $section)
+@if($section->title =='Job Description')
+@else
+{!! trim(strip_tags($section->pivot->content))  !!}
+@break
+
+@endif
+@endforeach" />
+
+@endsection
 
 @section('page-header')
 
@@ -32,12 +50,21 @@
 
 			<div class="button-group">
 				<ul class="social-icons">
-					<li class="title">Chia sẻ</li>
-					<li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-					<li><a class="google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
-					<li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-					<li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+					<li class="title">Chia sẻ</li>					
+
+					{{-- <li class="fb-share-button facebook" data-href="{{$currentURL}}" data-layout="button" data-size="large" data-mobile-iframe="true"><a target="_blank" href={{$currentURL.'&src=sdkpreparse'}} class="fb-xfbml-parse-ignore"><i class="fa fa-facebook"></i></a></li> --}}
+
+
+
 				</ul>
+
+				<div class="fb-share-button" data-href="{{$currentURL}}" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a target="_blank" href={{$currentURL.'&src=sdkpreparse'}} class="fb-xfbml-parse-ignore">Share</a>
+				</div>
+
+				{{-- <iframe src={{'https://www.facebook.com/plugins/share_button.php?href='.$currentURL.'&layout=button_count&size=small&mobile_iframe=true&appId=415131908928137&width=69&height=20'}} width="69" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+ --}}
+
+
 
 				<div class="action-buttons">
 					<a class="btn btn-success-detail" href="job-apply.html">Ứng tuyển ngay</a>
@@ -125,12 +152,16 @@
 @endsection
 
 @section('scripts')
+
+
 <script type="text/javascript">
+
+
 
 	increaseView();
 
 	function increaseView() {		
-		 var urlIncreaseView = "{{ route('recruitment.increaseview', ['recruitmentID'=>$recruitment->id]) }}";
+		var urlIncreaseView = "{{ route('recruitment.increaseview', ['recruitmentID'=>$recruitment->id]) }}";
 		$.ajax({
 			url: urlIncreaseView,
 			type: 'GET',

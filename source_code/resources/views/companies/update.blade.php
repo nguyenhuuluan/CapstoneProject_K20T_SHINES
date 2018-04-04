@@ -12,7 +12,7 @@
 <section>
     <div class="container">
         <div class="col-md-3 col-sm-12 col-xs-12">
-            <form enctype="multipart/form-data" id="upload-logo-form" role="form" method="POST" action="{{ route('company.updateImage') }}" >
+            <form enctype="multipart/form-data" id="upload-logo-form" role="form" method="POST" action="{{ route('company.updateLogo') }}" >
                 {{ csrf_field() }}
                 <center>
                     <div class="form-group">
@@ -75,7 +75,7 @@
                     <td>
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : 'ERROR' }}">
                             <div class="col-sm-9">
-                                {!! Form::email('email', $company->email, ['class' => 'form-control', 'required' => 'required']) !!}
+                                {!! Form::text('email', $company->email, ['class' => 'form-control']) !!}
                                 <small class="text-danger">{{ $errors->first('email') }}</small>
                             </div>
                         </div>
@@ -170,7 +170,7 @@
  <td>
     <div class="form-group{{ $errors->has('working_day') ? ' has-error' : 'ERROR' }}">
         <div class="col-sm-9">
-            {!! Form::text('working_day', $company->working_day, ['class' => 'form-control input-sm', 'required' => 'required']) !!}
+            {!! Form::text('working_day', $company->working_day, ['class' => 'form-control input-sm']) !!}
             <small class="text-danger">{{ $errors->first('working_day') }}</small>
         </div>
     </div>
@@ -182,7 +182,7 @@
     <td>
         <div class="form-group{{ $errors->has('field') ? ' has-error' : 'ERROR' }}">
             <div class="col-sm-9">
-                {!! Form::text('field', $company->field, ['class' => 'form-control input-sm', 'required' => 'required']) !!}
+                {!! Form::text('field', $company->field, ['class' => 'form-control input-sm']) !!}
                 <small class="text-danger">{{ $errors->first('field') }}</small>
             </div>
         </div>
@@ -214,8 +214,20 @@
     <td>Hình ảnh</td>
     <td>
 
-       <input class="images" type="file" accept="image/*" multiple>
-        
+        <form id="FormUpLoadImages" method="post" enctype="multipart/form-data"  action="{{ route('company.updateImages') }}" >
+            {{ csrf_field() }}
+            <label><b>Chọn 1 hoặc nhiều hình ảnh: </b></label>
+            <input class="btn btn-default" type="file" title="search" multiple="" accept="image/x-png,image/gif,image/jpeg" id="InputImages" name="Images" />
+        </form>
+
+        <div id="UploadImages" class="" style="margin-top: 10px;">
+            <ul class="list-group col-sm-6">
+                @foreach ($company->photos()->pluck('name')->toArray() as $photoname)
+                    <li class="list-group-item" style="margin-bottom:4px;"><img src="{{ asset('images/companies/'.$photoname) }}" width="150px" height="150px"/> <span><button type="button" class = "btn btn-danger";" href="#" id="DeleteImage" data-imagename="{{$photoname}}">Xóa</button></span></li>
+                @endforeach
+            </ul>
+        </div>
+
     </td>
 </tr>
 
@@ -268,6 +280,101 @@
     });
 
 
+    $('#InputImages').on("change", function () {
+        AutoUpLoadImages();
+    });
+
+    $('#UploadImages').on('click', '#DeleteImage', function () {
+
+       // var ImageID = $(this).attr("data-imageid");
+       var ImageName = $(this).attr("data-imagename");
+
+       DeleteImage(ImageName);
+
+       $(this).closest('li').remove();
+       $("input[value='" + ImageName + "']").remove();
+   });
+
+    function AutoUpLoadImages(e) {
+
+        var data = new FormData();
+        var totalImages = document.getElementById("InputImages").files.length;
+        var route = '{{ route('company.updateImages') }}';
+        var companyID = $('#companyID').val();
+
+        data.append('id',companyID);
+
+        for (var i = 0; i < totalImages; i++) {
+            var Image = document.getElementById("InputImages").files[i];
+            data.append("Images[]", Image);
+        }
+
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'POST',
+            url: route,
+            contentType: false,
+            processData: false,
+            cache:false,
+            data: data,
+            success: function (ImageNames) {
+               PreviewImages(ImageNames);
+             // RenderInputHiddenImageName(ImageNames);                
+         },
+         error: function () {
+            alert('error');
+        }
+    });
+
+        // e.preventDefault();
+
+        // $('#FormUpLoadImages').submit();
+    }
+
+    function PreviewImages(ImageNames) {
+        var html = '';
+        var $domainURL = '{{ asset('') }}';
+
+        for (var i = 0; i < ImageNames.length; i++) {
+
+            var imgURL = $domainURL + 'images/companies/' + ImageNames[i];
+            
+
+            html += '<li class="list-group-item" style="margin-bottom:4px;"><img src="'+ imgURL + '" width="150px" height="150px"/> <span><button type="button" class = "btn btn-danger";" href="#" id="DeleteImage" data-imagename="' + ImageNames[i] + '">Xóa</button></span></li>';
+        }
+        $('#UploadImages ul').append(html);
+    }
+
+    function DeleteImage(ImageName) {
+
+        var route = '{{ route('company.deleteImage') }}';
+
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'POST',
+            url: route,
+            data: {ImageName: ImageName },
+            success: function () {
+
+            },
+            error: function () {
+                alert('error');
+            }
+        });
+
+    }
+
+    // function RenderInputHiddenImageName(ImageNames) {
+    //     var html = '';
+    //     for (var i = 0; i < ImageNames.length; i++) {
+    //         html += '<input type="hidden" name="ImageNames" value="' + ImageNames[i] + '"></input>'
+    //     }
+    //     $('#form-create-product').append(html);
+    // }
 
 
 
@@ -296,7 +403,7 @@
 
       var id = $('#companyID').val();
       var imagefile = document.getElementById("logoname").files[0];
-      var urlImg = '{{ route('company.updateImage') }}';
+      var urlImg = '{{ route('company.updateLogo') }}';
       var data = new FormData();
       data.append("id", id);
       data.append("imagefile", imagefile);
