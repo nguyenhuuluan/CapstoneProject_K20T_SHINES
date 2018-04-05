@@ -51,7 +51,7 @@ class RecruitmentController extends Controller
     public function search(Request $request)
     {       
 
-        $texts = explode(" ", $request['searchtext']);
+        $texts = explode(",", $request['searchtext']);
         // return $texts;
 
         $recruitments = DB::table('recruitments')
@@ -64,6 +64,7 @@ class RecruitmentController extends Controller
         ->leftjoin('tags', 'tags.id', '=', 'tag_recruitment.tag_id')
         ->select('recruitments.*', 'section_recruitment.content as content','companies.name as company', 'districts.name as district' ,'addresses.address as address', 'cities.name as city')
         ->where('section_recruitment.section_id', '=', '1')
+        ->where('companies.status_id', '=', '3')
         ->where('recruitments.status_id', '=', '1')
         ->where(function($q) use ($texts){
             foreach ($texts as $key => $value) {
@@ -127,12 +128,12 @@ class RecruitmentController extends Controller
     }
     public function detailrecruitment($slug, Request $request){
 
-     $currentURL = $request->url();
+       $currentURL = $request->url();
 
-     $recruitment = Recruitment::findBySlugOrFail($slug);
+       $recruitment = Recruitment::findBySlugOrFail($slug);
 
-     if($recruitment->status_id==1)
-     {
+       if($recruitment->status_id==1)
+       {
         return view('recruitments.detail',compact('recruitment', 'currentURL'));
 
     }else{
@@ -144,8 +145,11 @@ class RecruitmentController extends Controller
 
 public function totalRecruitments()
 {
- $total = Recruitment::where('status_id', 1)->get()->count();
- return response()->json($total);
+   $total = Recruitment::join('companies','recruitments.company_id', '=', 'companies.id')
+                         ->where('recruitments.status_id', 1)
+                         ->where('companies.status_id', 3)
+                         ->get()->count();
+   return response()->json($total);
 }
 
 public function increaseView($recruitmentID)
@@ -154,16 +158,16 @@ public function increaseView($recruitmentID)
     $recruitment = Recruitment::where('id', $recruitmentID)->first();
 
     if (Auth::user() == null ) {
-       $recruitment->number_of_anonymous_view = $recruitment->number_of_anonymous_view + 1;
-   }elseif (Auth::user()->isStudent()) {
-       $recruitment->number_of_view = $recruitment->number_of_view + 1;
-   }else{
      $recruitment->number_of_anonymous_view = $recruitment->number_of_anonymous_view + 1;
- }
+ }elseif (Auth::user()->isStudent()) {
+     $recruitment->number_of_view = $recruitment->number_of_view + 1;
+ }else{
+   $recruitment->number_of_anonymous_view = $recruitment->number_of_anonymous_view + 1;
+}
 
- $recruitment->update();
+$recruitment->update();
 
- return response()->json(200);
+return response()->json(200);
 
 
 }

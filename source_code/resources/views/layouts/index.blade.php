@@ -1,5 +1,7 @@
 @extends('layouts.master-layout',['title' => 'Jobee - Trang chủ', 'isDisplaySearchHeader' => true])
-
+@section('stylesheet')
+<link href="{{ asset('assets/css/bootstrap-tagsinput.css') }}" rel="stylesheet">
+@endsection
 
 @section('content')
 <main>

@@ -10,7 +10,7 @@ use Response;
 use DB;
 class HomeController extends Controller
 {   
-    protected $per_page_number = 1;
+    protected $per_page_number = 5;
     /**
      * Create a new controller instance.
      *
@@ -28,7 +28,20 @@ class HomeController extends Controller
      */
     public function index()
     {   
-        $recruitments = Recruitment::where('status_id', 1)->orderBy('created_at','desc')->take(5)->get();
+       $recruitments = Recruitment::join('companies','recruitments.company_id', '=', 'companies.id')
+                                    ->where('recruitments.status_id', 1)
+                                    ->where('companies.status_id', '=', '3')
+                                    ->select('recruitments.*')
+                                    ->orderBy('recruitments.created_at','desc')
+                                    ->take(5)->get();
+
+        // $recruitments = DB::table('recruitments')
+        //                 ->join('companies','recruitments.company_id', '=', 'companies.id')
+        //                 ->select('recruitments.*', 'companies.logo')
+        //                 ->where('companies.status_id', '=', '3')
+        //                 ->where('recruitments.status_id', '=', '1')
+        //                 ->orderBy('created_at','desc')->take(5)->get();
+
         $companies =Company::where('status_id', 3)->orderBy('created_at','desc')->take(8)->get();
 
         return view('welcome', compact('recruitments', 'companies'));
@@ -45,6 +58,7 @@ class HomeController extends Controller
                         ->join('section_recruitment', 'recruitments.id', '=', 'section_recruitment.recruitment_id')
                         ->select('recruitments.*', 'section_recruitment.content as content','companies.name as company', 'districts.name as district' ,'addresses.address as address', 'cities.name as city')
                         ->where('section_recruitment.section_id', '=', '1')
+                        ->where('companies.status_id', '=', '3')
                         ->where('recruitments.status_id', '=', '1')
                         ->orderBy('recruitments.id','ASC')
                         ->paginate($this->per_page_number);

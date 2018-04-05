@@ -1,5 +1,7 @@
 @extends('layouts.master-layout',['title' => 'Tìm kiếm tin tuyển dụng', 'isDisplaySearchHeader' => true])
-
+@section('stylesheet')
+<link href="{{ asset('assets/css/bootstrap-tagsinput.css') }}" rel="stylesheet">
+@endsection
 @section('page-header')
 <header class="page-header bg-img" style="background-image: url({{ asset('assets/img/bg-banner1.jpg') }} );">
   <div class="container page-name" style="padding-bottom: 100px">
