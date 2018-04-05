@@ -1,5 +1,4 @@
 
-
 @extends('layouts.admin')
 
 @section('body')
@@ -58,36 +57,35 @@
                                                 @endif
                                             </td>
                                             <td>
-
-                                                <a class="btn btnreview btn-success" href="{{ route('company.details', ['id'=> $comp->id]) }}">Xem</a>
                                                 
+                                                <a class="btn btnreview btn-success" href="{{ route('company.details', ['id'=> $comp->id]) }}">Xem</a>
 
-                                             {{--   <button type="button" class="btnreview btn-success">Xem</button> --}}
+                                              {{--   <button type="button" class="btnreview btn-success">Xem</button> --}}
 
-                                         </td>
+                                            </td>
 
-                                     </tr>
-                                     @endforeach
+                                        </tr>
+                                        @endforeach
 
 
 
-                                 </tbody>
+                                    </tbody>
 
-                             </table>
-                         </div>
-                         <!-- /.table-responsive -->
-                     </div>
-                     <!-- /.panel-body -->
-                 </div>
-                 <!-- /.panel -->
-             </div>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
 
-         </div>
-         <!-- /.col-lg-12 -->
-     </div>
-     <!-- /.row -->
- </div>
- <!-- /.container-fluid -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
 </div>
 
 
@@ -95,22 +93,7 @@
 @endsection
 
 @section('scripts')
-
-
 <script type="text/javascript">
-
-
-
-    // $('.table-responsive').on('click', '.btn-approve1', function(event) {
-    //     event.preventDefault();
-    //     $.alert({
-    //         title: 'Alert!',
-    //         content: 'Simple alert!',
-    //     });
-    // });
-
-
-
     $('.switch').bootstrapSwitch({
         size: 'mini',
         onText: 'Bật',
@@ -118,11 +101,8 @@
         onColor: 'success',
         offColor: 'danger'     
     });
-
-    $('.table-responsive').on('click', '.btn-approve').click(function() {
-
+    $('.btn-approve').click(function() {
        var currentelement = $(this);
-
        $.confirm({
         title: 'Thông báo!!',
         content: 'Bạn có muốn xác nhận công ty này?',
@@ -131,7 +111,7 @@
                 keys: ['enter'],
                 btnClass: 'btn-green',
                 action: function(){
-
+                    
                     approveCompany(currentelement);
                 }
             },
@@ -139,21 +119,12 @@
                 keys: ['esc'],
                 btnClass: 'btn-red'              
             }
-
         }
-
-
     });
-
    });
-
-
-    $('.table-responsive').on('switchChange.bootstrapSwitch', '.status-switch',  function (e, data) {
-        event.preventDefault();
+    $('.status-switch').on('switchChange.bootstrapSwitch', function (e, data) {
         var element = $(this);
-
         element.bootstrapSwitch('state', !data, true);
-
         $.confirm({
             title: 'Thông báo!!',
             content: 'Bạn có muốn thay đổi trạng thái của công ty này?',
@@ -169,42 +140,10 @@
                 Không: {
                     keys: ['esc'],
                     btnClass: 'btn-red'
-
                 }
-
             }
         });
     });
-
-    // $('.status-switch').on('switchChange.bootstrapSwitch', function (e, data) {
-    //     var element = $(this);
-
-    //     element.bootstrapSwitch('state', !data, true);
-
-    //     $.confirm({
-    //         title: 'Thông báo!!',
-    //         content: 'Bạn có muốn thay đổi trạng thái của công ty này?',
-    //         buttons: {
-    //             Có: {
-    //                 keys: ['enter'],
-    //                 btnClass: 'btn-green',
-    //                 action: function(){
-    //                     activeCompany(element.val());
-    //                     element.bootstrapSwitch('toggleState', true, true);
-    //                 }
-    //             },
-    //             Không: {
-    //                 keys: ['esc'],
-    //                 btnClass: 'btn-red'
-
-    //             }
-
-    //         }
-    //     });
-        
-    // });
-
-
     function alertError(){
        $.alert({
         title: 'Thông báo!',
@@ -212,18 +151,14 @@
     });
    }
     // getCompanies();
-
     function activeCompany(id){
         $('.modal-ajax-loading').fadeIn("200");
-
         $.ajax({
             url: 'company/active/' + id,
             type: 'GET',
             dataType: 'json',
-
             success: function(){
              $('.modal-ajax-loading').fadeOut("200");
-
          },
          error: function(){
              $('.modal-ajax-loading').fadeOut("200");
@@ -231,7 +166,5 @@
          }            
      });
     }
-
 </script>
 @endsection
-
