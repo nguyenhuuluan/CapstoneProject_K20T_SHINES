@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Cv;
 use Auth;
-
+use Response;
 
 class StudentCvController extends Controller
 {
@@ -81,6 +81,27 @@ class StudentCvController extends Controller
         // return response($cvs);
     }
 
+    public function download($name)
+    {   
+        //return $name;
+        $cv = CV::where('file',$name)->first();
+
+        return response()->file(public_path().'\\cvs\\'.$cv->file, [
+          'Content-Disposition' => 'inline; filename="'. $cv->name .'"'
+      ]);
+
+         // return response()->make(
+         //        public_path().'\\cvs\\'.$cv->file,
+         //        $cv->name,
+         //        [],
+         //        'inline'
+         //    );
+
+        // $pathToFile = public_path().'\\cvs\\'.$cv->file;
+        // return response()->file($pathToFile,$cv->name);
+
+    }
+
     /**
      * Show the form for editin gthe specified resource.
      *
@@ -116,7 +137,7 @@ class StudentCvController extends Controller
         if(Auth::user()->student->id == $cv->student_id){
 
             //unlink(base_path().'/public_html'.'/cvs/'.$cv->file);
-            
+
             unlink(public_path().'\\cvs\\'.$cv->file);
             $cv->delete();
 

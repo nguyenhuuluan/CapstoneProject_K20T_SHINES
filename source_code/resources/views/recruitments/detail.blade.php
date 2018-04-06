@@ -1,20 +1,13 @@
 @extends('layouts.master-layout', ['title' => $recruitment->title,'isDisplaySearchHeader' => false])
 
 @section('meta-data')
-<meta property="og:title"         content="{{$recruitment->title}}" />
-<meta property="og:type"          content="website" />
-<meta property="og:image"         content="{{ asset($recruitment->company->logo) }}" />
-<meta property="og:url"           content="{{$currentURL}}" />
-{{-- <meta property="og:description" content="aaaaaaaaaaaaaaa"> --}}
 
-<meta property="og:description"   content="@foreach ($recruitment->sections as $section)
-@if($section->title =='Job Description')
-@else
-{!! trim(strip_tags($section->pivot->content))  !!}
-@break
-
-@endif
-@endforeach" />
+<meta property="og:title" content="{!!$recruitment->title!!}" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="{!!$currentURL!!}" />
+<meta property="og:image" content="{!! asset($recruitment->company->logo) !!}" />
+<meta property="og:description" content="{{  substr($recruitment->sections[0]->content, 0, 150) }}" />
+<meta property="og:site_name" content="tyendungvanlang.tech" />
 
 @endsection
 

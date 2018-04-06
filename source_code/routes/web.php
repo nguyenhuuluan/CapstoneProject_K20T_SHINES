@@ -72,7 +72,7 @@ Route::POST('student/profile/update/cv/{id}', 'Student\StudentCvController@store
 Route::POST('student/profile/update/photo/{id}', 'StudentController@editPhoto')->name('student.photo.store')->middleware('student');
 
 Route::GET('student/profile/update/cv', 'Student\StudentCvController@show')->name('student.cv.show')->middleware('student');
-
+Route::GET('student/cvs/download/{name}','Student\StudentCvController@download')->name('student.cv.download');
 Route::GET('student/cv/{id}', 'Student\StudentCvController@destroy')->name('student.cv.destroy')->middleware('student');
 
 // Route::post('ajaxImageUpload', ['as'=>'ajaxImageUpload','uses'=>'Student\StudentCvController@store']);
