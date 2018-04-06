@@ -450,12 +450,12 @@
 label {
   font-weight:400;
   font-size:14px;
-  color:#818a91;
+  color:#161617;
 }
 
 .form-control {
   background-color:#fcfcfc;
-  color:#818a91;
+  color:#161617;
   border-radius:0;
   border-color:#dfe5e7;
   font-size:15px;
@@ -481,7 +481,7 @@ label {
 }
 
 .help-block {
-  color:#b7bdc1;
+  color:#161617;
   font-size:13px;
   line-height:18px;
 }
@@ -498,7 +498,7 @@ label {
 }
 
 .input-group-addon {
-  color:#9ca3a9;
+  color:#161617;
   border-color:#dfe5e7;
   background-color:#eceeef;
   min-width:40px;
@@ -969,7 +969,7 @@ form .text-muted {
 
 .pager li>a,
 .pager li>span {
-  color:#7e8890;
+  color:#161617;
   border:0;
   padding:6px 20px;
   border-radius:5px;
@@ -1477,7 +1477,7 @@ dl.icon-holder dd {
 
 .category-grid-company h6 {
   position:relative;
-  color:#55595c;
+  color:#161617;
   font-size:21px;
   font-weight: bold;
   margin-top: 20px;
@@ -1703,7 +1703,7 @@ dl.icon-holder dd {
   font-weight:400;
   line-height:20px;
   background-color:#29aafe;
-  color:#aeaeae;
+  color:#ffffff;
 }
 
 .bootstrap-tagsinput .tag [data-role="remove"] {
@@ -3822,7 +3822,7 @@ section.no-overlay::before {
 .login-block h1,
 .login-block h6 {
   font-family:"Open Sans",sans-serif;
-  color:#96a2b2;
+  color:#161617;
   letter-spacing:1px;
 }
 

@@ -43,7 +43,7 @@
 			<!-- User account -->
             <div class="pull-right">
                <div class="dropdown user-account">
-                  <a class="user-account-text">Thành Huỳnh</a>
+                  <a id="menu-desktop" class="user-account-text">Thành Huỳnh</a>
                   <a class="dropdown-toggle" href="#" data-toggle="dropdown">
                   <img src="assets/img/logo-envato.png" alt="avatar">
                   </a>
@@ -53,6 +53,9 @@
                      </li>
                      <li>
                         <a href="candidate-resume-add.html"><i class="fa fa-file" aria-hidden="true"></i> Hồ sơ</a>
+                     </li>
+                     <li>
+                        <a href="candidate-resume-add.html"><i class="fa fa-eye" aria-hidden="true"></i> Xem Hồ sơ</a>
                      </li>
                       <li>
                         <a href="candidate-jobs-saved.html"><i class="fa fa-save" aria-hidden="true"></i> Việc làm đã lưu</a>
@@ -95,7 +98,7 @@
 	<form action="#">
 
 		<!-- Page header -->
-		<header class="page-header">
+		<header class="page-header bg-img" style="background-image: url(assets/img/O7MF5N0.jpg);">
 			<div class="container page-name">
 				<h1 class="text-center">5 fresher developer C# tại CMC</h1>
 			</div>
@@ -119,8 +122,12 @@
                      <h7>CV của bạn</h7>
                   </div>
                   <div class="form-group col-md-9 col-xs-12 col-sm-9">
-                     <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
-                     <p class="help-block">Chúng tôi chỉ chấp nhận .doc .docx, .pdf and .txt files dưới 1MB</p>
+                  	<p><i>Chọn cv để gây ấn tượng với nhà tuyển dụng</i></p>
+                     <form>
+                     	<input name="mycv" type="radio" value="Nam"/> <i>GlobalCyberSoft.pdf</i><br/>
+                     	<input name="mycv" type="radio" value="Nam"/> <i>NashtechVietNam_ThanhHuynh.docx</i><br/>
+                     	<input name="mycv" type="radio" value="Nam"/> <i>ArenaMultimedia.png</i><br/>
+                     </form>
                   </div>
 
                   <div class="form-group col-md-3 col-xs-12 col-sm-3">
