@@ -787,11 +787,11 @@ form .text-muted {
 
 .header-job-search .input-keyword {
 	position:relative;
-  	width:50%;
+  	width:80%;
 }
 .header-job-search .input-location {
   position:relative;
-  width:30%;
+  width:0;
 }
 
 .header-job-search .input-keyword::before,
@@ -1161,7 +1161,7 @@ h3 a,
 h4 a,
 h5 a,
 h6 a {
-  color:#7e8890;
+  color:#161617;
 }
 
 h1 a:focus,
@@ -4160,7 +4160,7 @@ section.no-overlay::before {
 .widget_categories .cat-item a {
   font-size:16px;
   line-height:44px;
-  color:#7e8890;
+  color:#161617;
   transition:color .2s linear;
 }
 
@@ -4229,7 +4229,7 @@ section.no-overlay::before {
 
 .media-list .content time {
   font-size:13px;
-  color:#bbb;
+  color:#161617;
   font-style:italic;
 }
 

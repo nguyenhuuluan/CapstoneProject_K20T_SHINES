@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Post a job position or create your online resume by TheJobs!">
+  <meta name="keywords" content="">
+  <title>Jobee</title>
+  <!-- Styles -->
+  <link href="assets/css/app.min.css" rel="stylesheet">
+  <link href="assets/css/thejobs.css" rel="stylesheet">
+  <link href="assets/css/custom.css" rel="stylesheet">
+  <!-- Fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="icon" href="assets/img/favicon.ico">
+</head>
+
+  <body class="nav-on-header smart-nav">
+
+    <!-- Navigation bar -->
+    <nav class="navbar">
+    <div class="container">
+      <!-- Logo -->
+      <div class="pull-left">
+        <a class="navbar-toggle" href="#" data-toggle="offcanvas"><i class="ti-menu"></i></a>
+        <div class="logo-wrapper">
+          <a class="logo" href="index.html"><img src="assets/img/logo.png" alt="logo" style="padding: 5px;"></a>
+          <a class="logo-alt" href="index.html"><img src="assets/img/logo-alt.png" alt="logo-alt"></a>
+        </div>
+      </div>
+      <!-- END Logo -->
+
+      <!-- SignUp/SignIn Candidate-->
+      <div id="id02" class="modal fade">
+        <form class="modal-content animate" action="#">
+          <div class="login-block">
+            <img src="assets/img/logo.png" alt="">
+            <br><br>
+            <ul class="nav nav-tabs">
+              <li class="active">
+                <a data-toggle="tab" onclick="modalSignInOut('dangnhap')" href="#">Đăng nhập</a>
+              </li>
+              <li>
+                <a data-toggle="tab" onclick="modalSignInOut('dangky')" href="#">Đăng ký</a>
+              </li>
+            </ul>
+
+            <div id="dangnhap" class="modalinout">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="ti-email"></i></span>
+                  <input type="text" class="form-control" placeholder="Email">
+                </div>
+              </div>
+              <hr class="hr-xs">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="ti-unlock"></i></span>
+                  <input type="password" class="form-control" placeholder="Mật khẩu">
+                </div>
+              </div>
+              <button class="btn btn-primary btn-block" type="submit">Đăng Nhập</button>
+              <div class="login-links">
+                <center><a href="forget-password.html">Quên mật khẩu?</a></center>
+              </div>
+            </div>
+
+            <div id="dangky" class="modalinout" style="display:none">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="ti-email"></i></span>
+                  <input name="emailCompany" type="text" class="form-control" placeholder="Email">
+                </div>
+              </div>
+              <button name="registerCandidate" class="btn btn-primary btn-block" type="submit">Đăng Ký</button><br>
+            </div>
+            
+          </div>
+        </form>
+      </div>
+
+      <!-- End SignUp/SignIn Candidate -->
+
+      <!-- User account -->
+      <div id="menu-desktop" class="pull-right user-login">
+        <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#id02" href="#">Đăng nhập</a> | <a href="mn-login-register-intermediate-company.html">Nhà tuyển dụng</a>
+      </div>
+      <!-- END User account -->
+
+      <!-- Navigation menu -->
+      <ul class="nav-menu">
+        <li>
+          <a href="index.html">Trang chủ</a>
+        </li>
+        <li>
+          <a href="company-list.html">Công ty</a>
+        </li>
+        <li>
+          <a href="job-list-1.html">Việc làm</a>
+        </li>
+        <li>
+          <a href="#">Blog</a>
+        </li>
+        <li>
+          <a href="#">Giới thiệu</a>
+        </li>
+        <li>
+          <div id="menu-mobile" class="user-login" hidden>
+            <a style="font-weight:bold; color: red;" data-toggle="modal" data-target="#id02" href="#">Đăng nhập</a>
+          </div>
+        </li>
+        <li>
+          <div id="menu-mobile" class="user-login" hidden>
+            <a style="font-weight:bold; color: red;" href="mn-login-register-intermediate-company.html">Nhà tuyển dụng</a>
+          </div>
+        </li>
+      </ul>
+      <!-- END Navigation menu -->
+    </div>
+  </nav>
+    <!-- END Navigation bar -->
+
+
+    <!-- Site header -->
+    <header class="page-header bg-img size-lg overlay-light" style="background-image: url(assets/img/O7MF5N0.jpg)">
+      <div class="container no-shadow">
+        <h1 class="text-center">3 điều cần nhớ khi cảm thấy “đuối” với công việc mới</h1>
+        <p class="lead text-center"><time datetime="2018-01-24 20:00">24/1/2018</time></p>
+      </div>
+    </header>
+    <!-- END Site header -->
+
+
+    <!-- Main container -->
+    <main class="container blog-page">
+
+      <div class="row">
+        <div class="col-md-8 col-lg-9">
+
+          <article class="post">
+
+            <div class="blog-content" style="text-align: justify;">
+              <br><br>
+              <p>Những khó khăn xuất hiện trong thời gian đầu của công việc mới có thể khiến bạn cảm thấy choáng ngợp, thậm chí nghĩ rằng bản thân không đủ năng lực để đảm đương vị trí này, dù đây là chuyên môn của bạn. Nếu cứ tiếp tục, điều này có thể khiến bạn ngày càng trở nên căng thẳng hơn và dẫn đến các hành vi tiêu cực. Thay vào đó, khi thấy mình bắt đầu có cảm giác “không đủ sức”, hãy chuyển sự quan tâm của bạn sang 3 điều sau đây:</p>
+            
+              <h5>Phải có lí do bạn mới được chọn</h5>
+              <p>Trừ phi bạn là một diễn viên giỏi hay đã nói dối quá tài tình trong CV của mình, nếu không nhà tuyển dụng đã nhìn thấy điều gì đó khiến họ tin rằng bạn có thể đảm nhận được công việc và quyết định chọn bạn. Đặc biệt là hiện nay, khi quá trình tuyển dụng thường trải qua nhiều bước từ các cuộc gọi, bài kiểm tra khả năng và tính cách và đối thoại trực tiếp, nên hẳn là bạn không dễ dàng qua mắt được nhà tuyển dụng. Họ có rất nhiều cơ hội để đánh giá và đảm bảo bạn là người mà họ đang tìm kiếm.</p>
+
+              <blockquote>Nếu đã áp dụng cả 3 điều trên nhưng bạn vẫn không thoát khỏi “vũng lầy” suy nghĩ tiêu cực, hãy thẳng thắn bày tỏ với người quản lý về điều này, để họ biết bạn đang cần sự chia sẻ và nhận được những lời khuyên hữu ích nhất.</blockquote>
+
+              <p> Tuy điều đó không đồng nghĩa với việc bạn có thể làm mọi việc một cách <strong>hoàn hảo</strong>, nhưng nó cho thấy rằng nhà tuyển dụng nghĩ bạn có tiềm năng, ngay cả khi bạn cần thời gian lâu hơn để <i>thích nghi</i>. Và nếu công ty (đã có nhiều kinh nghiệm tuyển dụng và biết họ đang tìm kiếm điều gì) nghĩ rằng bạn sẽ làm được thì không có lí do gì để bạn nghi ngờ bản thân mình cả.</p>
+
+              <br>
+              <p><img src="assets/img/job.jpg" alt="..."></p>
+              <br>
+
+              <h5>Để thành công, bạn cần có cảm giác “không đủ khả năng”</h5>
+              <p>Bạn có biết cảm giác không thoải mái cũng có thể thúc đẩy bản thân làm việc tốt hơn không? Hãy nghĩ xem, nếu bạn đảm nhận một vị trí mà ở đó bạn có thể thực hiện các nhiệm vụ một cách hoàn hảo thì mỗi ngày bạn chỉ cần đến công ty, làm việc và ra về, cuộc sống đơn điệu biết bao! Sẽ không có gì thúc đẩy bạn học một kỹ năng mới, phát triển một khả năng mới hay tiến lên một vị trí cao hơn.</p>
+              
+            </div>
+
+            <ul class="post-meta">
+              <li>
+                <strong>Đăng bởi: </strong>
+                <a href="#">Thành Huỳnh</a>
+              </li>
+
+              <li>
+                <strong>Tags: </strong>
+                <a href="#">Động lực</a>, 
+                <a href="#">Không gian làm việc</a>
+              </li>
+            </ul>
+
+            <div id="comments">
+              <header>
+                <h3>Comments</h3>
+              </header>
+              <span><i>Chèn code comment facebook vào đây</i></span>
+            </div>
+            
+          </article>
+
+        </div>
+        
+        <div class="col-md-4 col-lg-3">
+
+          <br><br>
+          <div class="widget">
+            <h6 class="widget-title">Bài liên quan</h6>
+            <ul class="widget-body media-list">
+              <li>
+                <div class="thumb"><a href="page-post.html"><img src="assets/img/blog-1-thumb.jpg" alt="..."></a></div>
+                <div class="content">
+                  <h5><a href="page-post.html">Thăng tiến công việc nhờ chính sách luân chuyển nội bộ</a></h5>
+                  <time datetime="2018-04-14 20:00">14/4/2018</time>
+                </div>
+              </li>
+
+              <li>
+                <div class="thumb"><a href="page-post.html"><img src="assets/img/blog-2-thumb.jpg" alt="..."></a></div>
+                <div class="content">
+                  <h5><a href="page-post.html">Trở thành triệu phú sau 5 năm</a></h5>
+                  <time datetime="2018-04-14 20:00">14/4/2018</time>
+                </div>
+              </li>
+
+              <li>
+                <div class="thumb"><a href="page-post.html"><img src="assets/img/blog-3-thumb.jpg" alt="..."></a></div>
+                <div class="content">
+                  <h5><a href="page-post.html">Tại sao nên làm việc nhóm?</a></h5>
+                  <time datetime="2018-04-14 20:00">14/4/2018</time>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="widget widget_categories">
+            <h6 class="widget-title">Categories</h6>
+            <ul class="widget-body">
+              <li class="cat-item"><a href="#">News</a></li>
+              <li class="cat-item"><a href="#">Companies</a></li>
+              <li class="cat-item"><a href="#">Market</a></li>
+              <li class="cat-item"><a href="#">Candidates</a></li>
+              <li class="cat-item"><a href="#">Positions</a></li>
+              <li class="cat-item"><a href="#">Stats</a></li>
+            </ul>
+          </div>
+
+          <div class="widget widget_tag_cloud">
+            <h6 class="widget-title">Tags</h6>
+            <div class="widget-body">
+              <a href="#">blog</a>
+              <a href="#">new</a>
+              <a href="#">google</a>
+              <a href="#">position</a>
+              <a href="#">facebook</a>
+              <a href="#">hire</a>
+              <a href="#">chance</a>
+              <a href="#">resume</a>
+              <a href="#">tip</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+    <!-- END Main container -->
+
+
+    <!-- Site footer -->
+    <footer class="site-footer">
+        <!-- Top section -->
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-3">
+              <h6>Việc làm theo nghành nghề</h6>
+              <ul class="footer-links">
+                <li><a href="job-list.html">Việc làm Kế toán</a></li>
+                <li><a href="job-list.html">Việc làm Ngân hàng</a></li>
+                <li><a href="job-list.html">Việc làm IT - Phần mềm</a></li>
+                <li><a href="job-list.html">Việc làm IT-Phần cứng/Mạng</a></li>
+                <li><a href="job-list.html">Việc làm Xây dựng</a></li>
+              </ul>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-3">
+              <ul class="footer-links">
+                <br>
+                <li><a href="job-list.html">Việc làm Quảng cáo/Khuyến mãi</a></li>
+                <li><a href="job-list.html">Việc làm Hàng không/Du lịch</a></li>
+                <li><a href="job-list.html">Việc làm Giáo dục/Đào tạo</a></li>
+                <li><a href="job-list.html">Việc làm Điện/Điện tử</a></li>
+                <li><a href="job-list.html">Việc làm Bán hàng</a></li>
+              </ul>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-3">
+              <h6>Việc làm IT theo công ty</h6>
+              <ul class="footer-links">
+                <li><a href="page-about.html">Global CyberSoft</a></li>
+                <li><a href="page-typography.html">Vingroup</a></li>
+                <li><a href="page-faq.html">Capella Holding</a></li>
+                <li><a href="page-typography.html">Vietjetair</a></li>
+                <li><a href="page-contact.html">Standard Charter</a></li>
+              </ul>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-3">
+              <h6>Việc làm IT theo thành phố</h6>
+              <ul class="footer-links">
+                <li><a href="job-list.html">Hồ Chí Minh</a></li>
+                <li><a href="job-list.html">Hà Nội</a></li>
+                <li><a href="job-list.html">Đà Nẵng</a></li>
+                <li><a href="job-list.html">Thêm</a></li>
+              </ul>
+            </div>
+          </div>
+          <hr>
+        </div>
+        <!-- END Top section -->
+        <!-- Bottom section -->
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8 col-sm-6 col-xs-12">
+              <p class="copyright-text">Copyrights &copy; 2017 All Rights Reserved by <a href="#">Shines Team</a>.</p>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+              <ul class="social-icons">
+                <li>
+                    <p>Liên hệ với VLU Jobs <strong>(08) 123 4568</strong><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- END Bottom section -->
+      </footer>
+    <!-- END Site footer -->
+
+
+    <!-- Back to top button -->
+    <a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
+    <!-- END Back to top button -->
+
+    <!-- Scripts -->
+      <script src="assets/js/app.min.js"></script>
+      <script src="assets/js/thejobs.js"></script>
+      <script src="assets/js/custom.js"></script>
+
+
+  </body>
+</html>
