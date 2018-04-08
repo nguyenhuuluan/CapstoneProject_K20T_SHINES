@@ -16,7 +16,9 @@
                 @endif
                 @endforeach
               </div>
-              <time>{!! Carbon\Carbon::parse($recruitment->created_at)->diffForHumans() !!}</time>
+              <?php \Carbon\Carbon::setLocale('vi')?>
+              <time>{!! Carbon\Carbon::parse($recruitment->created_at)->diffForHumans(); !!}</time>
+             
               
             </header>
 

@@ -220,9 +220,8 @@ class StudentController extends Controller
 		return redirect()->back();
 	}
 
-	public function editPhoto(Request $request,$id)
+	public function editPhoto(Request $request)
 	{
-
 		if($file = $request->file('photo'))
 		{
 			$validator = Validator::make($request->all(), [
@@ -231,7 +230,7 @@ class StudentController extends Controller
 
 			if ($validator->passes()) 
 			{	
-				$student = Student::findOrFail($id);
+				$student = Student::findOrFail($request['id']);
 				$name  = time().$file->getClientOriginalName();
 
 				if(!strpos($student->photo, '/images/students/avatar.jpg'))
@@ -244,7 +243,7 @@ class StudentController extends Controller
 				$student['photo']=$name;
 				$student->update();
 				$file->move('images/students/avatas', $name);
-				return response($student);
+				return response()->json($student['photo']);
 
 				// return response()->json(['success'=>'success']);
 			}

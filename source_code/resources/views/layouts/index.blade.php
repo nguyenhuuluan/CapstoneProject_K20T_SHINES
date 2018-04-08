@@ -135,7 +135,7 @@
     $('.total-recruitments').html(response);
   },
   error: function () {
-    alert('error');
+    // alert('error');
   }
 });
 

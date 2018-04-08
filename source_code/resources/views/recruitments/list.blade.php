@@ -42,6 +42,7 @@
                 @endif
                 @endforeach
               </div>
+              <?php \Carbon\Carbon::setLocale('vi')?>
               <time>{!! Carbon\Carbon::parse($recruitment->created_at)->diffForHumans() !!}</time>
             </header>
 
@@ -73,10 +74,10 @@
         @endforeach
       </div>
       
-      <div class="loading" style="text-align: center;" id="loading">
+{{--       <div class="loading" style="text-align: center;" id="loading">
         <img src="{{ asset('assets/img/bx_loader.gif') }}" style="width: 85px; height: 85px">
 
-      </div>
+      </div> --}}
     </div>
 
   </div>
@@ -129,7 +130,7 @@
         //$('.loading').hide();
       }
     }else{
-      $('.loading').hide();
+      //$('.loading').hide();
     }
   }
 

@@ -10,7 +10,7 @@ use Response;
 use DB;
 class HomeController extends Controller
 {   
-    protected $per_page_number = 5;
+    protected $per_page_number = 3;
     /**
      * Create a new controller instance.
      *
@@ -51,11 +51,11 @@ class HomeController extends Controller
     public function listRecruitments(Request $request)
     {   
         $recruitments = DB::table('recruitments')
-                        ->join('companies', 'recruitments.company_id', '=', 'companies.id')
-                        ->join('addresses', 'addresses.company_id', '=', 'companies.id')
-                        ->join('districts', 'addresses.district_id', '=', 'districts.id')
-                        ->join('cities', 'districts.city_id', '=', 'cities.id')
-                        ->join('section_recruitment', 'recruitments.id', '=', 'section_recruitment.recruitment_id')
+                        ->leftjoin('companies', 'recruitments.company_id', '=', 'companies.id')
+                        ->leftjoin('addresses', 'addresses.company_id', '=', 'companies.id')
+                        ->leftjoin('districts', 'addresses.district_id', '=', 'districts.id')
+                        ->leftjoin('cities', 'districts.city_id', '=', 'cities.id')
+                        ->leftjoin('section_recruitment', 'recruitments.id', '=', 'section_recruitment.recruitment_id')
                         ->select('recruitments.*', 'section_recruitment.content as content','companies.name as company', 'districts.name as district' ,'addresses.address as address', 'cities.name as city')
                         ->where('section_recruitment.section_id', '=', '1')
                         ->where('companies.status_id', '=', '3')
@@ -63,7 +63,7 @@ class HomeController extends Controller
                         ->orderBy('recruitments.id','ASC')
                         ->paginate($this->per_page_number);
 
-         // return $recruitments;
+       //return $recruitments;
         $total = $recruitments->total();
         if($request->ajax())
         {

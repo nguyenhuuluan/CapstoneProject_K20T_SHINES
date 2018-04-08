@@ -1,13 +1,21 @@
-@extends('layouts.representative')
+@extends('layouts.master-layout',['title' => 'Jobee - Dashboard', 'isDisplaySearchHeader' => false])
 
-@section('styles')
+@section('stylesheet')
 <!-- DataTables CSS -->
 <link href="{{ asset('assets/vendors/datatables-plugins/dataTables.bootstrap.css') }} " rel="stylesheet">
 <!-- DataTables Responsive CSS -->
 <link href="{{ asset('assets/vendors/datatables-responsive/dataTables.responsive.css') }} " rel="stylesheet">
 @endsection
 
-@section('body')
+@section('page-header')
+<header class="page-header">
+   <div class="container page-name">
+      <h1 class="text-center">Thống kê sơ bộ</h1>
+   </div>
+</header>
+@endsection
+
+@section('content')
 <!-- Main container -->
 <main>
    <section>
@@ -92,9 +100,9 @@
 <script src="{{ asset('assets/vendors/datatables-responsive/dataTables.responsive.js') }} "></script>
 <script>
    $(document).ready(function() {
-    $('#dataTables-example').DataTable({
-     responsive: true
+     $('#dataTables-example').DataTable({
+       responsive: true
+    });
   });
- });
 </script>
 @endsection

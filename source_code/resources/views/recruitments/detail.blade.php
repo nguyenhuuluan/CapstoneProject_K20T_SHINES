@@ -1,5 +1,15 @@
 @extends('layouts.master-layout', ['title' => $recruitment->title,'isDisplaySearchHeader' => false])
 
+
+@section('stylesheet')
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.12&appId=415131908928137&autoLogAppEvents=1';
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+@endsection
 @section('meta-data')
 
 <meta property="og:title" content="{!!$recruitment->title!!}" />
@@ -21,6 +31,7 @@
 			<div class="hgroup">
 				<h1>{!! $recruitment->title !!}</h1>
 			</div>
+              <?php \Carbon\Carbon::setLocale('vi')?>
 			<time datetime="">{!! $recruitment->created_at->diffForhumans() !!}</time>
 			<ul class="details cols-3"  style="text-align: center">
 				<li>
@@ -55,7 +66,7 @@
 				</div>
 
 				{{-- <iframe src={{'https://www.facebook.com/plugins/share_button.php?href='.$currentURL.'&layout=button_count&size=small&mobile_iframe=true&appId=415131908928137&width=69&height=20'}} width="69" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
- --}}
+				--}}
 
 
 

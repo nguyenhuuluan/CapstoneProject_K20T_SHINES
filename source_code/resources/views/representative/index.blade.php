@@ -1,10 +1,15 @@
-@extends('layouts.representative')
+@extends('layouts.master-layout',['title' => 'Jobee - Dashboard', 'isDisplaySearchHeader' => false])
+{{-- @extends('layouts.representative') --}}
 
-@section('styles')
-
+@section('page-header')
+   <header class="page-header">
+      <div class="container page-name">
+         <h1 class="text-center">Thống kê sơ bộ</h1>
+      </div>
+   </header>
 @endsection
 
-@section('body')
+@section('content')
 <main>
   <center><h5>"The most important job is recruiting." - Steve Jobs</h5></center>
   <section>
@@ -45,8 +50,4 @@
 </div>
 </section>
 </main>
-@endsection
-
-@section('scripts')
-
 @endsection

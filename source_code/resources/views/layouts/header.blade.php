@@ -130,7 +130,7 @@
    <div class="dropdown user-account">
     <a class="user-account-text"> {!! Auth::user()->student->name!!}</a>
     <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-      <img src={{ asset(Auth::user()->student->photo) }} alt="avatar">
+      <img src={{ asset(Auth::user()->student->photo) }} alt="avatar" id="avatarAccount">
     </a>
     <ul class="dropdown-menu dropdown-menu-right">
       <li><a href="{{ route('student.profile.update') }}"><i class="fa fa-user" aria-hidden="true"></i>Tài khoản</a></li>
@@ -155,7 +155,7 @@
  <div class="dropdown user-account">
   <a class="user-account-text"> {!! Auth::user()->representative->name!!}</a>
   <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-    <img src="{{ asset('assets/img/logo-envato.png') }} " alt="avatar">
+    <img src="{{ asset('assets/img/logo-envato.png') }} " alt="avatar" id="avatarAccount">
   </a>
   <ul class="dropdown-menu dropdown-menu-right">
    <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i> Tài khoản</a></li>

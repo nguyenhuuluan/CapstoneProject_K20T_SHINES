@@ -71,83 +71,83 @@
 @endsection
 
 @section('page-header')
-	<!-- Page header -->
-	<header class="page-header bg-img size-lg" style="background-image: url({{ asset('assets/img/O7MF5N0.jpg') }} )">
-		<div class="container page-name">
-			<h1 class="text-center">Thêm hồ sơ của bạn</h1>
-			<p class="lead text-center">Tạo hồ sơ của bạn và cho nhà tuyển dụng nhìn thấy nó.</p>
-		</div>
-	</header>
-	<!-- END Page header -->
+<!-- Page header -->
+<header class="page-header bg-img size-lg" style="background-image: url({{ asset('assets/img/O7MF5N0.jpg') }} )">
+	<div class="container page-name">
+		<h1 class="text-center">Thêm hồ sơ của bạn</h1>
+		<p class="lead text-center">Tạo hồ sơ của bạn và cho nhà tuyển dụng nhìn thấy nó.</p>
+	</div>
+</header>
+<!-- END Page header -->
 @endsection
 
 @section('content')	
-	<main>
-		<div class="container">
-			<div class="row">
-				<div>
-					{!! Form::open(['method'=>'POST', 'action'=> ['StudentController@editPhoto', $student->id], 'files'=>true, 'id'=>'upload_ava']) !!}
-					<div class="col-xs-12 col-sm-4">
-						<div class="form-group">
-							{!! Form::file('photo', ['class'=>'dropify', 'data-height'=>'300', 'data-max-file-size'=>'1M' ,'data-default-file'=> asset(Auth::user()->student->photo), 'id'=>'photo' ])!!}
-
-							<span class="help-block">Xin vui lòng chọn ảnh 4:6</span>
-							{!! Form::submit('Cập nhật avatar', ['class'=>'btn btn-xs btn-danger pull-right upload-ava']) !!}
-
-						</div>
+<main>
+	<div class="container">
+		<div class="row">
+			<div>
+				{!! Form::open(['method'=>'POST', 'action'=> ['StudentController@editPhoto', $student->id], 'files'=>true, 'id'=>'upload_ava']) !!}
+				<div class="col-xs-12 col-sm-4">
+					<div class="form-group">
+						{!! Form::file('photo', ['class'=>'dropify', 'data-height'=>'300', 'data-max-file-size'=>'1M' ,'data-default-file'=> asset(Auth::user()->student->photo), 'id'=>'photo' ])!!}
+						<input id="studentID" type="hidden" name="id" value="{{ Auth::user()->student->id}}">
+						<span class="help-block">Xin vui lòng chọn ảnh 4:6</span>
+						{{-- {!! Form::submit('Cập nhật avatar', ['class'=>'btn btn-xs btn-danger pull-right upload-ava']) !!} --}}
+						<small class="text-success update-ava-noti" style="display: none;">Đã cập nhật avatar thành công!</small>
 					</div>
-					{!! Form::close() !!}
 				</div>
-				<div>
-					{!! Form::model( $student, ['method'=>'POST', 'action'=>['StudentController@editProfile', $student->id], 'id'=>'updateForm','files'=>true]) !!}
+				{!! Form::close() !!}
+			</div>
+			<div>
+				{!! Form::model( $student, ['method'=>'POST', 'action'=>['StudentController@editProfile', $student->id], 'id'=>'updateForm','files'=>true]) !!}
 
-					<div class="col-xs-12 col-sm-8">
-						<div class="form-group col-xs-12 col-sm-12">
-							{!! Form::text('name', null, ['class'=>'form-control input-lg', 'placeholder'=> 'Họ tên', 'required']) !!}
-						</div>
-						<div class="form-group col-xs-12 col-sm-12">
-							{!! Form::textarea('description' , null,['class'=>'form-control', 'rows'=>3, 'placeholder'=>'Mô tả ngắn về bạn']) !!}
+				<div class="col-xs-12 col-sm-8">
+					<div class="form-group col-xs-12 col-sm-12">
+						{!! Form::text('name', null, ['class'=>'form-control input-lg', 'placeholder'=> 'Họ tên', 'required']) !!}
+					</div>
+					<div class="form-group col-xs-12 col-sm-12">
+						{!! Form::textarea('description' , null,['class'=>'form-control', 'rows'=>3, 'placeholder'=>'Mô tả ngắn về bạn']) !!}
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-8">
+					<h6 class="col-xs-12 col-sm-12">Thông tin cơ bản</h6>
+					<div class="form-group col-xs-12 col-sm-6">
+						<div class="input-group input-group-sm">
+							<span class="input-group-addon"><i class="fa fa-birthday-cake"></i></span>
+							{!! Form::date('dateofbirth', old('dateofbirth'), ['class'=>'form-control', 'required']) !!}
 						</div>
 					</div>
-					<div class="col-xs-12 col-sm-8">
-						<h6 class="col-xs-12 col-sm-12">Thông tin cơ bản</h6>
-						<div class="form-group col-xs-12 col-sm-6">
-							<div class="input-group input-group-sm">
-								<span class="input-group-addon"><i class="fa fa-birthday-cake"></i></span>
-								{!! Form::date('dateofbirth', old('dateofbirth'), ['class'=>'form-control', 'required']) !!}
-							</div>
-						</div>
 
-						<div class="form-group col-xs-12 col-sm-6">
-							<div class="input-group input-group-sm">
-								<span class="input-group-addon"><i class="fa fa-graduation-cap"></i></span>
-								{!! Form::select('faculty_id', $faculties ,null, ['class'=>'form-control', 'title'=>'Chưa chọn Khoa']) !!}
-							</div>
+					<div class="form-group col-xs-12 col-sm-6">
+						<div class="input-group input-group-sm">
+							<span class="input-group-addon"><i class="fa fa-graduation-cap"></i></span>
+							{!! Form::select('faculty_id', $faculties ,null, ['class'=>'form-control', 'title'=>'Chưa chọn Khoa']) !!}
 						</div>
-
-						<div class="form-group col-xs-12 col-sm-6">
-							<div class="input-group input-group-sm">
-								<span class="input-group-addon"><i class="fa fa-phone"></i></span>
-								{!! Form::text('phone', null, ['class'=>'form-control', 'placeholder'=> 'Số điện thoại', 'required']) !!}
-							</div>
-						</div>
-
-						<div class="form-group col-xs-12 col-sm-6">
-							<div class="input-group input-group-sm">
-								<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-								{!! Form::text('email', null, ['class'=>'form-control', 'placeholder'=> 'Email', ' disabled']) !!}
-							</div>
-						</div>
-
 					</div>
 
-					<div class="col-xs-12 col-sm-8">
-						<h6 class="col-xs-12 col-sm-12">Danh sách tag</h6>
-						<span class="col-xs-12 col-sm-12 help-block">Viết tag và nhấn enter</span>
+					<div class="form-group col-xs-12 col-sm-6">
+						<div class="input-group input-group-sm">
+							<span class="input-group-addon"><i class="fa fa-phone"></i></span>
+							{!! Form::text('phone', null, ['class'=>'form-control', 'placeholder'=> 'Số điện thoại', 'required']) !!}
+						</div>
+					</div>
 
-						<div class="form-group col-xs-12 col-sm-12 {{ $errors->has('tags.*') ? ' has-error' : '' }}">
+					<div class="form-group col-xs-12 col-sm-6">
+						<div class="input-group input-group-sm">
+							<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+							{!! Form::text('email', null, ['class'=>'form-control', 'placeholder'=> 'Email', ' disabled']) !!}
+						</div>
+					</div>
 
-							{!! Form::text('tags', $tags, ['class'=>'tagsinput 123input tm-input form-control tm-input-info tagsinput-typeahead','data-role'=>'tagsinput', 'placeholder'=> 'Nhập tag', 'value'=> old('tags')]) !!}
+				</div>
+
+				<div class="col-xs-12 col-sm-8">
+					<h6 class="col-xs-12 col-sm-12">Danh sách tag</h6>
+					<span class="col-xs-12 col-sm-12 help-block">Viết tag và nhấn enter</span>
+
+					<div class="form-group col-xs-12 col-sm-12 {{ $errors->has('tags.*') ? ' has-error' : '' }}">
+
+						{!! Form::text('tags', $tags, ['class'=>'tagsinput 123input tm-input form-control tm-input-info tagsinput-typeahead','data-role'=>'tagsinput', 'placeholder'=> 'Nhập tag', 'value'=> old('tags')]) !!}
 
 						{{-- 	@if ($errors->has('tags2.*'))
 							<span class="help-block">
@@ -395,15 +395,50 @@
 			</div>
 		</main>
 		<button class="tooltipsave" onclick="document.getElementById('updateForm').submit(); " id="myBtn"><i class="fa fa-save" aria-hidden="true"></i><span class="tooltiptext">Lưu hồ sơ</span></button>
-@endsection
+		@endsection
 
-@section('scripts')
-<script src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js" type="text/javascript" charset="utf-8"></script>
+		@section('scripts')
+		<script src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js" type="text/javascript" charset="utf-8"></script>
 
 
-<script type="text/javascript">
-	showCv();
-	$(document).ready(function (e) {
+		<script type="text/javascript">
+			showCv();
+
+			$('#photo').bind("change", function () {
+				updateAvatar();
+			});
+
+			function updateAvatar(){
+				var id = $('#studentID').val();
+				var photo = document.getElementById("photo").files[0];
+				var urlImg = '{{ route('student.photo.edit') }}';
+				var data = new FormData();
+				data.append("id", id);
+				data.append("photo", photo);
+
+				$.ajax({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					},
+					type:'POST',
+					url: urlImg,
+					data:data,
+					cache:false,
+					contentType: false,
+					processData: false,
+					success:function(data){
+						document.getElementById('avatarAccount').src = '{{ asset('') }}'+data;
+						$( ".update-ava-noti" ).fadeIn( 300 ).delay( 2000 ).fadeOut( 00 );
+					},
+					error: function(data){
+						alert('Kiểm tra lại avatar upload đúng định dạng!');
+					}
+				});
+
+			}
+
+
+			$(document).ready(function (e) {
 				// -----upload cv
 				$('#upload_cv').on('submit',(function(e) {
 					e.preventDefault();
@@ -442,27 +477,27 @@
 
 
 
-				//--Cap nhat avatar
-				$('#upload_ava').on('submit',(function(e) {
-					e.preventDefault();
-					var formData = new FormData(this);
+				// //--Cap nhat avatar
+				// $('#upload_ava').on('submit',(function(e) {
+				// 	e.preventDefault();
+				// 	var formData = new FormData(this);
 
-					$.ajax({
-						type:'POST',
-						url: $(this).attr('action'),
-						data:formData,
-						cache:false,
-						contentType: false,
-						processData: false,
-						success:function(data){
-							alert('Cập nhật avatar thành công!');
-							location.reload();
-						},
-						error: function(data){
-							alert('Kiểm tra lại avatar upload đúng định dạng!');
-						}
-					});
-				}));
+				// 	$.ajax({
+				// 		type:'POST',
+				// 		url: $(this).attr('action'),
+				// 		data:formData,
+				// 		cache:false,
+				// 		contentType: false,
+				// 		processData: false,
+				// 		success:function(data){
+				// 			alert('Cập nhật avatar thành công!');
+				// 			location.reload();
+				// 		},
+				// 		error: function(data){
+				// 			alert('Kiểm tra lại avatar upload đúng định dạng!');
+				// 		}
+				// 	});
+				// }));
 
 
 
@@ -482,73 +517,69 @@
 			});
 
 
-	function showCv () {
-		$.get("{{ route('student.cv.show') }}", function(data){
-			$('.cv-info').empty().html(data)
-		})
-	}
-
-
-
-
-
-</script>
-
-<script type="text/javascript">
-	$('.select-rage').on('change', '#myRange', function(event) {
-		event.preventDefault();
-
-		var value = $(this).val();	
-
-		$(this).closest('div').find('span').html(value);
-	});
-
-
-	var tagnames = new Bloodhound({
-		datumTokenizer: Bloodhound.tokenizers.obj.whitespace("name"),
-		queryTokenizer: Bloodhound.tokenizers.whitespace,
-		prefetch: {
-			url:'../../tags',
-			filter: function(list) {
-				return $.map(list, function(tagname) {
-					return { name: tagname }; });
+			function showCv () {
+				$.get("{{ route('student.cv.show') }}", function(data){
+					$('.cv-info').empty().html(data)
+				})
 			}
-		}
-	});
-	tagnames.initialize();
-	$('.tagsinput').tagsinput({
-		typeaheadjs: {
-			name: 'tags',
-			displayKey: 'name',
-			valueKey: 'name',
-			source: tagnames.ttAdapter(),
-			templates: {
-				empty: [
-				'<div class="list-group search-results-dropdown"><div class="list-group-item">Không có kết quả phù hợp.</div></div>'
-				],
-				header: [
-				'<div class="list-group search-results-dropdown">'
-				],
-				suggestion: function (data) {
-					return '<p class="list-group-item">' + data.name + '</p>'
+
+		</script>
+
+		<script type="text/javascript">
+			$('.select-rage').on('change', '#myRange', function(event) {
+				event.preventDefault();
+
+				var value = $(this).val();	
+
+				$(this).closest('div').find('span').html(value);
+			});
+
+
+			var tagnames = new Bloodhound({
+				datumTokenizer: Bloodhound.tokenizers.obj.whitespace("name"),
+				queryTokenizer: Bloodhound.tokenizers.whitespace,
+				prefetch: {
+					url:'../../tags',
+					filter: function(list) {
+						return $.map(list, function(tagname) {
+							return { name: tagname }; });
+					}
 				}
-			}
-		}
-	});
-</script>
+			});
+			tagnames.initialize();
+			$('.tagsinput').tagsinput({
+				typeaheadjs: {
+					name: 'tags',
+					displayKey: 'name',
+					valueKey: 'name',
+					source: tagnames.ttAdapter(),
+					templates: {
+						empty: [
+						'<div class="list-group search-results-dropdown"><div class="list-group-item">Không có kết quả phù hợp.</div></div>'
+						],
+						header: [
+						'<div class="list-group search-results-dropdown">'
+						],
+						suggestion: function (data) {
+							return '<p class="list-group-item">' + data.name + '</p>'
+						}
+					}
+				}
+			});
+		</script>
 
-<script>
+		<script>
 
-	$('.dropify').dropify({
-		error: {
-			'fileSize': 'The file size is too big (30 max).',
-			'minWidth': 'The image width is too small (30 px min).',
-			'maxWidth': 'The image width is too big (30 px max).',
-			'minHeight': 'The image height is too small (30 px min).',
-			'maxHeight': 'The image height is too big (30 x max).',
-			'imageFormat': 'The image format is not allowed (30 only).'
-		}
-	});
+			$('.dropify').dropify({
+				error: {
+					'fileSize': 'The file size is too big (30 max).',
+					'minWidth': 'The image width is too small (30 px min).',
+					'maxWidth': 'The image width is too big (30 px max).',
+					'minHeight': 'The image height is too small (30 px min).',
+					'maxHeight': 'The image height is too big (30 x max).',
+					'imageFormat': 'The image format is not allowed (30 only).'
+				}
+			});
 
 
 			// // When the user scrolls down 20px from the top of the document, show the button
