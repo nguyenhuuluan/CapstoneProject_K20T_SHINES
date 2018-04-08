@@ -52,8 +52,11 @@ class StudentCvController extends Controller
                 $input['file'] = $name;
                 $input['student_id'] = $id;
                 $cv = CV::create($input);
+                $cvs[] = $cv;
                 $file->move('cvs', $name);
-                return response($cv);
+
+                // return response($cv);
+                return ['cvs'=>view('ajax.cvList')->with(compact('cvs'))->render()];
             }
             else
             {
@@ -131,9 +134,9 @@ class StudentCvController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $cv = CV::findOrFail($id);
+        $cv = CV::findOrFail($request['id']);
         if(Auth::user()->student->id == $cv->student_id){
 
             //unlink(base_path().'/public_html'.'/cvs/'.$cv->file);
@@ -141,9 +144,9 @@ class StudentCvController extends Controller
             unlink(public_path().'\\cvs\\'.$cv->file);
             $cv->delete();
 
-            return redirect()->back();
+            return response()->json('success');
         }else
-        {return ('123');}
+        {return response()->json('error');}
         
 
     //   if($request->ajax())

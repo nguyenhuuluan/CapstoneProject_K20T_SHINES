@@ -370,6 +370,8 @@
 										<tbody class="cv-info">
 										</tbody>
 									</table>
+									<small class="text-success upload-cv-noti" style="display: none;"><b>Upload CV thành công!</b></small>
+									<small class="text-danger delete-cv-noti" style="display: none;"><b>Xóa CV thành công!</b></small>
 								</div>
 							</div>
 						</div>
@@ -452,21 +454,8 @@
 						contentType: false,
 						processData: false,
 						success:function(data){
-							alert('Upload Cv thành công!');
-
-							var url = '{{ route("student.cv.destroy", ":id") }}';
-							url = url.replace(':id', data.id);
-
-							var tr = $("<tr/>");
-							tr.append($("<td/>",{
-								text : data.name
-							})).append($("<td/>",{
-								text : data.created_at
-							})).append($("<td/>",{
-								html: '<a href="'+url+'" data-id="'+data.id+'" id="delete"><abbr title="Xóa"><i class="fa fa-trash" aria-hidden="true"></i></abbr></a>'
-							}));
-							$('.cv-info').append(tr);
-							$("#cv").val('');
+							$( ".upload-cv-noti" ).fadeIn( 300 ).delay( 2000 ).fadeOut( 00 );
+							$('.cv-info').append(data.cvs);
 						},
 						error: function(data){
 							alert('Kiểm tra lại CV upload đúng định dạng!');
@@ -513,6 +502,40 @@
 
 				// 	$.post
 				// })
+
+				$('.cv-info').on('click', '#delete', function(event) {
+					event.preventDefault();
+					var currentelement = $(this);
+					var id = $(this).attr("data-id");
+					var url = '{{ route("student.cv.destroy")}}';
+					var data = new FormData();
+					data.append("id", id);
+
+					$.ajax({
+						headers: {
+							'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+						},
+						type: 'POST',
+						url: url,
+						contentType: false,
+						processData: false,
+						cache:false,
+						data: data,
+						success: function (response) {
+							$(".delete-cv-noti" ).fadeIn( 300 ).delay( 2000 ).fadeOut( 00 );
+							currentelement.parent().parent().remove();
+							console.log(response)
+						},
+						error: function (response) {
+							alert('error');
+							console.log(response)
+						}
+					});
+
+
+				// alert(value);
+				// $(this).closest('div').find('span').html(value);
+			});
 
 			});
 
