@@ -464,45 +464,6 @@
 					});
 				}));
 
-
-
-				// //--Cap nhat avatar
-				// $('#upload_ava').on('submit',(function(e) {
-				// 	e.preventDefault();
-				// 	var formData = new FormData(this);
-
-				// 	$.ajax({
-				// 		type:'POST',
-				// 		url: $(this).attr('action'),
-				// 		data:formData,
-				// 		cache:false,
-				// 		contentType: false,
-				// 		processData: false,
-				// 		success:function(data){
-				// 			alert('Cập nhật avatar thành công!');
-				// 			location.reload();
-				// 		},
-				// 		error: function(data){
-				// 			alert('Kiểm tra lại avatar upload đúng định dạng!');
-				// 		}
-				// 	});
-				// }));
-
-
-
-
-
-				// -----Delete cv
-				// $('.delete').on('click', function(){
-				// 		alert('dsadas');
-				// });
-
-				// $('body').delegate('#cv-info #del', 'click', function(e){
-				// 	var id = $(this).data('id');
-
-				// 	$.post
-				// })
-
 				$('.cv-info').on('click', '#delete', function(event) {
 					event.preventDefault();
 					var currentelement = $(this);

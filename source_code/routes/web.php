@@ -45,6 +45,10 @@ Route::POST('/partnership/register', 'CompanyRegistrationController@registerPart
 
 // Recruitment - WEB
 Route::get('/recruitments/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
+Route::GET('student/recruitments/{id}/apply', 'Student\StudentRecruitmentController@apply')->name('student.apply.recruitment')->middleware('student');
+Route::GET('student/recruitments/{id}/save', 'Student\StudentRecruitmentController@saveRecruitment')->name('student.save.recruitment')->middleware('student');
+Route::POST('student/recruitments/{id}/apply', 'Student\StudentRecruitmentController@store')->name('student.apply.recruitment.store')->middleware('student');
+
 Route::get('search', 'RecruitmentController@search')->name('recruitments.search');
 
 Route::get('/recruitment/increaseView/{recruitmentID}', 'RecruitmentController@increaseView')->name('recruitment.increaseview');
@@ -66,15 +70,14 @@ Route::GET('student/update-success','StudentController@updateSuccess')->name('st
 Route::get('student/profile', 'StudentController@profile')->name('student.profile')->middleware('student');
 Route::get('student/profile/update', 'StudentController@updateProfile')->name('student.profile.update')->middleware('student');
 Route::POST('student/profile/update/{id}', 'StudentController@editProfile')->name('student.profile.edit')->middleware('student');
-// Route::POST('student/profile/update/photo', 'StudentController@editPhoto')->name('student.photo.edit')->middleware('student');
-
 Route::POST('student/profile/update/cv/{id}', 'Student\StudentCvController@store')->name('student.cv.store')->middleware('student');
 Route::POST('student/photo/update', 'StudentController@editPhoto')->name('student.photo.edit')->middleware('student');
-
 Route::GET('student/profile/update/cv', 'Student\StudentCvController@show')->name('student.cv.show')->middleware('student');
 Route::GET('student/cvs/download/{name}','Student\StudentCvController@download')->name('student.cv.download');
-// Route::GET('student/cv/{id}', 'Student\StudentCvController@destroy')->name('student.cv.destroy')->middleware('student');
 Route::POST('student/cv', 'Student\StudentCvController@destroy')->name('student.cv.destroy')->middleware('student');
+
+Route::GET('student/recruitments/apply', 'Student\StudentRecruitmentController@showApply')->name('student.apply.show')->middleware('student');
+Route::GET('student/recruitments/save', 'Student\StudentRecruitmentController@showRecruitment')->name('student.recruitment.show')->middleware('student');
 
 // Route::post('ajaxImageUpload', ['as'=>'ajaxImageUpload','uses'=>'Student\StudentCvController@store']);
 

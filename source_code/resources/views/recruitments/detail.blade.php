@@ -1,4 +1,4 @@
-@extends('layouts.master-layout', ['title' => $recruitment->title,'isDisplaySearchHeader' => false])
+@extends('layouts.master-layout', ['title' => 'Jobee - '.$recruitment->title,'isDisplaySearchHeader' => false])
 
 
 @section('stylesheet')
@@ -27,7 +27,7 @@
 <header class="page-header bg-img size-lg" style="background-image: url({{ asset('assets/img/bg-banner2.jpg') }} )">
 	<div class="container">
 		<div class="header-detail">
-			<img class="logo" height="60" src={!! asset($recruitment->company->logo) !!} alt="">
+			<a href="{!! route('company.details', $recruitment->company->slug) !!}"><img class="logo" height="60" src={!! asset($recruitment->company->logo) !!} alt=""></a>
 			<div class="hgroup">
 				<h1>{!! $recruitment->title !!}</h1>
 			</div>
@@ -35,7 +35,7 @@
 			<time datetime="">{!! $recruitment->created_at->diffForhumans() !!}</time>
 			<ul class="details cols-3"  style="text-align: center">
 				<li>
-					<h3><a href="#">{!! $recruitment->company->name !!}</a></h3>
+					<h3><a href="{!! route('company.details', $recruitment->company->slug) !!}">{!! $recruitment->company->name !!}</a></h3>
 				</li>
 				<li>
 					<i class="fa fa-money"></i>
@@ -71,7 +71,7 @@
 
 
 				<div class="action-buttons">
-					<a class="btn btn-success-detail" href="job-apply.html">Ứng tuyển ngay</a>
+					<a class="btn btn-success-detail" href="{{ route('student.apply.recruitment', $recruitment->slug) }}">Ứng tuyển ngay</a>
 				</div>
 
 			</div>
@@ -86,6 +86,7 @@
 
 
 <main class="container blog-page">
+	<a class="btn btn-success-detail" href="#" id="save-recruitment">Lưu Tin</a>
 
 	<div class="row">
 		<div class="col-md-8 col-lg-9">
@@ -159,8 +160,34 @@
 
 
 <script type="text/javascript">
+	
+	$('#save-recruitment').on('click', (function(e){
+		e.preventDefault();
+		var url = "{{ route('student.save.recruitment', $recruitment->slug) }}";
 
+		$.ajax({
+			type:'GET',
+			url: url,
+			cache:false,
+			contentType: false,
+			processData: false,
+			success:function(response){
+				if(response=='success')
+				{
+					alert('Lưu tin tuyển dụng thành công!');
+				}
+				else
+				{
+					alert('Bạn đã lưu tin tuyển dụng này!');
+				}
+			},
+			error: function(response){
+				console.log(response)
+				
+			}
+		});
 
+	}));
 
 	increaseView();
 

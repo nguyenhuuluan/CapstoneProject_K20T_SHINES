@@ -11,20 +11,20 @@
       @foreach ($recruitments as $recruitment)
       <!-- Job item -->
       <div class="col-xs-12">
-        <a class="item-block" href="{{ route('detailrecruitment', $recruitment->slug ) }}">
+        <a class="item-block" href="{!! route('detailrecruitment', $recruitment->slug ) !!}">
           <header>
-            <img src="{{ asset($recruitment->company->logo) }}" alt="">
+            <img src="{!! asset($recruitment->company->logo) !!}" alt="">
             <div class="hgroup">
-              <h4>{{ $recruitment->title }}</h4>
-              <h5>{{ $recruitment->company->name }}</h5>
+              <h4>{!! $recruitment->title !!}</h4>
+              <h5>{!! $recruitment->company->name !!}</h5>
             </div>
             <div class="header-meta">
-              <span class="location">{{ $recruitment->company->address->district->city->name }}</span>
+              <span class="location">{!! $recruitment->company['address']['district']['city']->name !!}</span>
               @foreach ($recruitment->categories as $category)
               @if($category->name =='FULL-TIME')
-              <span class="label label-success">{{ $category->name }}</span>
+              <span class="label label-success">{!! $category->name !!}</span>
               @else
-              <span class="label label-danger">{{ $category->name }}</span>
+              <span class="label label-danger">{!! $category->name !!}</span>
               @endif
               @endforeach
               {{-- <span class="label label-success">Full-time</span> --}}

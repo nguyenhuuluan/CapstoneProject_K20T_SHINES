@@ -35,7 +35,13 @@ class Recruitment extends Model
     	return $this->belongsTo('App\Status');
     }
     public function sections(){
-    	return $this->belongsToMany('App\Section', 'section_recruitment', 'recruitment_id','section_id')->withPivot('content')->withTimestamps();
+        return $this->belongsToMany('App\Section', 'section_recruitment', 'recruitment_id','section_id')->withPivot('content')->withTimestamps();
+    }
+    public function students(){
+    	return $this->belongsToMany('App\Student', 'apply', 'recruitment_id','student_id')->withPivot('cv_id', 'description')->withTimestamps();
+    }
+    public function saves(){
+        return $this->belongsToMany('App\Student', 'student_recruitment', 'recruitment_id','student_id')->withTimestamps();
     }
     public function categories(){
     	return $this->belongsToMany('App\Category', 'category_recruitment', 'recruitment_id', 'category_id')->withTimestamps();
