@@ -30,8 +30,8 @@ class Student extends Model
     public function listTags()
     {
         return $this->belongsToMany('App\Tag', 'tag_student', 'student_id','tag_id')->withTimestamps()->withPivot('student_id');
-
     }
+
     public function experiences()
     {
         return $this->hasMany('App\Experience');
@@ -41,7 +41,22 @@ class Student extends Model
         return $this->hasMany('App\Skill');
     }
 
-        public function getPhotoAttribute($value){
+    public function recruitments()
+    {
+        return $this->belongsToMany('App\Recruitment', 'apply', 'student_id','recruitment_id')->withTimestamps()->withPivot('cv_id', 'description');
+    }
+
+    public function saves()
+    {
+        return $this->belongsToMany('App\Recruitment', 'student_recruitment', 'student_id','recruitment_id')->withTimestamps();
+    }
+
+    public function cvs()
+    {
+        return $this->hasMany('App\Cv');
+    }
+
+    public function getPhotoAttribute($value){
         if($value){
             return $this->path.$value;
         }else{

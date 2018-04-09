@@ -25,11 +25,12 @@ class CreateCompaniesTable extends Migration
         $table->string('field')->nullable();
         $table->string('business_code')->nullable();
         $table->integer('status_id')->index()->unsigned();
+        $table->string('slug',255)->nullable();
         $table->timestamps();
 
         $table->foreign('status_id')->references('id')->on('statuses');
-      });
-    }
+    });
+  }
 
     /**
      * Reverse the migrations.
@@ -41,5 +42,5 @@ class CreateCompaniesTable extends Migration
         //DB::statement('SET FOREIGN_KEY_CHECKS = 0');
       Schema::dropIfExists('companies');
         //DB::statement('SET FOREIGN_KEY_CHECKS = 1');
-    }
   }
+}

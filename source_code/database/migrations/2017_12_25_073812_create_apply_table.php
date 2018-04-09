@@ -17,9 +17,10 @@ class CreateApplyTable extends Migration
             $table->integer('student_id')->index()->unsigned();
             $table->integer('recruitment_id')->index()->unsigned();
             $table->integer('cv_id')->index()->unsigned();
+            $table->string('description',255)->nullable();
             $table->timestamps();
 
-            $table->primary(['student_id','recruitment_id','cv_id']);      
+            $table->primary(['student_id','recruitment_id']);      
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
             $table->foreign('recruitment_id')->references('id')->on('recruitments')->onDelete('cascade');
             $table->foreign('cv_id')->references('id')->on('cvs')->onDelete('cascade');

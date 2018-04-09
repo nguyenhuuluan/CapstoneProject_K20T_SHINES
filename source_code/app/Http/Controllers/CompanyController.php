@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\Collection;
 
 use App\Representative;
 use App\Account;
 use App\Company;
+use App\Recruitment;
 use App\CompanyRegistration;
 use App\Role;
 use App\SocialNetwork;
@@ -17,9 +19,17 @@ use App\District;
 use App\Address;
 use App\Tag;
 use App\CompaniesSocialNetwork;
+use App\Photo;
+use File;
 
+use Auth;
+
+
+use App\Http\Requests\CompanyRequest;
 use Mail;
 use GuzzleHttp\Client;
+
+
 
 class CompanyController extends Controller
 {
@@ -27,12 +37,14 @@ class CompanyController extends Controller
   public function detail($id)
   {
     $comp = Company::where('id', '=', $id)->first();
-
-    return view('companies.detail')->with(compact('comp'));
+    $recruitments = $comp->recruitments()->where('status_id', 1)->orderBy('created_at','desc')->get();
+    
+    return view('companies.detail')->with(compact('comp', 'recruitments'));
   }
 
-  public function update($id)
+  public function update()
   {
+    $id = Auth::user()->representative->company->id;
     $company = Company::findOrFail($id);
 
     $cities = City::all();
@@ -44,7 +56,7 @@ class CompanyController extends Controller
 
   }
 
-  public function edit($id, Request $request)
+  public function edit($id, CompanyRequest $request)
   { 
 
 
@@ -52,7 +64,13 @@ class CompanyController extends Controller
 
     $res = $client->request('GET', 'https://maps.google.com/maps/api/geocode/json?key=AIzaSyBTKdxpxRWTD9UnpMVrGfdnNCmFZLde8Rw&address='.$request->address. $request->districtname. $request->cityname);
 
-    $jsonObj  = json_decode($res->getBody());
+    $jsonObj  = json_decode($res->getBody());  
+
+    if ($jsonObj->status != 'OK') {
+      $request->session()->flash('address-invalid', '<span> Địa chỉ không tồn tại </span>');
+      return redirect()->route("company.update")->withInput();
+    }
+
 
     $address = $jsonObj->results[0]->formatted_address;
 
@@ -109,9 +127,8 @@ class CompanyController extends Controller
     }
   }
 
-
-
-  $collectionTags = collect([]);
+  $collectionTags = collect();
+// $collectionTags = collect([]);
 
   foreach ($tags as $tag) {
    $collectionTags->push(Tag::where('name', $tag)->first());
@@ -120,7 +137,7 @@ class CompanyController extends Controller
 
  $comp->tags()->sync((Tag::all()->intersect($collectionTags)));
 
- if ($request->facebook) {
+ if ( !empty(trim($request->facebook)) ) {
   if ($request->socialnetworkfbID) {
     $social = CompaniesSocialNetwork::findOrFail($request->socialnetworkfbID);
     $social->url = $request->facebook;
@@ -134,11 +151,13 @@ class CompanyController extends Controller
     "company_id" => $request->id
   ]); 
  }
-
+}else{
+  $social = CompaniesSocialNetwork::findOrFail($request->socialnetworkfbID);
+  $social->delete();
 }
 
 
-if ($request->linkedin) {
+if (!empty(trim($request->linkedin))) {
   if ($request->socialnetworkinID) {
     $social = CompaniesSocialNetwork::findOrFail($request->socialnetworkinID);
     $social->url = $request->linkedin;
@@ -153,38 +172,132 @@ if ($request->linkedin) {
   ]); 
  }
 
+}else{
+  $social = CompaniesSocialNetwork::findOrFail($request->socialnetworkinID);
+  $social->delete();
 }
 
-return redirect()->route("company.details",['id' => $comp->id]);
+return redirect()->route("company.details",$comp->slug);
 
 }
 
 
-public function details($id)
+public function details($slug)
 {
-  $company = Company::findOrFail($id);
 
-  return view('companies.details')->with(compact('company'));
 
+  //$currentURL = $request->url();
+
+ $company = Company::findBySlugOrFail($slug);
+ if($company->status_id==3)
+ {
+   $socials = CompaniesSocialNetwork::where('company_id',$company->id)->get()->sortBy('name');
+   $recruitments = $company->recruitments()->where('status_id', 1)->orderBy('created_at','desc')->get();
+   return view('companies.details')->with(compact('company','socials', 'recruitments'));
+   //return view('companies.details',compact('company', 'currentURL'));
+
+ }
+ else{abort(404);}
 }
 
-public function updateimage(Request $request)
+public function updateImages(Request $request)
 {
-  if ($file = $request->file('imagefile')) {
-    $name = $file->getClientOriginalName();
 
-    $file->move('images/companies/logos', $name);
+  if($files = $request->file('Images'))
+  {
 
-    $input['path'] = $name;
+
+   $validator = Validator::make($request->all(), [
+     'imagefile' => 'image|mimes:jpeg,png,jpg|max:1024',
+   ]);
+
+
+   if ($validator->passes()) {
 
     $comp = Company::Where('id', $request->id)->first();
-    $comp->logo = $name;
-    $comp->save();
 
-    return response()->json(200);
+    $arrayFileNames = array();
+
+    foreach ($files as $file) {
+
+      $fileName = time().'_'.$file->getClientOriginalName();
+
+      $photo = Photo::create([
+        "name" => $fileName
+      ]);
+
+      array_push($arrayFileNames, $fileName);
+
+      $comp->photos()->attach($photo->id);
+
+      $file->move('images/companies', $fileName);
+
+    }
+
+    return response()->json($arrayFileNames);
+
+  }else  {
+   return response()->json(['error'=>$validator->errors()->all()]);
+ }
+ return response()->json(200);
+}
+
+}
+
+
+
+public function deleteImage(Request $request)
+{
+    // unlink(base_path()."/images/companies/public_html/'.$ImageName);
+ unlink(public_path()."/images/companies/".$request->ImageName);
+
+ $photo = Photo::where('name', $request->ImageName);
+
+ $photo->delete();
+
+ return response()->json(200);
+}
+
+public function updateLogo(Request $request)
+{
+
+  if($file = $request->file('imagefile'))
+  {
+    $validator = Validator::make($request->all(), [
+      'imagefile' => 'required|image|mimes:jpeg,png,jpg|max:1024',
+    ]);
+
+    if ($validator->passes()) 
+    { 
+
+      $comp = Company::Where('id', $request->id)->first();
+      $name  = time().'_'.$file->getClientOriginalName();
+
+      if( strpos($comp->logo, 'default-company-logo.jpg') == false )
+      {
+
+        //unlink(base_path().'/public_html/'.$comp->logo);
+        unlink(public_path().$comp->logo);
+
+        //  return "OK";
+      }
+
+      $comp->logo = $name;
+      $comp->update();
+
+      $file->move('images/companies/logos', $name);
+
+      return response()->json(200);
+    }
+    else
+    {
+      return response()->json(['error'=>$validator->errors()->all()]);
+    }
   }
-
-  return response()->json(500);
+  else
+  {
+   return response()->json(500);
+ }
 }
 
 
@@ -239,13 +352,11 @@ public function approveCompany($companyID)
   $repre = new Representative();
   $repre = $this->createRepresentative($comp, $compRegis, $account);
 
-    // $address = Role::findOrFail(3);
-    // $role -> accounts() -> attach($acc["id"]);
+  // $address = Role::findOrFail(3);
+  // $role -> accounts() -> attach($acc["id"]);
 
 
-
-
-   //$this->sendMailToResetPassword($repre, $comp, $account);
+  //$this->sendMailToResetPassword($repre, $comp, $account);
 
   return $repre;
 
@@ -371,4 +482,19 @@ public function store(Request $request)
  return redirect()->route("home");
 
 }
+
+public function statistic()
+{
+  $currentcompID = Auth::user()->representative->company->id;
+  $recruitcount = Recruitment::where('company_id', $currentcompID)->count();
+
+  $studentview = Recruitment::where('company_id', $currentcompID)->pluck('number_of_view')->sum();
+
+  $anonymousview = Recruitment::where('company_id', $currentcompID)->pluck('number_of_anonymous_view')->sum();
+
+  return view ('representative.index',compact('$recruitcount', '$studentview', '$anonymousview'));
+
+}
+
+
 }

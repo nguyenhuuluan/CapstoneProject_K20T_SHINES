@@ -1,25 +1,47 @@
-@extends('layouts.master-layout', ['title' => 'Jobee-Tin tuyển dụng','isDisplaySearchHeader' => false])
+@extends('layouts.master-layout', ['title' => 'Jobee - '.$recruitment->title,'isDisplaySearchHeader' => false])
+
+
+@section('stylesheet')
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.12&appId=415131908928137&autoLogAppEvents=1';
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+@endsection
+@section('meta-data')
+
+<meta property="og:title" content="{!!$recruitment->title!!}" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="{!!$currentURL!!}" />
+<meta property="og:image" content="{!! asset($recruitment->company->logo) !!}" />
+<meta property="og:description" content="{{  substr($recruitment->sections[0]->content, 0, 150) }}" />
+<meta property="og:site_name" content="tyendungvanlang.tech" />
+
+@endsection
 
 @section('page-header')
 
 
 <header class="page-header bg-img size-lg" style="background-image: url({{ asset('assets/img/bg-banner2.jpg') }} )">
-    <div class="container">
-      <div class="header-detail">
-        <img class="logo" height="60" src={!! asset($recruitment->company->logo) !!} alt="">
-        <div class="hgroup">
-          <h1>{!! $recruitment->title !!}</h1>
-        </div>
-        <time datetime="">{!! $recruitment->created_at->diffForhumans() !!}</time>
-        <ul class="details cols-3"  style="text-align: center">
-          <li>
-            <h3><a href="#">{!! $recruitment->company->name !!}</a></h3>
-          </li>
-          <li>
-            <i class="fa fa-money"></i>
+	<div class="container">
+		<div class="header-detail">
+			<a href="{!! route('company.details', $recruitment->company->slug) !!}"><img class="logo" height="60" src={!! asset($recruitment->company->logo) !!} alt=""></a>
+			<div class="hgroup">
+				<h1>{!! $recruitment->title !!}</h1>
+			</div>
+              <?php \Carbon\Carbon::setLocale('vi')?>
+			<time datetime="">{!! $recruitment->created_at->diffForhumans() !!}</time>
+			<ul class="details cols-3"  style="text-align: center">
+				<li>
+					<h3><a href="{!! route('company.details', $recruitment->company->slug) !!}">{!! $recruitment->company->name !!}</a></h3>
+				</li>
+				<li>
+					<i class="fa fa-money"></i>
 					<span class="salary">{!! $recruitment->salary !!}</span>
-          </li>
-          <li>
+				</li>
+				<li>
 					@foreach ($recruitment->categories as $category)
 					@if($category->name == 'FULL-TIME' )
 					<span class="label label-success">{!! $category->name !!}</span>
@@ -27,27 +49,36 @@
 					<span class="label label-danger">{!! $category->name !!}</span>
 					@endif
 					@endforeach
-          </li>
-        </ul>
-        
-        <div class="button-group">
-          <ul class="social-icons">
-            <li class="title">Chia sẻ</li>
-            <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-            <li><a class="google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
-            <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-            <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-          </ul>
+				</li>
+			</ul>
 
-          <div class="action-buttons">
-            <a class="btn btn-success-detail" href="job-apply.html">Ứng tuyển ngay</a>
-          </div>
+			<div class="button-group">
+				<ul class="social-icons">
+					<li class="title">Chia sẻ</li>					
 
-        </div>
-        
-      </div>
-    </div>
-  </header>
+					{{-- <li class="fb-share-button facebook" data-href="{{$currentURL}}" data-layout="button" data-size="large" data-mobile-iframe="true"><a target="_blank" href={{$currentURL.'&src=sdkpreparse'}} class="fb-xfbml-parse-ignore"><i class="fa fa-facebook"></i></a></li> --}}
+
+
+
+				</ul>
+
+				<div class="fb-share-button" data-href="{{$currentURL}}" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a target="_blank" href={{$currentURL.'&src=sdkpreparse'}} class="fb-xfbml-parse-ignore">Share</a>
+				</div>
+
+				{{-- <iframe src={{'https://www.facebook.com/plugins/share_button.php?href='.$currentURL.'&layout=button_count&size=small&mobile_iframe=true&appId=415131908928137&width=69&height=20'}} width="69" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+				--}}
+
+
+
+				<div class="action-buttons">
+					<a class="btn btn-success-detail" href="{{ route('student.apply.recruitment', $recruitment->slug) }}">Ứng tuyển ngay</a>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</header>
 @endsection
 
 
@@ -55,6 +86,7 @@
 
 
 <main class="container blog-page">
+	<a class="btn btn-success-detail" href="#" id="save-recruitment">Lưu Tin</a>
 
 	<div class="row">
 		<div class="col-md-8 col-lg-9">
@@ -74,52 +106,103 @@
 						<h2 class="title" style="box-sizing: border-box; color: #353535; font-family: &quot;Roboto Condensed&quot;, sans-serif; font-size: 27px; font-weight: 400; line-height: 35.2px; margin: 20px 0px;">
 							{!! $section->title !!}
 						</h2>
-							{!! $section->pivot->content !!}
+						{!! $section->pivot->content !!}
 					</div>
 					@endif
 					@endforeach
-				<!--END ARTICLES -->
+					<!--END ARTICLES -->
 
-			</div>
+				</div>
 
-		</article>
+			</article>
 
 
-		<div class="widget widget_tag_cloud">
-			<div class="widget-body">
-				@foreach ($recruitment->tags as $tag)
+			<div class="widget widget_tag_cloud">
+				<div class="widget-body">
+					@foreach ($recruitment->tags as $tag)
 					{{-- expr --}}
 					<a href="#">{!! $tag->name !!}</a>
-				@endforeach
+					@endforeach
+				</div>
 			</div>
+
 		</div>
 
-	</div>
 
 
+		<div class="col-md-4 col-lg-3">
 
-	<div class="col-md-4 col-lg-3">
-
-		<div class="widget widget_tag_cloud">
-			<h6 class="widget-title">Tags</h6>
-			<div class="widget-body">
-				<a href="#">blog</a>
-				<a href="#">new</a>
-				<a href="#">google</a>
-				<a href="#">position</a>
-				<a href="#">facebook</a>
-				<a href="#">hire</a>
-				<a href="#">chance</a>
-				<a href="#">resume</a>
-				<a href="#">tip</a>
+			<div class="widget widget_tag_cloud">
+				<h6 class="widget-title">Tags</h6>
+				<div class="widget-body">
+					<a href="#">blog</a>
+					<a href="#">new</a>
+					<a href="#">google</a>
+					<a href="#">position</a>
+					<a href="#">facebook</a>
+					<a href="#">hire</a>
+					<a href="#">chance</a>
+					<a href="#">resume</a>
+					<a href="#">tip</a>
+				</div>
 			</div>
-		</div>
 
+		</div>
 	</div>
-</div>
 
 
 
 </main>
 
+@endsection
+
+@section('scripts')
+
+
+<script type="text/javascript">
+	
+	$('#save-recruitment').on('click', (function(e){
+		e.preventDefault();
+		var url = "{{ route('student.save.recruitment', $recruitment->slug) }}";
+
+		$.ajax({
+			type:'GET',
+			url: url,
+			cache:false,
+			contentType: false,
+			processData: false,
+			success:function(response){
+				if(response=='success')
+				{
+					alert('Lưu tin tuyển dụng thành công!');
+				}
+				else
+				{
+					alert('Bạn đã lưu tin tuyển dụng này!');
+				}
+			},
+			error: function(response){
+				console.log(response)
+				
+			}
+		});
+
+	}));
+
+	increaseView();
+
+	function increaseView() {		
+		var urlIncreaseView = "{{ route('recruitment.increaseview', ['recruitmentID'=>$recruitment->id]) }}";
+		$.ajax({
+			url: urlIncreaseView,
+			type: 'GET',
+			success: function (response) {
+			},
+			error: function () {
+				alert('error');
+			}
+		});
+
+	}
+</script>
 @endsection

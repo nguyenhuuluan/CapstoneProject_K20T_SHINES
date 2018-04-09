@@ -1,14 +1,25 @@
-@extends('layouts.representative')
+@extends('layouts.master-layout',['title' => 'Jobee - Đăng tin tuyển dụng', 'isDisplaySearchHeader' => false])
+{{-- @extends('layouts.representative') --}}
 
-@section('styles')
+
+
+@section('stylesheet')
 <link href="{{asset('assets/vendors/summernote/summernote.css')}}" rel="stylesheet">
 
 
 {{-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.css"> --}}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+<link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.min.css') }}">
 @endsection
 
-@section('body')
+@section('page-header')
+<header class="page-header">
+	<div class="container page-name">
+		<h1 class="text-center">Đăng tin tuyển dụng</h1>
+	</div>
+</header>
+@endsection
+
+@section('content')
 <main>
 
 	{!! Form::open(['method'=>'POST', 'action'=>'Representative\RepresentativeRecruitmentController@store']) !!}
@@ -92,7 +103,7 @@
 			<header class="section-header">
 				<h3>{!! $section->title !!}</h3>
 			</header>
-			{!! Form::textarea('sections['.$section->id.']' , null,['class'=>'summernote', 'rows'=>5]) !!}
+			{!! Form::textarea('sections['.$section->id.']' , null,['class'=>'summernote-editor', 'rows'=>5]) !!}
 		</div>
 		<br>
 		@endforeach
@@ -114,15 +125,11 @@
 
 @section('scripts')
 
+<script src="{{ asset('assets/js/jquery-ui') }}"></script>
+
+
+<script src="{{ asset('assets/js/typeahead.bundle.js') }}" type="text/javascript" charset="utf-8"></script>
 <script src="{{ asset('assets/vendors/summernote/summernote.min.js') }}"></script>
-
-{{-- <script src="//code.jquery.com/jquery-1.10.2.js"></script> --}}
-{{-- <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script> --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
-{{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>  --}}
-
-<script src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js" type="text/javascript" charset="utf-8"></script>
 
 
 
@@ -166,13 +173,30 @@
 		$( "#datepicker" ).datepicker( "option", "dateFormat", 'dd/mm/yy');
 
 	});
-	$(".summernote").summernote({
-			// toolbar: [
-		 //    // [groupName, [list of button]]
-		 //    ['style', ['bold', 'italic']],
-		 //    ['para', ['ul', 'ol']],
-		 //    ],
-		 height: 200
-		});
+	// $(".summernote-editor").summernote({
+	// 	toolbar: [
+	// 	    // [groupName, [list of button]]
+	// 	    ['style', ['bold', 'italic']],
+	// 	    ['para', ['ul', 'ol']],
+	// 	    ['insert', ['link', 'picture', 'hr']],
+	// 	    ],
+	// 	    height: 200
+	// 	});
+
+	$('.summernote-editor').summernote({
+		toolbar: [
+    // [groupName, [list of button]]
+    ['style', ['bold', 'italic']],
+    ['para', ['ul', 'ol']],
+    ['insert', ['picture', 'hr']],
+    ['height', ['height']]
+    ],
+    dialogsInBody: true,
+    dialogsFade: true,
+    disableDragAndDrop: false,
+    height: 200,
+
+
+});
 </script>
 @endsection

@@ -16,7 +16,9 @@
                 @endif
                 @endforeach
               </div>
-              <time>{!! Carbon\Carbon::parse($recruitment->created_at)->diffForHumans() !!}</time>
+              <?php \Carbon\Carbon::setLocale('vi')?>
+              <time>{!! Carbon\Carbon::parse($recruitment->created_at)->diffForHumans(); !!}</time>
+             
               
             </header>
 
@@ -37,7 +39,7 @@
                 <li>
                   <i class="fa fa-tag"></i>
                   @foreach (App\Recruitment::findOrFail($recruitment->id)->tags as $tag)
-                  <span>{!! $tag->name !!}</span>
+                  <span class="btn btn-info btn-xs">{!! $tag->name !!}</span>
                   @endforeach
                 </li>
               </ul>

@@ -22,8 +22,17 @@ class RepresentativeController extends Controller
      */
     public function index()
     {
-        //
-        return view('representative.index');
+        $currentcompID = Auth::user()->representative->company->id;
+        $recruitcount = Recruitment::where('company_id', $currentcompID)->count();
+
+        // $totalapplied = Recruitment::where('company_id', $currentcompID)->
+
+        $totalrepresentative = Auth::user()->representative->company->representatives()->count();
+        $studentview = Recruitment::where('company_id', $currentcompID)->pluck('number_of_view')->sum();
+
+        $anonymousview = Recruitment::where('company_id', $currentcompID)->pluck('number_of_anonymous_view')->sum();
+
+         return view('representative.index')->with(compact('recruitcount', 'studentview', 'anonymousview','totalrepresentative'));
     }
 
     public function resetPassword($token)
@@ -58,7 +67,7 @@ class RepresentativeController extends Controller
     public function store(Request $request)
     {
         //
-        
+
     }
 
     /**

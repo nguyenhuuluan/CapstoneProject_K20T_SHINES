@@ -50,7 +50,7 @@
                                             
                                             <td>{{$compRegis->created_at}}</td>
                                             <td>
-                                               
+
                                                 <button type="button" class="btn btn-default btn-success btn-approve" value = "{{$compRegis->id}}">
 
                                                     <span class="fa fa-check"></span> Xác nhận
@@ -59,11 +59,9 @@
                                                 
                                                 
                                             </td>   </tr>
-                                        @endif
-                                                                               
+                                            @endif
+
                                             @endforeach
-
-
 
                                         </tbody>
 
@@ -81,9 +79,10 @@
             </div>
             <!-- /.row -->
         </div>
+
+
         <!-- /.container-fluid -->
     </div>
-
 
 
     @endsection
@@ -91,33 +90,32 @@
     @section('scripts')
     <script type="text/javascript">
 
+        $('.table-responsive').on('click', '.btn-approve', function(){
 
-        $('.btn-approve').click(function() {
+            var currentelement = $(this);
 
-           var currentelement = $(this);
+            $.confirm({
+                title: 'Thông báo!!',
+                content: 'Bạn có muốn xác nhận công ty này?',
+                buttons: {
+                    Có: {
+                        keys: ['enter'],
+                        btnClass: 'btn-green',
+                        action: function(){
+                           approveCompany(currentelement);
+                       }
+                   },
+                   Không: {
+                    keys: ['esc'],
+                    btnClass: 'btn-red'              
+                }
 
-           $.confirm({
-            title: 'Thông báo!!',
-            content: 'Bạn có muốn xác nhận công ty này?',
-            buttons: {
-                Có: {
-                    keys: ['enter'],
-                    btnClass: 'btn-green',
-                    action: function(){
-                       approveCompany(currentelement);
-                   }
-               },
-               Không: {
-                keys: ['esc'],
-                btnClass: 'btn-red'              
             }
 
-        }
 
+        });
+        });
 
-    });
-
-       });
 
 
 
@@ -148,7 +146,7 @@
                     alert('OK');
                 },
                 error: function(){
-                    
+
                 }            
             });
         }

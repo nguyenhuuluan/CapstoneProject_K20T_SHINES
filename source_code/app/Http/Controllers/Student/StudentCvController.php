@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Cv;
 use Auth;
-
+use Response;
 
 class StudentCvController extends Controller
 {
@@ -52,8 +52,11 @@ class StudentCvController extends Controller
                 $input['file'] = $name;
                 $input['student_id'] = $id;
                 $cv = CV::create($input);
+                $cvs[] = $cv;
                 $file->move('cvs', $name);
-                return response($cv);
+
+                // return response($cv);
+                return ['cvs'=>view('ajax.cvList')->with(compact('cvs'))->render()];
             }
             else
             {
@@ -79,6 +82,27 @@ class StudentCvController extends Controller
 
         return view('ajax.cvList', compact('cvs'));
         // return response($cvs);
+    }
+
+    public function download($name)
+    {   
+        //return $name;
+        $cv = CV::where('file',$name)->first();
+
+        return response()->file(public_path().'\\cvs\\'.$cv->file, [
+          'Content-Disposition' => 'inline; filename="'. $cv->name .'"'
+      ]);
+
+         // return response()->make(
+         //        public_path().'\\cvs\\'.$cv->file,
+         //        $cv->name,
+         //        [],
+         //        'inline'
+         //    );
+
+        // $pathToFile = public_path().'\\cvs\\'.$cv->file;
+        // return response()->file($pathToFile,$cv->name);
+
     }
 
     /**
@@ -110,17 +134,19 @@ class StudentCvController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $cv = CV::findOrFail($id);
+        $cv = CV::findOrFail($request['id']);
         if(Auth::user()->student->id == $cv->student_id){
+
             //unlink(base_path().'/public_html'.'/cvs/'.$cv->file);
+
             unlink(public_path().'\\cvs\\'.$cv->file);
             $cv->delete();
 
-            return redirect()->back();
+            return response()->json('success');
         }else
-        {return ('123');}
+        {return response()->json('error');}
         
 
     //   if($request->ajax())

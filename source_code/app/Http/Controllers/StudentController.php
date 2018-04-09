@@ -213,16 +213,15 @@ class StudentController extends Controller
 					'name'=>$value,
 					'rating'=>request('rating')[$key],
 				]);
-				$student->skills()->save($exp);
+			$student->skills()->save($exp);
 			}
 		}
 
 		return redirect()->back();
 	}
 
-	public function editPhoto(Request $request,$id)
+	public function editPhoto(Request $request)
 	{
-
 		if($file = $request->file('photo'))
 		{
 			$validator = Validator::make($request->all(), [
@@ -231,12 +230,12 @@ class StudentController extends Controller
 
 			if ($validator->passes()) 
 			{	
-				$student = Student::findOrFail($id);
+				$student = Student::findOrFail($request['id']);
 				$name  = time().$file->getClientOriginalName();
 
-				if(strpos($student->photo, '/images/students/avatar.jpg'))
+				if(!strpos($student->photo, '/images/students/avatar.jpg'))
 				{
-					// unlink(base_path().'/public_html/'.$student->photo);
+					//unlink(base_path().'/public_html/'.$student->photo);
 					unlink(public_path().$student->photo);
 				}
 
@@ -244,7 +243,7 @@ class StudentController extends Controller
 				$student['photo']=$name;
 				$student->update();
 				$file->move('images/students/avatas', $name);
-				return response($student);
+				return response()->json($student['photo']);
 
 				// return response()->json(['success'=>'success']);
 			}
