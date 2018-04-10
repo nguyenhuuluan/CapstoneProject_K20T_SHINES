@@ -22,6 +22,26 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="icon" href="assets/img/favicon.ico">
 
+  <!-- Notification -->
+  <style type="text/css">
+	.badge1 {
+		position:relative;
+	}
+	.badge1[data-badge]:after {
+		content:attr(data-badge);
+		position:absolute;
+		top:-10px;
+		right:-10px;
+		font-size:.7em;
+		background:red;
+		color:white;
+		width:18px;height:18px;
+		text-align:center;
+		line-height:18px;
+		border-radius:50%;
+		box-shadow:0 0 1px #333;
+	}
+    </style>
 
 </head>
 
@@ -29,49 +49,90 @@
 
  <!-- Navigation bar -->
  <nav class="navbar">
-  <div class="container">
+		<div class="container">
 
-    <!-- Logo -->
-    <div class="pull-left">
-      <a class="navbar-toggle" href="#" data-toggle="offcanvas"><i class="ti-menu"></i></a>
+			<!-- Logo -->
+			<div class="pull-left">
+				<a class="navbar-toggle" href="#" data-toggle="offcanvas"><i class="ti-menu"></i></a>
 
-      <div class="logo-wrapper">
-        <a class="logo" href="index.html"><img src="assets/img/logo.png" alt="logo"></a>
-        <a class="logo-alt" href="index.html"><img src="assets/img/logo-alt.png" alt="logo-alt"></a>
-      </div>
+				<div class="logo-wrapper">
+					<a class="logo" href="index.html"><img src="assets/img/logo.png" alt="logo"></a>
+					<a class="logo-alt" href="index.html"><img src="assets/img/logo-alt.png" alt="logo-alt"></a>
+				</div>
 
-    </div>
-    <!-- END Logo -->
+			</div>
+			<!-- END Logo -->
 
+			<!-- User account -->
+            <div class="pull-right">
+            	<!-- Notification -->
+            	<div class="dropdown user-account">
+                  <a href="#" class="badge1" data-badge="3" data-toggle="dropdown"><span class="glyphicon glyphicon-bell"></span></a>
+                  <ul class="dropdown-menu dropdown-menu-right">
+                     <li>
+                        <a href="#"> Bạn có 7 hồ sơ mới</a>
+                     </li>
+                     <li>
+                        <a href="#"> Xác nhận lại thông tin...</a>
+                     </li>
+                     <li>
+                        <a href="#"> Hết hạn tin...</a>
+                     </li>
+                  </ul>
+               </div>
+               <!-- End Notification -->
+                <div class="dropdown user-account">
+                  <a id="menu-desktop" class="user-account-text">Thành Huỳnh</a>
+                  <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                  <img src="assets/img/logo-envato.png" alt="avatar">
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-right">
+                     <li>
+                        <a href="candidate-account.html"><i class="fa fa-user" aria-hidden="true"></i> Tài khoản</a>
+                     </li>
+                     <li>
+                        <a href="candidate-resume-add.html"><i class="fa fa-file" aria-hidden="true"></i> Hồ sơ</a>
+                     </li>
+                     <li>
+                        <a href="candidate-resume-add.html"><i class="fa fa-eye" aria-hidden="true"></i> Xem Hồ sơ</a>
+                     </li>
+                      <li>
+                        <a href="candidate-jobs-saved.html"><i class="fa fa-save" aria-hidden="true"></i> Việc làm đã lưu</a>
+                     </li>
+                     <li>
+                        <a href="candidate-jobs-have-apply.html"><i class="fa fa-check-circle" aria-hidden="true"></i> Việc làm đã ứng tuyển</a>
+                     </li>
+                     <li>
+                        <a href="#"><i class="fa fa-sign-out" aria-hidden="true"></i> Đăng xuất</a>
+                     </li>
+                  </ul>
+               </div>
 
-      <!-- User account -->
-      <div class="pull-right user-login">
-        <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#id02" href="#">Đăng nhập</a> | <a href="#">Nhà tuyển dụng</a>
-      </div>
-      <!-- END User account -->
+            </div>
+            <!-- END User account -->
 
-    <!-- Navigation menu -->
-    <ul class="nav-menu">
-      <li>
-        <a class="active" href="index.html">Trang chủ</a>
-      </li>
-      <li>
-        <a href="company-list.html">Công ty</a>
-      </li>
-      <li>
-        <a href="job-list-1.html">Việc làm</a>
-      </li>
-      <li>
-        <a href="#">Blog</a>
-      </li>
-      <li>
-        <a href="#">Giới thiệu</a>
-      </li>
-    </ul>
-    <!-- END Navigation menu -->
+			<!-- Navigation menu -->
+			<ul class="nav-menu">
+				<li>
+					<a class="active" href="index.html">Trang chủ</a>
+				</li>
+				<li>
+					<a href="company-list.html">Công ty</a>
+				</li>
+				<li>
+					<a href="job-list-1.html">Việc làm</a>
+				</li>
+				<li>
+					<a href="#">Blog</a>
+				</li>
+				<li>
+					<a href="#">Giới thiệu</a>
+				</li>
+			</ul>
+			<!-- END Navigation menu -->
 
-  </div>
-</nav>
+		</div>
+	</nav>
 <!-- END Navigation bar -->
 
 
@@ -80,7 +141,15 @@
   <div class="container page-name" style="padding-bottom: 100px">
     <form class="header-job-search">
           <div class="input-keyword">
-            <input type="text" class="tagsinput-typeahead form-control" placeholder="Tìm công việc hoặc công ty yêu thích" data-role="tagsinput">
+            <input type="text" class="tagsinput-typeahead form-control" placeholder="Tìm công việc hoặc công ty" data-role="tagsinput">
+          </div>
+          <div class="input-location">
+          	<select class="form-control" style="font-size: 16px;">
+          		<option>Hồ Chí Minh</option>
+          		<option>Hà Nội</option>
+          		<option>Đà Nẵng</option>
+          		<option>Cần Thơ</option>
+          	</select>
           </div>
           <div class="btn-search">
             <button class="btn btn-primary" type="submit">Tìm</button>
@@ -90,6 +159,7 @@
 </header>
 <!-- END Page header -->
 
+<a href="" class="badge1" data-badge="7"><span class="glyphicon glyphicon-bell"></span></a>
 
 <!-- Main container -->
 <main>
