@@ -74,6 +74,7 @@ Route::POST('student/profile/update/cv/{id}', 'Student\StudentCvController@store
 Route::POST('student/photo/update', 'StudentController@editPhoto')->name('student.photo.edit')->middleware('student');
 Route::GET('student/profile/update/cv', 'Student\StudentCvController@show')->name('student.cv.show')->middleware('student');
 Route::GET('student/cvs/download/{name}','Student\StudentCvController@download')->name('student.cv.download');
+Route::GET('student/cvs/preview/{name}','Student\StudentCvController@preview')->name('student.cv.preview');
 Route::POST('student/cv', 'Student\StudentCvController@destroy')->name('student.cv.destroy')->middleware('student');
 
 Route::GET('student/recruitments/apply', 'Student\StudentRecruitmentController@showApply')->name('student.apply.show')->middleware('student');

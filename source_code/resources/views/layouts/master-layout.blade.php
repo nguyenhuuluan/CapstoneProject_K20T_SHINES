@@ -15,7 +15,6 @@
  <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet">
  <link href="{{ asset('assets/css/thejobs.css') }}" rel="stylesheet">
  <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
- <link href="{{ asset('assets/css/alpha.css') }}" rel="stylesheet">
 
  <!-- Fonts -->
  <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
@@ -73,16 +72,8 @@
   <script type="text/javascript" src="{{ asset('assets/js/app.min.js') }} "></script>
   <script type="text/javascript" src="{{ asset('assets/js/thejobs.js') }} "></script>
   <script type="text/javascript" src="{{ asset('assets/js/custom.js') }} "></script>
-  <script type="text/javascript" src="{{ asset('assets/js/alpha.js') }} "></script>
 
-  <script type="text/javascript">
 
-    $('#testimonials').alpha({
-      layout: 'alt',
-      delay : 5300
-    });
-
-  </script>
 
   @yield('scripts')
 

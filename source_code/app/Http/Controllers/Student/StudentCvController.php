@@ -89,6 +89,11 @@ class StudentCvController extends Controller
         //return $name;
         $cv = CV::where('file',$name)->first();
 
+               //chay tren host
+      //  return response()->file(base_path().'/public_html/cvs/'.$cv->file, [
+      //     'Content-Disposition' => 'inline; filename="'. $cv->name .'"'
+      // ]);
+
         return response()->file(public_path().'\\cvs\\'.$cv->file, [
           'Content-Disposition' => 'inline; filename="'. $cv->name .'"'
       ]);
@@ -104,6 +109,12 @@ class StudentCvController extends Controller
         // return response()->file($pathToFile,$cv->name);
 
     }
+    public function preview($name)
+    {
+       $cv = CV::where('file',$name)->first();
+
+       return view('students.cv-preview',compact('cv'));
+   }
 
     /**
      * Show the form for editin gthe specified resource.

@@ -235,7 +235,7 @@ class StudentController extends Controller
 
 				if(!strpos($student->photo, '/images/students/avatar.jpg'))
 				{
-					//unlink(base_path().'/public_html/'.$student->photo);
+					// unlink(base_path().'/public_html/'.$student->photo);
 					unlink(public_path().$student->photo);
 				}
 
@@ -281,28 +281,6 @@ class StudentController extends Controller
 		{
 			return response()->json(['error'=>'error']);
 		}
-
-
-		
-
-
-    //   if ($validator->passes()) {
-
-
-    //     $input = $request->all();
-    //     $input['image'] = time().'.'.$request->image->getClientOriginalExtension();
-    //     $request->image->move(public_path('images'), $input['image']);
-
-
-    //     AjaxImage::create($input);
-
-
-    //     return response()->json(['success'=>'done']);
-    //   }
-
-    //   return response()->json(['error'=>$validator->errors()->all()]);
-    // }
-
 	}
 
 	public function updateProfile()

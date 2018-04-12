@@ -1,6 +1,66 @@
 @extends('layouts.master-layout',['title' => 'Danh sách tin tuyển dụng', 'isDisplaySearchHeader' => false])
 @section('stylesheet')
 <link href="{{ asset('assets/css/bootstrap-tagsinput.css') }}" rel="stylesheet">
+<style type="text/css">
+  .loading-dots {
+  text-align: center;
+  margin-top: 3em;
+  z-index: 5;
+}
+.loading-dots .dot {
+  display: inline;
+  margin-left: 0.2em;
+  margin-right: 0.2em;
+  position: relative;
+  top: -1em;
+  font-size: 3.5em;
+  opacity: 0;
+  -webkit-animation: showHideDot 2.5s ease-in-out infinite;
+          animation: showHideDot 2.5s ease-in-out infinite;
+}
+.loading-dots .dot.one {
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s;
+}
+.loading-dots .dot.two {
+  -webkit-animation-delay: 0.4s;
+          animation-delay: 0.4s;
+}
+.loading-dots .dot.three {
+  -webkit-animation-delay: 0.6s;
+          animation-delay: 0.6s;
+}
+
+@-webkit-keyframes showHideDot {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes showHideDot {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+</style>
 @endsection
 @section('page-header')
 <header class="page-header bg-img" style="background-image: url({{ asset('assets/img/bg-banner1.jpg') }} );">
@@ -22,7 +82,7 @@
           <h5>Chúng tôi đã tìm thấy <strong>{!! $total !!}</strong> việc làm cho <strong>Bạn</strong> </h5>
         </div>
         
-        <div class="recruitments endless-pagination" data-next-page="{{ $recruitments->nextPageUrl() }}" id="itemrecruitment">
+        <div class="recruitments endless-pagination" data-next-page="{{ $recruitments->nextPageUrl() }}">
 
           @foreach ($recruitments as $recruitment)
           <!-- Job item -->
@@ -80,6 +140,10 @@
       </div> --}}
     </div>
 
+      <div class="loading-dots hidden" id="loading-dots">
+        <h1 class="dot one">.</h1><h1 class="dot two">.</h1><h1 class="dot three">.</h1>
+      </div>
+
   </div>
 </section>
 </main>
@@ -89,51 +153,46 @@
 @section('scripts')
 <script type="text/javascript">
   var showlist;
-
+  var is_busy = false;
   // var element = document.getElementById("itemrecruitment");
   // var numberOfChildren = element.children.length;
-  $(document).ready(function(){
     //$('.loading').hide();
     $(window).scroll(function(){
-      clearTimeout(showlist);
-      showlist = setTimeout(fetchPost,50)
-    });
+      $element = $('#itemrecruitment');
+      // ELement hiển thị chữ loadding
+      $loadding = $('#loading-dots');
+      // Nếu màn hình đang ở dưới cuối thẻ thì thực hiện ajax
+      if ($(window).scrollTop() + $(window).height() >= $element.height()) {
+        // Nếu đang gửi ajax thì ngưng
+        if (is_busy == true) {
+          return false;
+        }
+          // Thiết lập đang gửi ajax
+          is_busy = true;
+          var page = $('.endless-pagination').data('next-page');
+          if (page!==null && page!==''){
+            $loadding.removeClass('hidden');
+            $.ajax(
+            {
+              type: 'get',
+              dataType: 'text',
+              url: page,
+              success: function (data) {
+                $('.recruitments').append(JSON.parse(data)["recruitments"]);
+                $('.endless-pagination').data('next-page', JSON.parse(data)["next_page"]);
+              }
+            })
+            .always(function () {
+                    // Sau khi thực hiện xong ajax thì ẩn hidden và cho trạng thái gửi ajax = false
+                    $loadding.addClass('hidden');
+                    is_busy = false;
+                  });
+            return false;
+          }
+          return false;
 
+        }
+      });
 
-    function fetchPost()
-    {
-
-     var page = $('.endless-pagination').data('next-page');
-    // alert(page=='' ? true:false);
-     // alert(page);
-     if (page!==null && page!=='')
-     {
-
-      //$('.loading').show();
-      var scroll_position_for_recruitments_load = $(window).height() + $(window).scrollTop()+372;
-      var documentHeight = $(document).height();
-      //var scrolTop = $(window).scrollTop();
-     // alert(document.getElementById("loading").clientHeight);
-     //372
-     //alert(document.getElementById("testtt").clientHeight);
-     //211 
-      //console.log(scroll_position_for_recruitments_load+'||'+documentHeight);
-
-      if(scroll_position_for_recruitments_load > documentHeight-400 )
-      {
-        $.get(page, function(data){
-          $('.recruitments').append(data.recruitments);
-          $('.endless-pagination').data('next-page', data.next_page);
-        })
-        //window.scrollTo(0,scroll_position_for_recruitments_load+372);
-        // window.scrollTo(0,0);
-        //$('.loading').hide();
-      }
-    }else{
-      //$('.loading').hide();
-    }
-  }
-
-})
 </script>
 @endsection

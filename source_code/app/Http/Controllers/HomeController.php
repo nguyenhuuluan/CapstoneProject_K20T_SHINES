@@ -10,7 +10,7 @@ use Response;
 use DB;
 class HomeController extends Controller
 {   
-    protected $per_page_number = 3;
+    protected $per_page_number = 3; 
     /**
      * Create a new controller instance.
      *

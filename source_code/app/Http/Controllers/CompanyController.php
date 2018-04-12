@@ -248,7 +248,7 @@ public function updateImages(Request $request)
 
 public function deleteImage(Request $request)
 {
-    // unlink(base_path()."/images/companies/public_html/'.$ImageName);
+   // unlink(base_path()."/images/companies/public_html/'".$ImageName);
  unlink(public_path()."/images/companies/".$request->ImageName);
 
  $photo = Photo::where('name', $request->ImageName);

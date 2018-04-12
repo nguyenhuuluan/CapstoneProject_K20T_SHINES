@@ -395,6 +395,9 @@
 				</div>
 
 			</div>
+{{-- 			<iframe src='https://view.officeapps.live.com/op/embed.aspx?src=https://www.leaf-vn.org/PDF-0CONVERSION-rev2.pdf' width='px' height='px' frameborder='0'>
+</iframe> --}}
+			
 		</main>
 		<button class="tooltipsave" onclick="document.getElementById('updateForm').submit(); " id="myBtn"><i class="fa fa-save" aria-hidden="true"></i><span class="tooltiptext">Lưu hồ sơ</span></button>
 		@endsection
@@ -493,9 +496,6 @@
 						}
 					});
 
-
-				// alert(value);
-				// $(this).closest('div').find('span').html(value);
 			});
 
 			});

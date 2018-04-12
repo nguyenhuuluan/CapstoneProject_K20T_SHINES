@@ -1,5 +1,4 @@
  @foreach ($recruitments as $recruitment)
- <!-- Job item -->
  <div class="col-xs-12">
   <a class="item-block" href="{!! route('detailrecruitment', $recruitment->slug) !!}">
     <header>
