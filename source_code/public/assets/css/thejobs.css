@@ -787,11 +787,11 @@ form .text-muted {
 
 .header-job-search .input-keyword {
 	position:relative;
-  	width:80%;
+  	width:55%;
 }
 .header-job-search .input-location {
   position:relative;
-  width:0;
+  width:25%;
 }
 
 .header-job-search .input-keyword::before,
