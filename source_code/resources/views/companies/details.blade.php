@@ -35,23 +35,22 @@
 
         <li>
           <i class="fa fa-phone"></i>
-          <span>{{$company->phone == '' ? 'Chưa cập nhật số điện thoại' : $company->phone}}</span>
+          <span>{{$company->phone}}</span>
         </li>
 
         <li>
           <i class="fa fa-envelope"></i>
-          <a href="#">{{$company->email  == '' ? 'Chưa cập nhật email' : $company->email}}</a>
+          <a href="#">{{$company->email}}</a>
         </li>
         <li>
           <i class="fa fa-calendar"></i>
-          <span>{{$company->working_day == '' ? 'Chưa cập nhật thời gian làm việc' : $company->working_day}}</span>
+          <span>{{$company->working_day}}</span>
         </li>
       </ul>
 
       <div class="button-group">
         <ul class="social-icons">
 
-          @if (!empty($data['socials']))
           @if ($socials[0]->name === 'Facebook')
           <li><a class="facebook" href="{{$socials[0]->url}}"  target="_blank"><i class="fa fa-facebook"></i></a></li>
           @endif  
@@ -67,13 +66,6 @@
           @if($socials[1]->name === 'LinkedIn')
           <li><a class="linkedin" href="{{$socials[0]->url}}"  target="_blank"><i class="fa fa-linkedin"></i></a></li>
           @endif      
-          @else
-            Chưa cập nhật tag
-          @endif
-
-
-
-
 
         </ul>
 
@@ -91,12 +83,10 @@
 
 <div class="widget_tag_cloud" style="margin-left: 10%;">
   <div class="widget-body">
-    @if ($company->tags()->get() != null)
-    @foreach ($company->tags()->get() as $tag)
-    <a href="#">{{$tag->name}}</a>
-    @endforeach
-    @endif
-  </div>
+   @foreach ($company->tags()->get() as $tag)
+   <a href="#">{{$tag->name}}</a>
+   @endforeach
+ </div>
 </div>
 
 @endsection
@@ -115,19 +105,13 @@
 
   </div>
   <center>
-
-    @if ($company->photos()->pluck('name')->toArray() != null)
     <div class="bxslider">
+
       @foreach ($company->photos()->pluck('name')->toArray() as $photoname)
       <div><img src="{{ asset('images/companies/'.$photoname) }}"></div>
       @endforeach
+
     </div>
-    @else
-    <div class="col-xs-12">
-      <center>Chưa cập nhật hình ảnh</center>
-    </div>
-    @endif
-    
   </center>
 </section>
 <!-- END Company detail -->
@@ -142,13 +126,13 @@
 
     <div class="row">
 
-      @if ($company->recruitments()->where('status_id', 1)->orderBy('created_at','desc')->get()->count() == 0)
+      @if (count($recruitments) == 0)
       <div class="col-xs-12">
         <center>Chưa có tin tuyển dụng nào</center>
       </div>
       @endif
 
-      @foreach ($company->recruitments()->where('status_id', 1)->orderBy('created_at','desc')->get() as $recruitment)
+      @foreach ($recruitments as $recruitment)
       <!-- Job item -->
 
       <a class="item-block" href="{{ route('detailrecruitment', $recruitment->slug ) }}">

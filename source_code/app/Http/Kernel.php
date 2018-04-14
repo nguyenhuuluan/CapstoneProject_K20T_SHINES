@@ -60,7 +60,6 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\Admin::class,
         'representative' => \App\Http\Middleware\Representative::class,
         'student' => \App\Http\Middleware\Student::class,
-        'filter' => \App\Http\Middleware\Filter::class,
 
     ];
 }
