@@ -120,26 +120,4 @@
 
 @endsection
 
-@section('scripts')
-<script type="text/javascript">
-  
-
-  
- var route = "{{ route('recruitment.total') }}";
- $.ajax({
-  url: route,
-  type: 'GET',
-  success: function (response) {
-    $('.total-recruitments').html(response);
-  },
-  error: function () {
-    alert('error');
-  }
-});
-
- 
-</script>
-
-
-@endsection
 

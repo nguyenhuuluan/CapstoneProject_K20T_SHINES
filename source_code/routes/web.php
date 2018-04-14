@@ -44,7 +44,11 @@ Route::POST('/partnership/register', 'CompanyRegistrationController@registerPart
 
 
 // Recruitment - WEB
-Route::get('/recruitments/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
+// Route::get('/recruitments/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
+
+Route::group(['middleware' => 'filter'], function() {
+    Route::get('/recruitments/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
+});
 Route::get('search', 'RecruitmentController@search')->name('recruitments.search');
 
 Route::get('/recruitment/increaseView/{recruitmentID}', 'RecruitmentController@increaseView')->name('recruitment.increaseview');

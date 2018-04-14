@@ -10,6 +10,8 @@ use App\Section;
 use App\Account;
 use App\Tag;
 use App\Company;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\View;
 
 use DB;
 use Auth;
@@ -131,6 +133,8 @@ class RecruitmentController extends Controller
 
      $recruitment = Recruitment::findBySlugOrFail($slug);
 
+     Event::fire('recruitment.view', $recruitment);
+
      if($recruitment->status_id==1)
      {
         return view('recruitments.detail',compact('recruitment', 'currentURL'));
@@ -151,17 +155,20 @@ public function totalRecruitments()
 public function increaseView($recruitmentID)
 {
 
-    $recruitment = Recruitment::where('id', $recruitmentID)->first();
+ //    $recruitment = Recruitment::where('id', $recruitmentID)->first();
 
-    if (Auth::user() == null ) {
-       $recruitment->number_of_anonymous_view = $recruitment->number_of_anonymous_view + 1;
-   }elseif (Auth::user()->isStudent()) {
-       $recruitment->number_of_view = $recruitment->number_of_view + 1;
-   }else{
-     $recruitment->number_of_anonymous_view = $recruitment->number_of_anonymous_view + 1;
- }
+ //    if (Auth::user() == null ) {
+ //       //$recruitment->number_of_anonymous_view = $recruitment->number_of_anonymous_view + 1;
+ //       $recruitment->increment('number_of_anonymous_view');
+ //   }elseif (Auth::user()->isStudent()) {
+ //      // $recruitment->number_of_view = $recruitment->number_of_view + 1;
+ //       $recruitment->increment('number_of_view');
+ //   }else{
+ //    // $recruitment->number_of_anonymous_view = $recruitment->number_of_anonymous_view + 1;
+ //     $recruitment->increment('number_of_anonymous_view');
+ // }
 
- $recruitment->update();
+ // $recruitment->update();
 
  return response()->json(200);
 
