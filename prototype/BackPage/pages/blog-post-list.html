@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Jobee Admin</title>
+    <title>Jobee</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -17,18 +17,21 @@
     <!-- MetisMenu CSS -->
     <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
-    <!-- SummerNote -->
-  <link href="../vendor/summernote/summernote.css" rel="stylesheet">
-  <script src="../vendor/summernote/jquery.js"></script> 
-  <script src="../vendor/summernote/summernote.js"></script>
+    <!-- DataTables CSS -->
+    <link href="../vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
 
-<link href="../vendor/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <!-- DataTables Responsive CSS -->
+    <link href="../vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Toggle CSS Button -->
+    <link href="../dist/css/bootstrap-toggle.min.css" rel="stylesheet">
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -43,6 +46,7 @@
 
     <div id="wrapper">
 
+       <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -217,142 +221,123 @@
             <!-- /.navbar-static-side -->
         </nav>
 
-
         <!-- Page Content -->
         <div id="page-wrapper">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Đăng blog</h1>
+                        <h1 class="page-header">Danh sách các bài viết</h1>
                     </div>
-                    <!-- /.col-lg-12 -->
-                    <div class="col-xs-12 col-md-9">
-                    	<div class="form-group">
-                    	<input class="form-control" placeholder="Nhập tiêu đề blog">
-                    	<br><br>
-                    	<label>Nội dung</label>
-                    	<form method="post">
-                    	<textarea id="summernote" name="editordata"></textarea>
-                    	</form><br>
-                    	<label>Mô tả tìm kiếm</label>
-                    	<textarea class="form-control" rows="3" placeholder="Cái này là nhập để bỏ vô thẻ meta nha"></textarea>
-                    	</div>
-                    </div>
+                        <!-- /.row -->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="">
+                                    
+                                    <!-- /.panel-heading -->
+                                    <div class="panel-body">
+                                        <div class="table-responsive">
+                                            <table width="100%" class="table table-striped table-hover" id="dataTables-example">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Tên bài viết</th>
+                                                        <th>Người đăng</th>
+                                                        <th>Chuyên mục</th>
+                                                        <th>Ngày tạo</th>
+                                                        <th>Trạng thái</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>Làm sao để thăng tiến nhanh trong công việc?</td>
+                                                        <td>boycute</td>
+                                                        <td>Kỹ năng sống</td>
+                                                        <td>29/12/2017</td>
+                                                        <td>Đã đăng</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td>Định hướng nghề nghiệp tương lai của bạn</td>
+                                                        <td>Nhân Ngô</td>
+                                                        <td>Nghề nghiệp</td>
+                                                        <td>21/6/2017</td>
+                                                        <td>Đã đăng</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3</td>
+                                                        <td>Học java thế nào hiệu quả?</td>
+                                                        <td>michealvu</td>
+                                                        <td>Nghề nghiệp</td>
+                                                        <td>17/1/2017</td>
+                                                        <td>Nháp</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>4</td>
+                                                        <td>Tôi đã làm chủ doanh nghiệp tỷ USD như thế nào?</td>
+                                                        <td>Thành Huỳnh</td>
+                                                        <td>Doanh nhân</td>
+                                                        <td>2/3/2017</td>
+                                                        <td>Đã đăng</td>
+                                                    </tr>
 
-                    <div class="col-xs-12 col-md-3">
-                    	<div class="panel panel-info">
-	                        <div class="panel-heading">
-	                            Công cụ đăng
-	                        </div>
-	                        <div class="panel-body">
-	                           <button type="button" class="btn btn-default">Xem trước</button><br><br>
-	                           	<p class="fa fa-gear"></p> Trạng thái: <strong>Nháp</strong><br>
-	                           	<p class="fa fa-calendar"></p> Thời gian: 
-	                           	
-	                           	<div id="datetimepicker2" class="input-append">
-	                           		<input data-format="MM/dd/yyyy HH:mm:ss PP" type="text" class="form-control" style="width: 90%">
-	                           		<span class="add-on">
-	                           			<i class="fa fa-clock-o"></i>
-	                           		</span>
-	                           		</input>
-	                           </div>
-	                        </div>
+                                                </tbody>
 
-	                        <div class="panel-footer">
-	                            <button type="button" class="btn btn-warning">Hủy</button>
-	                    		<button type="button" class="btn btn-success">Công khai</button>
-	                        </div>
-                    	</div>
-
-                    	<div class="panel panel-info">
-	                        <div class="panel-heading">
-	                            Chuyên mục
-	                        </div>
-	                        <div class="panel-body">
-	                           <div class="form-group">
-	                           	<div class="checkbox">
-	                           		<label>
-	                           			<input type="checkbox" value="">Kỹ năng sống
-	                           		</label>
-	                           	</div>
-	                           	<div class="checkbox">
-	                           		<label>
-	                           			<input type="checkbox" value="">Doanh nhân
-	                           		</label>
-	                           	</div>
-	                           	<div class="checkbox">
-	                           		<label>
-	                           			<input type="checkbox" value="">Nghề nghiệp
-	                           		</label>
-	                           	</div>
-	                           </div>
-	                        </div>
-
-	                        <div class="panel-footer">
-	                            <a href="#" data-toggle="modal" data-target="#myModal"><strong>+ Thêm chuyên mục</strong></a>
-	                            <!-- Modal -->
-                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                            <h4 class="modal-title" id="myModalLabel">Thêm chuyên mục</h4>
+                                            </table>
                                         </div>
-                                        <div class="modal-body">
-                                           <input class="form-control" placeholder="Tên chuyên mục">
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
-                                            <button type="button" class="btn btn-primary">Lưu</button>
-                                        </div>
+                                        <!-- /.table-responsive -->
                                     </div>
-                                    <!-- /.modal-content -->
+                                    <!-- /.panel-body -->
                                 </div>
-                                <!-- /.modal-dialog -->
+                                <!-- /.panel -->
                             </div>
-                            <!-- /.modal -->
-	                        </div>
-                    	</div>
+
+                        </div>
+                        <!-- /.col-lg-12 -->
                     </div>
+                    <!-- /.row -->
                 </div>
-                <!-- /.row -->
+                <!-- /.container-fluid -->
             </div>
-            <!-- /.container-fluid -->
+            <!-- /#page-wrapper -->
+
         </div>
-        <!-- /#page-wrapper -->
+        <!-- /#wrapper -->
 
-    </div>
-    <!-- /#wrapper -->
+        <!-- jQuery -->
+        <script src="../vendor/jquery/jquery.min.js"></script>
 
-    <!-- jQuery -->
+        <!-- Bootstrap Core JavaScript -->
+        <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="../vendor/metisMenu/metisMenu.min.js"></script>
 
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+         <!-- DataTables JavaScript -->
+    <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
 
-    <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
 
-    <script src="../vendor/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+        <!-- Custom Theme JavaScript -->
+        <script src="../dist/js/sb-admin-2.js"></script>
 
-    <script type="text/javascript">
-    	$(document).ready(function() {
-  $('#summernote').summernote({
-  	height: 200
-  });
-});
-    </script>
-    <script type="text/javascript">
-  $(function() {
-    $('#datetimepicker2').datetimepicker({
-      language: 'en',
-      pick12HourFormat: true
+        <!-- Toggle JavaScript Button -->
+        <script src="../js/bootstrap-toggle.min.js"></script>
+
+         <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
     });
-  });
-</script>
+    </script>
 
-</body>
+    <script>
+      
+    </script>
 
-</html>
+    </body>
+
+    </html>
