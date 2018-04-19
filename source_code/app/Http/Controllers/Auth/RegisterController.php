@@ -56,7 +56,7 @@ class RegisterController extends Controller
             'status_id'=> 6,
         ]);
 
-        return redirect('/');
+        return redirect()->back();
     }
 
     /**

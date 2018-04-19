@@ -2,12 +2,12 @@
  <div class="col-xs-12">
   <a class="item-block" href="{!! route('detailrecruitment', $recruitment->slug) !!}">
     <header>
-      <img src={!! asset(App\Recruitment::findOrFail($recruitment->id)->company->logo)  !!} alt="">
+      <img src={!! asset($recruitment->company->logo)  !!} alt="">
       <div class="hgroup">
         <h4>{!! $recruitment->title !!}</h4>
                 {{-- <h5>{!! $recruitment->company !!} <span class="label label-success">Full-time</span>
                 </h5> --}}
-                @foreach (App\Recruitment::findOrFail($recruitment->id)->categories as $category)
+                @foreach ($recruitment->categories as $category)
                 @if($category->name =='FULL-TIME')
                 <span class="label label-success">{!! $category->name !!}</span>
                 @else

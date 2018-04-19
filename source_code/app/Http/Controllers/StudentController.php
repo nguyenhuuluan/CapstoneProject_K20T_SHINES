@@ -58,13 +58,13 @@ class StudentController extends Controller
 
 		if (!$this->validateEmailDomain($request["email"], $whitelist)) {
 			$request->session()->flash('email-invalid', '<strong>Email không hợp lệ</strong>, hiện tại website chỉ cung cấp dịch vụ cho sinh viên học tại ĐH Văn Lang.');
-			return redirect()->route("home")->withInput();
+			return redirect()->back()->withInput();
 		}
 
 		if ($acc = Account::where('username', '=', $request["email"])->first()) {
 			$request->session()->flash('email-exist', '<strong>Email đã được sử dụng</strong>');
 
-			return redirect()->route("home")->withInput();
+			return redirect()->back()->withInput();
 		}
 
 		
@@ -82,7 +82,7 @@ class StudentController extends Controller
 
 		$this->sendMail($acc);
 
-		return redirect()->route("home");
+		return redirect()->back();
 	}
 
 
@@ -233,7 +233,7 @@ class StudentController extends Controller
 				$student = Student::findOrFail($request['id']);
 				$name  = time().$file->getClientOriginalName();
 
-				if(!strpos($student->photo, '/images/students/avatar.jpg'))
+				if(!strpos($student->photo, 'avatar.jpg'))
 				{
 					// unlink(base_path().'/public_html/'.$student->photo);
 					unlink(public_path().$student->photo);

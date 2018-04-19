@@ -28,12 +28,21 @@ class HomeController extends Controller
      */
     public function index()
     {   
-       $recruitments = Recruitment::join('companies','recruitments.company_id', '=', 'companies.id')
+       // $recruitments = Recruitment::join('companies','recruitments.company_id', '=', 'companies.id')
+       //                              ->where('recruitments.status_id', 1)
+       //                              ->where('companies.status_id', '=', '3')
+       //                              ->select('recruitments.*')
+       //                              ->orderBy('recruitments.created_at','desc')
+       //                              ->take(5)->get();
+
+        $recruitments= Recruitment::join('companies','recruitments.company_id', '=', 'companies.id')
+                                    // ->with('categories','company')
                                     ->where('recruitments.status_id', 1)
                                     ->where('companies.status_id', '=', '3')
                                     ->select('recruitments.*')
                                     ->orderBy('recruitments.created_at','desc')
                                     ->take(5)->get();
+
 
         // $recruitments = DB::table('recruitments')
         //                 ->join('companies','recruitments.company_id', '=', 'companies.id')
@@ -42,7 +51,13 @@ class HomeController extends Controller
         //                 ->where('recruitments.status_id', '=', '1')
         //                 ->orderBy('created_at','desc')->take(5)->get();
 
-        $companies =Company::where('status_id', 3)->orderBy('created_at','desc')->take(8)->get();
+
+
+        // $companies =Company::where('status_id', 3)->orderBy('created_at','desc')->take(8)->get();
+        $companies =Company::with('address.district.city')->where('status_id', 3)->orderBy('created_at','desc')->take(8)->get();
+        // $companies =Company::with (['address.district.city' => function ($query) {
+        //      $query->where('companies.status_id', 3)->orderBy('created_at','desc')->take(8);
+        //     }])->get();
 
         return view('welcome', compact('recruitments', 'companies'));
     }
@@ -50,20 +65,29 @@ class HomeController extends Controller
     
     public function listRecruitments(Request $request)
     {   
-        $recruitments = DB::table('recruitments')
-                        ->leftjoin('companies', 'recruitments.company_id', '=', 'companies.id')
-                        ->leftjoin('addresses', 'addresses.company_id', '=', 'companies.id')
-                        ->leftjoin('districts', 'addresses.district_id', '=', 'districts.id')
-                        ->leftjoin('cities', 'districts.city_id', '=', 'cities.id')
+
+        $recruitments = Recruitment::with('categories','company', 'sections')
                         ->leftjoin('section_recruitment', 'recruitments.id', '=', 'section_recruitment.recruitment_id')
-                        ->select('recruitments.*', 'section_recruitment.content as content','companies.name as company', 'districts.name as district' ,'addresses.address as address', 'cities.name as city')
+                        ->select('recruitments.*', 'section_recruitment.content as content')
                         ->where('section_recruitment.section_id', '=', '1')
-                        ->where('companies.status_id', '=', '3')
                         ->where('recruitments.status_id', '=', '1')
                         ->orderBy('recruitments.id','ASC')
                         ->paginate($this->per_page_number);
 
-       //return $recruitments;
+        // $recruitments = DB::table('recruitments')
+        //                 ->leftjoin('companies', 'recruitments.company_id', '=', 'companies.id')
+        //                 ->leftjoin('addresses', 'addresses.company_id', '=', 'companies.id')
+        //                 ->leftjoin('districts', 'addresses.district_id', '=', 'districts.id')
+        //                 ->leftjoin('cities', 'districts.city_id', '=', 'cities.id')
+        //                 ->leftjoin('section_recruitment', 'recruitments.id', '=', 'section_recruitment.recruitment_id')
+        //                 ->select('recruitments.*', 'section_recruitment.content as content','companies.name as company', 'districts.name as district' ,'addresses.address as address', 'cities.name as city')
+        //                 ->where('section_recruitment.section_id', '=', '1')
+        //                 ->where('companies.status_id', '=', '3')
+        //                 ->where('recruitments.status_id', '=', '1')
+        //                 ->orderBy('recruitments.id','ASC')
+        //                 ->paginate($this->per_page_number);
+
+       // return $recruitments;
         $total = $recruitments->total();
         if($request->ajax())
         {

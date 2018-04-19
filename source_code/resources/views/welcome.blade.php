@@ -19,7 +19,8 @@
               <h5>{!! $recruitment->company->name !!}</h5>
             </div>
             <div class="header-meta">
-              <span class="location">{!! $recruitment->company['address']['district']['city']->name !!}</span>
+              {{-- {{ $recruitment->company['address'] }} --}}
+              <span class="location">{!! $recruitment->company->address->district->city->name !!}</span>
               @foreach ($recruitment->categories as $category)
               @if($category->name =='FULL-TIME')
               <span class="label label-success">{!! $category->name !!}</span>

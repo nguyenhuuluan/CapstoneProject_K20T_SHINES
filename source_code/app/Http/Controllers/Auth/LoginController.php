@@ -29,7 +29,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    // protected $redirectTo = '/home';
 
     protected function hasTooManyLoginAttempts(Request $request)
     {
@@ -70,7 +70,8 @@ class LoginController extends Controller
             return $this->sendLockoutResponse($request);
         }
         if(Auth::attempt(['username'=>$request->email, 'password'=>$request->password] ) && Auth::user()->roles->first()->name == 'Student'){
-            return redirect('/home');
+            // return redirect('/home');
+            return redirect()->back();
         }
         elseif(Auth::attempt(['username'=>$request->email, 'password'=>$request->password] ) && Auth::user()->roles->first()->name == 'Representative'){
             return redirect('/representative/home');

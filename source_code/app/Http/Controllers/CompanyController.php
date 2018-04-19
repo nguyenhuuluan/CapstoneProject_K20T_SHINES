@@ -368,6 +368,7 @@ public function approveCompany($companyID)
 public function index()
 {
   $comps = Company::all();
+  // $comps = Company::with('address.district.city')->get();
   return view ('admin.companies.index',compact('comps'));
 }
 

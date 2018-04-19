@@ -57,6 +57,7 @@ Route::get('/recruitment/increaseView/{recruitmentID}', 'RecruitmentController@i
 // Route::get('/company/details/{id}', 'CompanyController@details')->name('company.details');
 // Route::get('/company/details/{id}', 'CompanyController@details')->name('company.details');
 Route::get('/companies/{id}', 'CompanyController@details')->name('company.details');
+Route::GET('/companies/', 'Company\CompanyController@list')->name('companies.list');
 
 
 

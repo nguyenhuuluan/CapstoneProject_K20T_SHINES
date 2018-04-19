@@ -1,4 +1,4 @@
-@extends('layouts.master-layout',['title' => 'Tìm kiếm tin tuyển dụng', 'isDisplaySearchHeader' => true])
+@extends('layouts.master-layout',['title' => 'Tìm kiếm tin tuyển dụng', 'isDisplaySearchHeader' => false])
 @section('stylesheet')
 <link href="{{ asset('assets/css/bootstrap-tagsinput.css') }}" rel="stylesheet">
 <style type="text/css">
@@ -65,19 +65,8 @@
 @section('page-header')
 <header class="page-header bg-img" style="background-image: url({{ asset('assets/img/bg-banner1.jpg') }} );">
   <div class="container page-name" style="padding-bottom: 100px">
-    <form class="header-job-search" >
-      <div class="input-keyword">
-        <input type="text" class="form-control" placeholder="Tìm công việc hoặc công ty yêu thích">
-      </div>
 
-      <div class="input-location">
-        <input type="text" class="form-control" placeholder="Thành phố bạn muốn làm việc">
-      </div>
-
-      <div class="btn-search">
-        <button class="btn btn-primary" type="submit">Tìm</button>
-      </div>
-    </form>
+    @include('layouts.search-box')
   </div>
 </header>
 @endsection

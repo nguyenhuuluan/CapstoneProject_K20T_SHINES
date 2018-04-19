@@ -2,6 +2,25 @@
 @section('stylesheet')
 <link href="{{ asset('assets/css/bootstrap-tagsinput.css') }}" rel="stylesheet">
 <link href="{{ asset('assets/css/alpha.css') }}" rel="stylesheet">
+  <style type="text/css">
+  .badge1 {
+    position:relative;
+  }
+  .badge1[data-badge]:after {
+    content:attr(data-badge);
+    position:absolute;
+    top:-10px;
+    right:-10px;
+    font-size:.7em;
+    background:red;
+    color:white;
+    width:18px;height:18px;
+    text-align:center;
+    line-height:18px;
+    border-radius:50%;
+    box-shadow:0 0 1px #333;
+  }
+    </style>
 
 @endsection
 
@@ -136,21 +155,19 @@
 </script>
 <script type="text/javascript">
 
-
-
- var route = "{{ route('recruitment.total') }}";
- $.ajax({
-  url: route,
-  type: 'GET',
-  success: function (response) {
-    $('.total-recruitments').html(response);
-  },
-  error: function () {
+  var route = "{{ route('recruitment.total') }}";
+  $.ajax({
+    url: route,
+    type: 'GET',
+    success: function (response) {
+      $('.total-recruitments').html(response);
+    },
+    error: function () {
     // alert('error');
   }
 });
 
- 
+
 </script>
 
 
