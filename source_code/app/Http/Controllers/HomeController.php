@@ -10,7 +10,7 @@ use Response;
 use DB;
 class HomeController extends Controller
 {   
-    protected $per_page_number = 3; 
+    protected $per_page_number = 1; 
     /**
      * Create a new controller instance.
      *
@@ -28,15 +28,8 @@ class HomeController extends Controller
      */
     public function index()
     {   
-       // $recruitments = Recruitment::join('companies','recruitments.company_id', '=', 'companies.id')
-       //                              ->where('recruitments.status_id', 1)
-       //                              ->where('companies.status_id', '=', '3')
-       //                              ->select('recruitments.*')
-       //                              ->orderBy('recruitments.created_at','desc')
-       //                              ->take(5)->get();
 
         $recruitments= Recruitment::join('companies','recruitments.company_id', '=', 'companies.id')
-                                    // ->with('categories','company')
                                     ->where('recruitments.status_id', 1)
                                     ->where('companies.status_id', '=', '3')
                                     ->select('recruitments.*')
@@ -67,8 +60,10 @@ class HomeController extends Controller
     {   
 
         $recruitments = Recruitment::with('categories','company', 'sections')
+                        ->leftjoin('companies', 'company_id', '=', 'companies.id')
                         ->leftjoin('section_recruitment', 'recruitments.id', '=', 'section_recruitment.recruitment_id')
                         ->select('recruitments.*', 'section_recruitment.content as content')
+                        ->where('companies.status_id', '=', '3')
                         ->where('section_recruitment.section_id', '=', '1')
                         ->where('recruitments.status_id', '=', '1')
                         ->orderBy('recruitments.id','ASC')

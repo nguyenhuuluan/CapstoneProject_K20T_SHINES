@@ -1,6 +1,7 @@
 @extends('layouts.master-layout',['title' => 'Cập nhật hồ sơ sinh viên', 'isDisplaySearchHeader' => false])
 
 @section('stylesheet')
+<link rel="stylesheet" href="{{asset('assets/vendors/modal-confirm/jquery-confirm.min.css')}}">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="http://malsup.github.com/jquery.form.js"></script>
 <style type="text/css">
@@ -380,8 +381,18 @@
 					<div class="container">
 						
 						<!-- COMPONENT START -->
-						{!! Form::file('cv', ['class'=>'form-control', 'placeholder'=>'Chọn CV của bạn...', 'accept'=>'.pdf,.png,.jpeg,.jpg,.doc,.docx', 'id'=>'cv' ])!!}
-						<span class="col-xs-12 col-sm-12 help-block">Vui lòng chọn file dung lượng dưới 2MB và đúng định dạng .pdf .docx .png .jpg .jpeg</span>
+						{!! Form::file('cv', ['class'=>'form-control', 'placeholder'=>'Chọn CV của bạn...', 'accept'=>'.pdf,.png,.jpeg,.jpg,.doc,.docx', 'id'=>'cv', 'style'=>'display:none;' ])!!}
+
+						<div class="input-group input-file">
+
+							<input type="text" class="form-control" placeholder='Chọn CV của bạn...' id="cvname" />			
+							<span class="input-group-btn">
+								<button class="btn btn-success btn-choose" type="button">Chọn</button>
+							</span>
+						</div>
+						
+
+						<span class="col-xs-12 col-sm-12 help-block"><p class="text-danger">Vui lòng chọn file dung lượng dưới 2MB và đúng định dạng .pdf .docx .png .jpg .jpeg</p></span>
 						<br>
 						{!! Form::submit('Tải lên', ['class'=>'btn btn-primary pull-right upload-cv']) !!}
 							{{-- <div class="modelFootr">
@@ -397,53 +408,54 @@
 			</div>
 {{-- 			<iframe src='https://view.officeapps.live.com/op/embed.aspx?src=https://www.leaf-vn.org/PDF-0CONVERSION-rev2.pdf' width='px' height='px' frameborder='0'>
 </iframe> --}}
-			
-		</main>
-		<button class="tooltipsave" onclick="document.getElementById('updateForm').submit(); " id="myBtn"><i class="fa fa-save" aria-hidden="true"></i><span class="tooltiptext">Lưu hồ sơ</span></button>
-		@endsection
 
-		@section('scripts')
-		<script src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js" type="text/javascript" charset="utf-8"></script>
+</main>
+<button class="tooltipsave" onclick="document.getElementById('updateForm').submit(); " id="myBtn"><i class="fa fa-save" aria-hidden="true"></i><span class="tooltiptext">Lưu hồ sơ</span></button>
+@endsection
+
+@section('scripts')
+<script src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js" type="text/javascript" charset="utf-8"></script>
+<script src="{{asset('assets/vendors/modal-confirm/jquery-confirm.min.js')}}"></script>
 
 
-		<script type="text/javascript">
-			showCv();
+<script type="text/javascript">
+	showCv();
 
-			$('#photo').bind("change", function () {
-				updateAvatar();
-			});
+	$('#photo').bind("change", function () {
+		updateAvatar();
+	});
 
-			function updateAvatar(){
-				var id = $('#studentID').val();
-				var photo = document.getElementById("photo").files[0];
-				var urlImg = '{{ route('student.photo.edit') }}';
-				var data = new FormData();
-				data.append("id", id);
-				data.append("photo", photo);
+	function updateAvatar(){
+		var id = $('#studentID').val();
+		var photo = document.getElementById("photo").files[0];
+		var urlImg = '{{ route('student.photo.edit') }}';
+		var data = new FormData();
+		data.append("id", id);
+		data.append("photo", photo);
 
-				$.ajax({
-					headers: {
-						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-					},
-					type:'POST',
-					url: urlImg,
-					data:data,
-					cache:false,
-					contentType: false,
-					processData: false,
-					success:function(data){
-						document.getElementById('avatarAccount').src = '{{ asset('') }}'+data;
-						$( ".update-ava-noti" ).fadeIn( 300 ).delay( 2000 ).fadeOut( 00 );
-					},
-					error: function(data){
-						alert('Kiểm tra lại avatar upload đúng định dạng!');
-					}
-				});
-
+		$.ajax({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			type:'POST',
+			url: urlImg,
+			data:data,
+			cache:false,
+			contentType: false,
+			processData: false,
+			success:function(data){
+				document.getElementById('avatarAccount').src = '{{ asset('') }}'+data;
+				$( ".update-ava-noti" ).fadeIn( 300 ).delay( 2000 ).fadeOut( 00 );
+			},
+			error: function(data){
+				alert('Kiểm tra lại avatar upload đúng định dạng!');
 			}
+		});
+
+	}
 
 
-			$(document).ready(function (e) {
+	$(document).ready(function (e) {
 				// -----upload cv
 				$('#upload_cv').on('submit',(function(e) {
 					e.preventDefault();
@@ -457,7 +469,10 @@
 						contentType: false,
 						processData: false,
 						success:function(data){
-							$( ".upload-cv-noti" ).fadeIn( 300 ).delay( 2000 ).fadeOut( 00 );
+							$("#cv").val('');
+							$("#cvname").val('');
+							$.alert('Upload CV thành công!');
+							$( ".upload-cv-noti" ).fadeIn( 300 ).delay( 3000 ).fadeOut( 00 );
 							$('.cv-info').append(data.cvs);
 						},
 						error: function(data){
@@ -475,95 +490,110 @@
 					var data = new FormData();
 					data.append("id", id);
 
-					$.ajax({
-						headers: {
-							'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-						},
-						type: 'POST',
-						url: url,
-						contentType: false,
-						processData: false,
-						cache:false,
-						data: data,
-						success: function (response) {
-							$(".delete-cv-noti" ).fadeIn( 300 ).delay( 2000 ).fadeOut( 00 );
-							currentelement.parent().parent().remove();
-							console.log(response)
-						},
-						error: function (response) {
-							alert('error');
-							console.log(response)
+
+					$.confirm({
+						title: 'Thông báo!!',
+						content: 'Bạn có muốn Xóa CV này?',
+						buttons: {
+							Có: {
+								keys: ['enter'],
+								btnClass: 'btn-green',
+								action: function(){
+									$.ajax({
+										headers: {
+											'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+										},
+										type: 'POST',
+										url: url,
+										contentType: false,
+										processData: false,
+										cache:false,
+										data: data,
+										success: function (response) {
+											$(".delete-cv-noti").fadeIn(300).delay(3000).fadeOut(00);
+											currentelement.parent().parent().remove();
+											$.alert('Xóa CV thành công!');
+										},
+										error: function (response) {
+											alert('error');
+											console.log(response)
+										}
+									});
+								}
+							},
+							Không: {
+								keys: ['esc'],
+								btnClass: 'btn-red'              
+							}
 						}
 					});
+				});
 
 			});
 
-			});
+	function showCv () {
+		$.get("{{ route('student.cv.show') }}", function(data){
+			$('.cv-info').empty().html(data)
+		})
+	}
+
+</script>
+
+<script type="text/javascript">
+	$('.select-rage').on('change', '#myRange', function(event) {
+		event.preventDefault();
+
+		var value = $(this).val();	
+
+		$(this).closest('div').find('span').html(value);
+	});
 
 
-			function showCv () {
-				$.get("{{ route('student.cv.show') }}", function(data){
-					$('.cv-info').empty().html(data)
-				})
+	var tagnames = new Bloodhound({
+		datumTokenizer: Bloodhound.tokenizers.obj.whitespace("name"),
+		queryTokenizer: Bloodhound.tokenizers.whitespace,
+		prefetch: {
+			url:'../../tags',
+			filter: function(list) {
+				return $.map(list, function(tagname) {
+					return { name: tagname }; });
 			}
-
-		</script>
-
-		<script type="text/javascript">
-			$('.select-rage').on('change', '#myRange', function(event) {
-				event.preventDefault();
-
-				var value = $(this).val();	
-
-				$(this).closest('div').find('span').html(value);
-			});
-
-
-			var tagnames = new Bloodhound({
-				datumTokenizer: Bloodhound.tokenizers.obj.whitespace("name"),
-				queryTokenizer: Bloodhound.tokenizers.whitespace,
-				prefetch: {
-					url:'../../tags',
-					filter: function(list) {
-						return $.map(list, function(tagname) {
-							return { name: tagname }; });
-					}
+		}
+	});
+	tagnames.initialize();
+	$('.tagsinput').tagsinput({
+		typeaheadjs: {
+			name: 'tags',
+			displayKey: 'name',
+			valueKey: 'name',
+			source: tagnames.ttAdapter(),
+			templates: {
+				empty: [
+				'<div class="list-group search-results-dropdown"><div class="list-group-item">Không có kết quả phù hợp.</div></div>'
+				],
+				header: [
+				'<div class="list-group search-results-dropdown">'
+				],
+				suggestion: function (data) {
+					return '<p class="list-group-item">' + data.name + '</p>'
 				}
-			});
-			tagnames.initialize();
-			$('.tagsinput').tagsinput({
-				typeaheadjs: {
-					name: 'tags',
-					displayKey: 'name',
-					valueKey: 'name',
-					source: tagnames.ttAdapter(),
-					templates: {
-						empty: [
-						'<div class="list-group search-results-dropdown"><div class="list-group-item">Không có kết quả phù hợp.</div></div>'
-						],
-						header: [
-						'<div class="list-group search-results-dropdown">'
-						],
-						suggestion: function (data) {
-							return '<p class="list-group-item">' + data.name + '</p>'
-						}
-					}
-				}
-			});
-		</script>
+			}
+		}
+	});
+</script>
 
-		<script>
+<script>
 
-			$('.dropify').dropify({
-				error: {
-					'fileSize': 'The file size is too big (30 max).',
-					'minWidth': 'The image width is too small (30 px min).',
-					'maxWidth': 'The image width is too big (30 px max).',
-					'minHeight': 'The image height is too small (30 px min).',
-					'maxHeight': 'The image height is too big (30 x max).',
-					'imageFormat': 'The image format is not allowed (30 only).'
-				}
-			});
+	$('.dropify').dropify({
+		error: {
+			'fileSize': 'The file size is too big (30 max).',
+			'minWidth': 'The image width is too small (30 px min).',
+			'maxWidth': 'The image width is too big (30 px max).',
+			'minHeight': 'The image height is too small (30 px min).',
+			'maxHeight': 'The image height is too big (30 x max).',
+			'imageFormat': 'The image format is not allowed (30 only).'
+		}
+	});
 
 
 			// // When the user scrolls down 20px from the top of the document, show the button

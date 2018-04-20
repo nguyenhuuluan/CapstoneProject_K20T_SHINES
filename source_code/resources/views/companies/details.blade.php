@@ -10,17 +10,17 @@
 <header class="page-header bg-img size-lg" style="background-image: url(assets/img/bg-banner1.jpg)">
   <div class="container">
     <div class="header-detail">
-      <img class="logo" src="{{ asset($company->logo) }}" alt="">
+      <img class="logo" src="{!! asset($company->logo) !!}" alt="">
       <div class="hgroup">
-        <h1>{{$company->name}}</h1>
-        <h3>{{$company->field}}</h3>
+        <h1>{!!$company->name!!}</h1>
+        <h3>{!!$company->field!!}</h3>
       </div>
       <hr>
 
       <ul class="details cols-3">
         <li>
           <i class="fa fa-map-marker"></i>
-          <span>{{$company->address->address}}, {{$company->address->district->name}}, {{ $company->address->district->city->name}}</span>
+          <span>{!!$company->address->address!!}, {!!$company->address->district->name!!}, {!! $company->address->district->city->name!!}</span>
         </li>
 
         <li>
@@ -29,13 +29,13 @@
 
         <li>
           <i class="fa fa-globe"></i>
-          <a href="#">{{$company->website}}</a>
+          <a href="#">{!!$company->website!!}</a>
         </li>
 
 
         <li>
           <i class="fa fa-phone"></i>
-          <span>{{$company->phone}}</span>
+          <span>{!!$company->phone!!}</span>
         </li>
 
         <li>
@@ -51,20 +51,20 @@
       <div class="button-group">
         <ul class="social-icons">
 
-          @if ($socials[0]->name === 'Facebook')
-          <li><a class="facebook" href="{{$socials[0]->url}}"  target="_blank"><i class="fa fa-facebook"></i></a></li>
+          @if ($company->socialNetworks[0]->name === 'Facebook')
+          <li><a class="facebook" href="{!!$company->socialNetworks[0]->url!!}"  target="_blank"><i class="fa fa-facebook"></i></a></li>
           @endif  
 
-          @if ($socials[1]->name === 'Facebook')
-          <li><a class="facebook" href="{{$socials[0]->url}}"  target="_blank"><i class="fa fa-facebook"></i></a></li>
+          @if ($company->socialNetworks[1]->name === 'Facebook')
+          <li><a class="facebook" href="{!!$company->socialNetworks[0]->url!!}"  target="_blank"><i class="fa fa-facebook"></i></a></li>
           @endif  
 
-          @if($socials[0]->name === 'LinkedIn')
-          <li><a class="linkedin" href="{{$socials[0]->url}}" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+          @if($company->socialNetworks[0]->name === 'LinkedIn')
+          <li><a class="linkedin" href="{!!$company->socialNetworks[0]->url!!}" target="_blank"><i class="fa fa-linkedin"></i></a></li>
           @endif
 
-          @if($socials[1]->name === 'LinkedIn')
-          <li><a class="linkedin" href="{{$socials[0]->url}}"  target="_blank"><i class="fa fa-linkedin"></i></a></li>
+          @if($company->socialNetworks[1]->name === 'LinkedIn')
+          <li><a class="linkedin" href="{!!$company->socialNetworks[0]->url!!}"  target="_blank"><i class="fa fa-linkedin"></i></a></li>
           @endif      
 
         </ul>
@@ -83,7 +83,7 @@
 
 <div class="widget_tag_cloud" style="margin-left: 10%;">
   <div class="widget-body">
-   @foreach ($company->tags()->get() as $tag)
+   @foreach ($company->tags as $tag)
    <a href="#">{{$tag->name}}</a>
    @endforeach
  </div>
@@ -107,8 +107,8 @@
   <center>
     <div class="bxslider">
 
-      @foreach ($company->photos()->pluck('name')->toArray() as $photoname)
-      <div><img src="{{ asset('images/companies/'.$photoname) }}"></div>
+      @foreach ($company->photos as $photo)
+      <div><img src="{{ asset('images/companies/'.$photo->name) }}"></div>
       @endforeach
 
     </div>
@@ -120,32 +120,33 @@
 <!-- Open positions -->
 <section id="open-positions" class="bg-alt">
   <div class="container">
+
     <header class="section-header">
       <h2>Vị trí đang tuyển</h2>
     </header>
 
     <div class="row">
 
-      @if (count($recruitments) == 0)
+      @if (count($company->recruitments) == 0)
       <div class="col-xs-12">
         <center>Chưa có tin tuyển dụng nào</center>
       </div>
       @endif
 
-      @foreach ($recruitments as $recruitment)
+      @foreach ($company->recruitments as $recruitment)
       <!-- Job item -->
 
-      <a class="item-block" href="{{ route('detailrecruitment', $recruitment->slug ) }}">
+      <a class="item-block" href="{!! route('detailrecruitment', $recruitment->slug ) !!}">
         <header>
-          <img src="{{ asset($recruitment->company->logo) }}" alt="">
+          <img src="{!! asset($recruitment->company->logo) !!}" alt="">
           <div class="hgroup">
-            <h4>{{ $recruitment->title }}</h4>
-            <h5>{{$company->name}} 
+            <h4>{!! $recruitment->title !!}</h4>
+            <h5>{!!$company->name!!} 
               @foreach ($recruitment->categories as $category)
               @if($category->name =='FULL-TIME')
-              <span class="label label-success">{{ $category->name }}</span>
+              <span class="label label-success">{!! $category->name !!}</span>
               @else
-              <span class="label label-danger">{{ $category->name }}</span>
+              <span class="label label-danger">{!! $category->name !!}</span>
               @endif
               @endforeach
             </h5>
@@ -171,7 +172,7 @@
           <ul class="details cols-3">
             <li>
               <i class="fa fa-map-marker"></i>
-              <span class="location">{{ $recruitment->company->address->district->city->name }}</span>
+              <span class="location">{!! $company->address->district->city->name !!}</span>
             </li>
 
             <li>
@@ -181,7 +182,7 @@
 
             <li>
               <i class="fa fa-tag"></i>
-              <span>{{implode(", ",$recruitment->tags()->pluck('name')->toArray())}} </span>
+              <span>{{implode(", ",$recruitment->tags->pluck('name')->toArray())}} </span>
 
 
             </li>
@@ -196,9 +197,10 @@
     <!-- END Job item -->
 
 
+
   </div>
 
-</div>
+
 </section>
 <!-- END Open positions -->
 <header class="section-header-map">

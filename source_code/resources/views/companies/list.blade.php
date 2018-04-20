@@ -2,6 +2,66 @@
 
 @section('stylesheet')
 <link href="{{ asset('assets/css/bootstrap-tagsinput.css') }}" rel="stylesheet">
+<style type="text/css">
+.loading-dots {
+	text-align: center;
+	margin-top: 3em;
+	z-index: 5;
+}
+.loading-dots .dot {
+	display: inline;
+	margin-left: 0.2em;
+	margin-right: 0.2em;
+	position: relative;
+	top: -1em;
+	font-size: 3.5em;
+	opacity: 0;
+	-webkit-animation: showHideDot 2.5s ease-in-out infinite;
+	animation: showHideDot 2.5s ease-in-out infinite;
+}
+.loading-dots .dot.one {
+	-webkit-animation-delay: 0.2s;
+	animation-delay: 0.2s;
+}
+.loading-dots .dot.two {
+	-webkit-animation-delay: 0.4s;
+	animation-delay: 0.4s;
+}
+.loading-dots .dot.three {
+	-webkit-animation-delay: 0.6s;
+	animation-delay: 0.6s;
+}
+
+@-webkit-keyframes showHideDot {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+	60% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes showHideDot {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+	60% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+</style>
 @endsection
 
 @section('page-header')
@@ -19,63 +79,72 @@
 	<section class="bg-alt-company">
 		<div class="container">
 
-			<div class="searchcontentcompany col-xs-12">
+			<div class="searchcontentcompany col-xs-12" >
 				<br>
-				<h5>Chúng tôi đã tìm thấy <strong>30</strong> công ty cho <strong>@Tìm kiếm</strong> </h5>
+				<h5>Chúng tôi đã tìm thấy <strong>{!! $total !!}</strong> công ty cho <strong>@Tìm kiếm</strong> </h5>
 			</div>
 
-			<div class="category-grid-company">
-				<a href="company-detail.html">
-					<img src="assets/img/logo-google.png" alt="">
-					<h6>FPT</h6>
-					<span>Designer, Developer, IT Service, Front-end developer, Project management</span>
+			<div class="category-grid-company endless-pagination" data-next-page="{{ $companies->nextPageUrl() }}">
+				@foreach ($companies as $company)
+				<a href="{!! route('company.details', $company->slug) !!}">
+					<img src="{!! asset($company->logo) !!}" style="height: 150px" alt="">
+					<h6>{!! $company->name !!}</h6>
+					<span>{!! $company->address->address.', '.$company->address->district->name.', '.$company->address->district->city->name !!}</span>
 				</a>
-
-				<a href="company-detail.html">
-					<img src="assets/img/logo-microsoft.jpg" alt="">
-					<h6>Global Cybersoft</h6>
-					<span>Designer, Developer, IT Service, Front-end developer, Project management</span>
-				</a>
-
-				<a href="company-detail.html">
-					<img src="assets/img/logo-google.png" alt="">
-					<h6>Facebook</h6>
-					<span>Designer, Developer, IT Service, Front-end developer, Project management</span>
-				</a>
-
-				<a href="company-detail.html">
-					<img src="assets/img/logo-google.png" alt="">
-					<h6>CSC</h6>
-					<span>Designer, Developer, IT Service, Front-end developer, Project management</span>
-				</a>
-
-				<a href="company-detail.html">
-					<img src="assets/img/logo-google.png" alt="">
-					<h6>Capgemini</h6>
-					<span>Designer, Developer, IT Service, Front-end developer, Project management</span>
-				</a>
-
-				<a href="job-list-3.html">
-					<img src="assets/img/logo-google.png" alt="">
-					<h6>KMS</h6>
-					<span>Designer, Developer, IT Service, Front-end developer, Project management</span>
-				</a> 
-
-				<a href="company-detail.html">
-					<img src="assets/img/logo-envato.png" alt="">
-					<h6>Capgemini</h6>
-					<span>Designer, Developer, IT Service, Front-end developer, Project management</span>
-				</a>
-
-				<a href="company-detail.html">
-					<img src="assets/img/logo-google.png" alt="">
-					<h6>Capgemini</h6>
-					<span>Designer, Developer, IT Service, Front-end developer, Project management</span>
-				</a>
-
+				@endforeach
+			</div>
+			<div class="loading-dots hidden" id="loading-dots">
+				<h1 class="dot one">.</h1><h1 class="dot two">.</h1><h1 class="dot three">.</h1>
 			</div>
 		</div>
 	</section>
 
 </main>
+@endsection
+
+@section('scripts')
+<script type="text/javascript">
+	var showlist;
+	var is_busy = false;
+
+	$(window).scroll(function(){
+		$element = $('#bg-alt-company');
+      // ELement hiển thị chữ loadding
+      $loadding = $('#loading-dots');
+      // Nếu màn hình đang ở dưới cuối thẻ thì thực hiện ajax
+      if (($(window).scrollTop()+$(window).height()) >= ($element.height()+$(window).height())) {
+        // Nếu đang gửi ajax thì ngưng
+        if (is_busy == true) {
+        	return false;
+        }
+          // Thiết lập đang gửi ajax
+          is_busy = true;
+          var page = $('.endless-pagination').data('next-page');
+          console.log(page);
+          if (page!==null && page!==''){
+          	$loadding.removeClass('hidden');
+
+          	$.ajax(
+          	{
+          		type: 'get',
+          		dataType: 'text',
+          		url: page,
+          		success: function (data) {
+          			$('.category-grid-company').append(JSON.parse(data)["companies"]);
+          			$('.endless-pagination').data('next-page', JSON.parse(data)["next_page"]);
+          		}
+          	})
+          	.always(function () {
+                    // Sau khi thực hiện xong ajax thì ẩn hidden và cho trạng thái gửi ajax = false
+                    $loadding.addClass('hidden');
+                    is_busy = false;
+                });
+          	return false;
+          }
+          return false;
+
+      }
+  });
+
+</script>
 @endsection

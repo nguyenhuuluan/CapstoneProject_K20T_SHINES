@@ -73,7 +73,7 @@
 
 @section('content')
 <main>
-  <section class="no-padding-top bg-alt">
+  <section class="no-padding-top bg-alt" id="itemrecruitment">
     <div class="container">
       <div class="row">
 
@@ -82,7 +82,7 @@
           <h5>Chúng tôi đã tìm thấy <strong>{!! $total !!}</strong> việc làm cho <strong>Bạn</strong> </h5>
         </div>
         
-        <div class="recruitments endless-pagination" data-next-page="{{ $recruitments->nextPageUrl() }}">
+        <div class="recruitments endless-pagination" data-next-page="{{ $recruitments->nextPageUrl() }}" >
 
           @foreach ($recruitments as $recruitment)
           <!-- Job item -->
@@ -162,7 +162,7 @@
       // ELement hiển thị chữ loadding
       $loadding = $('#loading-dots');
       // Nếu màn hình đang ở dưới cuối thẻ thì thực hiện ajax
-      if ($(window).scrollTop() + $(window).height() >= $element.height()) {
+      if (($(window).scrollTop()+$(window).height()) >= ($element.height()+$(window).height())) {
         // Nếu đang gửi ajax thì ngưng
         if (is_busy == true) {
           return false;

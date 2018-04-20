@@ -188,12 +188,19 @@ public function details($slug)
 
   //$currentURL = $request->url();
 
- $company = Company::findBySlugOrFail($slug);
+ // $company = Company::findBySlugOrFail($slug);
+ $company = Company::with(['recruitments' => function ($query) {
+             $query->with('sections')
+             ->where('recruitments.status_id', 1)->orderBy('created_at','desc');
+            },'sections', 'socialNetworks', 'tags', 'photos'])
+                    ->where('slug', '=', $slug)->first();
+
+// return $company;
  if($company->status_id==3)
  {
-   $socials = CompaniesSocialNetwork::where('company_id',$company->id)->get()->sortBy('name');
-   $recruitments = $company->recruitments()->where('status_id', 1)->orderBy('created_at','desc')->get();
-   return view('companies.details')->with(compact('company','socials', 'recruitments'));
+   // $socials = CompaniesSocialNetwork::where('company_id',$company->id)->get()->sortBy('name');
+   // $recruitments = $company->recruitments()->where('status_id', 1)->orderBy('created_at','desc')->get();
+   return view('companies.details')->with(compact('company'));
    //return view('companies.details',compact('company', 'currentURL'));
 
  }

@@ -125,7 +125,7 @@
 
 @section('scripts')
 
-<script src="{{ asset('assets/js/jquery-ui') }}"></script>
+<script src="{{ asset('assets/js/jquery-ui.js') }}"></script>
 
 
 <script src="{{ asset('assets/js/typeahead.bundle.js') }}" type="text/javascript" charset="utf-8"></script>

@@ -13,6 +13,8 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $per_page_number = 6; 
+
     public function index()
     {
         //
@@ -50,11 +52,24 @@ class CompanyController extends Controller
         //
     }
 
-    public function list()
-    {
+    public function list(Request $request)
+    {   
 
-        return view('companies.list');
-    }
+       $companies = Company::with('tags')
+                           ->where('companies.status_id', '=', '3')
+                           ->orderBy('companies.created_at','ASC')
+                           ->paginate($this->per_page_number);
+
+       $total = $companies->total();
+
+     if($request->ajax())
+        {
+            return ['companies'=>view('ajax.companyList')->with(compact('companies'))->render(),
+                    'next_page'=>$companies->nextPageUrl()
+                    ];
+        }
+       return view('companies.list', compact('companies', 'total'));
+   }
 
     /**
      * Show the form for editing the specified resource.
