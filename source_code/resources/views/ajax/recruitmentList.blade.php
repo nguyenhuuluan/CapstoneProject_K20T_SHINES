@@ -29,7 +29,7 @@
               <ul class="details cols-3">
                 <li>
                   <i class="fa fa-map-marker"></i>
-                  <span>{!! $recruitment->district .', '. $recruitment->city !!}</span>
+                  <span>{!! $recruitment->location!!}</span>
                 </li>
                 <li>
                   <i class="fa fa-money"></i>

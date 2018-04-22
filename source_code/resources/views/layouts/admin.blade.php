@@ -10,31 +10,18 @@
 
     <title>Jobee - Admin Page</title>
 
-    <link rel="stylesheet" href="{{asset('assets/vendors/modal-confirm/jquery-confirm.min.css')}}">
 
     <!-- Bootstrap Core CSS -->
     <link href="{{asset('assets/vendors/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
     <link href="{{asset('assets/vendors/metisMenu/metisMenu.min.css')}}" rel="stylesheet">
-
-    <!-- DataTables CSS -->
-    <link href="{{asset('assets/vendors/datatables-plugins/dataTables.bootstrap.css')}}" rel="stylesheet">
-
-    <!-- DataTables Responsive CSS -->
-    <link href="{{asset('assets/vendors/datatables-responsive/dataTables.responsive.css')}}" rel="stylesheet">
-
+    
     <!-- Custom CSS -->
     <link href="{{asset('assets/dist/css/sb-admin-2.css')}}" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="{{asset('assets/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
-
-    <!-- Toggle CSS Button -->
-    <link href="{{asset('assets/dist/css/bootstrap-toggle.min.css')}}" rel="stylesheet">
-
-    {{-- bootstrap switch --}}
-    <link href="{{asset('assets/vendors/bootstrap-switch/bootstrap-switch.css')}}" rel="stylesheet">
 
     {{-- Custom style --}}
     <link href="{{asset('assets/vendors/bootstrap/css/admin-custom.css')}}" rel="stylesheet">
@@ -68,7 +55,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">Jobee Admin</a>
+            <a href="{{ route('admin.home') }}"><img src="{{ asset('assets/img/logo.png') }}" alt="Jobee" style="width: 200px; height: 50px; margin: 2px 35px"></a>
         </div>
         <!-- /.navbar-header -->
 
@@ -209,13 +196,13 @@
                     <!-- /input-group -->
                 </li>
                 <li>
-                    <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Bảng điều khiển</a>
+                    <a href="{{ route('admin.home') }}"><i class="fa fa-dashboard fa-fw"></i> Bảng điều khiển</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-building fa-fw"></i> Tin tuyển dụng<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-newspaper-o fa-fw"></i> Tin tuyển dụng<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="{{ route('admin.recruitments.index') }}"><i class="fa fa-newspaper-o fa-fw"></i> Danh sách tin tuyển dụng</a>
+                            <a href="{{ route('admin.recruitments.index') }}">Danh sách tin tuyển dụng</a>
                         </li>
                         <li>
                             <a href="{{route('admin.recruitments.approve')}}">Tin tuyển dụng chờ xác nhận</a>
@@ -277,35 +264,15 @@
 <script src="{{asset('assets/vendors/bootstrap/js/bootstrap.min.js')}}"></script>
 <!-- Metis Menu Plugin JavaScript -->
 <script src="{{asset('assets/vendors/metisMenu/metisMenu.min.js')}}"></script>
-<!-- DataTables JavaScript -->
-<script src="{{asset('assets/vendors/datatables/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('assets/vendors/datatables-plugins/dataTables.bootstrap.min.js')}}"></script>
-<script src="{{asset('assets/vendors/datatables-responsive/dataTables.responsive.js')}}"></script>
+
 
 
 <!-- Custom Theme JavaScript -->
 <script src="{{asset('assets/dist/js/sb-admin-2.js')}}"></script>
 
-{{-- boostrap switch --}}
-<script src="{{asset('assets/vendors/bootstrap-switch/bootstrap-switch.js')}}"></script>
-
-
-<!-- Toggle JavaScript Button -->
-<script src="{{asset('assets/js/bootstrap-toggle.min.js')}}"></script>
-<!-- Page-Level Demo Scripts - Tables - Use for reference -->
-
-{{-- using jquery modal confirm JS --}}
-<script src="{{asset('assets/vendors/modal-confirm/jquery-confirm.min.js')}}"></script>
-<!-- Page-Level Demo Scripts - Tables - Use for reference -->
-
-<script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-            responsive: true
-        });
-    });
+<script type="text/javascript">
+   
 </script>
-
 @yield('scripts')
 
 

@@ -1,11 +1,18 @@
-
-
 @extends('layouts.admin')
 
+
+@section('styles')
+<link rel="stylesheet" href="{{asset('assets/vendors/modal-confirm/jquery-confirm.min.css')}}">
+<!-- DataTables Responsive CSS -->
+<link href="{{asset('assets/vendors/datatables-responsive/dataTables.responsive.css')}}" rel="stylesheet">
+<!-- Toggle CSS Button -->
+<link href="{{asset('assets/dist/css/bootstrap-toggle.min.css')}}" rel="stylesheet">
+{{-- bootstrap switch --}}
+<link href="{{asset('assets/vendors/bootstrap-switch/bootstrap-switch.css')}}" rel="stylesheet">
+@endsection
+
+
 @section('body')
-
-
-
 <div id="page-wrapper">
     <div class="container-fluid">
         <div class="row">
@@ -49,9 +56,6 @@
                                                 <a href=" {{ route('admin.recruitments.show', $recruitment->slug) }}" class="btnreview btn-success" target="_blank" style="display: inline-block;">Xem</a>
                                             </td>                                          
                                             @endforeach
-
-
-
                                         </tbody>
 
                                     </table>
@@ -76,10 +80,29 @@
     @endsection
 
     @section('scripts')
+
+
+    <!-- DataTables JavaScript -->
+    <script src="{{asset('assets/vendors/datatables/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('assets/vendors/datatables-plugins/dataTables.bootstrap.min.js')}}"></script>
+    <script src="{{asset('assets/vendors/datatables-responsive/dataTables.responsive.js')}}"></script>
+    {{-- boostrap switch --}}
+    <script src="{{asset('assets/vendors/bootstrap-switch/bootstrap-switch.js')}}"></script>
+    <!-- Toggle JavaScript Button -->
+    <script src="{{asset('assets/js/bootstrap-toggle.min.js')}}"></script>
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    {{-- using jquery modal confirm JS --}}
+    <script src="{{asset('assets/vendors/modal-confirm/jquery-confirm.min.js')}}"></script>
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script type="text/javascript">
 
-
-        $('.btn-approve').click(function() {
+       $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
+       
+       $('.btn-approve').click(function() {
 
            var currentelement = $(this);
 
@@ -106,20 +129,20 @@
 
        });
 
-        function approveCompany(element){
-            $('.modal-ajax-loading').fadeIn("200");
-            $.ajax({
-                url: '../recruitments/approve/' + element.val(),
-                type: 'GET',
-                dataType: 'json',
-                success: function(){
-                    $('.modal-ajax-loading').fadeOut("200");
-                    $.alert({
-                        title: 'Thông báo!',
-                        content: 'Xác nhận thành công',
-                    });
-                    element.parent().parent().remove();
-                    
+       function approveCompany(element){
+        $('.modal-ajax-loading').fadeIn("200");
+        $.ajax({
+            url: '../recruitments/approve/' + element.val(),
+            type: 'GET',
+            dataType: 'json',
+            success: function(){
+                $('.modal-ajax-loading').fadeOut("200");
+                $.alert({
+                    title: 'Thông báo!',
+                    content: 'Xác nhận thành công',
+                });
+                element.parent().parent().remove();
+
                //location.reload();
                //element.remove();
                // $("input[value='" + element.val() + "']" ).attr({
@@ -131,9 +154,9 @@
             alertError();
         }            
     });
-        }
+    }
 
 
-    </script>
-    @endsection
+</script>
+@endsection
 

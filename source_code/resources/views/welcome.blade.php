@@ -20,7 +20,7 @@
             </div>
             <div class="header-meta">
               {{-- {{ $recruitment->company['address'] }} --}}
-              <span class="location">{!! $recruitment->company->address->district->city->name !!}</span>
+              <span class="location">{!! $recruitment->location !!}</span>
               @foreach ($recruitment->categories as $category)
               @if($category->name =='FULL-TIME')
               <span class="label label-success">{!! $category->name !!}</span>

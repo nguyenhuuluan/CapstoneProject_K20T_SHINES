@@ -96,7 +96,7 @@ Route::GET('password/reset/{token}','Admin\ResetPasswordController@showResetForm
 
 //Admin - ADMIN
 Route::middleware(['admin', 'web'])->group(function () {
-	Route::GET('admin', 'Admin\AdminController@index');  
+	Route::GET('admin', 'Admin\AdminController@index')->name('admin.home');  
 	Route::GET('admin/home', 'Admin\AdminController@index');  
 	Route::resource('admin/recruitments', 'Admin\AdminRecruitmentController', [
 		'names' => [

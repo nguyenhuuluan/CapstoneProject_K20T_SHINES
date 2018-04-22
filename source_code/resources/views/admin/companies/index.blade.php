@@ -1,6 +1,20 @@
-
-
 @extends('layouts.admin')
+
+
+@section('styles')
+<link rel="stylesheet" href="{{asset('assets/vendors/modal-confirm/jquery-confirm.min.css')}}">
+
+<!-- DataTables CSS -->
+{{-- <link href="{{asset('assets/vendors/datatables-plugins/dataTables.bootstrap.css')}}" rel="stylesheet"> --}}
+
+<!-- DataTables Responsive CSS -->
+<link href="{{asset('assets/vendors/datatables-responsive/dataTables.responsive.css')}}" rel="stylesheet">
+
+<!-- Toggle CSS Button -->
+<link href="{{asset('assets/dist/css/bootstrap-toggle.min.css')}}" rel="stylesheet">
+{{-- bootstrap switch --}}
+<link href="{{asset('assets/vendors/bootstrap-switch/bootstrap-switch.css')}}" rel="stylesheet">
+@endsection
 
 @section('body')
 
@@ -62,32 +76,32 @@
                                                 <a class="btn btnreview btn-success" href="{{ route('company.details', ['id'=> $comp->id]) }}">Xem</a>
                                                 
 
-                                             {{--   <button type="button" class="btnreview btn-success">Xem</button> --}}
+                                                {{--   <button type="button" class="btnreview btn-success">Xem</button> --}}
 
-                                         </td>
+                                            </td>
 
-                                     </tr>
-                                     @endforeach
+                                        </tr>
+                                        @endforeach
 
 
 
-                                 </tbody>
+                                    </tbody>
 
-                             </table>
-                         </div>
-                         <!-- /.table-responsive -->
-                     </div>
-                     <!-- /.panel-body -->
-                 </div>
-                 <!-- /.panel -->
-             </div>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
 
-         </div>
-         <!-- /.col-lg-12 -->
-     </div>
-     <!-- /.row -->
- </div>
- <!-- /.container-fluid -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
 </div>
 
 
@@ -95,19 +109,30 @@
 @endsection
 
 @section('scripts')
+<!-- DataTables JavaScript -->
+<script src="{{asset('assets/vendors/datatables/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('assets/vendors/datatables-plugins/dataTables.bootstrap.min.js')}}"></script>
+<script src="{{asset('assets/vendors/datatables-responsive/dataTables.responsive.js')}}"></script>
 
+{{-- boostrap switch --}}
+<script src="{{asset('assets/vendors/bootstrap-switch/bootstrap-switch.js')}}"></script>
+
+
+<!-- Toggle JavaScript Button -->
+<script src="{{asset('assets/js/bootstrap-toggle.min.js')}}"></script>
+<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+
+{{-- using jquery modal confirm JS --}}
+<script src="{{asset('assets/vendors/modal-confirm/jquery-confirm.min.js')}}"></script>
+<!-- Page-Level Demo Scripts - Tables - Use for reference -->
 
 <script type="text/javascript">
 
-
-
-    // $('.table-responsive').on('click', '.btn-approve1', function(event) {
-    //     event.preventDefault();
-    //     $.alert({
-    //         title: 'Alert!',
-    //         content: 'Simple alert!',
-    //     });
-    // });
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
 
 
 
@@ -118,34 +143,6 @@
         onColor: 'success',
         offColor: 'danger'     
     });
-
-    $('.table-responsive').on('click', '.btn-approve').click(function() {
-
-       var currentelement = $(this);
-
-       $.confirm({
-        title: 'Thông báo!!',
-        content: 'Bạn có muốn xác nhận công ty này?',
-        buttons: {
-            Có: {
-                keys: ['enter'],
-                btnClass: 'btn-green',
-                action: function(){
-
-                    approveCompany(currentelement);
-                }
-            },
-            Không: {
-                keys: ['esc'],
-                btnClass: 'btn-red'              
-            }
-
-        }
-
-
-    });
-
-   });
 
 
     $('.table-responsive').on('switchChange.bootstrapSwitch', '.status-switch',  function (e, data) {
@@ -201,16 +198,16 @@
 
     //         }
     //     });
-        
+    
     // });
 
 
     function alertError(){
-       $.alert({
+     $.alert({
         title: 'Thông báo!',
         content: 'Đã có lỗi xảy ra, vui lòng reload lại trang.',
     });
-   }
+ }
     // getCompanies();
 
     function activeCompany(id){
@@ -222,14 +219,14 @@
             dataType: 'json',
 
             success: function(){
-             $('.modal-ajax-loading').fadeOut("200");
+               $('.modal-ajax-loading').fadeOut("200");
 
-         },
-         error: function(){
-             $('.modal-ajax-loading').fadeOut("200");
-             alertError();
-         }            
-     });
+           },
+           error: function(){
+               $('.modal-ajax-loading').fadeOut("200");
+               alertError();
+           }            
+       });
     }
 
 </script>

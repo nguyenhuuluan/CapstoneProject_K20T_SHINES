@@ -32,7 +32,7 @@
   <!-- <section></section> -->
   <!-- END Recent jobs -->
 
-  <section class="bg-img bg-repeat no-overlay section-sm" style="background-image: url({{ asset('assets/img/bg-pattern.png') }} )">
+  <section class="bg-img bg-repeat no-overlay section-sm" style="background-image: url({!! asset('assets/img/bg-pattern.png') !!} ")">
     <div class="container">
 
       <div class="row">

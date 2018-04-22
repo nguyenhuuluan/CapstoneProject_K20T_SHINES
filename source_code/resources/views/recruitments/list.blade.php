@@ -152,11 +152,7 @@
 
 @section('scripts')
 <script type="text/javascript">
-  var showlist;
   var is_busy = false;
-  // var element = document.getElementById("itemrecruitment");
-  // var numberOfChildren = element.children.length;
-    //$('.loading').hide();
     $(window).scroll(function(){
       $element = $('#itemrecruitment');
       // ELement hiển thị chữ loadding

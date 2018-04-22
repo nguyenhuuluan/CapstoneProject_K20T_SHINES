@@ -29,7 +29,8 @@ class HomeController extends Controller
     public function index()
     {   
 
-        $recruitments= Recruitment::join('companies','recruitments.company_id', '=', 'companies.id')
+        $recruitments= Recruitment::with('categories', 'company', 'tags')
+                                    ->join('companies','recruitments.company_id', '=', 'companies.id')
                                     ->where('recruitments.status_id', 1)
                                     ->where('companies.status_id', '=', '3')
                                     ->select('recruitments.*')

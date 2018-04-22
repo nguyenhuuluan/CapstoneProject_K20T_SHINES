@@ -89,12 +89,12 @@
           <div class="col-xs-12">
             <a class="item-block" href="{!! route('detailrecruitment', $recruitment->slug) !!}">
               <header>
-                <img src={!! asset(App\Recruitment::findOrFail($recruitment->id)->company->logo)  !!} alt="">
+                <img src={!! asset($recruitment->company->logo)  !!} alt="">
                 <div class="hgroup">
                   <h4>{!! $recruitment->title !!}</h4>
                 {{-- <h5>{!! $recruitment->company !!} <span class="label label-success">Full-time</span>
                 </h5> --}}
-                @foreach (App\Recruitment::findOrFail($recruitment->id)->categories as $category)
+                @foreach ($recruitment->categories as $category)
                 @if($category->name =='FULL-TIME')
                 <span class="label label-success">{!! $category->name !!}</span>
                 @else
@@ -113,7 +113,7 @@
               <ul class="details cols-3">
                 <li>
                   <i class="fa fa-map-marker"></i>
-                  <span>{!! $recruitment->district .', '. $recruitment->city !!}</span>
+                  <span>{!! $recruitment->location !!}</span>
                 </li>
                 <li>
                   <i class="fa fa-money"></i>
@@ -121,7 +121,7 @@
                 </li>
                 <li>
                   <i class="fa fa-tag"></i>
-                  @foreach (App\Recruitment::findOrFail($recruitment->id)->tags as $tag)
+                  @foreach ($recruitment->tags as $tag)
                   <span class="btn btn-info btn-xs">{!! $tag->name !!}</span>
                   @endforeach
                 </li>
@@ -132,12 +132,6 @@
         <!-- END Job item -->
         @endforeach
       </div>
-      {{-- {{ $recruitments->render() }} --}}
-{{--       <div class="loading" style="text-align: center;">
-
-        <img src="{{ asset('assets/img/bx_loader.gif') }}" style="width: 85px; height: 85px">
-
-      </div> --}}
     </div>
 
     <div class="loading-dots hidden" id="loading-dots">

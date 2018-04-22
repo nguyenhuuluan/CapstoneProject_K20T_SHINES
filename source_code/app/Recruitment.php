@@ -12,17 +12,30 @@ class Recruitment extends Model
     use SluggableScopeHelpers;
     protected $fillable = ['title','salary','number_of_view','number_of_anonymous_view','expire_date','is_hot','company_id','status_id', 'slug', 'location', 'searching'];
 
-    protected $with = ['categories', 'company', 'tags'];
+    // protected $with = ['categories', 'company', 'tags'];
 
     public function sluggable()
-    {
+    {   
         return [
             'slug' => [
                 'source'        => 'title',
                 'onUpdate'      => true,
-            ]
+            ],
+            'searching'=>[
+                'source'        => ['title','created_at','company.name','searching'],
+                'onUpdate'      => true,
+            ],
         ];
     }
+
+     public function getSearchingAttribute() {
+        $tmp = array();
+        foreach ($this->tags as $tag) {
+            $tmp[] = $tag->name;
+        }
+        return implode(" ",$tmp);
+    }
+
     public function path(){
          return "../recruitments/{$this->slug}";
          // host

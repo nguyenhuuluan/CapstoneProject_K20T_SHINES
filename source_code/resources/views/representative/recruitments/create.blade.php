@@ -27,22 +27,52 @@
 		<div class="container">
 			<div class="row">
 				<div class="row">
-					<div class="form-group col-xs-12 col-sm-12 {{ $errors->has('title') ? ' has-error' : '' }}">
-						{!! Form::text('title', null,['class'=>'form-control', 'placeholder'=>'Tiêu đề tin tuyển dụng', 'value'=> old('title') ]) !!}
+					<div class="form-group col-xs-6 col-sm-6 {{ $errors->has('title') ? ' has-error' : '' }}">
+						<div class="input-group input-group-sm">
+							<span class="input-group-addon"><i class="fa fa-newspaper-o"></i></span>
+							{!! Form::text('title', null,['class'=>'form-control', 'placeholder'=>'Tiêu đề tin tuyển dụng', 'value'=> old('title') ]) !!}
+						</div>
 						@if ($errors->has('title'))
 						<span class="help-block">
 							<strong>Tiêu đề không được bỏ trống!</strong>
 						</span>
 						@endif
 					</div>
+
+					<div class="form-group col-xs-3 col-sm-3">
+						<div class="input-group input-group-sm">
+							<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+							<select class="form-control" name="district" id="lst-district">
+								@foreach($cities[0]->districts as $district)
+								<option value="{{ $district->id }}">{{ $district->name}}</option>
+								@endforeach
+							</select>
+							<input id="district-name" type="hidden" name="districtname" value="">
+						</div>
+					</div>
+
+					<div class="form-group col-xs-3 col-sm-3">
+						<div class="input-group input-group-sm">
+							<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+
+							<select class="form-control" name="city" id="lst-cities">
+								@foreach($cities as $city)
+								<option value="{{ $city->id }}">{{ $city->name}}</option>
+								@endforeach
+							</select>
+							<input id="city-name" type="hidden" name="cityname" value="">
+						</div>
+					</div>
+					
+
 				</div>
 
 				<div class="row">
 
 					<div class="form-group col-xs-12 col-sm-6 col-md-6 {{ $errors->has('expire_date') ? ' has-error' : '' }}">
 						<div class="input-group input-group-sm">
-							<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
-							{!! Form::text('expire_date', old('expire_date'), ['class'=>'form-control', 'placeholder'=>'Ngày hết hạn' , 'id' => 'datepicker']) !!}
+							<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+							{!! Form::date('expire_date', old('expire_date'), ['class'=>'form-control', 'placeholder'=>'Ngày hết hạn' , 'id' => 'datepicker']) !!}
 						</div>
 						@if ($errors->has('expire_date'))
 						<span class="help-block">
@@ -168,11 +198,48 @@
 </script>
 
 <script>
-	$(function() {
-		$( "#datepicker" ).datepicker();
-		$( "#datepicker" ).datepicker( "option", "dateFormat", 'dd/mm/yy');
+	$('#district-name').val($('#lst-district option:selected').text());
+	$('#city-name').val($('#lst-cities option:selected').text());
+	var data = {!! $cities !!};
+	// // GetDistrict(data);
 
+	$('#lst-cities').on("change", function(){
+		GetDistrict(data);
+		$('#city-name').val($('#lst-cities option:selected').text());
+	});	
+	$('#district-name').on("change", function(){
+		$('#district-name').val($('#lst-district option:selected').text());
 	});
+
+	function GetDistrict(data) {
+
+		var tmp = $('#lst-cities').val();
+		for (var i = 0; i < data.length; i++) {
+
+			//Nếu đúng select đang chọn
+			if(data[i].id==tmp){
+				var tmpData = data[i].districts;
+				$('#lst-district').removeClass("selectpicker");
+				$('#lst-district').empty();
+				$.each(tmpData, function (k, tmpData) {
+					$('#lst-district').append(new Option(tmpData.name, tmpData.id));
+				});
+				return false;
+			}
+		}
+
+
+		$('#lst-district').empty();
+		$.each(response, function (i, response) {
+			$('#lst-district').append(new Option(response.name, response.id));
+		});
+		$('#district-name').val($('#lst-district option:selected').text());
+
+
+	};
+
+
+
 	// $(".summernote-editor").summernote({
 	// 	toolbar: [
 	// 	    // [groupName, [list of button]]
@@ -195,6 +262,7 @@
     dialogsFade: true,
     disableDragAndDrop: false,
     height: 200,
+    maximumImageFileSize: 5242880,
 
 
 });

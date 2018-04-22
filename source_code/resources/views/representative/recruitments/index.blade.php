@@ -21,10 +21,10 @@
    <section>
       <div class="container">
          <div class="row"> 
-            @if(Session::has('comment_message'))
+            @if(Session::has('create_success'))
             <div class="container">
                <ul class="alert alert-success">
-                  {{ session('comment_message') }}
+                  {{ session('create_success') }}
                </ul>
             </div>   
             @endif

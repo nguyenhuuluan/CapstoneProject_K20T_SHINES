@@ -1,5 +1,20 @@
 @extends('layouts.admin')
 
+@section('styles')
+<link rel="stylesheet" href="{{asset('assets/vendors/modal-confirm/jquery-confirm.min.css')}}">
+
+<!-- DataTables CSS -->
+{{-- <link href="{{asset('assets/vendors/datatables-plugins/dataTables.bootstrap.css')}}" rel="stylesheet"> --}}
+
+<!-- DataTables Responsive CSS -->
+<link href="{{asset('assets/vendors/datatables-responsive/dataTables.responsive.css')}}" rel="stylesheet">
+
+<!-- Toggle CSS Button -->
+<link href="{{asset('assets/dist/css/bootstrap-toggle.min.css')}}" rel="stylesheet">
+{{-- bootstrap switch --}}
+<link href="{{asset('assets/vendors/bootstrap-switch/bootstrap-switch.css')}}" rel="stylesheet">
+@endsection
+
 @section('body')
 <div id="page-wrapper">
     <div class="container-fluid">
@@ -83,76 +98,98 @@
 
 
 @section('scripts')
+
+<!-- DataTables JavaScript -->
+<script src="{{asset('assets/vendors/datatables/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('assets/vendors/datatables-plugins/dataTables.bootstrap.min.js')}}"></script>
+<script src="{{asset('assets/vendors/datatables-responsive/dataTables.responsive.js')}}"></script>
+{{-- boostrap switch --}}
+<script src="{{asset('assets/vendors/bootstrap-switch/bootstrap-switch.js')}}"></script>
+<!-- Toggle JavaScript Button -->
+<script src="{{asset('assets/js/bootstrap-toggle.min.js')}}"></script>
+<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+{{-- using jquery modal confirm JS --}}
+<script src="{{asset('assets/vendors/modal-confirm/jquery-confirm.min.js')}}"></script>
+<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+
+
+
 <script type="text/javascript">
 
-    $('.switch').bootstrapSwitch({
-        size: 'mini',
-        onText: 'Bật',
-        offText: 'Tắt'      
+ $(document).ready(function() {
+    $('#dataTables-example').DataTable({
+        responsive: true
     });
+});
+ 
+ $('.switch').bootstrapSwitch({
+    size: 'mini',
+    onText: 'Bật',
+    offText: 'Tắt'      
+});
 
-    $('.btn-approve').click(function() {
+ $('.btn-approve').click(function() {
 
-     var currentelement = $(this);
+   var currentelement = $(this);
 
-     $.confirm({
+   $.confirm({
+    title: 'Thông báo!!',
+    content: 'Bạn có muốn xác nhận tin tuyển dụng này?',
+    buttons: {
+        Có: {
+            keys: ['enter'],
+            btnClass: 'btn-green',
+            action: function(){
+                approveRecruitment(currentelement);
+            }
+        },
+        Không: {
+            keys: ['esc'],
+            btnClass: 'btn-red'              
+        }
+
+    }
+
+});
+
+});
+
+
+ $('.status-switch').on('switchChange.bootstrapSwitch', function (e, data) {
+
+    var element = $(this);
+
+    element.bootstrapSwitch('state', !data, true);
+
+    $.confirm({
         title: 'Thông báo!!',
-        content: 'Bạn có muốn xác nhận tin tuyển dụng này?',
+        content: 'Bạn có muốn thay đổi trạng thái của tin tuyển dụng này?',
         buttons: {
             Có: {
                 keys: ['enter'],
                 btnClass: 'btn-green',
                 action: function(){
-                    approveRecruitment(currentelement);
+                    activeRecruitment(element.val());
+                    element.bootstrapSwitch('toggleState', true, true);
                 }
             },
             Không: {
                 keys: ['esc'],
-                btnClass: 'btn-red'              
+                btnClass: 'btn-red'
+
             }
 
         }
-
     });
-
- });
-
-
-    $('.status-switch').on('switchChange.bootstrapSwitch', function (e, data) {
-
-        var element = $(this);
-
-        element.bootstrapSwitch('state', !data, true);
-
-        $.confirm({
-            title: 'Thông báo!!',
-            content: 'Bạn có muốn thay đổi trạng thái của tin tuyển dụng này?',
-            buttons: {
-                Có: {
-                    keys: ['enter'],
-                    btnClass: 'btn-green',
-                    action: function(){
-                        activeRecruitment(element.val());
-                        element.bootstrapSwitch('toggleState', true, true);
-                    }
-                },
-                Không: {
-                    keys: ['esc'],
-                    btnClass: 'btn-red'
-
-                }
-
-            }
-        });
-    });
+});
 
 
-    function alertError(){
-     $.alert({
-        title: 'Thông báo!',
-        content: 'Đã có lỗi xảy ra, vui lòng reload lại trang.',
-    });
- }
+ function alertError(){
+   $.alert({
+    title: 'Thông báo!',
+    content: 'Đã có lỗi xảy ra, vui lòng reload lại trang.',
+});
+}
     // getCompanies();
 
     function activeRecruitment(id){
@@ -164,14 +201,14 @@
             dataType: 'json',
 
             success: function(){
-               $('.modal-ajax-loading').hide();
+             $('.modal-ajax-loading').hide();
 
-           },
-           error: function(){
-               $('.modal-ajax-loading').hide();
-               alertError();
-           }            
-       });
+         },
+         error: function(){
+             $('.modal-ajax-loading').hide();
+             alertError();
+         }            
+     });
     }
 
     function approveRecruitment(element){
@@ -185,8 +222,8 @@
                // location.reload();
                element.remove();
                $("input[value='" + element.val() + "']" ).attr({
-                   disabled: true
-               });
+                 disabled: true
+             });
            },
            error: function(){
             $('.modal-ajax-loading').hide();

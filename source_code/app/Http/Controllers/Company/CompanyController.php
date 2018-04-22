@@ -55,7 +55,7 @@ class CompanyController extends Controller
     public function list(Request $request)
     {   
 
-       $companies = Company::with('tags')
+       $companies = Company::with('tags', 'address.district.city')
                            ->where('companies.status_id', '=', '3')
                            ->orderBy('companies.created_at','ASC')
                            ->paginate($this->per_page_number);

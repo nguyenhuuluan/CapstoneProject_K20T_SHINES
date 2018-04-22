@@ -104,6 +104,13 @@
 
 @section('scripts')
 <script type="text/javascript">
+
+	$(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
+	
 	var showlist;
 	var is_busy = false;
 
