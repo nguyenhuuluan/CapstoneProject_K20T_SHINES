@@ -4,10 +4,15 @@
   {!! Form::text('searchtext', null, ['class'=>'form-control tagsinput-typeahead', 'placeholder'=>'Tìm công việc hoặc công ty yêu thích', 'data-role'=>'tagsinput']) !!}
 </div>
 
-<div class="input-location">
-  {!! Form::text('city', null, ['class'=>'form-control', 'placeholder'=>'Thành phố bạn muốn làm việc']) !!}
-</div>
 
+{{-- <div class="input-location">
+  {!! Form::text('city', null, ['class'=>'form-control', 'placeholder'=>'Thành phố bạn muốn làm việc']) !!} --}}
+
+{{-- <div class="input-location">
+  {!! Form::text('city', null, ['class'=>'form-control', 'placeholder'=>'Tìm công việc hoặc công ty yêu thích']) !!}
+>>>>>>> Nhan-Update-Company-Information
+</div>
+ --}}
 <div class="btn-search">
   {!! Form::submit('Tìm', ['class'=>'btn btn-primary']) !!}
 </div>

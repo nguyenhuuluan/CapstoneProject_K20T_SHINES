@@ -94,17 +94,80 @@
                         approveCompany(currentelement);
                     }
                 },
+                feedBack: {
+                    text: 'Gửi phản hồi',
+                    btnClass: 'btn-warning',
+                    action: function(){
+                        $.confirm({
+                            title: 'Gửi phản hồi',
+                            content: '' +
+                            '<form action="" class="feedback-form">' +
+                            '<div class="form-group">' +
+                            '<textarea class="form-control feedback-message" rows="5" id="comment" placeholder="Nhập phản hồi ..."></textarea>' +
+                            '</div>' +
+                            '</form>',
+                            buttons: {
+                                formSubmit: {
+                                    text: 'Phản hồi',
+                                    btnClass: 'btn-blue',
+                                    action: function () {
+                                        var message = this.$content.find('.feedback-message').val();
+                                        var recruitmentID = currentelement.val();
+                                        if(!message){
+                                            $.alert('Vui lòng nhập nội dung phản hồi');
+                                            return false;
+                                        }
+
+                                        feedbackRecruitment(recruitmentID, message);
+
+
+                                        // $.alert('Your name is ' + message);
+                                        // $.alert('RecruitmentID ' + recruitmentID);
+                                    }
+                                },
+                                cancel: function () {
+            //close
+        },
+    },
+    onContentReady: function () {
+        // bind to events
+        var jc = this;
+        this.$content.find('form').on('submit', function (e) {
+            // if the user submits the form by pressing enter in the field.
+            e.preventDefault();
+            jc.$$formSubmit.trigger('click'); // reference the button and click it
+        });
+    }
+});
+                    }    
+                },
                 Không: {
                     keys: ['esc'],
-                    btnClass: 'btn-red'              
+                    btnClass: 'btn-red'                             
                 }
-
             }
-
-
         });
-
        });
+
+        function feedbackRecruitment(recruitmentID, message){
+            $('.modal-ajax-loading').fadeIn("200");
+            $.ajax({
+                url: '../recruitment/feedback/' + recruitmentID + '/' + message,
+                type: 'GET',
+                dataType: 'json',
+                success: function(){
+                    $('.modal-ajax-loading').fadeOut("200");
+                    $.alert({
+                        title: 'Thông báo!',
+                        content: 'Đã gửi phản hồi',
+                    });                   
+           },
+           error: function(){
+            $('.modal-ajax-loading').hide();
+            alertError();
+        }            
+    });
+        }
 
         function approveCompany(element){
             $('.modal-ajax-loading').fadeIn("200");

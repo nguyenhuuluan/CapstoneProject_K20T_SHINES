@@ -44,7 +44,11 @@ class HomeController extends Controller
 
         $companies =Company::where('status_id', 3)->orderBy('created_at','desc')->take(8)->get();
 
-        return view('welcome', compact('recruitments', 'companies'));
+        $totalRecruitments = Recruitment::where('status_id', 1)->count();
+
+        $companies = Company::where('status_id', 3)->orderBy('created_at','desc')->take(8)->get();
+
+        return view('welcome', compact('recruitments', 'companies', 'totalRecruitments'));
     }
 
     
