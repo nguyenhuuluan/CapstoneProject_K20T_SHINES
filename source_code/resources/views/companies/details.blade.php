@@ -35,24 +35,31 @@
 
         <li>
           <i class="fa fa-phone"></i>
-          <span>{!!$company->phone!!}</span>
+
+          <span>{{$company->phone == '' ? 'Chưa cập nhật số điện thoại' : $company->phone}}</span>
         </li>
 
         <li>
           <i class="fa fa-envelope"></i>
-          <a href="#">{{$company->email}}</a>
+          <a href="#">{{$company->email  == '' ? 'Chưa cập nhật email' : $company->email}}</a>
         </li>
         <li>
           <i class="fa fa-calendar"></i>
-          <span>{{$company->working_day}}</span>
+          <span>{{$company->working_day == '' ? 'Chưa cập nhật thời gian làm việc' : $company->working_day}}</span>
         </li>
       </ul>
 
       <div class="button-group">
         <ul class="social-icons">
 
+
+         {{--  @if ($company->socialNetworks[0]->name === 'Facebook')
+          <li><a class="facebook" href="{!!$company->socialNetworks[0]->url!!}"  target="_blank"><i class="fa fa-facebook"></i></a></li> --}}
+          
+          @if (!empty($company->socialNetworks->toArray()))
           @if ($company->socialNetworks[0]->name === 'Facebook')
           <li><a class="facebook" href="{!!$company->socialNetworks[0]->url!!}"  target="_blank"><i class="fa fa-facebook"></i></a></li>
+
           @endif  
 
           @if ($company->socialNetworks[1]->name === 'Facebook')
@@ -66,6 +73,13 @@
           @if($company->socialNetworks[1]->name === 'LinkedIn')
           <li><a class="linkedin" href="{!!$company->socialNetworks[0]->url!!}"  target="_blank"><i class="fa fa-linkedin"></i></a></li>
           @endif      
+          @else
+            Chưa Liên kết
+          @endif
+
+
+
+
 
         </ul>
 
@@ -83,10 +97,12 @@
 
 <div class="widget_tag_cloud" style="margin-left: 10%;">
   <div class="widget-body">
+
    @foreach ($company->tags as $tag)
    <a href="#">{{$tag->name}}</a>
    @endforeach
  </div>
+
 </div>
 
 @endsection
@@ -105,13 +121,24 @@
 
   </div>
   <center>
-    <div class="bxslider">
 
+
+     {{--  @foreach ($company->photos as $photo)
+      <div><img src="{{ asset('images/companies/'.$photo->name) }}"></div> --}}
+
+    @if ($company->photos->toArray() != null)
+    <div class="bxslider">
       @foreach ($company->photos as $photo)
       <div><img src="{{ asset('images/companies/'.$photo->name) }}"></div>
-      @endforeach
 
+      @endforeach
     </div>
+    @else
+    <div class="col-xs-12">
+      <center>Chưa cập nhật hình ảnh</center>
+    </div>
+    @endif
+    
   </center>
 </section>
 <!-- END Company detail -->
@@ -132,6 +159,7 @@
         <center>Chưa có tin tuyển dụng nào</center>
       </div>
       @endif
+
 
       @foreach ($company->recruitments as $recruitment)
       <!-- Job item -->

@@ -24,6 +24,7 @@ class RepresentativeController extends Controller
     {
         $currentcompID = Auth::user()->representative->company->id;
         $recruitcount = Recruitment::where('company_id', $currentcompID)->count();
+        $statusCompany = Company::where('id', $currentcompID)->pluck('status_id');
 
         // $totalapplied = Recruitment::where('company_id', $currentcompID)->
 
@@ -32,7 +33,7 @@ class RepresentativeController extends Controller
 
         $anonymousview = Recruitment::where('company_id', $currentcompID)->pluck('number_of_anonymous_view')->sum();
 
-         return view('representative.index')->with(compact('recruitcount', 'studentview', 'anonymousview','totalrepresentative'));
+         return view('representative.index')->with(compact('recruitcount', 'studentview', 'anonymousview','totalrepresentative','statusCompany'));
     }
 
     public function resetPassword($token)

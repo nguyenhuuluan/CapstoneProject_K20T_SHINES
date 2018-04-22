@@ -49,7 +49,7 @@
     <h2>Nhà tuyển dụng</h2>
   </header>
 
-  <div class="category-grid">
+  <div class="category-grid"> 
   
     @foreach ($companies as $company)
      <a href="{{ route('company.details', $company->slug ) }}">

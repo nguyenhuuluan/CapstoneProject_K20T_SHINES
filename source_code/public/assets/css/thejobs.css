@@ -787,7 +787,9 @@ form .text-muted {
 
 .header-job-search .input-keyword {
 	position:relative;
+
   	width:55%;
+
 }
 .header-job-search .input-location {
   position:relative;
@@ -2111,7 +2113,6 @@ dl.icon-holder dd {
 
 .page-header .container {
   position:relative;
-  z-index:1;
   background-color:#fff;
   padding:15px 30px 10px;
   box-shadow:0 5px 25px 0 rgba(0,0,0,0.07);

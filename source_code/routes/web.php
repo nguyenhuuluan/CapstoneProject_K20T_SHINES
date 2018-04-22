@@ -44,10 +44,18 @@ Route::POST('/partnership/register', 'CompanyRegistrationController@registerPart
 
 
 // Recruitment - WEB
+
 Route::get('/recruitments/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
 Route::GET('student/recruitments/{id}/apply', 'Student\StudentRecruitmentController@apply')->name('student.apply.recruitment')->middleware('student');
 Route::GET('student/recruitments/{id}/save', 'Student\StudentRecruitmentController@saveRecruitment')->name('student.save.recruitment')->middleware('student');
 Route::POST('student/recruitments/{id}/apply', 'Student\StudentRecruitmentController@store')->name('student.apply.recruitment.store')->middleware('student');
+
+
+// Route::get('/recruitments/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
+
+Route::group(['middleware' => 'filter'], function() {
+    Route::get('/recruitments/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
+});
 
 Route::get('search', 'RecruitmentController@search')->name('recruitments.search');
 
@@ -113,6 +121,9 @@ Route::middleware(['admin', 'web'])->group(function () {
 
 	Route::get('/admin/recruitments/approve/{recruitmentID}', 'Admin\AdminRecruitmentController@approveRecruitment')->name('approverecruitment');
 	Route::get('/admin/recruitments/active/{recruitment_id}', 'Admin\AdminRecruitmentController@setActiveRecruitment')->name('activerecruitment');
+	Route::get('admin/recruitment/feedback/{recruitmentID}/{message}', 'Admin\AdminRecruitmentController@feedback')->name('admin.recruitments.feedback');
+
+
 
 
 	//Route::get('/admin/recruitment/{id}/preview', 'RecruitmentController@preview')->name('preview');
@@ -173,7 +184,6 @@ Route::POST('representative/reset-password','Representative\ResetPasswordControl
 
 // District
 Route::get('/districts/{cityID}','AddressController@getDistricts')->name('address.districts');
-
 
 
 Route::get('/test/{id}','RecruitmentController@test')->name('test');

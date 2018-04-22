@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 
+
 @section('styles')
 <link rel="stylesheet" href="{{asset('assets/vendors/modal-confirm/jquery-confirm.min.css')}}">
 
@@ -72,12 +73,8 @@
                                                 @endif
                                             </td>
                                             <td>
-
-                                                <a class="btn btnreview btn-success" href="{{ route('company.details', ['id'=> $comp->id]) }}">Xem</a>
                                                 
-
-                                                {{--   <button type="button" class="btnreview btn-success">Xem</button> --}}
-
+                                                <a class="btn btnreview btn-success" href="{{ route('company.details', ['id'=> $comp->id]) }}">Xem</a>
                                             </td>
 
                                         </tr>
@@ -109,6 +106,7 @@
 @endsection
 
 @section('scripts')
+
 <!-- DataTables JavaScript -->
 <script src="{{asset('assets/vendors/datatables/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('assets/vendors/datatables-plugins/dataTables.bootstrap.min.js')}}"></script>
@@ -134,8 +132,6 @@
         });
     });
 
-
-
     $('.switch').bootstrapSwitch({
         size: 'mini',
         onText: 'Bật',
@@ -144,13 +140,31 @@
         offColor: 'danger'     
     });
 
+    $('.btn-approve').click(function() {
+       var currentelement = $(this);
+       $.confirm({
+        title: 'Thông báo!!',
+        content: 'Bạn có muốn xác nhận công ty này?',
+        buttons: {
+            Có: {
+                keys: ['enter'],
+                btnClass: 'btn-green',
+                action: function(){
+                    
+                    approveCompany(currentelement);
+                }
+            },
+            Không: {
+                keys: ['esc'],
+                btnClass: 'btn-red'              
+            }
+        }
+    });
+   });
+    $('.status-switch').on('switchChange.bootstrapSwitch', function (e, data) {
 
-    $('.table-responsive').on('switchChange.bootstrapSwitch', '.status-switch',  function (e, data) {
-        event.preventDefault();
         var element = $(this);
-
         element.bootstrapSwitch('state', !data, true);
-
         $.confirm({
             title: 'Thông báo!!',
             content: 'Bạn có muốn thay đổi trạng thái của công ty này?',
@@ -166,40 +180,10 @@
                 Không: {
                     keys: ['esc'],
                     btnClass: 'btn-red'
-
                 }
-
             }
         });
     });
-
-    // $('.status-switch').on('switchChange.bootstrapSwitch', function (e, data) {
-    //     var element = $(this);
-
-    //     element.bootstrapSwitch('state', !data, true);
-
-    //     $.confirm({
-    //         title: 'Thông báo!!',
-    //         content: 'Bạn có muốn thay đổi trạng thái của công ty này?',
-    //         buttons: {
-    //             Có: {
-    //                 keys: ['enter'],
-    //                 btnClass: 'btn-green',
-    //                 action: function(){
-    //                     activeCompany(element.val());
-    //                     element.bootstrapSwitch('toggleState', true, true);
-    //                 }
-    //             },
-    //             Không: {
-    //                 keys: ['esc'],
-    //                 btnClass: 'btn-red'
-
-    //             }
-
-    //         }
-    //     });
-    
-    // });
 
 
     function alertError(){
@@ -209,26 +193,20 @@
     });
  }
     // getCompanies();
-
     function activeCompany(id){
         $('.modal-ajax-loading').fadeIn("200");
-
         $.ajax({
             url: 'company/active/' + id,
             type: 'GET',
             dataType: 'json',
-
             success: function(){
-               $('.modal-ajax-loading').fadeOut("200");
-
-           },
-           error: function(){
-               $('.modal-ajax-loading').fadeOut("200");
-               alertError();
-           }            
-       });
+             $('.modal-ajax-loading').fadeOut("200");
+         },
+         error: function(){
+             $('.modal-ajax-loading').fadeOut("200");
+             alertError();
+         }            
+     });
     }
-
 </script>
 @endsection
-

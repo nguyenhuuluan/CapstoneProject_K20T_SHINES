@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Recruitment;
+use Mail;
+use GuzzleHttp\Client;
+
 
 class AdminRecruitmentController extends Controller
 {
@@ -69,20 +72,44 @@ class AdminRecruitmentController extends Controller
 
     }
 
+    public function feedback($recruitmentID, $message){
+
+        $recruitment = Recruitment::where('id', $recruitmentID)->first();
+
+        $company = $recruitment->company()->first();
+
+        $representative = $recruitment->company()->first()->representatives()->first();
+
+        return $representative;
+
+        // return view ('admin.recruitments.email-feedback', compact('recruitment','company','representative','message'));
+
+        Mail::send('admin.recruitments.email-feedback', ['company' => $company, 'representative' => $representative, 'recruitment' => $recruitment, 'message1' => $message],  function ($message) use($representative)
+        {
+           $message->to($representative['email'])->subject('Phản hồi tin tuyển dụng');
+       });
+
+        return response()->json(['OK' => 'OK'], 200);
+    }
+
+   
+
+
+
 
 
     public function setActiveRecruitment($recruitment_id){
         $recruitment = Recruitment::Where('id', $recruitment_id)->first();
 
         if ($recruitment->status_id != 1) {
-         $recruitment->status_id = 1;
-     }else {
-         $recruitment->status_id = 2;
-     }
+           $recruitment->status_id = 1;
+       }else {
+           $recruitment->status_id = 2;
+       }
 
-     $recruitment->save();     
-     return $recruitment;
- }
+       $recruitment->save();     
+       return $recruitment;
+   }
 
     /**
      * Store a newly created resource in storage.
