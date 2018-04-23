@@ -14,6 +14,8 @@
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+ 	<link href="../vendor/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
+
     <!-- MetisMenu CSS -->
     <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
@@ -22,7 +24,7 @@
   <script src="../vendor/summernote/jquery.js"></script> 
   <script src="../vendor/summernote/summernote.js"></script>
 
-<link href="../vendor/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
+	<link href="../vendor/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
@@ -208,7 +210,15 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-pencil-square-o fa-fw"></i> Blog</a>
+                           <a href="#"><i class="fa fa-users fa-fw"></i> Blog<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="blog-post.html">Đăng blog</a>
+                                </li>
+                                <li>
+                                    <a href="blog-post-list.html">Danh sách blog</a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -234,6 +244,9 @@
                     	<form method="post">
                     	<textarea id="summernote" name="editordata"></textarea>
                     	</form><br>
+                    	<label>Mô tả tìm kiếm</label><br>
+                    	<input type="text" class="tagsinput-typeahead form-control" placeholder="Nhập tags bài viết" data-role="tagsinput">
+                    	<br><br>
                     	<label>Mô tả tìm kiếm</label>
                     	<textarea class="form-control" rows="3" placeholder="Cái này là nhập để bỏ vô thẻ meta nha"></textarea>
                     	</div>
@@ -329,6 +342,9 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 
+    <script src="../vendor/bootstrap-tagsinput/bootstrap3-typeahead.js"></script>
+    <script src="../vendor/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+
     <!-- Metis Menu Plugin JavaScript -->
     <script src="../vendor/metisMenu/metisMenu.min.js"></script>
 
@@ -352,7 +368,30 @@
     });
   });
 </script>
-
+<script>
+         var places = [{
+             name: "PHP"
+         }, {
+             name: "JavaScript"
+         }, {
+             name: "BIM"
+         }, {
+             name: "HTML"
+         }, {
+             name: "CSS"
+         }];
+         
+         $('.tagsinput-typeahead').tagsinput({
+             typeahead: {
+                 source: places.map(function(item) {
+                     return item.name
+                 }),
+                 afterSelect: function() {
+                     this.$element[0].value = '';
+                 }
+             }
+         })
+      </script>
 </body>
 
 </html>
