@@ -236,7 +236,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-pencil-square-o fa-fw"></i> Blog</a>
+                    <a href="{{ route('admin.blogs') }}"><i class="fa fa-pencil-square-o fa-fw"></i> Blog</a>
                 </li>
             </ul>
 

@@ -118,7 +118,6 @@ Route::middleware(['admin', 'web'])->group(function () {
 			
 		]]);
 	Route::get('admin/approve/recruitments', 'Admin\AdminRecruitmentController@approve')->name('admin.recruitments.approve');
-
 	Route::get('/admin/recruitments/approve/{recruitmentID}', 'Admin\AdminRecruitmentController@approveRecruitment')->name('approverecruitment');
 	Route::get('/admin/recruitments/active/{recruitment_id}', 'Admin\AdminRecruitmentController@setActiveRecruitment')->name('activerecruitment');
 	Route::get('admin/recruitment/feedback/{recruitmentID}/{message}', 'Admin\AdminRecruitmentController@feedback')->name('admin.recruitments.feedback');
@@ -130,17 +129,16 @@ Route::middleware(['admin', 'web'])->group(function () {
 
 
 	//Company - ADMIN
-
 	Route::get('/admin/getcompanies', 'CompanyController@getCompanies')->name('getcompanies');
 	Route::get('/admin/company', 'CompanyController@index')->name('company');
 	Route::get('/admin/company/approve/{companyID}', 'CompanyController@approveCompany')->name('approvecompany');
 	Route::get('/admin/company/active/{companyID}', 'CompanyController@setActiveCompany')->name('activecompany');
-
 	Route::get('/admin/company/company-registration', 'CompanyController@companyRegistration')->name('company.registration');
-
 	Route::get('/admin/company/sendemailconfirm/{accID}/{repreID}/{compID}', 'CompanyController@sendConfirmEmail')->name('company.sendConfirmEmail');
 
-
+	//Blog - ADMIN
+	Route::get('/admin/blogs', 'Admin\AdminBlogController@index')->name('admin.blogs');
+	Route::get('/admin/blogs/create', 'Admin\AdminBlogController@create')->name('admin.blogs.create')
 });
 
 
