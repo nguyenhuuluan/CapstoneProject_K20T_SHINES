@@ -2,11 +2,11 @@
 {{-- @extends('layouts.representative') --}}
 
 @section('page-header')
-   <header class="page-header">
-      <div class="container page-name">
-         <h1 class="text-center">Thống kê sơ bộ</h1>
-      </div>
-   </header>
+<header class="page-header">
+  <div class="container page-name">
+   <h1 class="text-center">Thống kê sơ bộ</h1>
+ </div>
+</header>
 @endsection
 
 @section('content')
@@ -23,7 +23,10 @@
         <li>{{$totalrepresentative}} tài khoản thành viên</li>
       </ul>
       <br>
+       <button type="button" style="width: 280px;" class="btn btn-success-detail display-home-btn">Đăng ký hiển thị trang chủ</button>
 
+      <br>
+<br>
     </div>
     <div class="row">
      <h6>Trang báo cáo công ty</h6>
