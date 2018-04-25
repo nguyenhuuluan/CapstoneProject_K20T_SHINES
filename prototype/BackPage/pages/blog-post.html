@@ -14,17 +14,17 @@
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
- 	<link href="../vendor/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
+    <link href="../vendor/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
     <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
     <!-- SummerNote -->
-  <link href="../vendor/summernote/summernote.css" rel="stylesheet">
-  <script src="../vendor/summernote/jquery.js"></script> 
-  <script src="../vendor/summernote/summernote.js"></script>
+    <link href="../vendor/summernote/summernote.css" rel="stylesheet">
+    <script src="../vendor/summernote/jquery.js"></script>
+    <script src="../vendor/summernote/summernote.js"></script>
 
-	<link href="../vendor/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="../vendor/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
@@ -39,29 +39,30 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style type="text/css">
-    	.btn-file {
-		    position: relative;
-		    overflow: hidden;
-		}
-		.btn-file input[type=file] {
-		    position: absolute;
-		    top: 0;
-		    right: 0;
-		    min-width: 100%;
-		    min-height: 100%;
-		    font-size: 100px;
-		    text-align: right;
-		    filter: alpha(opacity=0);
-		    opacity: 0;
-		    outline: none;
-		    background: white;
-		    cursor: inherit;
-		    display: block;
-		}
-
-		#img-upload{
-		    width: 30%;
-		}
+        .btn-file {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-file input[type=file] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            outline: none;
+            background: white;
+            cursor: inherit;
+            display: block;
+        }
+        
+        #img-upload {
+            width: 30%;
+        }
     </style>
 
 </head>
@@ -133,8 +134,7 @@
                     </ul>
                     <!-- /.dropdown-messages -->
                 </li>
-                
-                
+
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -221,6 +221,9 @@
                             <a href="list-company.html"><i class="fa fa-building fa-fw"></i> Công ty</a>
                         </li>
                          <li>
+                            <a href="faculty-manage.html"><i class="fa fa-leanpub fa-fw"></i> Quản lý nghành</a>
+                        </li>
+                        <li>
                             <a href="#"><i class="fa fa-users fa-fw"></i> Danh sách tài khoản<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -235,7 +238,7 @@
                             </ul>
                         </li>
                         <li>
-                           <a href="#"><i class="fa fa-users fa-fw"></i> Blog<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-users fa-fw"></i> Blog<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="blog-post.html">Đăng blog</a>
@@ -252,7 +255,6 @@
             <!-- /.navbar-static-side -->
         </nav>
 
-
         <!-- Page Content -->
         <div id="page-wrapper">
             <div class="container-fluid">
@@ -262,110 +264,116 @@
                     </div>
                     <!-- /.col-lg-12 -->
                     <div class="col-xs-12 col-md-9">
-                    	<div class="form-group">
-                    	<input class="form-control" placeholder="Nhập tiêu đề blog">
-                    	<br><br>
-                    	
-                    	
-					        <label>Ảnh đại diện</label>
-					        <div class="input-group">
-					            <span class="input-group-btn">
+                        <div class="form-group">
+                            <input class="form-control" placeholder="Nhập tiêu đề blog">
+                            <br>
+                            <br>
+
+                            <label>Ảnh đại diện</label>
+                            <div class="input-group">
+                                <span class="input-group-btn">
 					                <span class="btn btn-default btn-file">
 					                    Browse… <input type="file" id="imgInp">
 					                </span>
-					            </span>
-					            <input type="text" class="form-control" readonly>
-					        </div>
-					        <img id='img-upload'/>
-					    
+                                </span>
+                                <input type="text" class="form-control" readonly>
+                            </div>
+                            <img id='img-upload' />
 
-                    	<br><br>
-                    	<label>Nội dung</label>
-                    	<form method="post">
-                    	<textarea id="summernote" name="editordata"></textarea>
-                    	</form><br>
-                    	<label>Tags</label><br>
-                    	<input type="text" class="tagsinput-typeahead form-control" placeholder="Nhập tags bài viết" data-role="tagsinput">
-                    	<br><br>
-                    	<label>Mô tả tìm kiếm</label>
-                    	<textarea class="form-control" rows="3" placeholder="Cái này là nhập để bỏ vô thẻ meta nha"></textarea>
-                    	</div>
+                            <br>
+                            <br>
+                            <label>Nội dung</label>
+                            <form method="post">
+                                <textarea id="summernote" name="editordata"></textarea>
+                            </form>
+                            <br>
+                            <label>Tags</label>
+                            <br>
+                            <input type="text" class="tagsinput-typeahead form-control" placeholder="Nhập tags bài viết" data-role="tagsinput">
+                            <br>
+                            <br>
+                            <label>Mô tả tìm kiếm</label>
+                            <textarea class="form-control" rows="3" placeholder="Cái này là nhập để bỏ vô thẻ meta nha"></textarea>
+                        </div>
                     </div>
 
                     <div class="col-xs-12 col-md-3">
-                    	<div class="panel panel-info">
-	                        <div class="panel-heading">
-	                            Công cụ đăng
-	                        </div>
-	                        <div class="panel-body">
-	                           <button type="button" class="btn btn-default">Xem trước</button><br><br>
-	                           	<p class="fa fa-gear"></p> Trạng thái: <strong>Nháp</strong><br>
-	                           	<p class="fa fa-calendar"></p> Thời gian: 
-	                           	
-	                           	<div id="datetimepicker2" class="input-append">
-	                           		<input data-format="MM/dd/yyyy HH:mm:ss PP" type="text" class="form-control" style="width: 90%">
-	                           		<span class="add-on">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                Công cụ đăng
+                            </div>
+                            <div class="panel-body">
+                                <button type="button" class="btn btn-default">Xem trước</button>
+                                <br>
+                                <br>
+                                <p class="fa fa-gear"></p> Trạng thái: <strong>Nháp</strong>
+                                <br>
+                                <p class="fa fa-calendar"></p> Thời gian:
+
+                                <div id="datetimepicker2" class="input-append">
+                                    <input data-format="MM/dd/yyyy HH:mm:ss PP" type="text" class="form-control" style="width: 90%">
+                                    <span class="add-on">
 	                           			<i class="fa fa-clock-o"></i>
 	                           		</span>
-	                           		</input>
-	                           </div>
-	                        </div>
-
-	                        <div class="panel-footer">
-	                            <button type="button" class="btn btn-warning">Hủy</button>
-	                    		<button type="button" class="btn btn-success">Công khai</button>
-	                        </div>
-                    	</div>
-
-                    	<div class="panel panel-info">
-	                        <div class="panel-heading">
-	                            Chuyên mục
-	                        </div>
-	                        <div class="panel-body">
-	                           <div class="form-group">
-	                           	<div class="checkbox">
-	                           		<label>
-	                           			<input type="checkbox" value="">Kỹ năng sống
-	                           		</label>
-	                           	</div>
-	                           	<div class="checkbox">
-	                           		<label>
-	                           			<input type="checkbox" value="">Doanh nhân
-	                           		</label>
-	                           	</div>
-	                           	<div class="checkbox">
-	                           		<label>
-	                           			<input type="checkbox" value="">Nghề nghiệp
-	                           		</label>
-	                           	</div>
-	                           </div>
-	                        </div>
-
-	                        <div class="panel-footer">
-	                            <a href="#" data-toggle="modal" data-target="#myModal"><strong>+ Thêm chuyên mục</strong></a>
-	                            <!-- Modal -->
-                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                            <h4 class="modal-title" id="myModalLabel">Thêm chuyên mục</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                           <input class="form-control" placeholder="Tên chuyên mục">
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
-                                            <button type="button" class="btn btn-primary">Lưu</button>
-                                        </div>
-                                    </div>
-                                    <!-- /.modal-content -->
+                                    </input>
                                 </div>
-                                <!-- /.modal-dialog -->
                             </div>
-                            <!-- /.modal -->
-	                        </div>
-                    	</div>
+
+                            <div class="panel-footer">
+                                <button type="button" class="btn btn-warning">Hủy</button>
+                                <button type="button" class="btn btn-success">Công khai</button>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                Chuyên mục
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">Kỹ năng sống
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">Doanh nhân
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">Nghề nghiệp
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel-footer">
+                                <a href="#" data-toggle="modal" data-target="#myModal"><strong>+ Thêm chuyên mục</strong></a>
+                                <!-- Modal -->
+                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                <h4 class="modal-title" id="myModalLabel">Thêm chuyên mục</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <input class="form-control" placeholder="Tên chuyên mục">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                                                <button type="button" class="btn btn-primary">Lưu</button>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+                                <!-- /.modal -->
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- /.row -->
@@ -394,81 +402,82 @@
     <script src="../vendor/datetimepicker/bootstrap-datetimepicker.min.js"></script>
 
     <script type="text/javascript">
-    	$(document).ready(function() {
-  $('#summernote').summernote({
-  	height: 200
-  });
-});
+        $(document).ready(function() {
+            $('#summernote').summernote({
+                height: 200
+            });
+        });
     </script>
     <script type="text/javascript">
-  $(function() {
-    $('#datetimepicker2').datetimepicker({
-      language: 'en',
-      pick12HourFormat: true
-    });
-  });
-</script>
-<script>
-         var places = [{
-             name: "PHP"
-         }, {
-             name: "JavaScript"
-         }, {
-             name: "BIM"
-         }, {
-             name: "HTML"
-         }, {
-             name: "CSS"
-         }];
-         
-         $('.tagsinput-typeahead').tagsinput({
-             typeahead: {
-                 source: places.map(function(item) {
-                     return item.name
-                 }),
-                 afterSelect: function() {
-                     this.$element[0].value = '';
-                 }
-             }
-         })
-      </script>
-      <script type="text/javascript">
-      	$(document).ready( function() {
-    	$(document).on('change', '.btn-file :file', function() {
-		var input = $(this),
-			label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-		input.trigger('fileselect', [label]);
-		});
+        $(function() {
+            $('#datetimepicker2').datetimepicker({
+                language: 'en',
+                pick12HourFormat: true
+            });
+        });
+    </script>
+    <script>
+        var places = [{
+            name: "PHP"
+        }, {
+            name: "JavaScript"
+        }, {
+            name: "BIM"
+        }, {
+            name: "HTML"
+        }, {
+            name: "CSS"
+        }];
 
-		$('.btn-file :file').on('fileselect', function(event, label) {
-		    
-		    var input = $(this).parents('.input-group').find(':text'),
-		        log = label;
-		    
-		    if( input.length ) {
-		        input.val(log);
-		    } else {
-		        if( log ) alert(log);
-		    }
-	    
-		});
-		function readURL(input) {
-		    if (input.files && input.files[0]) {
-		        var reader = new FileReader();
-		        
-		        reader.onload = function (e) {
-		            $('#img-upload').attr('src', e.target.result);
-		        }
-		        
-		        reader.readAsDataURL(input.files[0]);
-		    }
-		}
+        $('.tagsinput-typeahead').tagsinput({
+            typeahead: {
+                source: places.map(function(item) {
+                    return item.name
+                }),
+                afterSelect: function() {
+                    this.$element[0].value = '';
+                }
+            }
+        })
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(document).on('change', '.btn-file :file', function() {
+                var input = $(this),
+                    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+                input.trigger('fileselect', [label]);
+            });
 
-		$("#imgInp").change(function(){
-		    readURL(this);
-		}); 	
-	});
-      </script>
+            $('.btn-file :file').on('fileselect', function(event, label) {
+
+                var input = $(this).parents('.input-group').find(':text'),
+                    log = label;
+
+                if (input.length) {
+                    input.val(log);
+                } else {
+                    if (log) alert(log);
+                }
+
+            });
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $('#img-upload').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $("#imgInp").change(function() {
+                readURL(this);
+            });
+        });
+    </script>
 </body>
 
 </html>

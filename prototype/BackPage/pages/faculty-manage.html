@@ -35,6 +35,8 @@
     <!-- Confirm Button -->
     <link rel="stylesheet" type="text/css" href="../vendor/jquery-confirm/jquery-confirm.css" />
 
+    <link href="../vendor/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -112,7 +114,8 @@
                     </ul>
                     <!-- /.dropdown-messages -->
                 </li>
-
+                
+                
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -238,139 +241,178 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Danh sách các bài viết</h1>
+                        <h1 class="page-header">Quản lý nghành đào tạo</h1>
+                    </div>
+                        <!-- /.row -->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="">
+                                    <!-- /.panel-heading -->
+                                    <div class="panel-body">
+                                        <div class="table-responsive">
+                                            <table width="100%" class="table table-striped table-hover" id="dataTables-example">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Tên nghành</th>
+                                                        <th>Ngày tạo</th>
+                                                        <th>Người tạo</th>
+                                                        <th>Tag</th>
+                                                        <th>Thao tác</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>Công nghệ thông tin</td>
+                                                        <td>10/2/2017</td>
+                                                        <td>Thành Huỳnh</td>
+                                                        <td>
+                                                            <a href="#" class="btnreview btn-success" data-toggle="modal" data-target="#id02">Quản lý tag</a>
+                                                        </td>
+                                                        <td>
+                                                            <a href="#" class="confirm btnreview btn-danger">Xóa</a>
+                                                        </td>
+                                                    </tr>
+                                                     <tr>
+                                                        <td>2</td>
+                                                        <td>Mỹ thuật công nghiệp</td>
+                                                        <td>4/1/2014</td>
+                                                        <td>Qui Vang</td>
+                                                        <td>
+                                                            <a href="#" class="btnreview btn-success" data-toggle="modal" data-target="#id02">Quản lý tag</a>
+                                                            <!--Modal quản lý tag-->
+                                                            <div id="id02" class="modal fade">
+                <form class="modal-content animate" action="#">
+                    <div class="login-block">
+                        <h4>Vui lòng nhập tag vào khung bên dưới</h4>
+                        <input type="text" class="name tagsinput-typeahead form-control" placeholder="Nhập tags" data-role="tagsinput" value="HTML, CSS, JavaScript">
+                        <br><br>
+                        <button class="btn btn-success">Lưu</button>
+                        <button class="btn btn-warning" data-dismiss="modal">Hủy</button>
+                    </div>
+                </form>
+            </div>
+                                                        </td>
+                                                        <td>
+                                                            <a href="#" class="confirm btnreview btn-danger">Xóa</a>
+                                                        </td>
+                                                    </tr> 
+                                                    <tr>
+                                                        <td>3</td>
+                                                        <td>Ngoại ngữ</td>
+                                                        <td>10/2/2016</td>
+                                                        <td>Nhân Ngô</td>
+                                                        <td>
+                                                            <a href="#" class="btnreview btn-success" data-toggle="modal" data-target="#id02">Quản lý tag</a>
+                                                        </td>
+                                                        <td>
+                                                            <a href="#" class="confirm btnreview btn-danger">Xóa</a>
+                                                        </td>
+                                                    </tr> 
+                                                    <tr>
+                                                        <td>4</td>
+                                                        <td>Du lịch</td>
+                                                        <td>10/4/2015</td>
+                                                        <td>Luan Nguyen</td>
+                                                        <td>
+                                                            <a href="#" class="btnreview btn-success" data-toggle="modal" data-target="#id02">Quản lý tag</a>
+                                                        </td>
+                                                        <td>
+                                                            <a href="#" class="confirm btnreview btn-danger">Xóa</a>                        
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                        <!-- /.table-responsive -->
+                                    </div>
+                                    <!-- /.panel-body -->
+                                </div>
+                                <!-- /.panel -->
+                            </div>
+
+                        </div>
+                        <!-- /.col-lg-12 -->
                     </div>
                     <!-- /.row -->
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="">
-
-                                <!-- /.panel-heading -->
-                                <div class="panel-body">
-                                    <div class="table-responsive">
-                                        <table width="100%" class="table table-striped table-hover" id="dataTables-example">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Tên bài viết</th>
-                                                    <th>Người đăng</th>
-                                                    <th>Chuyên mục</th>
-                                                    <th>Ngày tạo</th>
-                                                    <th>Trạng thái</th>
-                                                    <th>Thao tác</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Làm sao để thăng tiến nhanh trong công việc?</td>
-                                                    <td>boycute</td>
-                                                    <td>Kỹ năng sống</td>
-                                                    <td>29/12/2017</td>
-                                                    <td>Đã đăng</td>
-                                                    <td>
-                                                        <a href="#" class="btnreview btn-success">Cập nhật</a>
-                                                        <a href="#" class="confirm btnreview btn-danger">Xóa</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>Định hướng nghề nghiệp tương lai của bạn</td>
-                                                    <td>Nhân Ngô</td>
-                                                    <td>Nghề nghiệp</td>
-                                                    <td>21/6/2017</td>
-                                                    <td>Đã đăng</td>
-                                                    <td>
-                                                        <a href="#" class="btnreview btn-success">Cập nhật</a>
-                                                        <a href="#" class="confirm btnreview btn-danger">Xóa</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3</td>
-                                                    <td>Học java thế nào hiệu quả?</td>
-                                                    <td>michealvu</td>
-                                                    <td>Nghề nghiệp</td>
-                                                    <td>17/1/2017</td>
-                                                    <td>Nháp</td>
-                                                    <td>
-                                                        <a href="#" class="btnreview btn-success">Cập nhật</a>
-                                                        <a href="#" class="confirm btnreview btn-danger">Xóa</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>4</td>
-                                                    <td>Tôi đã làm chủ doanh nghiệp tỷ USD như thế nào?</td>
-                                                    <td>Thành Huỳnh</td>
-                                                    <td>Doanh nhân</td>
-                                                    <td>2/3/2017</td>
-                                                    <td>Đã đăng</td>
-                                                    <td>
-                                                        <a href="#" class="btnreview btn-success">Cập nhật</a>
-                                                        <a href="#" class="confirm btnreview btn-danger">Xóa</a>
-                                                    </td>
-                                                </tr>
-
-                                            </tbody>
-
-                                        </table>
-                                    </div>
-                                    <!-- /.table-responsive -->
-                                </div>
-                                <!-- /.panel-body -->
-                            </div>
-                            <!-- /.panel -->
-                        </div>
-
-                    </div>
-                    <!-- /.col-lg-12 -->
                 </div>
-                <!-- /.row -->
+                <!-- /.container-fluid -->
             </div>
-            <!-- /.container-fluid -->
+            <!-- /#page-wrapper -->
+            
         </div>
-        <!-- /#page-wrapper -->
+        <!-- /#wrapper -->
 
-    </div>
-    <!-- /#wrapper -->
+        <!-- jQuery -->
+        <script src="../vendor/jquery/jquery.min.js"></script>
 
-    <!-- jQuery -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
+        <!-- jQuery confirm-->
+        <script type="text/javascript" src="../vendor/jquery-confirm/jquery-confirm.js"></script>
 
-    <!-- jQuery confirm-->
-    <script type="text/javascript" src="../vendor/jquery-confirm/jquery-confirm.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+        <script src="../vendor/bootstrap-tagsinput/bootstrap3-typeahead.js"></script>
+    <script src="../vendor/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
 
-    <!-- DataTables JavaScript -->
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+         <!-- DataTables JavaScript -->
     <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
     <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
     <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
 
-    <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
 
-    <!-- Toggle JavaScript Button -->
-    <script src="../js/bootstrap-toggle.min.js"></script>
+        <!-- Custom Theme JavaScript -->
+        <script src="../dist/js/sb-admin-2.js"></script>
 
-    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+        <!-- Toggle JavaScript Button -->
+        <script src="../js/bootstrap-toggle.min.js"></script>
+
+         <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
-        $(document).ready(function() {
-            $('#dataTables-example').DataTable({
-                responsive: true
-            });
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
         });
+    });
     </script>
 
-    <!-- Confirm Button -->
+     <script>
+        var places = [{
+            name: "PHP"
+        }, {
+            name: "JavaScript"
+        }, {
+            name: "BIM"
+        }, {
+            name: "HTML"
+        }, {
+            name: "CSS"
+        }];
+
+        $('.tagsinput-typeahead').tagsinput({
+            typeahead: {
+                source: places.map(function(item) {
+                    return item.name
+                }),
+                afterSelect: function() {
+                    this.$element[0].value = '';
+                }
+            }
+        })
+    </script>
+
+      <!-- Confirm Button -->
     <script type="text/javascript">
         $('.confirm').on('click', function() {
             $.confirm({
                 title: 'Xác nhận xóa!',
-                content: 'Bạn có chắc muốn xóa bài viết này!',
+                content: 'Bạn có chắc muốn xóa nghành học này!',
                 buttons: {
                     XacNhan: {
                         text: 'Xác nhận',
@@ -392,7 +434,48 @@
             });
         });
     </script>
+    <script type="text/javascript">
+                                $('.example2-2').on('click', function () {
+                                    $.confirm({
+                                        title: 'Quản lý tag!',
+                                        content: '' +
+                                        '<form action="" class="formName">' +
+                                        '<div class="form-group">' +
+                                        '<label>Nhập tên tag</label>' +
+                                        '<input type="text" class="name tagsinput-typeahead form-control" placeholder="Nhập tags bài viết" data-role="tagsinput" value="HTML">' +
+                                        '</div>' +
+                                        '</form>',
+                                        buttons: {
+                                            formSubmit: {
+                                                text: 'Submit',
+                                                btnClass: 'btn-blue',
+                                                action: function () {
+                                                    var name = this.$content.find('.name').val();
+                                                    if (!name) {
+                                                        $.alert('provide a valid name');
+                                                        return false;
+                                                    }
+                                                    $.alert('Your name is ' + name);
+                                                }
+                                            },
+                                            cancel: function () {
+                                                //close
+                                            },
+                                        },
+                                        onContentReady: function () {
+                                            // you can bind to the form
+                                            var jc = this;
+                                            this.$content.find('form').on('submit', function (e) { // if the user submits the form by pressing enter in the field.
+                                                e.preventDefault();
+                                                jc.$$formSubmit.trigger('click'); // reference the button and click it
+                                            });
+                                        }
+                                    });
+                                });
+                            </script>
 
-</body>
+    </body>
 
-</html>
+    </html>
+
+
