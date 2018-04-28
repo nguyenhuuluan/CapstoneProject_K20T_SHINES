@@ -245,8 +245,8 @@
                 <li>
                     <a href="#"><i class="fa fa-pencil-square-o fa-fw"></i> Blog<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li><a href="{{ route('admin.blogs') }}">Danh sách Blog</a></li>
-                        <li><a href="{{route('admin.blogs.create')}}">Thêm Blog</a></li>
+                        <li><a href="{{ route('blogs.index') }}">Danh sách Blog</a></li>
+                        <li><a href="{{route('blogs.create')}}">Đăng Blog</a></li>
                     </ul>
                 </li>
             </ul>

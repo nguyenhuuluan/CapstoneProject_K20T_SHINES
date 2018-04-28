@@ -137,8 +137,7 @@ Route::middleware(['admin', 'web'])->group(function () {
 	Route::get('/admin/company/sendemailconfirm/{accID}/{repreID}/{compID}', 'CompanyController@sendConfirmEmail')->name('company.sendConfirmEmail');
 
 	//Blog - ADMIN
-	Route::get('/admin/blogs', 'Admin\AdminBlogController@index')->name('admin.blogs');
-	Route::get('/admin/blogs/create', 'Admin\AdminBlogController@create')->name('admin.blogs.create');
+	Route::resource('/admin/blogs', 'Admin\AdminBlogController');
 
 
 	//Faculty - ADMIN

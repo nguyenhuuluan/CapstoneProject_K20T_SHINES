@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use App\Blog;
+
 
 class AdminBlogController extends Controller
 {
@@ -25,7 +28,7 @@ class AdminBlogController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.blogs.create');
     }
 
     /**
@@ -35,8 +38,37 @@ class AdminBlogController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+        $this->validate($request, [
+            'title'=>'required',
+            'description'=>'required',
+            'imgInp'=>'required',
+            'content'=>'required',
+        ]);
+
+        $tags = explode(',', request('tags')); 
+        $data = [
+            'title'=>request('title'),
+            'description'=>request('description'),
+            'content'=>request('content'),
+            'account_id'=>auth()->id(),
+        ];
+        switch (request('submitbutton')) {
+            case 'Xem trước':
+            foreach ($tags as $key => $value) {
+                $tags2[]= $value;
+            }
+            return view('blogs.preview', compact('data', 'tags2') );
+
+            case 'Đăng bài':
+            $blog = Blog::create($data);
+
+            return redirect(route('blogs.index'))->with('message','Tạo Blog thành công!');
+        }
+
+        // $file = $request->file('imgInp');
+        // return $file;
+        // return $request->all();
     }
 
     /**
