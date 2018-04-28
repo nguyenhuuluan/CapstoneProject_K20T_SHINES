@@ -432,3 +432,127 @@ table.dataTable thead .sorting:after {
     border-left-width: 0;
   }
 }
+
+
+.login-block {
+  background-color:#fff;
+  padding:10px;
+  box-shadow:0 3px 50px 0 rgba(0,0,0,0.1);
+  text-align:center;
+  border-radius:5px;
+}
+
+.login-block .form-group {
+  margin-top:15px;
+  margin-bottom:15px;
+}
+
+.login-block .form-control,
+.login-block .form-control:focus,
+.login-block .input-group-addon,
+.login-block .input-group-addon:focus {
+  background-color:transparent;
+  border:none;
+}
+
+.login-block .form-control {
+  font-size:17px;
+}
+
+.login-block input:-webkit-autofill {
+  -webkit-box-shadow:0 0 0 1000px white inset;
+  -webkit-text-fill-color:#818a91;
+  transition:none;
+}
+
+.login-block .input-group-addon {
+  color:#29aafe;
+  font-size:19px;
+  opacity:.5;
+}
+
+.login-block .btn-block {
+  margin-top:30px;
+}
+
+.login-block .hr-xs {
+  margin-top:5px;
+  margin-bottom:5px;
+}
+
+.login-footer {
+  margin-top:60px;
+  opacity:.5;
+  transition:opacity .3s ease-in-out;
+}
+
+.login-footer:hover {
+  opacity:1;
+}
+
+.login-links {
+  padding:15px 5px 0;
+  font-size:13px;
+  color:#161617;
+}
+
+.login-links::after {
+  content:'';
+  display:table;
+  clear:both;
+}
+
+.login-links a {
+  color:#161617;
+  opacity:.9;
+}
+
+.login-links a:hover {
+  color:#29aafe;
+  opacity:1;
+}
+
+@media (max-width:767px) {
+  .login-page main {
+    position:static;
+    top:auto;
+    left:auto;
+    transform:none;
+    padding:30px 15px;
+  }
+  .login-block {
+    padding:20px;
+  }
+}
+
+/* Modal Content Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5px auto; /* 15% from the top and centered */
+    border: 1px solid #888;
+    width: 40%; /* Could be more or less, depending on screen size */
+    border-radius: 20%;
+    margin-top: 20%;
+}
+
+@media (max-width:991px) {
+  .modal-content {
+    background-color: #fefefe;
+    margin: 5px auto; /* 15% from the top and centered */
+    border: 1px solid #888;
+    width: 70%; /* Could be more or less, depending on screen size */
+}
+
+@media (max-width:480px) {
+  .modal-content {
+    background-color: #fefefe;
+    margin: 5px auto; /* 15% from the top and centered */
+    border: 1px solid #888;
+    width: 90%; /* Could be more or less, depending on screen size */
+}
+
+/* Add Zoom Animation */
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
