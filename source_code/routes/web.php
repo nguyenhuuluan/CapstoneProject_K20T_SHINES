@@ -138,10 +138,17 @@ Route::middleware(['admin', 'web'])->group(function () {
 
 	//Blog - ADMIN
 	Route::get('/admin/blogs', 'Admin\AdminBlogController@index')->name('admin.blogs');
-	Route::get('/admin/blogs/create', 'Admin\AdminBlogController@create')->name('admin.blogs.create')
+	Route::get('/admin/blogs/create', 'Admin\AdminBlogController@create')->name('admin.blogs.create');
+
+
+	//Faculty - ADMIN
+	Route::get('/admin/faculties', 'Admin\AdminFacultyController@index')->name('admin.faculties');
+	Route::get('/admin/faculties/create', 'Admin\AdminFacultyController@create')->name('admin.faculties.create');
+
+
 });
 
-
+Route::get('ajaxdata/getdata', 'Admin\AdminFacultyController@getdata')->name('ajaxdata.getdata');
 
 //login representatitive - WEB 
 Route::GET('representative/login','Representative\LoginController@showLoginForm')->name('representative.login');

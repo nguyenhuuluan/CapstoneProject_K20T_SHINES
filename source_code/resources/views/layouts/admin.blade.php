@@ -236,7 +236,18 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="{{ route('admin.blogs') }}"><i class="fa fa-pencil-square-o fa-fw"></i> Blog</a>
+                    <a href="#"><i class="fa fa-archive fa-fw"></i> Phòng ban<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a href="{{ route('admin.faculties') }}">Danh sách Phòng Ban</a></li>
+                        <li><a href="{{route('admin.faculties.create')}}">Thêm Phòng Ban</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-pencil-square-o fa-fw"></i> Blog<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a href="{{ route('admin.blogs') }}">Danh sách Blog</a></li>
+                        <li><a href="{{route('admin.blogs.create')}}">Thêm Blog</a></li>
+                    </ul>
                 </li>
             </ul>
 
