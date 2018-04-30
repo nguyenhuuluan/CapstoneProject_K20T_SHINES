@@ -180,6 +180,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // Laravel File-Manager
+        Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+
     ],
 
     /*
@@ -233,7 +237,7 @@ return [
         'Input' => Illuminate\Support\Facades\Input::class,
         //datatable
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
-
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

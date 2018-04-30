@@ -76,7 +76,9 @@
                 </div>
                 <div class="form-group {{ $errors->has('content') ? ' has-error' : '' }}">
                     <label>Nội dung</label>
-                    <textarea id="summernote" class="form-control" name="content">{{ old('content') }}</textarea>
+                    {{-- <textarea id="summernote" class="form-control" name="content"></textarea> --}}
+                    <textarea name="content" class="form-control " id="editor1">{{ old('content') }}</textarea>
+                    
                     @if ($errors->has('content'))
                     <span class="help-block">
                         <strong>Vui lòng nhập nội dung!</strong>
@@ -110,7 +112,7 @@
                         <br>
                         <p class="fa fa-gear"></p> Trạng thái: <strong style="color:red;">Nháp</strong>
                     </div>
-                        
+
                     <div class="panel-footer">
                         {!! Form::submit('Xem trước', ['class'=>'btn btn-default', 'name'=>'submitbutton' , 'formtarget'=>'_blank']) !!}
                         <button type="button" class="btn btn-warning">Hủy</button>
@@ -121,7 +123,6 @@
             </div>
 
             {!! Form::close() !!}
-            
         </div>
         <!-- /.row -->
     </div>
@@ -131,56 +132,65 @@
 @endsection
 
 @section('scripts')
-
 <script src="{{ asset('assets/vendors/summernote/summernote.min.js') }}"></script>
 <script src="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap3-typeahead.js') }}"></script>
 <script src="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.js') }}"></script>
+
+
 <script src="{{asset('assets/vendors/modal-confirm/jquery-confirm.min.js')}}"></script>
 
+<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+<script> 
+    $('.tagsinput-typeahead').tagsinput({
+        typeahead: {
+            source: $.get('{{ route('tags') }}'),
+            afterSelect: function() {
+                this.$element[0].value = '';    
+            },
+        },
+        trimValue: true,
+        freeInput: true,
+        tagClass: 'label label-default',
+    })
+</script>
+
+
+
 <script type="text/javascript">
     $(document).ready(function() {
 
-        $('#summernote').summernote({
-            toolbar: [
-    // [groupName, [list of button]]
-    ['style', ['bold', 'italic']],
-    ['para', ['ul', 'ol']],
-    ['insert', ['picture', 'hr']],
-    ['height', ['height']]
-    ],
-    dialogsInBody: true,
-    dialogsFade: true,
-    disableDragAndDrop: false,
-    height: 200,
-    maximumImageFileSize: 2097152,
+        CKEDITOR.replace( 'editor1', {
+            filebrowserImageBrowseUrl: '../../laravel-filemanager?type=Images',
+            filebrowserBrowseUrl: '../../laravel-filemanager?type=Files',
+        }); 
 
-
-});
-
-    });
-</script>
-<script>
-    $.getJSON('{{ route('tags') }}', function(data) {
-        $('.tagsinput-typeahead').tagsinput({
-            typeahead: {
-                source: data,
-                afterSelect: function() {
-                    this.$element[0].value = '';
+        function test()
+        {
+            $.ajax({
+                url: "{{ route('tags') }}",
+                success: function(result){
+                    console.log(result);
+                    $('.tagsinput-typeahead').tagsinput({
+                        typeahead: {
+                            source: result,
+                            afterSelect: function() {
+                                this.$element[0].value = '';
+                            }
+                        }
+                    })
                 }
-            }
-        })
-    });
-    $(document).ready(function() {
-      $(window).keypress(function(event){
-        if(event.keyCode == 13) {
-          event.preventDefault();
-          return false;
-      }
-  });
-  });
-</script>
-<script type="text/javascript">
-    $(document).ready(function() {
+            });
+        }
+
+        $(window).keypress(function(event){
+            if(event.keyCode == 13) {
+              event.preventDefault();
+              return false;
+          }
+      });
+
+        
+
         $(document).on('change', '.btn-file :file', function() {
             var input = $(this),
             label = input.val().replace(/\\/g, '/').replace(/.*\//, '');

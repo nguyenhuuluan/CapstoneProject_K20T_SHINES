@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Blog;
+use App\Photo;
+use App\Tag;
+use DataTables;
 
 
 class AdminBlogController extends Controller
@@ -15,11 +18,30 @@ class AdminBlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        return '123';
+        return view('admin.blogs.index');
     }
+    function getdata()
+    {
+      // $blogs = Blog::select('id', 'title', 'content', 'created_at');
+      $blogs = Blog::with('tags');
+      return DataTables()::of($blogs)
+      ->addColumn('tag', function($blog)
+      {
+        $tmp = '';
+        foreach ($blog->tags as $tag)
+        {
+            $tmp .=  '<span class="label label-default">'.$tag->name.'</span>';
+        }
+        return $tmp;
+    })       
+      ->addColumn('action', function($blog){
+        return '<a href="#" class="btn btn-xs btn-primary edit" id="'.$blog->id.'">Edit</a>';
+    })
+      ->rawColumns(['tag', 'action'])
+      ->make(true);
+  }
 
     /**
      * Show the form for creating a new resource.
@@ -37,6 +59,7 @@ class AdminBlogController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {   
         $this->validate($request, [
@@ -53,9 +76,11 @@ class AdminBlogController extends Controller
             'content'=>request('content'),
             'account_id'=>auth()->id(),
         ];
-        switch (request('submitbutton')) {
+        switch (request('submitbutton'))
+        {
             case 'Xem trước':
-            foreach ($tags as $key => $value) {
+            foreach ($tags as $key => $value) 
+            {
                 $tags2[]= $value;
             }
             return view('blogs.preview', compact('data', 'tags2') );
@@ -63,13 +88,33 @@ class AdminBlogController extends Controller
             case 'Đăng bài':
             $blog = Blog::create($data);
 
-            return redirect(route('blogs.index'))->with('message','Tạo Blog thành công!');
-        }
+            /*Save tagss*/
+            foreach ($tags as $key => $value) {
+                if(count(Tag::Where('name',$value)->get()) !=0)
+                    {
+
+                        $blog->tags()->save(Tag::where('name',$value)->first());
+                    }
+                    else
+                    {
+                        $tg = Tag::create(['name'=>$value]);
+                        $blog->tags()->save($tg);
+                    }
+                }
+
+                /*Save ava image*/
+                $file = $request->file('imgInp');
+                $fileName = time().'_'.$file->getClientOriginalName();
+                $photo = Photo::create(["name" => $fileName]);
+                $blog->photos()->attach($photo->id);
+                $file->move('blogs/ava', $fileName);
+                return redirect(route('blogs.index'))->with('message','Tạo Blog thành công!');
+            }
 
         // $file = $request->file('imgInp');
         // return $file;
         // return $request->all();
-    }
+        }
 
     /**
      * Display the specified resource.

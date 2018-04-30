@@ -238,8 +238,8 @@
                 <li>
                     <a href="#"><i class="fa fa-archive fa-fw"></i> Phòng ban<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li><a href="{{ route('admin.faculties') }}">Danh sách Phòng Ban</a></li>
-                        <li><a href="{{route('admin.faculties.create')}}">Thêm Phòng Ban</a></li>
+                        <li><a href="{{ route('faculties.index') }}">Danh sách Phòng Ban</a></li>
+                        <li><a href="{{route('faculties.create')}}">Thêm Phòng Ban</a></li>
                     </ul>
                 </li>
                 <li>

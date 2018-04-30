@@ -381,7 +381,7 @@ public function index()
 {
   $comps = Company::all();
   // $comps = Company::with('address.district.city')->get();
-  return view ('admin.companies.index',compact('comps'));
+  return view ('admin.companies.test',compact('comps'));
 }
 
 public function sendMailToResetPassword($represen, $com, $acc)

@@ -138,16 +138,19 @@ Route::middleware(['admin', 'web'])->group(function () {
 
 	//Blog - ADMIN
 	Route::resource('/admin/blogs', 'Admin\AdminBlogController');
+	Route::get('/admin/getdata/blogs', 'Admin\AdminBlogController@getdata')->name('blogs.getdata');
 
 
 	//Faculty - ADMIN
-	Route::get('/admin/faculties', 'Admin\AdminFacultyController@index')->name('admin.faculties');
-	Route::get('/admin/faculties/create', 'Admin\AdminFacultyController@create')->name('admin.faculties.create');
+	// Route::get('/admin/faculties', 'Admin\AdminFacultyController@index')->name('admin.faculties');
+	// Route::resource('/admin/faculties/create', 'Admin\AdminFacultyController@create')->name('admin.faculties.create');
+	Route::resource('/admin/faculties', 'Admin\AdminFacultyController');
+	Route::post('/admin/ajax/update/faculties', 'Admin\AdminFacultyController@update')->name('faculties.update');
+	Route::get('/admin/getdata/faculties', 'Admin\AdminFacultyController@getdata')->name('faculties.getdata');
 
 
 });
 
-Route::get('ajaxdata/getdata', 'Admin\AdminFacultyController@getdata')->name('ajaxdata.getdata');
 
 //login representatitive - WEB 
 Route::GET('representative/login','Representative\LoginController@showLoginForm')->name('representative.login');

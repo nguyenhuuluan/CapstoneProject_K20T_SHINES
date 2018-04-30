@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Faculty;
-
+use App\Company;
+use DataTables;
+use Validator;
+use App\Tag;
 class AdminFacultyController extends Controller
 {
     /**
@@ -15,15 +18,32 @@ class AdminFacultyController extends Controller
      */
     public function index()
     {
-        //
+        $faculties = Faculty::with('tags')->get();
+        // $faculties = Faculty::all();
+        // foreach ($faculties as $faculty) {
+        //     return $faculty;
+        // }
+        // return view('admin.faculties.index', compact('faculties'));
         return view('admin.faculties.index');
     }
 
     function getdata()
     {
-     $faculties = Faculty::select('id', 'name', 'description', 'created_at');
-     return datatables()::of($faculties)->make(true);
-    }
+     $faculties = Faculty::with('tags');
+     return DataTables()::of($faculties)->addColumn('action', function($faculty){
+        return '<a href="#" class="btn btn-xs btn-primary edit" id="'.$faculty->id.'">Edit</a>';
+    })
+        //  ->addColumn('tag', function($faculty)
+        //   {
+        //     $tmp = '';
+        //     foreach ($faculty->tags as $tag)
+        //     {
+        //         $tmp .=  '<span class="label label-default">'.$tag->name.'</span>';
+        //     }
+        //     return $tmp;
+        // })->rawColumns(['tag', 'action']) 
+     ->make(true);
+ }
 
     /**
      * Show the form for creating a new resource.
@@ -54,7 +74,7 @@ class AdminFacultyController extends Controller
      */
     public function show($id)
     {
-        //
+        return Faculty::with('tags')->find($id);
     }
 
     /**
@@ -75,9 +95,68 @@ class AdminFacultyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $validation = Validator::make($request->all(), [
+            'name' => 'required',
+            'description'  => 'required',
+        ]);
+        
+        $error_array = array();
+        $success_output = '';
+        if ($validation->fails())
+        {
+            foreach ($validation->messages()->getMessages() as $field_name => $messages)
+            {
+                $error_array[] = $messages; 
+            }
+        }
+        else
+        {
+            if($request->get('button_action') == 'insert')
+            {
+
+            }
+
+            if($request->get('button_action') == 'update')
+            {
+                $faculty = Faculty::find($request->get('faculty_id'));
+                $faculty->name = $request->get('name');
+                $faculty->description = $request->get('description');
+                $tags1 = explode(',', request('tags')); 
+                $tags2;
+                    //change right id key tags
+                    foreach ($tags1 as $key => $value) {
+                        $tmpTag = Tag::where('name', $value)->get();
+                        // return $tmpTag->first()['id'];
+                        // $tmpTag = Tag::where('name', $value)->first(['id'])['id'];
+                        if(count($tmpTag) !=0)
+                        {
+                            $id =  $tmpTag->first()['id'];
+                            $tags2[$id] = $tags1[$key];
+                        }
+                        else
+                        {
+                            $tg = Tag::create(['name'=>$value]);
+                            $tags2[$tg->id] = $tags1[$key];
+                        }
+                    }
+                    //update tags
+                $faculty->tags()->sync(array_keys($tags2));
+                $faculty->save();
+                $success_output = '<div class="alert alert-success">Data Updated</div>';
+            }
+            
+        }
+        
+        $output = array(
+            'error'     =>  $error_array,
+            'success'   =>  $success_output,
+            'faculty'   =>  $faculty,
+            'tag'       => $tags2
+        );
+        return response()->json($output);
+
     }
 
     /**
