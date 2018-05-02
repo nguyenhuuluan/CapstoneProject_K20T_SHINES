@@ -135,6 +135,7 @@
 <script src="{{ asset('assets/vendors/summernote/summernote.min.js') }}"></script>
 <script src="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap3-typeahead.js') }}"></script>
 <script src="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/alert.js') }}"></script>
 
 
 <script src="{{asset('assets/vendors/modal-confirm/jquery-confirm.min.js')}}"></script>
@@ -164,32 +165,12 @@
             filebrowserBrowseUrl: '../../laravel-filemanager?type=Files',
         }); 
 
-        function test()
-        {
-            $.ajax({
-                url: "{{ route('tags') }}",
-                success: function(result){
-                    console.log(result);
-                    $('.tagsinput-typeahead').tagsinput({
-                        typeahead: {
-                            source: result,
-                            afterSelect: function() {
-                                this.$element[0].value = '';
-                            }
-                        }
-                    })
-                }
-            });
-        }
-
         $(window).keypress(function(event){
             if(event.keyCode == 13) {
               event.preventDefault();
               return false;
           }
       });
-
-        
 
         $(document).on('change', '.btn-file :file', function() {
             var input = $(this),
@@ -201,7 +182,6 @@
 
             var input = $(this).parents('.input-group').find(':text'),
             log = label;
-
             if (input.length) {
                 input.val(log);
             } else {
@@ -247,12 +227,10 @@
             if(validateSizeIMG(this) && validateImg(this)) {
                 readURL(this);
             }else{
-                $.alert('Vui lòng chọn ảnh đúng định dạng và < 2 MB');
+                alertError('Vui lòng chọn ảnh đúng định dạng và dung lượng tối đa 2 MB ...');
                 $("#imgInp").val(null);
                 $("#imgText").val(null);
                 $('#img-upload').attr('src', '');
-                // var element = $("#imgInp");
-                // th.parents('div').find('input').val(null);
                 return false;
             }
         });

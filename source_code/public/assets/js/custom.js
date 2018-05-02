@@ -58,8 +58,9 @@ function bs_input_file() {
         return element;
       }
     }
-  );
+    );
 }
 $(function() {
   bs_input_file();
 });
+

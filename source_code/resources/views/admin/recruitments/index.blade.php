@@ -110,60 +110,39 @@
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 {{-- using jquery modal confirm JS --}}
 <script src="{{asset('assets/vendors/modal-confirm/jquery-confirm.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/alert.js') }}"></script>
+
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 
 
 
 <script type="text/javascript">
 
- $(document).ready(function() {
+   $(document).ready(function() {
     $('#dataTables-example').DataTable({
         responsive: true
     });
 });
- 
- $('.switch').bootstrapSwitch({
+
+   $('.switch').bootstrapSwitch({
     size: 'mini',
     onText: 'Bật',
     offText: 'Tắt'      
 });
 
- $('.btn-approve').click(function() {
-
-   var currentelement = $(this);
-
-   $.confirm({
-    title: 'Thông báo!!',
-    content: 'Bạn có muốn xác nhận tin tuyển dụng này?',
-    buttons: {
-        Có: {
-            keys: ['enter'],
-            btnClass: 'btn-green',
-            action: function(){
-                approveRecruitment(currentelement);
-            }
-        },
-        Không: {
-            keys: ['esc'],
-            btnClass: 'btn-red'              
-        }
-
-    }
-
-});
-
-});
 
 
- $('.status-switch').on('switchChange.bootstrapSwitch', function (e, data) {
+   $('.status-switch').on('switchChange.bootstrapSwitch', function (e, data) {
 
     var element = $(this);
 
     element.bootstrapSwitch('state', !data, true);
 
     $.confirm({
-        title: 'Thông báo!!',
+        icon: 'fa fa-warning',
+        title: 'Cảnh báo!!',
         content: 'Bạn có muốn thay đổi trạng thái của tin tuyển dụng này?',
+        type: 'orange',
         buttons: {
             Có: {
                 keys: ['enter'],
@@ -184,72 +163,32 @@
 });
 
 
- function alertError(){
-   $.alert({
-    title: 'Thông báo!',
-    content: 'Đã có lỗi xảy ra, vui lòng reload lại trang.',
-});
-}
-    // getCompanies();
-
-    function activeRecruitment(id){
-        $('.modal-ajax-loading').show();
-
-        $.ajax({
-            url: 'recruitments/active/' + id,
-            type: 'GET',
-            dataType: 'json',
-
-            success: function(){
-             $('.modal-ajax-loading').hide();
-
-         },
-         error: function(){
-             $('.modal-ajax-loading').hide();
-             alertError();
-         }            
-     });
-    }
-
-    function approveRecruitment(element){
-        $('.modal-ajax-loading').show();
-        $.ajax({
-            url: 'company/approve/' + element.val(),
-            type: 'GET',
-            dataType: 'json',
-            success: function(){
-                $('.modal-ajax-loading').hide();
-               // location.reload();
-               element.remove();
-               $("input[value='" + element.val() + "']" ).attr({
-                 disabled: true
-             });
-           },
-           error: function(){
-            $('.modal-ajax-loading').hide();
-            alertError();
-        }            
+   function alertError(){
+     $.alert({
+        title: 'Thông báo!',
+        content: 'Đã có lỗi xảy ra, vui lòng reload lại trang.',
     });
-    }
+ }
 
-    function getCompanies(){
 
-        $('#dataTables-example').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: '{{Route('getcompanies')}}',
-            columns:[
-            {data:'name'},
-            {data:'phone'},
-            {data:'website'},
-            {data:'email'},
-            {data:'created_at'},
+ function activeRecruitment(id){
+    $('.modal-ajax-loading').show();
 
-            {data: 'action', name: 'action', orderable: false, searchable: false}
-            ]
-        });
+    $.ajax({
+        url: 'recruitments/active/' + id,
+        type: 'GET',
+        dataType: 'json',
 
-    }
+        success: function(){
+           $('.modal-ajax-loading').hide();
+
+       },
+       error: function(){
+           $('.modal-ajax-loading').hide();
+           alertError();
+       }            
+   });
+}
 
 </script>
 @endsection

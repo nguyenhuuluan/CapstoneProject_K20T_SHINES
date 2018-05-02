@@ -364,15 +364,7 @@ public function approveCompany($companyID)
   $repre = new Representative();
   $repre = $this->createRepresentative($comp, $compRegis, $account);
 
-  // $address = Role::findOrFail(3);
-  // $role -> accounts() -> attach($acc["id"]);
-
-
-  //$this->sendMailToResetPassword($repre, $comp, $account);
-
   return $repre;
-
-   // return response()->json($repre);
 
 }
 
@@ -380,8 +372,7 @@ public function approveCompany($companyID)
 public function index()
 {
   $comps = Company::all();
-  // $comps = Company::with('address.district.city')->get();
-  return view ('admin.companies.test',compact('comps'));
+  return view ('admin.companies.index',compact('comps'));
 }
 
 public function sendMailToResetPassword($represen, $com, $acc)

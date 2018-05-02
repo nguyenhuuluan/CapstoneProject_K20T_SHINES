@@ -29,9 +29,11 @@ class AdminFacultyController extends Controller
 
     function getdata()
     {
-     $faculties = Faculty::with('tags');
-     return DataTables()::of($faculties)->addColumn('action', function($faculty){
-        return '<a href="#" class="btn btn-xs btn-primary edit" id="'.$faculty->id.'">Edit</a>';
+       $faculties = Faculty::with('tags');
+       return DataTables()::of($faculties)->addColumn('action', function($faculty){
+        return '<a href="#" class="btn btn-xs btn-primary edit" id="'.$faculty->id.'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a>
+        <a href="#" class="btn btn-xs btn-danger delete" id="'.$faculty->id.'"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
+        ';
     })
         //  ->addColumn('tag', function($faculty)
         //   {
@@ -42,8 +44,13 @@ class AdminFacultyController extends Controller
         //     }
         //     return $tmp;
         // })->rawColumns(['tag', 'action']) 
-     ->make(true);
- }
+       ->make(true);
+   }
+
+   public function removedata(Request $request)
+   {
+    return '123';
+}
 
     /**
      * Show the form for creating a new resource.
@@ -52,7 +59,7 @@ class AdminFacultyController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.faculties.create');
     }
 
     /**
@@ -63,8 +70,32 @@ class AdminFacultyController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $this->validate($request,[
+            'name'=>'required|unique:faculties,name',
+            'description'=>'required',
+        ]);
+        $tags = explode(',', request('tags')); 
+        $data = [
+            'name'=>request('name'),
+            'description'=>request('description'),
+        ];
+
+        $faculty = Faculty::create($data);
+
+        /*Save tagss*/
+        foreach ($tags as $key => $value) {
+            if(count(Tag::Where('name',$value)->get()) !=0)
+                {
+                    $faculty->tags()->save(Tag::where('name',$value)->first());
+                }
+                else
+                {
+                    $tg = Tag::create(['name'=>$value]);
+                    $faculty->tags()->save($tg);
+                }
+            }
+            return redirect(route('faculties.index'))->with('message','Tạo mới Ngành nghề thành công!');
+        }
 
     /**
      * Display the specified resource.
@@ -126,21 +157,21 @@ class AdminFacultyController extends Controller
                 $tags1 = explode(',', request('tags')); 
                 $tags2;
                     //change right id key tags
-                    foreach ($tags1 as $key => $value) {
-                        $tmpTag = Tag::where('name', $value)->get();
+                foreach ($tags1 as $key => $value) {
+                    $tmpTag = Tag::where('name', $value)->get();
                         // return $tmpTag->first()['id'];
                         // $tmpTag = Tag::where('name', $value)->first(['id'])['id'];
-                        if(count($tmpTag) !=0)
-                        {
-                            $id =  $tmpTag->first()['id'];
-                            $tags2[$id] = $tags1[$key];
-                        }
-                        else
-                        {
-                            $tg = Tag::create(['name'=>$value]);
-                            $tags2[$tg->id] = $tags1[$key];
-                        }
+                    if(count($tmpTag) !=0)
+                    {
+                        $id =  $tmpTag->first()['id'];
+                        $tags2[$id] = $tags1[$key];
                     }
+                    else
+                    {
+                        $tg = Tag::create(['name'=>$value]);
+                        $tags2[$tg->id] = $tags1[$key];
+                    }
+                }
                     //update tags
                 $faculty->tags()->sync(array_keys($tags2));
                 $faculty->save();
@@ -165,8 +196,15 @@ class AdminFacultyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
-    }
-}
+        if(Faculty::find($request->id)->delete())
+            {
+                return response()->json('success');
+            }
+            else
+            {
+             return response()->json('error');
+         }
+     }
+ }

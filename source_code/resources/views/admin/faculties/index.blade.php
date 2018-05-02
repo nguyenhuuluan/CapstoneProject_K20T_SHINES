@@ -14,7 +14,7 @@
 {{-- bootstrap switch --}}
 <link href="{{asset('assets/vendors/bootstrap-switch/bootstrap-switch.css')}}" rel="stylesheet">
 <link href="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css') }} " rel="stylesheet">
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 @section('body')
@@ -23,7 +23,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">Quản lý nghành đào tạo</h1>
-                <p class="alert alert-success" id="message" style="display: none;">11</p>
+                <p class="alert alert-success" id="message" style="display: none;"></p>
+                @include('includes.message')
             </div>
             <!-- /.row -->
             <div class="row">
@@ -43,25 +44,6 @@
                                             <td>Thao tác</td>
                                         </tr>
                                     </thead>
-{{--                                     <tbody>
-                                        @foreach ($faculties as $fac)
-                                        <tr>
-                                            <td>{!! $fac->id !!}</td>
-                                            <td>{!! $fac->name !!}</td>
-                                            <td>{!! $fac->description !!}</td>
-                                            <td>
-                                                @foreach ($fac->tags as $tag)
-                                                <span class="label label-default">{!! $tag->name !!}</span>
-                                                @endforeach
-                                            </td>
-                                            <td>{!! $fac->created_at !!}</td>
-                                            <td>
-                                                <a href="#" class="btn btn-xs btn-primary edit" id="{!!$fac->id !!}"> <i class="glyphicon glyphicon-edit"></i>Edit</a>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody> --}}
-
                                 </table>
                             </div>
                             <!-- /.table-responsive -->
@@ -129,6 +111,8 @@
 <script src="{{asset('assets/vendors/modal-confirm/jquery-confirm.min.js')}}"></script>
 <script src="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.js') }}"></script>
 <script src="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap3-typeahead.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/alert.js') }}"></script>
+
 
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 
@@ -148,6 +132,7 @@
 <script>
     $(document).ready(function() {
         var ele;
+        //load datatable
         var datatable =$('#faculty_table').DataTable({
             "processing": false,
             "serverSide": false,
@@ -176,7 +161,9 @@
       { "data": "action" },
       ]
   });
+        //end of loading datatable
 
+        //Datatable responsive
         $('#dataTables-example').DataTable({
             responsive: true
         });
@@ -224,6 +211,7 @@
             })
         });
 
+        //Form submit
         $('#updateFaculty').on('submit', function(event){
             event.preventDefault();
             var form_data = $(this).serialize();
@@ -253,54 +241,68 @@
                         var newtag='';
                         for (var i = 0, len = Object.values(data.tag).length; i < len; i++) {
                           newtag = newtag + '<span class="label label-default">'+Object.values(data.tag)[i]+'</span>'
-                         }
-                        ele.find("td.tags").html(newtag);
-                        console.log(ele.find("td.name"));
-                        console.log(Object.values(data.tag));
+                      }
+                      ele.find("td.tags").html(newtag);
+                      console.log(ele.find("td.name"));
+                      console.log(Object.values(data.tag));
                         // $('#updateFaculty')[0].reset();
                         // $('#faculty_table').DataTable().ajax.reload();
+                    }
+                },
+                error: function(data) {
+                    alertError('Cập nhật thất bại ...');
                 }
-            },
-            error: function(data) {
-                console.log(data);
-                alert('error handing here');
-            }
+            });
+            //end of ajax
         });
-
-
-
             //end of submit
-        });
 
-
-    });
-</script>
-
-<!-- Confirm Button -->
-<script type="text/javascript">
-    $('.confirm').on('click', function() {
-        $.confirm({
-            title: 'Xác nhận xóa!',
-            content: 'Bạn có chắc muốn xóa nghành học này!',
-            buttons: {
-                XacNhan: {
-                    text: 'Xác nhận',
-                    btnClass: 'btn-warning',
-                    keys: ['enter', 'shift'],
-                    action: function() {
-                        $.alert('Xác nhận!');
+            //edit click
+            $(document).on('click', '.delete',function() {
+                var id = $(this).attr("id");
+                var url = '{{ route("faculties.removedata") }}';
+                var currentelement = $(this);
+                $.confirm({
+                    icon: 'fa fa-warning',
+                    title: 'Cảnh báo!!',
+                    content: 'Bạn có chắc muốn xóa nghành học này!',
+                    type:'red',
+                    buttons: {
+                        XacNhan: {
+                            text: 'Xác nhận',
+                            btnClass: 'btn-danger',
+                            keys: ['enter', 'shift'],
+                            action: function() {
+                                $.ajax({
+                                 headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                },
+                                url: url,
+                                type: 'delete',
+                                data: {"id": id},
+                                success: function(){
+                                   $("#message").text('Xóa ngành đào tạo thành công!');
+                                   $("#message").fadeIn(300).delay(3500).fadeOut(00);
+                                   currentelement.parent().parent().remove();
+                                   alertSuccess('Xóa thành công ...');
+                               },
+                               error: function(){
+                                   alertError('Xóa không thành công ...');
+                               }            
+                           });
+                            },
+                        },
+                        Huy: {
+                            text: 'Hủy',
+                            btnClass: 'btn-success',
+                            keys: ['esc'],
+                        },
                     },
-                },
-                Huy: {
-                    text: 'Hủy',
-                    btnClass: 'btn-success',
-                    keys: ['enter', 'shift'],
-                    action: function() {
-                        $.alert('Hủy');
-                    },
-                },
-            },
+                });
+            });
         });
-    });
-</script>
-@endsection
+    </script>
+
+    <!-- Confirm Button -->
+
+    @endsection

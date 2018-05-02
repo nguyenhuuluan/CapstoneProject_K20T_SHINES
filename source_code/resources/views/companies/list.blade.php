@@ -103,6 +103,21 @@
 @endsection
 
 @section('scripts')
+<script src="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap3-typeahead.js') }}"></script>
+<script src="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.js') }}"></script>
+<script> 
+    $('.tagsinput-typeahead').tagsinput({
+        typeahead: {
+            source: $.get('{{ route('tags') }}'),
+            afterSelect: function() {
+                this.$element[0].value = '';    
+            },
+        },
+        trimValue: true,
+        freeInput: true,
+        tagClass: 'label label-default',
+    })
+</script>
 <script type="text/javascript">
 
 	$(document).ready(function() {

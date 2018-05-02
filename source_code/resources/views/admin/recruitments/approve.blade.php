@@ -93,6 +93,8 @@
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     {{-- using jquery modal confirm JS --}}
     <script src="{{asset('assets/vendors/modal-confirm/jquery-confirm.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/alert.js') }}"></script>
+
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script type="text/javascript">
 
@@ -101,13 +103,15 @@
             responsive: true
         });
     });
-       
+
        $('.btn-approve').click(function() {
 
            var currentelement = $(this);
 
            $.confirm({
-            title: 'Thông báo!!',
+            icon: 'fa fa-warning',
+            title: 'Cảnh báo!!',
+            type: 'orange',
             content: 'Bạn có muốn xác nhận tin tuyển dụng này?',
             buttons: {
                 Có: {
@@ -137,7 +141,7 @@
                                         var message = this.$content.find('.feedback-message').val();
                                         var recruitmentID = currentelement.val();
                                         if(!message){
-                                            $.alert('Vui lòng nhập nội dung phản hồi');
+                                            alertError('Vui lòng nhập nội dung phản hồi ...');
                                             return false;
                                         }
 
@@ -172,49 +176,37 @@
         });
        });
 
-        function feedbackRecruitment(recruitmentID, message){
-            $('.modal-ajax-loading').fadeIn("200");
-            $.ajax({
-                url: '../recruitment/feedback/' + recruitmentID + '/' + message,
-                type: 'GET',
-                dataType: 'json',
-                success: function(){
-                    $('.modal-ajax-loading').fadeOut("200");
-                    $.alert({
-                        title: 'Thông báo!',
-                        content: 'Đã gửi phản hồi',
-                    });                   
-           },
-           error: function(){
-            $('.modal-ajax-loading').hide();
-            alertError();
-        }            
-    });
-        }
+       function feedbackRecruitment(recruitmentID, message){
+        $('.modal-ajax-loading').fadeIn("200");
+        $.ajax({
+            url: '../recruitment/feedback/' + recruitmentID + '/' + message,
+            type: 'GET',
+            dataType: 'json',
+            success: function(){
+                $('.modal-ajax-loading').fadeOut("200");
+                alertSuccess('Đã gửi thông tin phản hồi ...')
+            },
+            error: function(){
+                $('.modal-ajax-loading').hide();
+                alertError('Gửi phản hồi thất bại ...');
+            }            
+        });
+    }
 
-        function approveCompany(element){
-            $('.modal-ajax-loading').fadeIn("200");
-            $.ajax({
-                url: '../recruitments/approve/' + element.val(),
-                type: 'GET',
-                dataType: 'json',
-                success: function(){
-                    $('.modal-ajax-loading').fadeOut("200");
-                    $.alert({
-                        title: 'Thông báo!',
-                        content: 'Xác nhận thành công',
-                    });
-                    element.parent().parent().remove();
-                    
-               //location.reload();
-               //element.remove();
-               // $("input[value='" + element.val() + "']" ).attr({
-               //     disabled: true
-               // });
+    function approveCompany(element){
+        $('.modal-ajax-loading').fadeIn("200");
+        $.ajax({
+            url: '../recruitments/approve/' + element.val(),
+            type: 'GET',
+            dataType: 'json',
+            success: function(){
+                $('.modal-ajax-loading').fadeOut("200");
+                alertSuccess('Xác nhận thành công ...')
+                element.parent().parent().remove();
            },
            error: function(){
             $('.modal-ajax-loading').hide();
-            alertError();
+            alertError('Xác nhận thất bại ...');
         }            
     });
     }

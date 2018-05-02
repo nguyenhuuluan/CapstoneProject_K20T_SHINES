@@ -14,7 +14,7 @@
 {{-- bootstrap switch --}}
 <link href="{{asset('assets/vendors/bootstrap-switch/bootstrap-switch.css')}}" rel="stylesheet">
 <link href="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css') }} " rel="stylesheet">
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 @section('body')
@@ -23,6 +23,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">Quản lý nghành đào tạo</h1>
+                <p class="alert alert-success" id="message" style="display: none;"></p>
+                @include('includes.message')
             </div>
             <!-- /.row -->
             <div class="row">
@@ -31,7 +33,7 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="table-responsive">
-                                <table width="100%" class="table table-striped table-hover" id="dataTables-example">
+                                <table width="100%" class="table table-striped table-hover" id="faculty_table">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
@@ -42,25 +44,6 @@
                                             <td>Thao tác</td>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        @foreach ($faculties as $fac)
-                                        <tr>
-                                            <td>{!! $fac->id !!}</td>
-                                            <td>{!! $fac->name !!}</td>
-                                            <td>{!! $fac->description !!}</td>
-                                            <td>
-                                                @foreach ($fac->tags as $tag)
-                                                <span class="label label-default">{!! $tag->name !!}</span>
-                                                @endforeach
-                                            </td>
-                                            <td>{!! $fac->created_at !!}</td>
-                                            <td>
-                                                <a href="#" class="btn btn-xs btn-primary edit" id="{!!$fac->id !!}"> <i class="glyphicon glyphicon-edit"></i>Edit</a>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-
                                 </table>
                             </div>
                             <!-- /.table-responsive -->
@@ -146,6 +129,39 @@
 </script>
 <script>
     $(document).ready(function() {
+        var ele;
+        //load datatable
+        var datatable =$('#faculty_table').DataTable({
+            "processing": false,
+            "serverSide": false,
+            "ajax": {
+                "url": "{{ route('faculties.getdata') }}",
+                "type": "GET",
+                "datatype": "json",
+                error: function(){
+                    $('#faculty_table').DataTable().ajax.reload();
+                }            
+            },
+            "columns":[
+            { "data": "id" },
+            { "data": "name", "class":"name" },
+            { "data": "description","class":"description" },
+            { "data": "tags", "class":"tags", 
+            "render": function ( data, type, row ) {
+                var tmp = '';
+                for (var i = 0, len = data.length; i < len; i++) {
+                  tmp = tmp + '<span class="label label-default">'+data[i]['name']+'</span>'
+              }
+              return tmp;
+          },
+      },
+      { "data": "created_at" },
+      { "data": "action" },
+      ]
+  });
+        //end of loading datatable
+
+        //Datatable responsive
         $('#dataTables-example').DataTable({
             responsive: true
         });
@@ -160,6 +176,8 @@
 
         //Nhấn nút edit->show modal
         $(document).on('click', '.edit', function(){
+            $('#tags').tagsinput('removeAll');
+            ele = $(this).parent().parent();
             var id = $(this).attr("id");
             $('#form_output').html('');
             var url = '{{ route("faculties.show", ":id") }}';
@@ -176,8 +194,8 @@
                     var tmp = '';
                     for (var i = 0; i < tags.length; i++) {
                         tmp += tags[i] + ",";
-                    } 
-                    console.log(tmp)
+                    }
+                    newtag = tmp;
                     $('#editFaculty').modal('show');
                     $('#faculty_name').val(data.name);
                     $('#faculty_id').val(data.id);
@@ -191,6 +209,7 @@
             })
         });
 
+        //Form submit
         $('#updateFaculty').on('submit', function(event){
             event.preventDefault();
             var form_data = $(this).serialize();
@@ -198,111 +217,88 @@
             $.ajax({
                 type: "POST",
                 url: "{{ route('faculties.update') }}",
-                data: form_data,
-                dataType: "json",
-                success: function(data) {
-                    console.log(data);
-                    if(data.error.length > 0)
-                    {
-                        alert('123');
-                        var error_html = '';
-                        for(var count = 0; count < data.error.length; count++)
+                    data: form_data,
+                    dataType: "json",
+                    success: function(data) {
+                        if(data.error.length > 0)
                         {
-                            error_html += '<div class="alert alert-danger">'+data.error[count]+'</div>';
+                            var error_html = '';
+                            for(var count = 0; count < data.error.length; count++)
+                            {
+                                error_html += '<div class="alert alert-danger">'+data.error[count]+'</div>';
+                            }
+                            $('#form_output').html(error_html);
                         }
-                        $('#form_output').html(error_html);
+                        else
+                        {
+                            $('#editFaculty').modal('hide');
+                            $("#message").text('Cập nhật thành công!');
+                            $("#message").fadeIn(300).delay(3500).fadeOut(00);
+                            ele.find("td.name").text(data.faculty['name']);
+                            ele.find("td.description").text(data.faculty['description']);
+                            var newtag='';
+                            for (var i = 0, len = Object.values(data.tag).length; i < len; i++) {
+                              newtag = newtag + '<span class="label label-default">'+Object.values(data.tag)[i]+'</span>'
+                          }
+                          ele.find("td.tags").html(newtag);
+                          console.log(ele.find("td.name"));
+                          console.log(Object.values(data.tag));
+                        // $('#updateFaculty')[0].reset();
+                        // $('#faculty_table').DataTable().ajax.reload();
                     }
-                    else
-                    {
-                        console.log(data.success);
-                        console.log($('#updateFaculty')[0]);
-                        $('#form_output').html(data.success);
-                        $('#updateFaculty')[0].reset();
-                        $('#action').val('Add');
-                        $('.modal-title').text('Add Data');
-                        $('#button_action').val('insert');
-                    // $('#student_table').DataTable().ajax.reload();
+                },
+                error: function(data) {
+                    console.log(data);
+                    alert('error handing here');
                 }
-            },
-            error: function(data) {
-                console.log(data);
-                alert('error handing here');
-            }
+            });
+            //end of ajax
         });
-
-
-
             //end of submit
-        });
 
+            //edit click
+            $(document).on('click', '.delete',function() {
+                var id = $(this).attr("id");
+                url = '{{ route('faculties.removedata') }}';
+                var data = new FormData();
+                    data.append("id", id);  
+                    $.confirm({
+                        title: 'Thông báo!!',
+                        content: 'Bạn có muốn Ngành nghề này?',
+                        buttons: {
+                            Có: {
+                                keys: ['enter'],
+                                btnClass: 'btn-green',
+                                action: function(){
+                                    $.ajaxSetup({
+                                            headers: {
+                                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                            }
+                                    });
 
-    });
-</script>
-
-<!-- Confirm Button -->
-<script type="text/javascript">
-    $('.confirm').on('click', function() {
-        $.confirm({
-            title: 'Xác nhận xóa!',
-            content: 'Bạn có chắc muốn xóa nghành học này!',
-            buttons: {
-                XacNhan: {
-                    text: 'Xác nhận',
-                    btnClass: 'btn-warning',
-                    keys: ['enter', 'shift'],
-                    action: function() {
-                        $.alert('Xác nhận!');
-                    },
-                },
-                Huy: {
-                    text: 'Hủy',
-                    btnClass: 'btn-success',
-                    keys: ['enter', 'shift'],
-                    action: function() {
-                        $.alert('Hủy');
-                    },
-                },
-            },
-        });
-    });
-</script>
-{{-- <script type="text/javascript">
-    $('.example2-2').on('click', function () {
-        $.confirm({
-            title: 'Quản lý tag!',
-            content: '' +
-            '<form action="" class="formName">' +
-            '<div class="form-group">' +
-            '<label>Nhập tên tag</label>' +
-            '<input type="text" class="name tagsinput-typeahead form-control" placeholder="Nhập tags bài viết" data-role="tagsinput" value="HTML">' +
-            '</div>' +
-            '</form>',
-            buttons: {
-                formSubmit: {
-                    text: 'Submit',
-                    btnClass: 'btn-blue',
-                    action: function () {
-                        var name = this.$content.find('.name').val();
-                        if (!name) {
-                            $.alert('provide a valid name');
-                            return false;
-                        }
-                        $.alert('Your name is ' + name);
-                    }
-                },
-                cancel: function () {
-                                                //close
-                                            },
+                                    $.ajax({
+                                        type: 'delete',
+                                        url: url,
+                                        data: {"id": id},
+                                        success: function (response) {
+                                           console.log(response);
                                         },
-                                        onContentReady: function () {
-                                            // you can bind to the form
-                                            var jc = this;
-                                            this.$content.find('form').on('submit', function (e) { // if the user submits the form by pressing enter in the field.
-                                                e.preventDefault();
-                                                jc.$$formSubmit.trigger('click'); // reference the button and click it
-                                            });
+                                        error: function (response) {
+                                           console.log(response);
                                         }
                                     });
-    });
-</script> --}}
-@endsection
+                                }
+                            },
+                            Không: {
+                                keys: ['esc'],
+                                btnClass: 'btn-red'              
+                            }
+                        }
+                    });
+            });
+        });
+    </script>
+
+    <!-- Confirm Button -->
+
+    @endsection
