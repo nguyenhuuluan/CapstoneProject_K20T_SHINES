@@ -73,7 +73,7 @@
 
 @section('content')
 <main>
-  <section class="no-padding-top bg-alt">
+  <section class="no-padding-top bg-alt" id="itemrecruitment">
     <div class="container">
       <div class="row">
 
@@ -82,19 +82,19 @@
           <h5>Chúng tôi đã tìm thấy <strong>{!! $total !!}</strong> việc làm cho <strong>Bạn</strong> </h5>
         </div>
         
-        <div class="recruitments endless-pagination" data-next-page="{{ $recruitments->nextPageUrl() }}">
+        <div class="recruitments endless-pagination" data-next-page="{{ $recruitments->nextPageUrl() }}" >
 
           @foreach ($recruitments as $recruitment)
           <!-- Job item -->
           <div class="col-xs-12">
             <a class="item-block" href="{!! route('detailrecruitment', $recruitment->slug) !!}">
               <header>
-                <img src={!! asset(App\Recruitment::findOrFail($recruitment->id)->company->logo)  !!} alt="">
+                <img src={!! asset($recruitment->company->logo)  !!} alt="">
                 <div class="hgroup">
                   <h4>{!! $recruitment->title !!}</h4>
                 {{-- <h5>{!! $recruitment->company !!} <span class="label label-success">Full-time</span>
                 </h5> --}}
-                @foreach (App\Recruitment::findOrFail($recruitment->id)->categories as $category)
+                @foreach ($recruitment->categories as $category)
                 @if($category->name =='FULL-TIME')
                 <span class="label label-success">{!! $category->name !!}</span>
                 @else
@@ -105,7 +105,7 @@
               <?php \Carbon\Carbon::setLocale('vi')?>
               <time>{!! Carbon\Carbon::parse($recruitment->created_at)->diffForHumans() !!}</time>
             </header>
-
+            {{-- {!!$recruitment->sections[0]->pivot->content !!} --}}
             <div class="item-body">
               <p>{!! substr($recruitment->content, 0, 150) .'...' !!}</p>
             </div>
@@ -122,7 +122,7 @@
                 </li>
                 <li>
                   <i class="fa fa-tag"></i>
-                  @foreach (App\Recruitment::findOrFail($recruitment->id)->tags as $tag)
+                  @foreach ($recruitment->tags as $tag)
                   <span class="btn btn-info btn-xs">{!! $tag->name !!}</span>
                   @endforeach
                 </li>
@@ -151,18 +151,29 @@
 @endsection
 
 @section('scripts')
+<script src="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap3-typeahead.js') }}"></script>
+<script src="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.js') }}"></script>
+<script> 
+    $('.tagsinput-typeahead').tagsinput({
+        typeahead: {
+            source: $.get('{{ route('tags') }}'),
+            afterSelect: function() {
+                this.$element[0].value = '';    
+            },
+        },
+        trimValue: true,
+        freeInput: true,
+        tagClass: 'label label-default',
+    })
+</script>
 <script type="text/javascript">
-  var showlist;
   var is_busy = false;
-  // var element = document.getElementById("itemrecruitment");
-  // var numberOfChildren = element.children.length;
-    //$('.loading').hide();
     $(window).scroll(function(){
       $element = $('#itemrecruitment');
       // ELement hiển thị chữ loadding
       $loadding = $('#loading-dots');
       // Nếu màn hình đang ở dưới cuối thẻ thì thực hiện ajax
-      if ($(window).scrollTop() + $(window).height() >= $element.height()) {
+      if (($(window).scrollTop()+$(window).height()) >= ($element.height()+$(window).height())) {
         // Nếu đang gửi ajax thì ngưng
         if (is_busy == true) {
           return false;

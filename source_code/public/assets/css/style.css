@@ -1,0 +1,9 @@
+.footer-nav{
+    text-align: center;
+}
+
+.footer-nav li {
+    list-style: none;
+    padding: 5px;
+    display: inline-block;
+}

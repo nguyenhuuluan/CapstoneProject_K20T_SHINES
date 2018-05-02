@@ -2,6 +2,82 @@
 
 
 @section('stylesheet')
+<style type="text/css">
+		.social-iconss {
+		  background-color: #ef4d42; 
+		  color: #ffffff;
+		  font-size:16px;
+		  display:inline-block;
+		  line-height:44px;
+		  width:44px;
+		  height:44px;
+		  text-align:center;
+		  margin-right:8px;
+		  border-radius:100%;
+		  transition:all .2s linear;
+		}
+		/* Tooltip container */
+	.tooltipsave {
+		position: relative;
+		display: inline-block;
+		border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+	}
+
+	/* Tooltip text */
+	.tooltipsave .tooltiptext {
+		visibility: hidden;
+		width: 90px;
+		background: transparent;
+		color: black;
+		text-align: center;
+		border-radius: 6px;
+		right: 105%; 
+
+		/* Position the tooltip text - see examples below! */
+		position: absolute;
+		z-index: 1;
+	}
+
+	/* Show the tooltip text when you mouse over the tooltip container */
+	.tooltipsave:hover .tooltiptext {
+		visibility: visible;
+	}
+
+	#save-recruitment {
+		position: fixed;
+		display: inline-block;
+		bottom: 72px;
+		right: 30px;
+		z-index: 99;
+		width: 40px;
+		height: 40px;
+		line-height: 40px;
+		font-size: 22px;
+		text-align: center;
+		border: none;
+		outline: none;
+		background-color: #ef4d42; 
+		color: #ffffff;
+		margin-right: 0px;
+
+		border-radius: 4px;
+		opacity: 0.5;
+	}
+	#save-recruitment:hover {
+		background-color: red;
+		opacity: 1;
+	}
+	@media (max-width:991px) {
+		#save-recruitment {
+			right:15px;
+			bottom:39px;
+			width:34px;
+			height:34px;
+			line-height:34px;
+			font-size:18px;
+		}
+	}
+	</style>
   <script>	(function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
@@ -32,7 +108,7 @@
 				<h1>{!! $recruitment->title !!}</h1>
 			</div>
               <?php \Carbon\Carbon::setLocale('vi')?>
-			<time datetime="">{!! $recruitment->created_at->diffForhumans() !!}</time>
+			<time>{!! $recruitment->created_at->diffForhumans() !!}</time>
 			<ul class="details cols-3"  style="text-align: center">
 				<li>
 					<h3><a href="{!! route('company.details', $recruitment->company->slug) !!}">{!! $recruitment->company->name !!}</a></h3>
@@ -86,7 +162,6 @@
 
 
 <main class="container blog-page">
-	<a class="btn btn-success-detail" href="#" id="save-recruitment">Lưu Tin</a>
 
 	<div class="row">
 		<div class="col-md-8 col-lg-9">
@@ -151,7 +226,7 @@
 	</div>
 
 
-
+<a class="social-iconss tooltipsave" id="save-recruitment" href="#"><i class="fa fa-heart"><span style="font-weight: bold; font-size: 14px;" class="tooltiptext">Lưu việc làm</span></i></a>
 </main>
 
 @endsection

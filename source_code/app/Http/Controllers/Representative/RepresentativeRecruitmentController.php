@@ -11,6 +11,8 @@ use App\Recruitment;
 use App\Section;
 use App\Company;
 use App\Account;
+use App\District;
+use App\City;
 
 class RepresentativeRecruitmentController extends Controller
 {
@@ -28,6 +30,7 @@ class RepresentativeRecruitmentController extends Controller
     public function index()
     {
         //
+
         $recruitments = Recruitment::where('company_id', Auth::user()->representative->company->id )->get();
         return view('representative.recruitments.index',compact('recruitments'));
 
@@ -41,9 +44,11 @@ class RepresentativeRecruitmentController extends Controller
     public function create()
     {
         //
+        $cities = City::with('districts')->get();
+        $districts= District::where('city_id',$cities[0]->id)->get()->sortBy('name');
         $categories  = Category::pluck('name', 'id')->all();
         $sections = Section::all();
-        return view('representative.recruitments.create',compact('categories', 'sections', 'places'));
+        return view('representative.recruitments.create',compact('categories', 'sections', 'places', 'cities', 'districts'));
     }
 
     /**
@@ -58,7 +63,6 @@ class RepresentativeRecruitmentController extends Controller
         // return count(Tag::Where('name','php')->get());
         //return $request;
         //$tags = explode(',', request('hidden-tags'));
-
         $tags = explode(',', request('tags')); 
         $request->request->add(['tags2' => $tags]); 
         $sections =  request('sections');
@@ -87,6 +91,7 @@ class RepresentativeRecruitmentController extends Controller
             'is_hot'=>'0',
             'status_id'=>'8',
             'company_id'=>$user->representative->company->id,
+            'location'=>request('districtname').' - '.request('cityname'),
         ];
 
         switch (request('submitbutton')) {
@@ -111,7 +116,7 @@ class RepresentativeRecruitmentController extends Controller
             foreach ($sections as $key => $value) {
                 $sections[$key] = Section::find($key);
                 if($value!=null)
-                $recruitment->sections()->save(Section::find($key), ['content'=>$value]);
+                    $recruitment->sections()->save(Section::find($key), ['content'=>$value]);
             }
 
             /*Save categories*/
@@ -119,24 +124,22 @@ class RepresentativeRecruitmentController extends Controller
                 $recruitment->categories()->save(Category::find($value));
             }
 
-           /*Save tagss*/
+            /*Save tagss*/
             foreach ($tags as $key => $value) {
                 if(count(Tag::Where('name',$value)->get()) !=0)
                     {
 
                         $recruitment->tags()->save(Tag::where('name',$value)->first());
-
                     }
                     else
                     {
                         $tg = Tag::create(['name'=>$value]);
                         $recruitment->tags()->save($tg);
-
                     }
                 }
 
                 /* Create successful*/
-                $request->session()->flash('comment_message','Tạo mới tin tuyển dụng thành công');
+                $request->session()->flash('create_success','Tạo mới tin tuyển dụng thành công');
 
                 return redirect(route('recruitments.index'));
             //return redirect($recruitment->path());

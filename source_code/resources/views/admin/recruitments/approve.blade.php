@@ -1,11 +1,18 @@
-
-
 @extends('layouts.admin')
 
+
+@section('styles')
+<link rel="stylesheet" href="{{asset('assets/vendors/modal-confirm/jquery-confirm.min.css')}}">
+<!-- DataTables Responsive CSS -->
+<link href="{{asset('assets/vendors/datatables-responsive/dataTables.responsive.css')}}" rel="stylesheet">
+<!-- Toggle CSS Button -->
+<link href="{{asset('assets/dist/css/bootstrap-toggle.min.css')}}" rel="stylesheet">
+{{-- bootstrap switch --}}
+<link href="{{asset('assets/vendors/bootstrap-switch/bootstrap-switch.css')}}" rel="stylesheet">
+@endsection
+
+
 @section('body')
-
-
-
 <div id="page-wrapper">
     <div class="container-fluid">
         <div class="row">
@@ -49,9 +56,6 @@
                                                 <a href=" {{ route('admin.recruitments.show', $recruitment->slug) }}" class="btnreview btn-success" target="_blank" style="display: inline-block;">Xem</a>
                                             </td>                                          
                                             @endforeach
-
-
-
                                         </tbody>
 
                                     </table>
@@ -76,15 +80,38 @@
     @endsection
 
     @section('scripts')
+
+
+    <!-- DataTables JavaScript -->
+    <script src="{{asset('assets/vendors/datatables/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('assets/vendors/datatables-plugins/dataTables.bootstrap.min.js')}}"></script>
+    <script src="{{asset('assets/vendors/datatables-responsive/dataTables.responsive.js')}}"></script>
+    {{-- boostrap switch --}}
+    <script src="{{asset('assets/vendors/bootstrap-switch/bootstrap-switch.js')}}"></script>
+    <!-- Toggle JavaScript Button -->
+    <script src="{{asset('assets/js/bootstrap-toggle.min.js')}}"></script>
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    {{-- using jquery modal confirm JS --}}
+    <script src="{{asset('assets/vendors/modal-confirm/jquery-confirm.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/alert.js') }}"></script>
+
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script type="text/javascript">
 
+       $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
 
-        $('.btn-approve').click(function() {
+       $('.btn-approve').click(function() {
 
            var currentelement = $(this);
 
            $.confirm({
-            title: 'Thông báo!!',
+            icon: 'fa fa-warning',
+            title: 'Cảnh báo!!',
+            type: 'orange',
             content: 'Bạn có muốn xác nhận tin tuyển dụng này?',
             buttons: {
                 Có: {
@@ -94,46 +121,97 @@
                         approveCompany(currentelement);
                     }
                 },
+                feedBack: {
+                    text: 'Gửi phản hồi',
+                    btnClass: 'btn-warning',
+                    action: function(){
+                        $.confirm({
+                            title: 'Gửi phản hồi',
+                            content: '' +
+                            '<form action="" class="feedback-form">' +
+                            '<div class="form-group">' +
+                            '<textarea class="form-control feedback-message" rows="5" id="comment" placeholder="Nhập phản hồi ..."></textarea>' +
+                            '</div>' +
+                            '</form>',
+                            buttons: {
+                                formSubmit: {
+                                    text: 'Phản hồi',
+                                    btnClass: 'btn-blue',
+                                    action: function () {
+                                        var message = this.$content.find('.feedback-message').val();
+                                        var recruitmentID = currentelement.val();
+                                        if(!message){
+                                            alertError('Vui lòng nhập nội dung phản hồi ...');
+                                            return false;
+                                        }
+
+                                        feedbackRecruitment(recruitmentID, message);
+
+
+                                        // $.alert('Your name is ' + message);
+                                        // $.alert('RecruitmentID ' + recruitmentID);
+                                    }
+                                },
+                                cancel: function () {
+            //close
+        },
+    },
+    onContentReady: function () {
+        // bind to events
+        var jc = this;
+        this.$content.find('form').on('submit', function (e) {
+            // if the user submits the form by pressing enter in the field.
+            e.preventDefault();
+            jc.$$formSubmit.trigger('click'); // reference the button and click it
+        });
+    }
+});
+                    }    
+                },
                 Không: {
                     keys: ['esc'],
-                    btnClass: 'btn-red'              
+                    btnClass: 'btn-red'                             
                 }
-
             }
-
-
         });
-
        });
 
-        function approveCompany(element){
-            $('.modal-ajax-loading').fadeIn("200");
-            $.ajax({
-                url: '../recruitments/approve/' + element.val(),
-                type: 'GET',
-                dataType: 'json',
-                success: function(){
-                    $('.modal-ajax-loading').fadeOut("200");
-                    $.alert({
-                        title: 'Thông báo!',
-                        content: 'Xác nhận thành công',
-                    });
-                    element.parent().parent().remove();
-                    
-               //location.reload();
-               //element.remove();
-               // $("input[value='" + element.val() + "']" ).attr({
-               //     disabled: true
-               // });
+       function feedbackRecruitment(recruitmentID, message){
+        $('.modal-ajax-loading').fadeIn("200");
+        $.ajax({
+            url: '../recruitment/feedback/' + recruitmentID + '/' + message,
+            type: 'GET',
+            dataType: 'json',
+            success: function(){
+                $('.modal-ajax-loading').fadeOut("200");
+                alertSuccess('Đã gửi thông tin phản hồi ...')
+            },
+            error: function(){
+                $('.modal-ajax-loading').hide();
+                alertError('Gửi phản hồi thất bại ...');
+            }            
+        });
+    }
+
+    function approveCompany(element){
+        $('.modal-ajax-loading').fadeIn("200");
+        $.ajax({
+            url: '../recruitments/approve/' + element.val(),
+            type: 'GET',
+            dataType: 'json',
+            success: function(){
+                $('.modal-ajax-loading').fadeOut("200");
+                alertSuccess('Xác nhận thành công ...')
+                element.parent().parent().remove();
            },
            error: function(){
             $('.modal-ajax-loading').hide();
-            alertError();
+            alertError('Xác nhận thất bại ...');
         }            
     });
-        }
+    }
 
 
-    </script>
-    @endsection
+</script>
+@endsection
 

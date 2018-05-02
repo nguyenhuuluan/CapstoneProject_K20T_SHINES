@@ -21,6 +21,7 @@ class TagController extends Controller
 		//return $tags;
 
 		return response()->json(
+			// $tags
 			$arrTags
 		);
 

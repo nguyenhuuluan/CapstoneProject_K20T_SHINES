@@ -43,17 +43,12 @@ function bs_input_file() {
   $(".input-file").before(
     function() {
       if ( ! $(this).prev().hasClass('input-ghost') ) {
-        var element = $("<input type='file' id='fileli' accept='.doc, .docx, .pdf' size='1MB' class='input-ghost' style='visibility:hidden; height:0'>");
-        element.attr("name",$(this).attr("name"));
+        var element = $("#cv");
         element.change(function(){
           element.next(element).find('input').val((element.val()).split('\\').pop());
         });
         $(this).find("button.btn-choose").click(function(){
           element.click();
-        });
-        $(this).find("button.btn-reset").click(function(){
-          element.val(null);
-          $(this).parents(".input-file").find('input').val('');
         });
         $(this).find('input').css("cursor","pointer");
         $(this).find('input').mousedown(function() {
@@ -63,8 +58,9 @@ function bs_input_file() {
         return element;
       }
     }
-  );
+    );
 }
 $(function() {
   bs_input_file();
 });
+

@@ -7,7 +7,7 @@
       <a class="navbar-toggle" href="#" data-toggle="offcanvas"><i class="ti-menu"></i></a>
       <div class="logo-wrapper">
 
-        <a class="logo" href="{{ route('home') }}"><img src="{{ asset('assets/img/logo.png') }}" alt="logo"></a>
+        <a class="logo" href="{{ route('home') }}"><img src="{{ asset('assets/img/logo.png') }}" alt="logo"  style="padding: 5px;"></a>
         <a class="logo-alt" href="{{ route('home') }}"><img src="{{ asset('assets/img/logo-alt.png') }}" alt="logo-alt"></a>
 
       </div>
@@ -19,7 +19,7 @@
       <form class="modal-content animate" method="POST" action="{{ route('login') }}">
        {{ csrf_field() }}
        <div class="login-block">
-        <img src="{{ asset('assets/img/logo.png') }}" alt="">
+        <img style="max-width: 80%;" src="{{ asset('assets/img/logo.png') }}" alt="">
         <br><br>
         <ul class="nav nav-tabs">
           <li class="active">
@@ -48,31 +48,16 @@
          @if ($errors->has('email'))
          <span class="help-block">
           <strong style="color: red">{{ $errors->first('email') }}</strong>
-          <script src="{{ asset('assets/js/app.min.js') }} "></script>
-          <script type="text/javascript" src="{{ asset('assets/js/alpha.js') }} "></script>
-          <script type="text/javascript">
-            $('#id02').modal('show');
-          </script>
         </span>
         @endif
 
         @if(Session::has('comment_message'))  
         <strong style="color: red">{{ session('comment_message') }}</strong>
-        <script src="{{ asset('assets/js/app.min.js') }} "></script>
-        <script type="text/javascript" src="{{ asset('assets/js/alpha.js') }} "></script>
-        <script type="text/javascript">
-          $('#id02').modal('show');
-        </script>
         @endif
 
         @if ($errors->has('password'))
         <span class="help-block">
           <strong style="color: red">{{ $errors->first('password') }}</strong>
-          <script src="{{ asset('assets/js/app.min.js') }} "></script>
-          <script type="text/javascript" src="{{ asset('assets/js/alpha.js') }} "></script>
-          <script type="text/javascript">
-            $('#id02').modal('show');
-          </script>
         </span>
         @endif
 
@@ -134,8 +119,8 @@
     </a>
     <ul class="dropdown-menu dropdown-menu-right">
       <li><a href=""><i class="fa fa-user" aria-hidden="true"></i>Tài khoản</a></li>
-      <li><a href=" {!! route('student.profile') !!}"><i class="fa fa-eye" aria-hidden="true"></i> Xem Hồ sơ</a></li>
-      <li><a href="{!! route('student.profile.update') !!}"><i class="fa fa-file" aria-hidden="true"></i>Cập nhật Hồ sơ</a></li>
+      <li><a href=" {!! route('profile.index') !!}"><i class="fa fa-eye" aria-hidden="true"></i> Xem Hồ sơ</a></li>
+      <li><a href="{!! route('profile.edit') !!}"><i class="fa fa-file" aria-hidden="true"></i>Cập nhật Hồ sơ</a></li>
       <li><a href="{!! route('student.recruitment.show') !!}"><i class="fa fa-save" aria-hidden="true"></i> Việc làm đã lưu</a></li>
       <li><a href="{!! route('student.apply.show') !!}"><i class="fa fa-check-circle" aria-hidden="true"></i> Việc làm đã ứng tuyển</a></li> 
       <li>
@@ -184,7 +169,7 @@
     <a class="active" href="{{ route('home') }}">Trang chủ</a>
   </li>
   <li>
-    <a href="#">Công ty</a>
+    <a href="{{ route('companies.list') }}">Công ty</a>
   </li>
   <li>
     <a href="#">Việc làm</a>
@@ -200,28 +185,7 @@
 </div>
 </nav>
 
-@section('scripts')
-
-@if(Session::has('resigter-success') || Session::has('email-invalid') || Session::has('email-exist'))
-
-<script type="text/javascript" charset="utf-8">
-  $("#id02").modal("show");
-
-  $('.nav-tabs li:first-child').removeClass('active');
-  $('.nav-tabs li:last-child').addClass('active');
-  modalSignInOut('dangky');
-
-  // $('.nav-tabs li:last-child a').attr("aria-expanded", true);
-  //$('.login-block').css( "display", "none");
-  
-
-</script>
-@endif
-
-@endsection
-
 <script>
-
   function modalSignInOut(nameinout) {
     var i;
     var x = document.getElementsByClassName("modalinout");
@@ -231,6 +195,26 @@
     document.getElementById(nameinout).style.display = "block";  
   }
 </script>
+@if($errors->has('email') || $errors->has('password')  || Session::has('comment_message'))
+
+<script type="text/javascript" src="{{ asset('assets/js/jquery.min.js') }} "></script>
+<script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js') }} "></script>
+
+<script type="text/javascript">
+  $('#id02').modal('show');
+</script>
+@endif
+
+@if(Session::has('resigter-success') || Session::has('email-invalid') ||Session::has('email-exist'))
+<script type="text/javascript" src="{{ asset('assets/js/jquery.min.js') }} "></script>
+<script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js') }} "></script>
+<script type="text/javascript">
+  $('#id02').modal('show');
+  $('.nav-tabs li:first-child').removeClass('active');
+  $('.nav-tabs li:last-child').addClass('active');
+  modalSignInOut('dangky');
+</script>
+@endif
 
 
 

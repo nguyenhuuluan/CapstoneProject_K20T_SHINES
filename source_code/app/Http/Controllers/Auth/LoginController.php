@@ -29,7 +29,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    // protected $redirectTo = '/home';
 
     protected function hasTooManyLoginAttempts(Request $request)
     {
@@ -51,7 +51,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        // $this->middleware('guest')->except('logout');
     }
     public function showLoginForm()
     {
@@ -69,13 +69,14 @@ class LoginController extends Controller
 
             return $this->sendLockoutResponse($request);
         }
-        if(Auth::attempt(['username'=>$request->email, 'password'=>$request->password] ) && Auth::user()->roles->first()->name == 'Student'){
-            return redirect('/home');
+
+        if(Auth::attempt(['username'=>$request->email, 'password'=>$request->password] ) && Auth::user()->roles->first()->id == 4){
+            return redirect()->back();
         }
-        elseif(Auth::attempt(['username'=>$request->email, 'password'=>$request->password] ) && Auth::user()->roles->first()->name == 'Representative'){
+        elseif(Auth::attempt(['username'=>$request->email, 'password'=>$request->password] ) && Auth::user()->roles->first()->id == 3){
             return redirect('/representative/home');
         }
-        elseif(Auth::attempt(['username'=>$request->email, 'password'=>$request->password] ) && (Auth::user()->roles->first()->name == 'Admin')){
+        elseif(Auth::attempt(['username'=>$request->email, 'password'=>$request->password] ) && (Auth::user()->roles->first()->id == 1)){
             $this->guard()->logout();
 
             $request->session()->invalidate();

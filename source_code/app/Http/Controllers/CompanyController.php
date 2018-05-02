@@ -188,16 +188,24 @@ public function details($slug)
 
   //$currentURL = $request->url();
 
- $company = Company::findBySlugOrFail($slug);
+ // $company = Company::findBySlugOrFail($slug);
+ $company = Company::with(['recruitments' => function ($query) {
+             $query->with('sections')
+             ->where('recruitments.status_id', 1)->orderBy('created_at','desc');
+            },'sections', 'socialNetworks', 'tags', 'photos'])
+                    ->where('slug', '=', $slug)->first();
+
+// return $company;
  if($company->status_id==3)
  {
-   $socials = CompaniesSocialNetwork::where('company_id',$company->id)->get()->sortBy('name');
-   $recruitments = $company->recruitments()->where('status_id', 1)->orderBy('created_at','desc')->get();
-   return view('companies.details')->with(compact('company','socials', 'recruitments'));
+   // $socials = CompaniesSocialNetwork::where('company_id',$company->id)->get()->sortBy('name');
+   // $recruitments = $company->recruitments()->where('status_id', 1)->orderBy('created_at','desc')->get();
+   return view('companies.details')->with(compact('company'));
    //return view('companies.details',compact('company', 'currentURL'));
 
  }
  else{abort(404);}
+
 }
 
 public function updateImages(Request $request)
@@ -248,7 +256,11 @@ public function updateImages(Request $request)
 
 public function deleteImage(Request $request)
 {
+
    // unlink(base_path()."/images/companies/public_html/'".$ImageName);
+
+    // unlink(base_path()."/images/companies/public_html/'.$ImageName);
+
  unlink(public_path()."/images/companies/".$request->ImageName);
 
  $photo = Photo::where('name', $request->ImageName);
@@ -352,15 +364,7 @@ public function approveCompany($companyID)
   $repre = new Representative();
   $repre = $this->createRepresentative($comp, $compRegis, $account);
 
-  // $address = Role::findOrFail(3);
-  // $role -> accounts() -> attach($acc["id"]);
-
-
-  //$this->sendMailToResetPassword($repre, $comp, $account);
-
   return $repre;
-
-   // return response()->json($repre);
 
 }
 

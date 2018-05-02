@@ -18,6 +18,8 @@ class CreateRecruitmentsTable extends Migration
             $table->string('title',255);
             $table->string('salary',255);
             $table->string('slug',255)->nullable();
+            $table->string('location',255)->nullable();
+            $table->string('searching',255)->nullable();
             $table->integer('number_of_view')->default(0);
             $table->integer('number_of_anonymous_view')->default(0);
             $table->date('expire_date');

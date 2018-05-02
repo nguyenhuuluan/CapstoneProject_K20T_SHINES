@@ -1,8 +1,10 @@
 @extends('layouts.master-layout',['title' => 'Cập nhật hồ sơ sinh viên', 'isDisplaySearchHeader' => false])
 
 @section('stylesheet')
+<link rel="stylesheet" href="{{asset('assets/vendors/modal-confirm/jquery-confirm.min.css')}}">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="http://malsup.github.com/jquery.form.js"></script>
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <style type="text/css">
 /* Tooltip container */
 .tooltipsave {
@@ -86,10 +88,10 @@
 	<div class="container">
 		<div class="row">
 			<div>
-				{!! Form::open(['method'=>'POST', 'action'=> ['StudentController@editPhoto', $student->id], 'files'=>true, 'id'=>'upload_ava']) !!}
+				{!! Form::open(['method'=>'POST', 'route'=> 'student.photo.edit', 'files'=>true, 'id'=>'upload_ava']) !!}
 				<div class="col-xs-12 col-sm-4">
 					<div class="form-group">
-						{!! Form::file('photo', ['class'=>'dropify', 'data-height'=>'300', 'data-max-file-size'=>'1M' ,'data-default-file'=> asset(Auth::user()->student->photo), 'id'=>'photo' ])!!}
+						{!! Form::file('photo', ['class'=>'dropify', 'data-height'=>'300', 'data-max-file-size'=>'1M' ,'data-default-file'=> asset(Auth::user()->student->photo), 'accept'=>'.pdf,.png,.jpeg,.jpg' ,'id'=>'photo' ])!!}
 						<input id="studentID" type="hidden" name="id" value="{{ Auth::user()->student->id}}">
 						<span class="help-block">Xin vui lòng chọn ảnh 4:6</span>
 						{{-- {!! Form::submit('Cập nhật avatar', ['class'=>'btn btn-xs btn-danger pull-right upload-ava']) !!} --}}
@@ -99,8 +101,8 @@
 				{!! Form::close() !!}
 			</div>
 			<div>
-				{!! Form::model( $student, ['method'=>'POST', 'action'=>['StudentController@editProfile', $student->id], 'id'=>'updateForm','files'=>true]) !!}
-
+				{!! Form::model( $student, ['method'=>'POST', 'route'=>'profile.update', 'id'=>'updateForm','files'=>true]) !!}
+				<input type="hidden" name="std_id" id="std_id" value="{!! $student->id !!}" />
 				<div class="col-xs-12 col-sm-8">
 					<div class="form-group col-xs-12 col-sm-12">
 						{!! Form::text('name', null, ['class'=>'form-control input-lg', 'placeholder'=> 'Họ tên', 'required']) !!}
@@ -148,7 +150,7 @@
 					<div class="form-group col-xs-12 col-sm-12 {{ $errors->has('tags.*') ? ' has-error' : '' }}">
 
 						{!! Form::text('tags', $tags, ['class'=>'tagsinput 123input tm-input form-control tm-input-info tagsinput-typeahead','data-role'=>'tagsinput', 'placeholder'=> 'Nhập tag', 'value'=> old('tags')]) !!}
-
+						
 						{{-- 	@if ($errors->has('tags2.*'))
 							<span class="help-block">
 								<strong>Tồn tại TAG không có trong hệ thống!</strong>
@@ -271,13 +273,8 @@
 														</div>
 													</div>
 													<div class="col-xs-12 col-sm-6">
-														{{-- <div class="form-group">
-															{{ Form::selectRangeWithInterval('rating[]', 0, 100, 5, $skill->rating, ['class' => 'form-control input-xs']) }}
-
-														</div> --}}
-
 														<div class="slidecontainer">
-															<input name="rating[]" type="range" min="1" max="100" value="{!! $skill->rating !!}" class="slider" id="myRange" style="margin-top: 12px;">
+															<input name="rating[]" type="range" min="1" max="100" value="{!! $skill->rating !!}" class="slider myRange" style="margin-top: 12px;">
 															<center><p><span id="demo">{!! $skill->rating !!}</span>%</p></center>
 														</div>
 
@@ -300,7 +297,7 @@
 													</div>
 													<div class="col-xs-12 col-sm-6">
 														<div class="slidecontainer">
-															<input name="rating[]" type="range" min="1" max="100" value="50" class="slider" id="myRange" style="margin-top: 12px;">
+															<input name="rating[]" type="range" min="1" max="100" value="50" class="slider myRange" style="margin-top: 12px;">
 															<center><p><span id="demo">50</span>%</p></center>
 														</div>
 													</div>
@@ -309,7 +306,8 @@
 										</div>
 									</div>
 									@endif
-									<div class="col-xs-12 duplicateable-content" style="width: 97.5%">
+									
+									<div class="col-xs-12 duplicateable-content" style="width: 97.5%;">
 										<div class="item-block">
 											<div class="item-form">
 												<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
@@ -321,7 +319,7 @@
 													</div>
 													<div class="col-xs-12 col-sm-6">
 														<div class="slidecontainer">
-															<input name="rating[]" type="range" min="1" max="100" value="50" class="slider" id="myRange" style="margin-top: 12px;">
+															<input name="rating[]" type="range" min="1" max="100" value="50" class="slider myRange" style="margin-top: 12px;">
 															<center><p><span id="demo">50</span>%</p></center>
 														</div>
 
@@ -380,8 +378,18 @@
 					<div class="container">
 						
 						<!-- COMPONENT START -->
-						{!! Form::file('cv', ['class'=>'form-control', 'placeholder'=>'Chọn CV của bạn...', 'accept'=>'.pdf,.png,.jpeg,.jpg,.doc,.docx', 'id'=>'cv' ])!!}
-						<span class="col-xs-12 col-sm-12 help-block">Vui lòng chọn file dung lượng dưới 2MB và đúng định dạng .pdf .docx .png .jpg .jpeg</span>
+						{!! Form::file('cv', ['class'=>'form-control', 'placeholder'=>'Chọn CV của bạn...', 'accept'=>'.pdf,.png,.jpeg,.jpg,.doc,.docx', 'id'=>'cv', 'style'=>'display:none;' ])!!}
+
+						<div class="input-group input-file">
+
+							<input type="text" class="form-control" placeholder='Chọn CV của bạn...' id="cvname" />			
+							<span class="input-group-btn">
+								<button class="btn btn-success btn-choose" type="button">Chọn</button>
+							</span>
+						</div>
+						
+
+						<span class="col-xs-12 col-sm-12 help-block"><p class="text-danger">Vui lòng chọn file dung lượng dưới 2MB và đúng định dạng .pdf .docx .png .jpg .jpeg</p></span>
 						<br>
 						{!! Form::submit('Tải lên', ['class'=>'btn btn-primary pull-right upload-cv']) !!}
 							{{-- <div class="modelFootr">
@@ -397,76 +405,164 @@
 			</div>
 {{-- 			<iframe src='https://view.officeapps.live.com/op/embed.aspx?src=https://www.leaf-vn.org/PDF-0CONVERSION-rev2.pdf' width='px' height='px' frameborder='0'>
 </iframe> --}}
-			
-		</main>
-		<button class="tooltipsave" onclick="document.getElementById('updateForm').submit(); " id="myBtn"><i class="fa fa-save" aria-hidden="true"></i><span class="tooltiptext">Lưu hồ sơ</span></button>
-		@endsection
 
-		@section('scripts')
-		<script src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js" type="text/javascript" charset="utf-8"></script>
+</main>
+<button class="tooltipsave" id="myBtn"><i class="fa fa-save" aria-hidden="true"></i><span class="tooltiptext">Lưu hồ sơ</span></button>
+@endsection
 
+@section('scripts')
+<script src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js" type="text/javascript" charset="utf-8"></script>
+<script src="{{asset('assets/vendors/modal-confirm/jquery-confirm.min.js')}}"></script>
 
-		<script type="text/javascript">
-			showCv();
+<script src="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap3-typeahead.js') }}"></script>
+<script src="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/alert.js') }}"></script>
 
-			$('#photo').bind("change", function () {
+<script type="text/javascript">
+	$('.tagsinput-typeahead').tagsinput({
+		typeahead: {
+			source: $.get('{{ route('tags') }}'),
+			afterSelect: function() {
+				this.$element[0].value = '';    
+			},
+		},
+		trimValue: true,
+		freeInput: false,
+		tagClass: 'label label-default',
+	});
+
+	$(document).ready(function (e) {
+
+		//Update Avatar
+		$('#photo').bind("change", function () {
+			if(validateSize(this,'1') && validateFile(this,'Image'))
+			{
 				updateAvatar();
+			}
+			else{
+				alertError('Vui lòng chọn ảnh đúng định dạng và dung lượng tối đa 1MB ...')
+				return false;
+			}
+		});
+
+		//Upload CV
+		$("#cv").change(function() {
+			if(validateSize(this,'1') && validateFile(this,'Cv'))
+			{
+				return true;				
+			}
+			else{
+				alertError('Vui lòng chọn CV đúng định dạng và dung lượng tối đa 1MB ...');
+				$('#cv').val(null);
+				$("#cvname").val(null);
+				return false;
+			}
+		});
+
+		function updateAvatar(){
+			var id = $('#studentID').val();
+			var photo = document.getElementById("photo").files[0];
+			var urlImg = '{{ route('student.photo.edit') }}';
+			var data = new FormData();
+			data.append("id", id);
+			data.append("photo", photo);
+
+			$.ajax({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+				type:'POST',
+				url: urlImg,
+				data:data,
+				cache:false,
+				contentType: false,
+				processData: false,
+				success:function(data){
+					document.getElementById('avatarAccount').src = '{{ asset('') }}'+data;
+					$( ".update-ava-noti" ).fadeIn( 300 ).delay( 2000 ).fadeOut( 00 );
+				},
+				error: function(data){
+					alertError('Kiểm tra lại avatar upload đúng định dạng ...');
+				}
 			});
 
-			function updateAvatar(){
-				var id = $('#studentID').val();
-				var photo = document.getElementById("photo").files[0];
-				var urlImg = '{{ route('student.photo.edit') }}';
-				var data = new FormData();
-				data.append("id", id);
-				data.append("photo", photo);
-
-				$.ajax({
-					headers: {
-						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-					},
-					type:'POST',
-					url: urlImg,
-					data:data,
-					cache:false,
-					contentType: false,
-					processData: false,
-					success:function(data){
-						document.getElementById('avatarAccount').src = '{{ asset('') }}'+data;
-						$( ".update-ava-noti" ).fadeIn( 300 ).delay( 2000 ).fadeOut( 00 );
-					},
-					error: function(data){
-						alert('Kiểm tra lại avatar upload đúng định dạng!');
-					}
-				});
-
-			}
+		}
 
 
-			$(document).ready(function (e) {
+		//Hiển thị danh sách CV
+		showCv();
+		function showCv () {
+			$.get("{{ route('student.cv.show') }}", function(data){
+				$('.cv-info').empty().html(data)
+			})
+		}
+
+				//update profile
+				$('#updateForm').on('submit',(function(e) {
+					e.preventDefault();
+					var formData = new FormData(this);
+					updateProfile(formData);
+				}));
+				$('#myBtn').on('click',(function(e) {
+					var formData = new FormData($('#updateForm')[0]);
+					updateProfile(formData);
+				}));
+		//Cập nhật thông tin cơ bản
+		function updateProfile(formData)
+		{
+			$.ajax({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+				type:'POST',
+				url: '{{ route('profile.update') }}',
+				data:formData,
+				cache:false,
+				contentType: false,
+				processData: false,
+				success:function(data){
+					alertSuccess('Cập nhật thành công ...')
+				},
+				error: function(data){
+					alertError('Cập nhật không thành công ...');
+				}
+			});
+		}
+
 				// -----upload cv
 				$('#upload_cv').on('submit',(function(e) {
 					e.preventDefault();
 					var formData = new FormData(this);
-
-					$.ajax({
-						type:'POST',
-						url: $(this).attr('action'),
-						data:formData,
-						cache:false,
-						contentType: false,
-						processData: false,
-						success:function(data){
-							$( ".upload-cv-noti" ).fadeIn( 300 ).delay( 2000 ).fadeOut( 00 );
-							$('.cv-info').append(data.cvs);
-						},
-						error: function(data){
-							alert('Kiểm tra lại CV upload đúng định dạng!');
-							$("#cv").val('');
-						}
-					});
+					if(formData.get('cv'))
+					{
+						$.ajax({
+							type:'POST',
+							url: $(this).attr('action'),
+							data:formData,
+							cache:false,
+							contentType: false,
+							processData: false,
+							success:function(data){
+								$("#cv").val('');
+								$("#cvname").val('');
+								alertSuccess('Upload CV thành công ...')
+								$( ".upload-cv-noti" ).fadeIn( 300 ).delay( 3000 ).fadeOut( 00 );
+								$('.cv-info').append(data.cvs);
+							},
+							error: function(data){
+								alertError('Kiểm tra lại CV upload đúng định dạng ...');
+								$("#cv").val('');
+								$("#cvname").val('');
+							}
+						});
+					}
+					else{
+						alertError('Vui lòng chọn CV trước khi upload ...')
+					}
+					
 				}));
 
+				//Xóa thông CV
 				$('.cv-info').on('click', '#delete', function(event) {
 					event.preventDefault();
 					var currentelement = $(this);
@@ -474,89 +570,115 @@
 					var url = '{{ route("student.cv.destroy")}}';
 					var data = new FormData();
 					data.append("id", id);
-
-					$.ajax({
-						headers: {
-							'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-						},
-						type: 'POST',
-						url: url,
-						contentType: false,
-						processData: false,
-						cache:false,
-						data: data,
-						success: function (response) {
-							$(".delete-cv-noti" ).fadeIn( 300 ).delay( 2000 ).fadeOut( 00 );
-							currentelement.parent().parent().remove();
-							console.log(response)
-						},
-						error: function (response) {
-							alert('error');
-							console.log(response)
+					$.confirm({
+						icon: 'fa fa-warning',
+						title: 'Cảnh báo!!',
+						content: 'Bạn có muốn Xóa CV này?',
+						type: 'red',
+						buttons: {
+							Có: {
+								keys: ['enter'],
+								btnClass: 'btn-green',
+								action: function(){
+									$.ajax({
+										headers: {
+											'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+										},
+										type: 'POST',
+										url: url,
+										contentType: false,
+										processData: false,
+										cache:false,
+										data: data,
+										success: function (response) {
+											$(".delete-cv-noti").fadeIn(300).delay(3000).fadeOut(00);
+											currentelement.parent().parent().remove();
+											alertSuccess('Xóa CV thành công');
+										},
+										error: function (response) {
+											alertError('Xóa CV không thành công')
+										}
+									});
+								}
+							},
+							Không: {
+								keys: ['esc'],
+								btnClass: 'btn-red'              
+							}
 						}
 					});
+					//end of confirm
+				});
+				//End of delete cv
 
-			});
+				//Range of skill
+				$('.select-rage').on('change', '.myRange', function(event) {
+					event.preventDefault();
 
-			});
+					var value = $(this).val();	
 
+					$(this).closest('div').find('span').html(value);
+				});
 
-			function showCv () {
-				$.get("{{ route('student.cv.show') }}", function(data){
-					$('.cv-info').empty().html(data)
-				})
-			}
-
-		</script>
-
-		<script type="text/javascript">
-			$('.select-rage').on('change', '#myRange', function(event) {
-				event.preventDefault();
-
-				var value = $(this).val();	
-
-				$(this).closest('div').find('span').html(value);
-			});
-
-
-			var tagnames = new Bloodhound({
-				datumTokenizer: Bloodhound.tokenizers.obj.whitespace("name"),
-				queryTokenizer: Bloodhound.tokenizers.whitespace,
-				prefetch: {
-					url:'../../tags',
-					filter: function(list) {
-						return $.map(list, function(tagname) {
-							return { name: tagname }; });
-					}
-				}
-			});
-			tagnames.initialize();
-			$('.tagsinput').tagsinput({
-				typeaheadjs: {
-					name: 'tags',
-					displayKey: 'name',
-					valueKey: 'name',
-					source: tagnames.ttAdapter(),
-					templates: {
-						empty: [
-						'<div class="list-group search-results-dropdown"><div class="list-group-item">Không có kết quả phù hợp.</div></div>'
-						],
-						header: [
-						'<div class="list-group search-results-dropdown">'
-						],
-						suggestion: function (data) {
-							return '<p class="list-group-item">' + data.name + '</p>'
+				//Validate Cv
+				function validateFile(input, type){
+					var ext = input.value.match(/\.([^\.]+)$/)[1];
+					switch(type)
+					{
+						case 'Image':
+						switch(ext.toLowerCase())
+						{
+							case 'jpg':
+							case 'png':
+							case 'gif':
+							case 'bmp':
+							case 'jpeg':
+							return true;
+							break;
+							default:
+							return false;
 						}
+						case 'Cv':
+						switch(ext.toLowerCase())
+						{
+							case 'jpg':
+							case 'doc':
+							case 'docx':
+							case 'pdf':
+							case 'png':
+							case 'gif':
+							case 'bmp':
+							case 'jpeg':
+							return true;
+							break;
+							default:
+							return false;
+						}
+						default:
+						return false;
 					}
+					
 				}
+
+				function validateSize(input, size){
+					var file_size = input.files[0].size;
+					if(file_size>(size*1024*1024)){
+						return false;
+					} else{ return true;}
+				}
+
+
+
 			});
+
+
 		</script>
 
 		<script>
 
 			$('.dropify').dropify({
 				error: {
-					'fileSize': 'The file size is too big (30 max).',
+					'fileSize': 'The file size is too big (1MB Max).',
 					'minWidth': 'The image width is too small (30 px min).',
 					'maxWidth': 'The image width is too big (30 px max).',
 					'minHeight': 'The image height is too small (30 px min).',

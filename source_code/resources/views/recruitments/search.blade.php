@@ -1,4 +1,4 @@
-@extends('layouts.master-layout',['title' => 'Tìm kiếm tin tuyển dụng', 'isDisplaySearchHeader' => true])
+@extends('layouts.master-layout',['title' => 'Tìm kiếm tin tuyển dụng', 'isDisplaySearchHeader' => false])
 @section('stylesheet')
 <link href="{{ asset('assets/css/bootstrap-tagsinput.css') }}" rel="stylesheet">
 <style type="text/css">
@@ -65,19 +65,8 @@
 @section('page-header')
 <header class="page-header bg-img" style="background-image: url({{ asset('assets/img/bg-banner1.jpg') }} );">
   <div class="container page-name" style="padding-bottom: 100px">
-    <form class="header-job-search" >
-      <div class="input-keyword">
-        <input type="text" class="form-control" placeholder="Tìm công việc hoặc công ty yêu thích">
-      </div>
 
-      <div class="input-location">
-        <input type="text" class="form-control" placeholder="Thành phố bạn muốn làm việc">
-      </div>
-
-      <div class="btn-search">
-        <button class="btn btn-primary" type="submit">Tìm</button>
-      </div>
-    </form>
+    @include('layouts.search-box')
   </div>
 </header>
 @endsection
@@ -100,12 +89,12 @@
           <div class="col-xs-12">
             <a class="item-block" href="{!! route('detailrecruitment', $recruitment->slug) !!}">
               <header>
-                <img src={!! asset(App\Recruitment::findOrFail($recruitment->id)->company->logo)  !!} alt="">
+                <img src={!! asset($recruitment->company->logo)  !!} alt="">
                 <div class="hgroup">
                   <h4>{!! $recruitment->title !!}</h4>
                 {{-- <h5>{!! $recruitment->company !!} <span class="label label-success">Full-time</span>
                 </h5> --}}
-                @foreach (App\Recruitment::findOrFail($recruitment->id)->categories as $category)
+                @foreach ($recruitment->categories as $category)
                 @if($category->name =='FULL-TIME')
                 <span class="label label-success">{!! $category->name !!}</span>
                 @else
@@ -113,6 +102,7 @@
                 @endif
                 @endforeach
               </div>
+              <?php \Carbon\Carbon::setLocale('vi')?>
               <time>{!! Carbon\Carbon::parse($recruitment->created_at)->diffForHumans() !!}</time>
             </header>
 
@@ -124,7 +114,7 @@
               <ul class="details cols-3">
                 <li>
                   <i class="fa fa-map-marker"></i>
-                  <span>{!! $recruitment->district .', '. $recruitment->city !!}</span>
+                  <span>{!! $recruitment->location !!}</span>
                 </li>
                 <li>
                   <i class="fa fa-money"></i>
@@ -132,7 +122,7 @@
                 </li>
                 <li>
                   <i class="fa fa-tag"></i>
-                  @foreach (App\Recruitment::findOrFail($recruitment->id)->tags as $tag)
+                  @foreach ($recruitment->tags as $tag)
                   <span class="btn btn-info btn-xs">{!! $tag->name !!}</span>
                   @endforeach
                 </li>
@@ -143,12 +133,6 @@
         <!-- END Job item -->
         @endforeach
       </div>
-      {{-- {{ $recruitments->render() }} --}}
-{{--       <div class="loading" style="text-align: center;">
-
-        <img src="{{ asset('assets/img/bx_loader.gif') }}" style="width: 85px; height: 85px">
-
-      </div> --}}
     </div>
 
     <div class="loading-dots hidden" id="loading-dots">
@@ -162,6 +146,21 @@
 @endsection
 
 @section('scripts')
+<script src="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap3-typeahead.js') }}"></script>
+<script src="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.js') }}"></script>
+<script> 
+    $('.tagsinput-typeahead').tagsinput({
+        typeahead: {
+            source: $.get('{{ route('tags') }}'),
+            afterSelect: function() {
+                this.$element[0].value = '';    
+            },
+        },
+        trimValue: true,
+        freeInput: true,
+        tagClass: 'label label-default',
+    })
+</script>
 <script type="text/javascript">
 
   var is_busy = false;
@@ -177,14 +176,18 @@
         }
           // Thiết lập đang gửi ajax
           is_busy = true;
+
+
           var page = $('.endless-pagination').data('next-page');
+
           if (page!==null && page!==''){
+          var url = window.location.href+'&page='+page.split('page=')[1];
             $loadding.removeClass('hidden');
             $.ajax(
             {
               type: 'get',
               dataType: 'text',
-              url: page,
+              url: url,
               success: function (data) {
                 $('.recruitments').append(JSON.parse(data)["recruitments"]);
                 $('.endless-pagination').data('next-page', JSON.parse(data)["next_page"]);
