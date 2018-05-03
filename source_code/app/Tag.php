@@ -8,6 +8,8 @@ class Tag extends Model
 {
 
     protected $fillable = ['name'];
+    // protected $with = ['address.district.city'];
+    
     
     public function recruitments(){
     	return $this->belongsToMany('App\Recruitment', 'tag_recruitment' ,'tag_id', 'recruitment_id');

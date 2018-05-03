@@ -190,7 +190,7 @@ public function details($slug)
 
  // $company = Company::findBySlugOrFail($slug);
  $company = Company::with(['recruitments' => function ($query) {
-             $query->with('sections')
+             $query->with('sections', 'categories', 'tags')
              ->where('recruitments.status_id', 1)->orderBy('created_at','desc');
             },'sections', 'socialNetworks', 'tags', 'photos'])
                     ->where('slug', '=', $slug)->first();

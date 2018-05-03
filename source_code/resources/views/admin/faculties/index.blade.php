@@ -270,7 +270,7 @@
                     buttons: {
                         XacNhan: {
                             text: 'Xác nhận',
-                            btnClass: 'btn-danger',
+                            btnClass: 'btn-success',
                             keys: ['enter', 'shift'],
                             action: function() {
                                 $.ajax({
@@ -294,7 +294,7 @@
                         },
                         Huy: {
                             text: 'Hủy',
-                            btnClass: 'btn-success',
+                            btnClass: 'btn-danger',
                             keys: ['esc'],
                         },
                     },

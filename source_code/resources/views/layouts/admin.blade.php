@@ -40,22 +40,22 @@
 <body>
 
     <div class="modal-ajax-loading">
-      <div class="modal-ajax-loading-content">
-        <img src="{{ asset('assets/img/ajax-loader.gif') }}">
-    </div>
+
+        <img class="modal-ajax-loading-content" src="{{ asset('assets/img/ajax-loader.gif') }}">
+
 </div>
 <div id="wrapper">
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-        <div class="navbar-header">
+        <div class="navbar-header" style="margin-left:3%">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="{{ route('admin.home') }}"><img src="{{ asset('assets/img/logo.png') }}" alt="Jobee" style="width: 200px; height: 50px; margin: 2px 35px"></a>
+            <a href="{{ route('admin.home') }}"><img src="{{ asset('assets/img/logo.png') }}" alt="Jobee" style="max-width: 200px; max-height: 50px;"></a>
         </div>
         <!-- /.navbar-header -->
 
