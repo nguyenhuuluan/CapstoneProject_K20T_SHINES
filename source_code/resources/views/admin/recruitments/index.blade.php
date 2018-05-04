@@ -71,11 +71,9 @@
                                         <td>
                                             <div style="display: inline-block; width: 100px ">
                                                 <a href=" {{ route('admin.recruitments.show', $recruitment->slug) }}" class="btnreview btn-success" target="_blank" style="display: inline-block;">Xem</a>
-                                                {!! Form::open(['method'=>'PATCH', 'action'=>['Admin\AdminRecruitmentController@update',$recruitment->id], 'style'=>'display: inline-block']) !!}
                                             </div>
                                             
                                         </td>
-                                        {!! Form::close() !!} 
                                     </tr>
                                     @endforeach
                                 </tbody>

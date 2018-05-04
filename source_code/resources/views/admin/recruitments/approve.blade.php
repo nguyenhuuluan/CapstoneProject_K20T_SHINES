@@ -50,10 +50,12 @@
                                             <td>{{$recruitment->company->name}}</td>
                                             <td>{{$recruitment->created_at}}</td>
                                             <td>
+                                                <a href=" {{ route('admin.recruitments.show', $recruitment->slug) }}" class="btn btn-xs btn-success" target="_blank" style="display: inline-block;">Xem trước</a>
+                                                <a href=" {{ route('admin.recruitments.edit', $recruitment->id) }}" class="btn btn-xs btn-primary edit" target="_blank" style="display: inline-block;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a>
                                                 <button type="button" class="btn btn-default btn-xs btn-approve" value = "{{$recruitment->id}}">
                                                     <span class="glyphicon glyphicon-globe"></span> Xác nhận
                                                 </button>
-                                                <a href=" {{ route('admin.recruitments.show', $recruitment->slug) }}" class="btnreview btn-success" target="_blank" style="display: inline-block;">Xem</a>
+
                                             </td>                                          
                                             @endforeach
                                         </tbody>

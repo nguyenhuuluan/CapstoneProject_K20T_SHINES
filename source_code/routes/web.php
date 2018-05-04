@@ -132,17 +132,22 @@ Route::GET('password/reset/{token}','Admin\ResetPasswordController@showResetForm
 Route::middleware(['admin', 'web'])->group(function () {
 	Route::GET('admin', 'Admin\AdminController@index')->name('admin.home');  
 	Route::GET('admin/home', 'Admin\AdminController@index');  
+
+	//Recruitment-- ADMIN
+
 	Route::resource('admin/recruitments', 'Admin\AdminRecruitmentController', [
 		'names' => [
 			'index' => 'admin.recruitments.index',
-			'store' => 'admin.recruitments.store',
-			'create' => 'admin.recruitments.create',
 			'show' => 'admin.recruitments.show',
-			'update' => 'admin.recruitments.update',
-			'destroy' => 'admin.recruitments.destroy',
 			'edit' => 'admin.recruitments.edit',
-			
-		]]);
+			'update'=>'admin.recruitments.update'
+		],
+		'except' => ['destroy', 'store', 'create']
+	]);
+	// Route::get('admin/recruitments/{id}/edit', 'Admin\AdminRecruitmentController@edit')->name('admin.recruitments.edit');
+
+
+
 	Route::get('admin/approve/recruitments', 'Admin\AdminRecruitmentController@approve')->name('admin.recruitments.approve');
 	Route::get('/admin/recruitments/approve/{recruitmentID}', 'Admin\AdminRecruitmentController@approveRecruitment')->name('approverecruitment');
 	Route::get('/admin/recruitments/active/{recruitment_id}', 'Admin\AdminRecruitmentController@setActiveRecruitment')->name('activerecruitment');

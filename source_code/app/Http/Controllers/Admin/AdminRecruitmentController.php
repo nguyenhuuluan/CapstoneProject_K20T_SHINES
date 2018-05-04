@@ -7,6 +7,11 @@ use App\Http\Controllers\Controller;
 use App\Recruitment;
 use Mail;
 use GuzzleHttp\Client;
+use App\City;
+use App\District;
+use App\Section;
+use App\Category;
+
 
 
 class AdminRecruitmentController extends Controller
@@ -86,13 +91,13 @@ class AdminRecruitmentController extends Controller
 
         Mail::send('admin.recruitments.email-feedback', ['company' => $company, 'representative' => $representative, 'recruitment' => $recruitment, 'message1' => $message],  function ($message) use($representative)
         {
-           $message->to($representative['email'])->subject('Phản hồi tin tuyển dụng');
-       });
+         $message->to($representative['email'])->subject('Phản hồi tin tuyển dụng');
+     });
 
         return response()->json(['OK' => 'OK'], 200);
     }
 
-   
+
 
 
 
@@ -102,14 +107,14 @@ class AdminRecruitmentController extends Controller
         $recruitment = Recruitment::Where('id', $recruitment_id)->first();
 
         if ($recruitment->status_id != 1) {
-           $recruitment->status_id = 1;
-       }else {
-           $recruitment->status_id = 2;
-       }
+         $recruitment->status_id = 1;
+     }else {
+         $recruitment->status_id = 2;
+     }
 
-       $recruitment->save();     
-       return $recruitment;
-   }
+     $recruitment->save();     
+     return $recruitment;
+ }
 
     /**
      * Store a newly created resource in storage.
@@ -143,7 +148,12 @@ class AdminRecruitmentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $recruitment = Recruitment::find($id);
+        $cities = City::with('districts')->get();
+        $districts= District::where('city_id',$cities[0]->id)->get()->sortBy('name');
+        $categories  = Category::pluck('name', 'id')->all();
+        $sections = Section::all();
+        return view('admin.recruitments.edit', compact('recruitment', 'cities', 'districts', 'categories', 'sections'));
     }
 
     /**
