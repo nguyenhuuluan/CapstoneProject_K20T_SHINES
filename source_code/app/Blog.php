@@ -14,4 +14,14 @@ class Blog extends Model
     {
     	return $this->belongsTo('App\Account', 'account_id');
     }
+
+    public function tags()
+    {
+        return $this->belongsToMany('App\Tag', 'tag_blog', 'blog_id', 'tag_id')->withTimestamps();
+    }
+
+    public function photos()
+    {
+    	return $this->belongsToMany('App\Photo', 'photo_blog', 'blog_id', 'photo_id')->withTimestamps();
+    }
 }

@@ -40,22 +40,22 @@
 <body>
 
     <div class="modal-ajax-loading">
-      <div class="modal-ajax-loading-content">
-        <img src="{{ asset('assets/img/ajax-loader.gif') }}">
-    </div>
+
+        <img class="modal-ajax-loading-content" src="{{ asset('assets/img/ajax-loader.gif') }}">
+
 </div>
 <div id="wrapper">
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-        <div class="navbar-header">
+        <div class="navbar-header" style="margin-left:3%">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="{{ route('admin.home') }}"><img src="{{ asset('assets/img/logo.png') }}" alt="Jobee" style="width: 200px; height: 50px; margin: 2px 35px"></a>
+            <a href="{{ route('admin.home') }}"><img src="{{ asset('assets/img/logo.png') }}" alt="Jobee" style="max-width: 200px; max-height: 50px;"></a>
         </div>
         <!-- /.navbar-header -->
 
@@ -236,7 +236,18 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-pencil-square-o fa-fw"></i> Blog</a>
+                    <a href="#"><i class="fa fa-archive fa-fw"></i> Phòng ban<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a href="{{ route('faculties.index') }}">Danh sách Phòng Ban</a></li>
+                        <li><a href="{{route('faculties.create')}}">Thêm Phòng Ban</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-pencil-square-o fa-fw"></i> Blog<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a href="{{ route('blogs.index') }}">Danh sách Blog</a></li>
+                        <li><a href="{{route('blogs.create')}}">Đăng Blog</a></li>
+                    </ul>
                 </li>
             </ul>
 

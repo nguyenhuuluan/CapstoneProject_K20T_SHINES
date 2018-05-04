@@ -55,20 +55,38 @@ class RecruitmentController extends Controller
         //Cắt chuối search
         $texts = explode(",", $request['searchtext']);
 
-        //Searching theo từng chuỗi đã cắt
-        $recruitments= Recruitment::with('categories', 'company', 'tags')
-                                    ->leftjoin('companies','recruitments.company_id', '=', 'companies.id')
-                                    ->leftjoin('section_recruitment', 'recruitments.id', '=', 'section_recruitment.recruitment_id')
-                                    ->where('section_recruitment.section_id', '=', '1')
-                                    ->where('companies.status_id', '=', '3')
-                                    ->where('recruitments.status_id', 1)
-                                    ->where(function($q) use ($texts){
+
+          $recruitments = Recruitment::with('categories','company', 'sections')
+                                ->leftjoin('companies', 'company_id', '=', 'companies.id')
+                                ->leftjoin('section_recruitment', 'recruitments.id', '=', 'section_recruitment.recruitment_id')
+                                ->select('recruitments.*', 'section_recruitment.content as content')
+                                ->where('companies.status_id', '=', '3')
+                                ->where('section_recruitment.section_id', '=', '1')
+                                ->where('recruitments.status_id', '=', '1')
+                                ->where(function($q) use ($texts){
                                         foreach ($texts as $key => $value) {
                                             $q->orWhere('recruitments.searching', 'like', '%'.$value.'%');
                                         }
                                     })
-                                    ->orderBy('recruitments.id','ASC')
-                                    ->paginate($this->per_page_number);
+                                ->orderBy('recruitments.created_at','desc')
+                                ->paginate($this->per_page_number);
+
+        // return $recruitments;
+
+        //Searching theo từng chuỗi đã cắt
+        // $recruitments= Recruitment::with('categories', 'company', 'tags')
+        //                             ->join('companies','recruitments.company_id', '=', 'companies.id')
+        //                             ->leftjoin('section_recruitment', 'recruitments.id', '=', 'section_recruitment.recruitment_id')
+        //                             ->where('section_recruitment.section_id', '=', '1')
+        //                             ->where('companies.status_id', '=', '3')
+        //                             ->where('recruitments.status_id', 1)
+        //                             ->where(function($q) use ($texts){
+        //                                 foreach ($texts as $key => $value) {
+        //                                     $q->orWhere('recruitments.searching', 'like', '%'.$value.'%');
+        //                                 }
+        //                             })
+        //                             ->orderBy('recruitments.created_at','desc')
+        //                             ->paginate($this->per_page_number);
 
 
         

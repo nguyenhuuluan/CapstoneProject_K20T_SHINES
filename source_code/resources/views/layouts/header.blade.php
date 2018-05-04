@@ -119,8 +119,8 @@
     </a>
     <ul class="dropdown-menu dropdown-menu-right">
       <li><a href=""><i class="fa fa-user" aria-hidden="true"></i>Tài khoản</a></li>
-      <li><a href=" {!! route('student.profile') !!}"><i class="fa fa-eye" aria-hidden="true"></i> Xem Hồ sơ</a></li>
-      <li><a href="{!! route('student.profile.update') !!}"><i class="fa fa-file" aria-hidden="true"></i>Cập nhật Hồ sơ</a></li>
+      <li><a href=" {!! route('profile.index') !!}"><i class="fa fa-eye" aria-hidden="true"></i> Xem Hồ sơ</a></li>
+      <li><a href="{!! route('profile.edit') !!}"><i class="fa fa-file" aria-hidden="true"></i>Cập nhật Hồ sơ</a></li>
       <li><a href="{!! route('student.recruitment.show') !!}"><i class="fa fa-save" aria-hidden="true"></i> Việc làm đã lưu</a></li>
       <li><a href="{!! route('student.apply.show') !!}"><i class="fa fa-check-circle" aria-hidden="true"></i> Việc làm đã ứng tuyển</a></li> 
       <li>

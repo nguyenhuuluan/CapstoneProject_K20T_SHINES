@@ -102,6 +102,7 @@
                 @endif
                 @endforeach
               </div>
+              <?php \Carbon\Carbon::setLocale('vi')?>
               <time>{!! Carbon\Carbon::parse($recruitment->created_at)->diffForHumans() !!}</time>
             </header>
 
@@ -145,7 +146,23 @@
 @endsection
 
 @section('scripts')
+<script src="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap3-typeahead.js') }}"></script>
+<script src="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.js') }}"></script>
+<script> 
+    $('.tagsinput-typeahead').tagsinput({
+        typeahead: {
+            source: $.get('{{ route('tags') }}'),
+            afterSelect: function() {
+                this.$element[0].value = '';    
+            },
+        },
+        trimValue: true,
+        freeInput: true,
+        tagClass: 'label label-default',
+    })
+</script>
 <script type="text/javascript">
+
 
   var is_busy = false;
     $(window).scroll(function(){
@@ -160,14 +177,18 @@
         }
           // Thiết lập đang gửi ajax
           is_busy = true;
+
+
           var page = $('.endless-pagination').data('next-page');
+
           if (page!==null && page!==''){
+          var url = window.location.href+'&page='+page.split('page=')[1];
             $loadding.removeClass('hidden');
             $.ajax(
             {
               type: 'get',
               dataType: 'text',
-              url: page,
+              url: url,
               success: function (data) {
                 $('.recruitments').append(JSON.parse(data)["recruitments"]);
                 $('.endless-pagination').data('next-page', JSON.parse(data)["next_page"]);

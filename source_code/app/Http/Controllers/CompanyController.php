@@ -190,7 +190,7 @@ public function details($slug)
 
  // $company = Company::findBySlugOrFail($slug);
  $company = Company::with(['recruitments' => function ($query) {
-             $query->with('sections')
+             $query->with('sections', 'categories', 'tags')
              ->where('recruitments.status_id', 1)->orderBy('created_at','desc');
             },'sections', 'socialNetworks', 'tags', 'photos'])
                     ->where('slug', '=', $slug)->first();
@@ -364,15 +364,7 @@ public function approveCompany($companyID)
   $repre = new Representative();
   $repre = $this->createRepresentative($comp, $compRegis, $account);
 
-  // $address = Role::findOrFail(3);
-  // $role -> accounts() -> attach($acc["id"]);
-
-
-  //$this->sendMailToResetPassword($repre, $comp, $account);
-
   return $repre;
-
-   // return response()->json($repre);
 
 }
 
@@ -380,7 +372,6 @@ public function approveCompany($companyID)
 public function index()
 {
   $comps = Company::all();
-  // $comps = Company::with('address.district.city')->get();
   return view ('admin.companies.index',compact('comps'));
 }
 

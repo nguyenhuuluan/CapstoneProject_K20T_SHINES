@@ -1,5 +1,5 @@
  // Bar chart
- new Chart(document.getElementById("bar-chart"), {
+document.getElementById("bar-chart"), {
   type: 'bar',
   data: {
     labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March", "April", "May", "June", "July"],
@@ -18,6 +18,6 @@
       text: 'Số lượt truy cập website'
     }
   }
-});
+};
 
 //Read more http://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/

@@ -1,5 +1,7 @@
 <?php
-
+// if (env('APP_ENV') === 'local') {
+//     URL::forceScheme('https');
+// }
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,7 +22,7 @@ Route::get('/' , 'HomeController@index')->name('index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login')->middleware('guest');
 Route::get('/recruitments', 'HomeController@listRecruitments')->name('lst.recruitment');
 Route::get('/recruitments/total', 'RecruitmentController@totalRecruitments')->name('recruitment.total');
 
@@ -76,18 +78,42 @@ Route::GET('student/confirm/{token}','StudentController@confirm')->name('student
 Route::POST('student/confirm','StudentController@confirmInfomation')->name('student.confirm-information');
 Route::GET('student/update-success','StudentController@updateSuccess')->name('student.update-success');
 
-Route::get('student/profile', 'StudentController@profile')->name('student.profile')->middleware('student');
-Route::get('student/profile/update', 'StudentController@updateProfile')->name('student.profile.update')->middleware('student');
-Route::POST('student/profile/update/{id}', 'StudentController@editProfile')->name('student.profile.edit')->middleware('student');
-Route::POST('student/profile/update/cv/{id}', 'Student\StudentCvController@store')->name('student.cv.store')->middleware('student');
-Route::POST('student/photo/update', 'StudentController@editPhoto')->name('student.photo.edit')->middleware('student');
-Route::GET('student/profile/update/cv', 'Student\StudentCvController@show')->name('student.cv.show')->middleware('student');
+
+
+
+Route::middleware(['student', 'web'])->group(function () {
+
+Route::get('student/profile', 'Student\StudentProfileController@index')->name('profile.index');
+Route::get('student/profile/edit', 'Student\StudentProfileController@edit')->name('profile.edit');
+Route::post('student/profile/edit', 'Student\StudentProfileController@update')->name('profile.update');
+
+Route::POST('student/photo/update', 'Student\StudentProfileController@editPhoto')->name('student.photo.edit');
+
+
+Route::GET('student/cv', 'Student\StudentCvController@show')->name('student.cv.show');
+Route::POST('student/cv/{id}', 'Student\StudentCvController@store')->name('student.cv.store');
+Route::POST('student/cv/', 'Student\StudentCvController@destroy')->name('student.cv.destroy');
+
+
+// Route::resource('student/cv', 'Student\StudentCvController');
+
+Route::GET('student/recruitments/apply', 'Student\StudentRecruitmentController@showApply')->name('student.apply.show');
+Route::GET('student/recruitments/save', 'Student\StudentRecruitmentController@showRecruitment')->name('student.recruitment.show');
+
+// Route::get('student/profile', 'StudentController@profile')->name('student.profile');
+
+Route::get('student/profile/update', 'StudentController@updateProfile')->name('student.profile.update');
+// Route::POST('student/profile/update', 'StudentController@editProfile')->name('student.profile.edit');
+});
+
+
+
 Route::GET('student/cvs/download/{name}','Student\StudentCvController@download')->name('student.cv.download');
 Route::GET('student/cvs/preview/{name}','Student\StudentCvController@preview')->name('student.cv.preview');
-Route::POST('student/cv', 'Student\StudentCvController@destroy')->name('student.cv.destroy')->middleware('student');
 
-Route::GET('student/recruitments/apply', 'Student\StudentRecruitmentController@showApply')->name('student.apply.show')->middleware('student');
-Route::GET('student/recruitments/save', 'Student\StudentRecruitmentController@showRecruitment')->name('student.recruitment.show')->middleware('student');
+
+
+
 
 // Route::post('ajaxImageUpload', ['as'=>'ajaxImageUpload','uses'=>'Student\StudentCvController@store']);
 
@@ -118,7 +144,6 @@ Route::middleware(['admin', 'web'])->group(function () {
 			
 		]]);
 	Route::get('admin/approve/recruitments', 'Admin\AdminRecruitmentController@approve')->name('admin.recruitments.approve');
-
 	Route::get('/admin/recruitments/approve/{recruitmentID}', 'Admin\AdminRecruitmentController@approveRecruitment')->name('approverecruitment');
 	Route::get('/admin/recruitments/active/{recruitment_id}', 'Admin\AdminRecruitmentController@setActiveRecruitment')->name('activerecruitment');
 	Route::get('admin/recruitment/feedback/{recruitmentID}/{message}', 'Admin\AdminRecruitmentController@feedback')->name('admin.recruitments.feedback');
@@ -130,23 +155,40 @@ Route::middleware(['admin', 'web'])->group(function () {
 
 
 	//Company - ADMIN
-
 	Route::get('/admin/getcompanies', 'CompanyController@getCompanies')->name('getcompanies');
 	Route::get('/admin/company', 'CompanyController@index')->name('company');
 	Route::get('/admin/company/approve/{companyID}', 'CompanyController@approveCompany')->name('approvecompany');
 	Route::get('/admin/company/active/{companyID}', 'CompanyController@setActiveCompany')->name('activecompany');
+
 	Route::get('/admin/company/setishot/{companyID}', 'CompanyController@setIsHotCompany')->name('ishotcompany');
 
-	Route::get('/admin/company/company-registration', 'CompanyController@companyRegistration')->name('company.registration');
 
+	Route::get('/admin/company/company-registration', 'CompanyController@companyRegistration')->name('company.registration');
 	Route::get('/admin/company/sendemailconfirm/{accID}/{repreID}/{compID}', 'CompanyController@sendConfirmEmail')->name('company.sendConfirmEmail');
+
 
 	//Dashboard 
 	Route::get('/admin/dashboard', 'Admin\DashboardController@index')->name('admin.dasboard');
 
+	Route::get('/admin/statistics/statisticsNumberOfRecruitmentByYear/{year}', 'Admin\DashboardController@statisticsNumberOfRecruitmentByYear')->name('admin.statistics.statisticsNumberOfRecruitmentByYear');
+
+	//Blog - ADMIN
+	Route::resource('/admin/blogs', 'Admin\AdminBlogController');
+	Route::get('/admin/getdata/blogs', 'Admin\AdminBlogController@getdata')->name('blogs.getdata');
+
+
+
+	//Faculty - ADMIN
+	// Route::get('/admin/faculties', 'Admin\AdminFacultyController@index')->name('admin.faculties');
+	// Route::resource('/admin/faculties/create', 'Admin\AdminFacultyController@create')->name('admin.faculties.create');
+	Route::resource('/admin/faculties', 'Admin\AdminFacultyController');
+	Route::post('/admin/ajax/update/faculties', 'Admin\AdminFacultyController@update')->name('faculties.update');
+	Route::get('/admin/getdata/faculties', 'Admin\AdminFacultyController@getdata')->name('faculties.getdata');
+
+	Route::delete('/admin/removedata/faculties', 'Admin\AdminFacultyController@destroy')->name('faculties.removedata');
+
 
 });
-
 
 
 //login representatitive - WEB 
