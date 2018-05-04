@@ -61,9 +61,15 @@ class StudentController extends Controller
 			return redirect()->back()->withInput();
 		}
 
-		if ($acc = Account::where('username', '=', $request["email"])->first()) {
-			$request->session()->flash('email-exist', '<strong>Email đã được sử dụng</strong>');
 
+		if ($acc = Account::where('username', '=', $request["email"])->first()) {
+
+			if ($acc->remember_token != null) {
+				$request->session()->flash('email-exist', '<strong>Tài khoản chưa được xác thực bằng mail, nếu chưa có mail xin liên hệ đến phòng kỹ thuật</strong>');
+			}else{
+				$request->session()->flash('email-exist', '<strong>Email đã được sử dụng</strong>');
+			}
+			
 			return redirect()->back()->withInput();
 		}
 

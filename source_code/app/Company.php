@@ -9,7 +9,7 @@ class Company extends Model
 {
     //
     protected $path = '/images/companies/logos/';
-    protected $fillable = ['name', 'website', 'email', 'phone', 'working_day', 'status_id', 'logo','field','code_business','slug'];
+    protected $fillable = ['name', 'website', 'email', 'phone', 'working_day', 'status_id', 'logo','field','code_business','slug','is_hot'];
     
     // protected $with = ['address.district.city'];
 

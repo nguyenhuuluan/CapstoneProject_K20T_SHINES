@@ -64,4 +64,5 @@ class Recruitment extends Model
     public function tags(){
         return $this->belongsToMany('App\Tag', 'tag_recruitment', 'recruitment_id', 'tag_id')->withTimestamps();
     }
+    
 }

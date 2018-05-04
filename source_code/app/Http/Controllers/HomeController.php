@@ -50,7 +50,7 @@ class HomeController extends Controller
 
 
         // $companies =Company::where('status_id', 3)->orderBy('created_at','desc')->take(8)->get();
-        $companies =Company::with('address.district.city')->where('status_id', 3)->orderBy('created_at','desc')->take(8)->get();
+        $companies = Company::with('address.district.city')->where('is_hot', true)->get();
         // $companies =Company::with (['address.district.city' => function ($query) {
         //      $query->where('companies.status_id', 3)->orderBy('created_at','desc')->take(8);
         //     }])->get();

@@ -40,10 +40,12 @@
                                         <tr>
                                             <th>ID</th>                                          
                                             <th>Tên</th>                                          
-                                            <th>Điện thoại</th>
+
                                             <th>Website</th>
-                                            <th>Email</th>                                        
+                                            <th>Email</th> 
+                                                                                  
                                             <th>Ngày tạo</th>
+                                            <th>Hiện thị trang chủ</th>
                                             <th>Trạng thái</th>
                                             <th>Thao tác</th>
                                         </tr>
@@ -53,10 +55,21 @@
                                         <tr>
                                             <td>{{$comp->id}}</td>
                                             <td>{{$comp->name}}</td>
-                                            <td>{{$comp->phone}}</td>
+
                                             <td><a href="{{$comp->website}}">{{$comp->website}}</a></td>
                                             <td>{{$comp->email}}</td>
+
                                             <td>{{$comp->created_at}}</td>
+                                             <td> @if ($comp->is_hot == false)
+                                                <input type="checkbox" class="switch is-hot-switch" id="myswitch" data-backdrop="static" data-keyboard="false" 
+                                                value="{{$comp->id}}" />                                              
+                                                @else
+
+                                                <input type="checkbox" class="switch is-hot-switch" id="myswitch" data-backdrop="static" data-keyboard="false" 
+                                                checked value="{{$comp->id}}" />
+
+                                                @endif
+                                            </td>
 
                                             <td>  
                                                 @if ($comp->status_id == 3)
@@ -74,13 +87,11 @@
                                             </td>
                                             <td>
                                                 
-                                                <a class="btn btnreview btn-success" href="{{ route('company.details', ['id'=> $comp->id]) }}">Xem</a>
+                                                <a class="btn btnreview btn-success" target="_blank" href="{{ route('company.details', $comp->slug ) }}">Xem</a>
                                             </td>
 
                                         </tr>
                                         @endforeach
-
-
 
                                     </tbody>
 
@@ -161,6 +172,8 @@
         }
     });
    });
+
+
     $('.status-switch').on('switchChange.bootstrapSwitch', function (e, data) {
 
         var element = $(this);
@@ -175,6 +188,30 @@
                     action: function(){
                         activeCompany(element.val());
                         element.bootstrapSwitch('toggleState', true, true);
+                    }
+                },
+                Không: {
+                    keys: ['esc'],
+                    btnClass: 'btn-red'
+                }
+            }
+        });
+    });
+
+     $('.is-hot-switch').on('switchChange.bootstrapSwitch', function (e, data) {
+
+        var element = $(this);
+        element.bootstrapSwitch('state', !data, true);
+        $.confirm({
+            title: 'Thông báo!!',
+            content: 'Bạn có muốn thiết lập hiển thị ở trang chủ cho công ty này?',
+            buttons: {
+                Có: {
+                    keys: ['enter'],
+                    btnClass: 'btn-green',
+                    action: function(){
+                        setIsHotCompany(element.val(), element);
+                        
                     }
                 },
                 Không: {
@@ -201,6 +238,35 @@
             dataType: 'json',
             success: function(){
              $('.modal-ajax-loading').fadeOut("200");
+         },
+         error: function(){
+             $('.modal-ajax-loading').fadeOut("200");
+             alertError();
+         }            
+     });
+    }
+
+    function setIsHotCompany(id, element){
+        $('.modal-ajax-loading').fadeIn("200");
+        $.ajax({
+            url: 'company/setishot/' + id,
+            type: 'GET',
+            dataType: 'json',
+            success: function(response){
+             $('.modal-ajax-loading').fadeOut("200");
+             if(response == false){
+                $.alert({
+                    title: 'Thông báo!',
+                    content: 'Đã vượt quá số lượng hiển thị ở trang chủ là 8',
+                });
+             }else{
+                 $.alert({
+                    title: 'Thông báo!',
+                    content: 'Đã thiết lập thành công',
+                });
+
+                element.bootstrapSwitch('toggleState', true, true);
+             }
          },
          error: function(){
              $('.modal-ajax-loading').fadeOut("200");

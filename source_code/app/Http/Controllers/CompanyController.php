@@ -444,6 +444,25 @@ public function setActiveCompany($company_id){
  return $comp;
 }
 
+public function setIsHotCompany($company_id){
+  $isHotCompCount = Company::Where('is_hot', true)->count();
+  if ($isHotCompCount >= 8) {
+   return response()->json(false);
+  }
+
+  $comp = Company::Where('id', $company_id)->first();
+
+if ($comp->is_hot == true) {
+  $comp->is_hot = false;
+}else{
+  $comp->is_hot = true;
+}
+
+ $comp->save();     
+
+ return $comp;
+}
+
 public function createAccountRepresentative($compRegis)
 {
 
