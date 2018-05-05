@@ -226,10 +226,9 @@
 @section('scripts')
 <!-- ChartJS -->
 <script src="{{ asset('assets/vendors/chartjs/Chart.min.js') }}"></script>
-{{-- <script src="{{ asset('assets/vendors/data/dataChartjs.js') }}"></script> --}}
 <script src="{{ asset('assets/vendors/chartjs/Chart.bundle.js') }}"></script>
 <script src="{{ asset('assets/vendors/chartjs/utils.js') }}"></script>
-<script src="https://codepen.io/anon/pen/aWapBE.js"></script>
+<script src="{{ asset('assets/vendors/chartjs/aWapBE.js') }}"></script>
 <script>
 	var statisiticsRecruitmentCategoryConfig = {
 		type: 'pie',
@@ -272,7 +271,7 @@
 	var myHorizontalBarConfig = {
 		type: 'horizontalBar',
 		data: {
-			labels: ['CNTT', 'Sinh học', 'QHCC', 'Ngôn ngữ anh','Nhiệt Lạnh'],
+			labels: ['CNTT', 'Sinh học', 'QHCC', 'Ngôn ngữ anh','Nhiệt Lạnh', 'QHCC', 'Ngôn ngữ anh','Nhiệt Lạnh'],
 			datasets: [{
 				label:'',
 				backgroundColor: palette('tol',10).map(function(hex) {
