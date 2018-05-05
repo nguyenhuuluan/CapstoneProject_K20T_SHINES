@@ -148,12 +148,27 @@ class AdminRecruitmentController extends Controller
      */
     public function edit($id)
     {
-        $recruitment = Recruitment::find($id);
+        $recruitment = Recruitment::with('sections', 'tags', 'status', 'categories')->where('id',$id)->first();
+
         $cities = City::with('districts')->get();
-        $districts= District::where('city_id',$cities[0]->id)->get()->sortBy('name');
         $categories  = Category::pluck('name', 'id')->all();
+        // $categories  = Category::all();
+
         $sections = Section::all();
-        return view('admin.recruitments.edit', compact('recruitment', 'cities', 'districts', 'categories', 'sections'));
+        $tags =  implode(',', $recruitment->tags->pluck('name')->all());
+
+        // return $recruitment->categories->pluck('id')->all();
+        // return array_map('trim', explode('-', $recruitment->location));
+        // return $cities[0]->districts;
+        // $categories = $recruitment->categories->pluck('id')->all();
+        // return $categories
+        $recruitment->location = array_map('trim', explode('-', $recruitment->location));
+        // $recruitment['categories'] = array_map('trim', $categories);
+        // return $recruitment;
+        // return  $recruitment->tags->pluck('name')->all();
+        // return $categosries;
+
+        return view('admin.recruitments.edit', compact('recruitment', 'cities', 'districts', 'categories', 'sections', 'tags'));
     }
 
     /**
@@ -166,8 +181,15 @@ class AdminRecruitmentController extends Controller
     public function update(Request $request, $id)
     {
         //
-        Recruitment::findOrFail($id)->update($request->all());
-        return redirect()->back();
+         $this->validate($request,[
+            'title'=>'required',
+            'salary'=>'required',
+            'expire_date'=>'required',
+            'category_id'=>'required|array|exists:categories,id',
+            //'hidden-tags'=>'required|array|exists:tags,name',
+            //'tags.*'=>'required|exists:tags,name',
+            //'hidden-tags'=>'required',
+        ]);
     }
 
     /**
