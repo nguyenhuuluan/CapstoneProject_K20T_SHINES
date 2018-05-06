@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Recruitment;
 use App\Tag;
 use App\Company;
+use App\Student;
+use App\CV;
 use Response;
 use DB;
 class HomeController extends Controller
@@ -48,17 +50,20 @@ class HomeController extends Controller
 
 
         // $companies =Company::where('status_id', 3)->orderBy('created_at','desc')->take(8)->get();
-        $companies =Company::with('address.district.city')->where('status_id', 3)->orderBy('created_at','desc')->take(8)->get();
+        $companies = Company::with('address.district.city')->where('is_hot', true)->get();
         // $companies =Company::with (['address.district.city' => function ($query) {
         //      $query->where('companies.status_id', 3)->orderBy('created_at','desc')->take(8);
         //     }])->get();
 
 
         $totalRecruitments = Recruitment::where('status_id', 1)->count();
+        $totalStudents = Student::count();
+        $totalCVs = CV::count();
+        $totalCompanies = Company::count();
 
         // $companies = Company::where('status_id', 3)->orderBy('created_at','desc')->take(8)->get();
 
-        return view('welcome', compact('recruitments', 'companies', 'totalRecruitments'));
+        return view('welcome', compact('recruitments', 'companies', 'totalRecruitments','totalStudents','totalCVs','totalCompanies'));
     }
 
     

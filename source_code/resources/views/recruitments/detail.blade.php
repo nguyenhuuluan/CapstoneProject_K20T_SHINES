@@ -264,20 +264,5 @@
 
 	}));
 
-	increaseView();
-
-	function increaseView() {		
-		var urlIncreaseView = "{{ route('recruitment.increaseview', ['recruitmentID'=>$recruitment->id]) }}";
-		$.ajax({
-			url: urlIncreaseView,
-			type: 'GET',
-			success: function (response) {
-			},
-			error: function () {
-				alert('error');
-			}
-		});
-
-	}
 </script>
 @endsection

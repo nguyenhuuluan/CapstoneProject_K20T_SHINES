@@ -184,6 +184,9 @@ return [
         Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 
+        // google analytics
+        Spatie\Analytics\AnalyticsServiceProvider::class,
+
     ],
 
     /*
@@ -238,6 +241,10 @@ return [
         //datatable
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
         'Image' => Intervention\Image\Facades\Image::class,
+
+        // google analytics
+         'Analytics' => Spatie\Analytics\AnalyticsFacade::class,
+
     ],
 
 ];

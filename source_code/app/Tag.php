@@ -26,4 +26,19 @@ class Tag extends Model
     public function faculties(){
     	return $this->belongsToMany('App\Faculty', 'tag_faculty' ,'tag_id', 'faculty_id');
     }
+
+    public function recruitmentCount() {
+     return $this->belongsToMany('App\Recruitment', 'tag_recruitment' ,'tag_id', 'recruitment_id')->selectRaw('count(recruitment.id) as aggregate');
+ }
+
+ public function getConnectorsCountAttribute()
+ {
+    if ( ! array_key_exists('recruitmentCount', $this->relations)) $this->load('recruitmentCount');
+
+    $related = $this->getRelation('recruitmentCount')->first();
+
+    return ($related) ? $related->aggregate : 0;
+}
+
+
 }
