@@ -28,30 +28,17 @@ class Tag extends Model
     }
 
     public function recruitmentCount() {
-        $hasOne = new HasOne(
-            (new Recruitment())->newQuery(),
-            $this->newPivot(
-                new Tag(),
-                [],
-                'tag_recruitment', // the pivot table between recruitments and tags
-                false
-            ),
-                'recruitment_id', // the foreign key in the pivot table
-                'id' // the primary key in tag table
-            );
-        $hasOne->getQuery()->from('tag_recruitment'); // It currently changes the query of $hasOne
-        return $hasOne->selectRaw("tag_id,count(*) as aggregate")->groupBy("tag_id");
-    }
+     return $this->belongsToMany('App\Recruitment', 'tag_recruitment' ,'tag_id', 'recruitment_id')->selectRaw('count(recruitment.id) as aggregate');
+ }
 
-    public function getRecruitmentCountAttribute() {
-    // if relation is not loaded already, let's do it first
-        if (!array_key_exists('recruitmentCount', $this->relations)) {
-            $this->load('recruitmentCount');
-        }
+ public function getConnectorsCountAttribute()
+ {
+    if ( ! array_key_exists('recruitmentCount', $this->relations)) $this->load('recruitmentCount');
 
-        $related = $this->getRelation('recruitmentCount');
+    $related = $this->getRelation('recruitmentCount')->first();
 
-    // then return the count directly
-        return ($related) ? (int)$related->aggregate : 0;
-    }
+    return ($related) ? $related->aggregate : 0;
+}
+
+
 }
