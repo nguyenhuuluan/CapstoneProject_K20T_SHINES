@@ -190,7 +190,7 @@
 <script src="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.js') }}"></script>
 <script src="{{ asset('assets/vendors/summernote/summernote.js') }}"></script>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+{{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> --}}
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -257,7 +257,7 @@
     // [groupName, [list of button]]
     ['style', ['bold', 'italic']],
     ['para', ['ul', 'ol']],
-    ['insert', ['picture', 'hr']],
+    ['insert', ['hr']],
     ['height', ['height']]
     ],
     dialogsInBody: true,

@@ -59,7 +59,6 @@ class RepresentativeRecruitmentController extends Controller
      */
     public function store(Request $request)
     {    
-
         // return count(Tag::Where('name','php')->get());
         //return $request;
         //$tags = explode(',', request('hidden-tags'));
