@@ -29,7 +29,7 @@ class AdminController extends Controller
      */
     public function index()
     {   
-        $companies = Company::with('tags','recruitments')->get()->pluck('tags', 'name');
+        /*$companies = Company::with('tags','recruitments')->get()->pluck('tags', 'name');
         $faculties = Faculty::with('tags')->get()->pluck('tags', 'name');
         //tao mang chua tag cua faculty, company
         $tagFal = array();
@@ -61,7 +61,7 @@ class AdminController extends Controller
            //Push giá trị mảng tạm tmp2 vào danh sach tag của Faculty
             $tagFal[] = $tmp2;
         }
-        return $tagFal;
+        return $tagFal;*/
         
         return view('admin.index');
     }
