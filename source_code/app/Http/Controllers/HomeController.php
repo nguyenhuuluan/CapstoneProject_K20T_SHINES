@@ -7,7 +7,7 @@ use App\Recruitment;
 use App\Tag;
 use App\Company;
 use App\Student;
-use App\CV;
+use App\Cv;
 use Response;
 use DB;
 class HomeController extends Controller

@@ -29,8 +29,8 @@ class AdminFacultyController extends Controller
 
     function getdata()
     {
-       $faculties = Faculty::with('tags');
-       return DataTables()::of($faculties)->addColumn('action', function($faculty){
+     $faculties = Faculty::with('tags');
+     return DataTables()::of($faculties)->addColumn('action', function($faculty){
         return '<a href="#" class="btn btn-xs btn-primary edit" id="'.$faculty->id.'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a>
         <a href="#" class="btn btn-xs btn-danger delete" id="'.$faculty->id.'"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
         ';
@@ -44,11 +44,11 @@ class AdminFacultyController extends Controller
         //     }
         //     return $tmp;
         // })->rawColumns(['tag', 'action']) 
-       ->make(true);
-   }
+     ->make(true);
+ }
 
-   public function removedata(Request $request)
-   {
+ public function removedata(Request $request)
+ {
     return '123';
 }
 
@@ -83,15 +83,19 @@ class AdminFacultyController extends Controller
         $faculty = Faculty::create($data);
 
         /*Save tagss*/
-        foreach ($tags as $key => $value) {
-            if(count(Tag::Where('name',$value)->get()) !=0)
-                {
-                    $faculty->tags()->save(Tag::where('name',$value)->first());
-                }
-                else
-                {
-                    $tg = Tag::create(['name'=>$value]);
-                    $faculty->tags()->save($tg);
+        if($request->tags)
+        {
+            foreach ($tags as $key => $value) 
+            {
+                if(count(Tag::Where('name',$value)->get()) !=0)
+                    {
+                        $faculty->tags()->save(Tag::where('name',$value)->first());
+                    }
+                    else
+                    {
+                        $tg = Tag::create(['name'=>$value]);
+                        $faculty->tags()->save($tg);
+                    }
                 }
             }
             return redirect(route('faculties.index'))->with('message','Tạo mới Ngành nghề thành công!');
@@ -204,7 +208,7 @@ class AdminFacultyController extends Controller
             }
             else
             {
-             return response()->json('error');
-         }
-     }
- }
+               return response()->json('error');
+           }
+       }
+   }
