@@ -1,7 +1,14 @@
-
-
 @extends('layouts.admin')
 
+@section('styles')
+<link rel="stylesheet" href="{{asset('assets/vendors/modal-confirm/jquery-confirm.min.css')}}">
+<!-- DataTables Responsive CSS -->
+<link href="{{asset('assets/vendors/datatables-responsive/dataTables.responsive.css')}}" rel="stylesheet">
+<!-- Toggle CSS Button -->
+<link href="{{asset('assets/dist/css/bootstrap-toggle.min.css')}}" rel="stylesheet">
+{{-- bootstrap switch --}}
+<link href="{{asset('assets/vendors/bootstrap-switch/bootstrap-switch.css')}}" rel="stylesheet">
+@endsection
 @section('body')
 
 
@@ -86,8 +93,20 @@
 
 
     @endsection
-
+    
     @section('scripts')
+    <!-- DataTables JavaScript -->
+    <script src="{{asset('assets/vendors/datatables/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('assets/vendors/datatables-plugins/dataTables.bootstrap.min.js')}}"></script>
+    <script src="{{asset('assets/vendors/datatables-responsive/dataTables.responsive.js')}}"></script>
+    {{-- boostrap switch --}}
+    <script src="{{asset('assets/vendors/bootstrap-switch/bootstrap-switch.js')}}"></script>
+    <!-- Toggle JavaScript Button -->
+    <script src="{{asset('assets/js/bootstrap-toggle.min.js')}}"></script>
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    {{-- using jquery modal confirm JS --}}
+    <script src="{{asset('assets/vendors/modal-confirm/jquery-confirm.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/alert.js') }}"></script>
     <script type="text/javascript">
 
         $('.table-responsive').on('click', '.btn-approve', function(){
@@ -102,10 +121,10 @@
                         keys: ['enter'],
                         btnClass: 'btn-green',
                         action: function(){
-                           approveCompany(currentelement);
-                       }
-                   },
-                   Không: {
+                         approveCompany(currentelement);
+                     }
+                 },
+                 Không: {
                     keys: ['esc'],
                     btnClass: 'btn-red'              
                 }

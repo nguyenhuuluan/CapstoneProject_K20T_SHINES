@@ -2,8 +2,8 @@
 
 @section('stylesheet')
 <link rel="stylesheet" href="{{asset('assets/vendors/modal-confirm/jquery-confirm.min.css')}}">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="http://malsup.github.com/jquery.form.js"></script>
+{{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script> --}}
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <style type="text/css">
 /* Tooltip container */
@@ -209,7 +209,7 @@
 																<span class="input-group-addon">Từ</span>
 																{!! Form::date('datestart[]', null, ['class'=>'form-control']) !!}
 																<span class="input-group-addon">Đến</span>
-																{!! Form::date('dateend[]', null, ['class'=>'form-control']) !!}
+															{!! Form::date('dateend[]', null, ['class'=>'form-control']) !!}
 															</div>
 														</div>
 													</div>
@@ -285,7 +285,7 @@
 									</div>
 									@endforeach
 									@else
-									<div class="col-xs-12" style="width: 97.5%">''
+									<div class="col-xs-12" style="width: 97.5%">
 										<div class="item-block">
 											<div class="item-form">
 												<button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>

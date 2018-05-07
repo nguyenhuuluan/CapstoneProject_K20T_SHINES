@@ -97,16 +97,7 @@ class StudentCvController extends Controller
         return response()->file(public_path().'\\cvs\\'.$cv->file, [
           'Content-Disposition' => 'inline; filename="'. $cv->name .'"'
       ]);
-
-         // return response()->make(
-         //        public_path().'\\cvs\\'.$cv->file,
-         //        $cv->name,
-         //        [],
-         //        'inline'
-         //    );
-
-        // $pathToFile = public_path().'\\cvs\\'.$cv->file;
-        // return response()->file($pathToFile,$cv->name);
+        
 
     }
     public function preview($name)
