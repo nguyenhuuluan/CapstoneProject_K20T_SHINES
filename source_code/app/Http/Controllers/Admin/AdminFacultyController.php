@@ -18,7 +18,7 @@ class AdminFacultyController extends Controller
      */
     public function index()
     {
-        $faculties = Faculty::with('tags')->get();
+        // $faculties = Faculty::with('tags')->get();
         // $faculties = Faculty::all();
         // foreach ($faculties as $faculty) {
         //     return $faculty;

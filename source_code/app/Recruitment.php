@@ -30,12 +30,23 @@ class Recruitment extends Model
         ];
     }
 
-     public function getSearchingAttribute() {
+    public function getSearchingAttribute() {
         $tmp = array();
         foreach ($this->tags as $tag) {
             $tmp[] = $tag->name;
         }
+        foreach ($this->categories as $category) {
+            $tmp[] = $category->name;
+            if($category->id == 2)
+            {
+                $tmp[]=  str_replace('-', '', $category->name);
+            }
+        }
         return implode(" ",$tmp);
+    }
+    public function getCreatedAtAtrribute(){
+        \Carbon\Carbon::setLocale('vi');
+        return $this->created_at->diffForHumans();
     }
 
     public function path(){

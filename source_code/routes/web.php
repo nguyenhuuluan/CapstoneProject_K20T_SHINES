@@ -24,7 +24,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login')->middleware('guest');
 Route::get('/recruitments', 'HomeController@listRecruitments')->name('lst.recruitment');
-Route::get('/recruitments/total', 'RecruitmentController@totalRecruitments')->name('recruitment.total');
 
 
 //Password reset routes
@@ -134,7 +133,6 @@ Route::middleware(['admin', 'web'])->group(function () {
 	Route::GET('admin/home', 'Admin\AdminController@index');  
 
 	//Recruitment-- ADMIN
-
 	Route::resource('admin/recruitments', 'Admin\AdminRecruitmentController', [
 		'names' => [
 			'index' => 'admin.recruitments.index',
@@ -155,9 +153,11 @@ Route::middleware(['admin', 'web'])->group(function () {
 
 
 
-
-	//Route::get('/admin/recruitment/{id}/preview', 'RecruitmentController@preview')->name('preview');
-
+	//Staff - ADMIN
+	//them middleware->lỗi chuyển sang page 403
+	// Route::resource('admin/staffs', 'Admin\AdminStaffController')->middleware('can:accounts.staff');
+	Route::resource('admin/staffs', 'Admin\AdminStaffController');
+	Route::get('/admin/getdata/staffs', 'Admin\AdminStaffController@getdata')->name('staffs.getdata');
 
 	//Company - ADMIN
 	Route::get('/admin/getcompanies', 'CompanyController@getCompanies')->name('getcompanies');

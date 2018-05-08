@@ -78,7 +78,6 @@
                                     <button class="btn btn-warning" data-dismiss="modal">Hủy</button>
                                 </div>
                                 <div id="#test"></div>
-
                             </form>
                         </div>
 

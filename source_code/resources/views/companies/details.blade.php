@@ -32,7 +32,6 @@
           <a href="#">{!!$company->website!!}</a>
         </li>
 
-
         <li>
           <i class="fa fa-phone"></i>
 
@@ -54,43 +53,38 @@
 
 
          {{--  @if ($company->socialNetworks[0]->name === 'Facebook')
-          <li><a class="facebook" href="{!!$company->socialNetworks[0]->url!!}"  target="_blank"><i class="fa fa-facebook"></i></a></li> --}}
-          
-          @if (!empty($company->socialNetworks->toArray()))
-          @if ($company->socialNetworks[0]->name === 'Facebook')
-          <li><a class="facebook" href="{!!$company->socialNetworks[0]->url!!}"  target="_blank"><i class="fa fa-facebook"></i></a></li>
+         <li><a class="facebook" href="{!!$company->socialNetworks[0]->url!!}"  target="_blank"><i class="fa fa-facebook"></i></a></li> --}}
 
-          @endif  
+         @if (!empty($company->socialNetworks->toArray()))
+         @if ($company->socialNetworks[0]->name === 'Facebook')
+         <li><a class="facebook" href="{!!$company->socialNetworks[0]->url!!}"  target="_blank"><i class="fa fa-facebook"></i></a></li>
 
-          @if ($company->socialNetworks[1]->name === 'Facebook')
-          <li><a class="facebook" href="{!!$company->socialNetworks[0]->url!!}"  target="_blank"><i class="fa fa-facebook"></i></a></li>
-          @endif  
+         @endif  
 
-          @if($company->socialNetworks[0]->name === 'LinkedIn')
-          <li><a class="linkedin" href="{!!$company->socialNetworks[0]->url!!}" target="_blank"><i class="fa fa-linkedin"></i></a></li>
-          @endif
+         @if ($company->socialNetworks[1]->name === 'Facebook')
+         <li><a class="facebook" href="{!!$company->socialNetworks[0]->url!!}"  target="_blank"><i class="fa fa-facebook"></i></a></li>
+         @endif  
 
-          @if($company->socialNetworks[1]->name === 'LinkedIn')
-          <li><a class="linkedin" href="{!!$company->socialNetworks[0]->url!!}"  target="_blank"><i class="fa fa-linkedin"></i></a></li>
-          @endif      
-          @else
-            Chưa Liên kết
-          @endif
+         @if($company->socialNetworks[0]->name === 'LinkedIn')
+         <li><a class="linkedin" href="{!!$company->socialNetworks[0]->url!!}" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+         @endif
 
+         @if($company->socialNetworks[1]->name === 'LinkedIn')
+         <li><a class="linkedin" href="{!!$company->socialNetworks[0]->url!!}"  target="_blank"><i class="fa fa-linkedin"></i></a></li>
+         @endif      
+         @else
+         Chưa Liên kết
+         @endif
+       </ul>
 
-
-
-
-        </ul>
-
-        <div class="action-buttons">
-          <a class="btn btn-success" href="#">Liên hệ</a>
-        </div>
+       <div class="action-buttons">
+        <a class="btn btn-success" href="#">Liên hệ</a>
       </div>
-
     </div>
 
   </div>
+
+</div>
 </header>
 <br>
 <br>
@@ -116,9 +110,7 @@
     <header class="section-header">
       <h2>Giới thiệu</h2>
     </header>
-
     <p>{{$company->introduce}}</p>
-
   </div>
   <center>
 
@@ -126,159 +118,154 @@
      {{--  @foreach ($company->photos as $photo)
       <div><img src="{{ asset('images/companies/'.$photo->name) }}"></div> --}}
 
-    @if ($company->photos->toArray() != null)
-    <div class="bxslider">
-      @foreach ($company->photos as $photo)
-      <div><img src="{{ asset('images/companies/'.$photo->name) }}"></div>
+      @if ($company->photos->toArray() != null)
+      <div class="bxslider">
+        @foreach ($company->photos as $photo)
+        <div><img src="{{ asset('images/companies/'.$photo->name) }}"></div>
 
-      @endforeach
-    </div>
-    @else
-    <div class="col-xs-12">
-      <center>Chưa cập nhật hình ảnh</center>
-    </div>
-    @endif
-    
-  </center>
-</section>
-<!-- END Company detail -->
-
-
-<!-- Open positions -->
-<section id="open-positions" class="bg-alt">
-  <div class="container">
-
-    <header class="section-header">
-      <h2>Vị trí đang tuyển</h2>
-    </header>
-
-    <div class="row">
-
-      @if (count($company->recruitments) == 0)
+        @endforeach
+      </div>
+      @else
       <div class="col-xs-12">
-        <center>Chưa có tin tuyển dụng nào</center>
+        <center>Chưa cập nhật hình ảnh</center>
       </div>
       @endif
 
+    </center>
+  </section>
+  <!-- END Company detail -->
 
-      @foreach ($company->recruitments as $recruitment)
-      <!-- Job item -->
 
-      <a class="item-block" href="{!! route('detailrecruitment', $recruitment->slug ) !!}">
-        <header>
-          <img src="{!! asset($recruitment->company->logo) !!}" alt="">
-          <div class="hgroup">
-            <h4>{!! $recruitment->title !!}</h4>
-            <h5>{!!$company->name!!} 
-              @foreach ($recruitment->categories as $category)
-              @if($category->name =='FULL-TIME')
-              <span class="label label-success">{!! $category->name !!}</span>
-              @else
-              <span class="label label-danger">{!! $category->name !!}</span>
-              @endif
-              @endforeach
-            </h5>
-          </div>
-          <time datetime="">{!! $recruitment->created_at->diffForhumans() !!}</time>
-        </header>
+  <!-- Open positions -->
+  <section id="open-positions" class="bg-alt">
+    <div class="container">
 
-        <div class="item-body truncate">
+      <header class="section-header">
+        <h2>Vị trí đang tuyển</h2>
+      </header>
 
-          @foreach ($recruitment->sections as $section)
-          @if($section->title =='Job Description')
-          <p class="lead">{!! $section->pivot->content!!}</p>
-          @else
-          <span>{!! $section->pivot->content !!}</span>
-          @break
+      <div class="row">
 
-          @endif
-          @endforeach
-
+        @if (count($company->recruitments) == 0)
+        <div class="col-xs-12">
+          <center>Chưa có tin tuyển dụng nào</center>
         </div>
-
-        <footer>
-          <ul class="details cols-3">
-            <li>
-              <i class="fa fa-map-marker"></i>
-              <span class="location">{!! $company->address->district->city->name !!}</span>
-            </li>
-
-            <li>
-              <i class="fa fa-money"></i>
-              <span class="salary">{{ $recruitment->salary}}</span>
-            </li>
-
-            <li>
-              <i class="fa fa-tag"></i>
-              <span>{{implode(", ",$recruitment->tags->pluck('name')->toArray())}} </span>
+        @endif
 
 
-            </li>
-          </ul>
-        </footer>
-      </a>
+        @foreach ($company->recruitments as $recruitment)
+        <!-- Job item -->
+
+        <a class="item-block" href="{!! route('detailrecruitment', $recruitment->slug ) !!}">
+          <header>
+            <img src="{!! asset($recruitment->company->logo) !!}" alt="">
+            <div class="hgroup">
+              <h4>{!! $recruitment->title !!}</h4>
+              <h5>{!!$company->name!!} 
+                @foreach ($recruitment->categories as $category)
+                @if($category->name =='FULL-TIME')
+                <span class="label label-success">{!! $category->name !!}</span>
+                @else
+                <span class="label label-danger">{!! $category->name !!}</span>
+                @endif
+                @endforeach
+              </h5>
+            </div>
+            <time datetime="">{!! $recruitment->getCreatedAtAtrribute() !!}</time>
+          </header>
+
+          <div class="item-body truncate">
+
+            @foreach ($recruitment->sections as $section)
+            @if($section->title =='Job Description')
+            <p class="lead">{!! $section->pivot->content!!}</p>
+            @else
+            <span>{!! $section->pivot->content !!}</span>
+            @break
+
+            @endif
+            @endforeach
+
+          </div>
+
+          <footer>
+            <ul class="details cols-3">
+              <li>
+                <i class="fa fa-map-marker"></i>
+                <span class="location">{!! $company->address->district->city->name !!}</span>
+              </li>
+
+              <li>
+                <i class="fa fa-money"></i>
+                <span class="salary">{{ $recruitment->salary}}</span>
+              </li>
+
+              <li>
+                <i class="fa fa-tag"></i>
+                <span>{{implode(", ",$recruitment->tags->pluck('name')->toArray())}} </span>
+              </li>
+            </ul>
+          </footer>
+        </a>
+        @endforeach
+      </div>
+
+
+      <!-- END Job item -->
+
+
 
     </div>
+  </section>
+  <!-- END Open positions -->
+  <header class="section-header-map">
+    <center><h2>Vị trí</h2></center>
 
-    @endforeach
+    <center"><strong><span>
+      {{$company->address->address}}, {{$company->address->district->name}}, {{ $company->address->district->city->name}}
+    </span></strong></center>
+    <br>
+  </header>
 
-    <!-- END Job item -->
-
-
-
-  </div>
-
-
-</section>
-<!-- END Open positions -->
-<header class="section-header-map">
-  <center><h2>Vị trí</h2></center>
-
-  <center"><strong><span>{{$company->address->address}}, {{$company->address->district->name}}, {{ $company->address->district->city->name}}</span></strong></center>
+  <center><div id="contact-map" style="height: 400px; width: 90%;"></div></center> 
   <br>
-</header>
+  @endsection
 
-<center><div id="contact-map" style="height: 400px; width: 90%;"></div></center> 
-<br>
-@endsection
-
-@section('scripts')
-<script type="text/javascript" src="{{ asset('assets/js/jquery.bxslider.js') }}"></script>
+  @section('scripts')
+  <script type="text/javascript" src="{{ asset('assets/js/jquery.bxslider.js') }}"></script>
 
 
-<script>
-  $('.temp-header').hide();
+  <script>
+    $('.temp-header').hide();
 
-  $('.bxslider').bxSlider({
-    mode: 'fade',
-    captions: true,
-    slideWidth: 380
-  });
-
-
-</script>
-
-
-<script>
-
-  var lat = {{$company->address->latitude}};
-  var lng= {{$company->address->longtitude}};
-
-
-  function initMap() {
-    var uluru = {lat: lat, lng: lng};
-    var map = new google.maps.Map(document.getElementById('contact-map'), {
-      zoom: 15,
-      center: uluru
+    $('.bxslider').bxSlider({
+      mode: 'fade',
+      captions: true,
+      slideWidth: 380
     });
-    var marker = new google.maps.Marker({
-      position: uluru,
-      map: map
-    });
-  }
-</script>
-
-<script src="https://maps.googleapis.com/maps/api/js?callback=initMap&key=AIzaSyBTKdxpxRWTD9UnpMVrGfdnNCmFZLde8Rw" async defer></script>
+  </script>
 
 
-@endsection
+  <script>
+
+    var lat = {{$company->address->latitude}};
+    var lng= {{$company->address->longtitude}};
+
+
+    function initMap() {
+      var uluru = {lat: lat, lng: lng};
+      var map = new google.maps.Map(document.getElementById('contact-map'), {
+        zoom: 15,
+        center: uluru
+      });
+      var marker = new google.maps.Marker({
+        position: uluru,
+        map: map
+      });
+    }
+  </script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?callback=initMap&key=AIzaSyBTKdxpxRWTD9UnpMVrGfdnNCmFZLde8Rw" async defer></script>
+
+
+  @endsection

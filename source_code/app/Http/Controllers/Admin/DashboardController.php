@@ -18,7 +18,6 @@ use Analytics;
 use Spatie\Analytics\Period;
 
 use Carbon\Carbon;
-require '../vendor/autoload.php';
 class DashboardController extends Controller
 {
 

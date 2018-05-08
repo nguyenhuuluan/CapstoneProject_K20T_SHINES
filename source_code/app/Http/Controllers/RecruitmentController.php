@@ -142,6 +142,7 @@ class RecruitmentController extends Controller
        $currentURL = $request->url();
 
        $recruitment = Recruitment::findBySlugOrFail($slug);
+       return $recruitment->getCreatedAtAtrribute();
 
 
      Event::fire('recruitment.view', $recruitment);

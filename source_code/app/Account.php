@@ -53,30 +53,58 @@ class Account extends Authenticatable
     {
       return $this->hasMany('App\Blog');
     }
+    public function status()
+    {
+      return $this->hasOne('App\Status');
+    }
+    public function permissions()
+    {
+      return $this->belongsToMany('App\Permission', 'permission_account', 'account_id', 'permission_id')->withTimestamps();
+    }
 
 
     public function isAdmin(){
-      if($this->roles->first()->name == 'Admin' && $this->status_id==5){
-
-        return true;
+      if($this->status_id==5)
+      {
+        foreach ($this->roles->pluck('name')->all() as $key => $value) 
+        {
+          if($value == 'Admin' || $value =='Staff')
+            {return true;}
+          else
+            {return false;}
+        }
       }
-      return false;
+      else
+        {return false;}
     }
     public function isRepresentative(){
-      if($this->roles->first()->name == 'Representative' && $this->status_id==5){
-
-        return true;
+      if($this->status_id==5)
+      {
+        foreach ($this->roles->pluck('name')->all() as $key => $value) 
+        {
+          if($value == 'Representative')
+            {return true;}
+          else
+            {return false;}
+        }
       }
-      return false;
+      else
+        {return false;}
     }
+
     public function isStudent(){
-      if($this->roles->first()->name == 'Student' && $this->status_id==5){
-
-        return true;
-      }else{
-        return false;
+      if($this->status_id==5)
+      {
+        foreach ($this->roles->pluck('name')->all() as $key => $value) 
+        {
+          if($value == 'Student')
+            {return true;}
+          else
+            {return false;}
+        }
       }
-
+      else
+        {return false;}
     }
 
 
