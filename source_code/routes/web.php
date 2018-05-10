@@ -156,8 +156,9 @@ Route::middleware(['admin', 'web'])->group(function () {
 	//Staff - ADMIN
 	//them middleware->lỗi chuyển sang page 403
 	// Route::resource('admin/staffs', 'Admin\AdminStaffController')->middleware('can:accounts.staff');
-	Route::resource('admin/staffs', 'Admin\AdminStaffController');
-	Route::get('/admin/getdata/staffs', 'Admin\AdminStaffController@getdata')->name('staffs.getdata');
+	Route::resource('admin/staffs', 'Admin\AdminStaffController', ['except' => ['update','show']]);
+	Route::patch('admin/staffs', 'Admin\AdminStaffController@update')->name('staffs.update');
+	Route::get('admin/staffs/{id}/{type}', 'Admin\AdminStaffController@show')->name('staffs.show');
 
 	//Company - ADMIN
 	Route::get('/admin/getcompanies', 'CompanyController@getCompanies')->name('getcompanies');

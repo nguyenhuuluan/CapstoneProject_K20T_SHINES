@@ -76,9 +76,16 @@ class LoginController extends Controller
         public function login(Request $request)
         {   
 
-            $this->validate($request,[
-             'email'=>'required|string|email|max:255',
+            $this->validate($request,
+                [
+             'email'=>'required|string|max:255',
              'password' => 'required|string|min:6',
+         ],[
+            'email.required'=>'Tên đăng nhập không được bỏ trống!',
+            'password.required'=>'Mật khẩu không được bỏ trống!',
+            'email.string'=>'Tên đăng nhập phải có ký tự!',
+            'password.string'=>'Mật khẩu phải có ký tự!',
+            'password.min'=>'Mật khẩu tối thiểu phải 6 ký tự!'
          ]);
 
             if ($this->hasTooManyLoginAttempts($request)) {

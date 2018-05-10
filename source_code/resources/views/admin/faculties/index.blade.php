@@ -32,6 +32,7 @@
                     <div class="">
                         <!-- /.panel-heading -->
                         <div class="panel-body">
+                            <div align="right"><a href="{{ route('faculties.create') }}" class="btn btn-sm btn-success add" id=""><i class="fa fa-plus-square" aria-hidden="true"></i> Thêm mới</a></div>
                             <div class="table-responsive">
                                 <table width="100%" class="table table-striped table-hover" id="faculty_table">
                                     <thead>
@@ -49,47 +50,56 @@
                             <!-- /.table-responsive -->
                         </div>
                         <!-- /.panel-body -->
-
-                        <div id="editFaculty" class="modal fade">
-                            <form class="modal-content animate" id="updateFaculty" method="post">
-                                {{csrf_field()}}
-                                <div class="login-block">
-                                    <h2 style="color:green; font-weight: bold;" class="modal-title">Thêm mới</h2>
-                                    <span id="form_output"></span>
-                                    <div class="form-group">
-                                        <label style="float: left; padding-left: 10px;">Tên Ngành:</label>
-                                        <input type="text" name="name" id="faculty_name" class="form-control" />
+                        
+                        <div class="modal fade" id="editFaculty" role="dialog">
+                            <form role="form" method="post" id="updateFaculty">
+                              {{csrf_field()}}
+                              <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content" style="width: auto;height: auto;">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h2 class="modal-title alert alert-info update" style="text-align: center; font-weight: bold;">Cập nhật danh sách quyền</h2>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row" id="permission_list">
+                                        <div class="form-group col-lg-12">
+                                            <label for="name">Tên Ngành:</label>
+                                            <input type="text" name="name" id="faculty_name" class="form-control" />
+                                        </div>
+                                        <div class="form-group col-lg-12">
+                                            <label for="description">Mô tả:</label>
+                                            <input type="text" name="description" id="faculty_des" class="form-control" />
+                                        </div>
+                                        <div class="form-group col-lg-12">
+                                            <label for="tags">Danh sách tag:</label><br>
+                                            <input type="text" name="tags" class="name tagsinput-typeahead form-control" placeholder="Nhập tags" data-role="tagsinput" id="tags">
+                                        </div>
                                     </div>
-                                    <hr>
-
-                                    <div class="form-group">
-                                        <label style="float: left; padding-left: 10px;">Mô tả:</label>
-                                        <input type="text" name="description" id="faculty_des" class="form-control" />
-                                    </div>
-                                    <hr>
-                                    
-                                    <div class="form-group">
-                                        <input type="text" name="tags" class="name tagsinput-typeahead form-control" placeholder="Nhập tags" data-role="tagsinput" id="tags">
-                                    </div>
-                                    <br><br>
+                                </div>
+                                <div id="form_output"></div>
+                                <div class="modal-footer">
                                     <input type="hidden" name="faculty_id" id="faculty_id" value="" />
                                     <input type="hidden" name="button_action" id="button_action" value="insert" />
-                                    <input type="submit" name="submit" id="action" value="Thêm mới" class="btn btn-success" />
-                                    <button class="btn btn-warning" data-dismiss="modal">Hủy</button>
+                                    <input type="submit" name="submit" id="action" value="Thêm mới" class="btn btn-info" />
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
                                 </div>
-                                <div id="#test"></div>
-                            </form>
+                            </div>
                         </div>
-
-                    </div>
-                    <!-- /.panel -->
+                    </form>
                 </div>
+
+
+
             </div>
-            <!-- /.col-lg-12 -->
+            <!-- /.panel -->
         </div>
-        <!-- /.row -->
     </div>
-    <!-- /.container-fluid -->
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+</div>
+<!-- /.container-fluid -->
 </div>
 
 @endsection
@@ -146,20 +156,25 @@
             "columns":[
             { "data": "id" },
             { "data": "name", "class":"name" },
-            { "data": "description","class":"description" },
-            { "data": "tags", "class":"tags", 
+            { "data": "description","class":"description",
             "render": function ( data, type, row ) {
-                var tmp = '';
-                for (var i = 0, len = data.length; i < len; i++) {
-                  tmp = tmp + '<span class="label label-default">'+data[i]['name']+'</span>'
-              }
-              return tmp;
-          },
+                return data.substr(0,20)+'...';
+            },
+        },
+        { "data": "tags", "class":"tags", 
+        "render": function ( data, type, row ) {
+            var tmp = '<div style="display:grid; grid-template-columns: repeat(2,1fr);grid-gap: 5px" >';
+            for (var i = 0, len = data.length; i < len; i++) {
+              tmp = tmp + '<div style="display:grid"><span class="label label-default">'+data[i]['name']+'</span></div>'
+          }
+          tmp += '</div>'
+          return tmp;
       },
-      { "data": "created_at" },
-      { "data": "action" },
-      ]
-  });
+  },
+  { "data": "created_at" },
+  { "data": "action" },
+  ]
+});
         //end of loading datatable
 
         //Datatable responsive
@@ -203,7 +218,7 @@
                     $('#faculty_des').val(data.description);
                     $('#tags').val(tmp);
                     $('#tags').tagsinput('add', tmp);
-                    $('#action').val('Lưu');
+                    $('#action').val('Cập nhật');
                     $('.modal-title').text('Cập nhật thông tin');
                     $('#button_action').val('update');
                 }
@@ -214,7 +229,7 @@
         $('#updateFaculty').on('submit', function(event){
             event.preventDefault();
             var form_data = $(this).serialize();
-
+            console.log(form_data);
             $.ajax({
                 type: "POST",
                 url: "{{ route('faculties.update') }}",
@@ -231,19 +246,19 @@
                         $('#form_output').html(error_html);
                     }
                     else
-                    {
+                    {   
+                        alertSuccess('Cập nhật thông tin thành công!');
                         $('#editFaculty').modal('hide');
                         $("#message").text('Cập nhật thành công!');
                         $("#message").fadeIn(300).delay(3500).fadeOut(00);
                         ele.find("td.name").text(data.faculty['name']);
                         ele.find("td.description").text(data.faculty['description']);
-                        var newtag='';
+                        var newtag='<div style="display:grid; grid-template-columns: repeat(2,1fr);grid-gap: 5px">';
                         for (var i = 0, len = Object.values(data.tag).length; i < len; i++) {
-                          newtag = newtag + '<span class="label label-default">'+Object.values(data.tag)[i]+'</span>'
+                          newtag = newtag + '<div style="display:grid"><span class="label label-default">'+Object.values(data.tag)[i]+'</span></div>';
                       }
+                      newtag += '</div>';
                       ele.find("td.tags").html(newtag);
-                      console.log(ele.find("td.name"));
-                      console.log(Object.values(data.tag));
                         // $('#updateFaculty')[0].reset();
                         // $('#faculty_table').DataTable().ajax.reload();
                     }
@@ -269,7 +284,7 @@
                     buttons: {
                         XacNhan: {
                             text: 'Xác nhận',
-                            btnClass: 'btn-success',
+                            btnClass: 'btn-danger',
                             keys: ['enter', 'shift'],
                             action: function() {
                                 $.ajax({
@@ -293,7 +308,7 @@
                         },
                         Huy: {
                             text: 'Hủy',
-                            btnClass: 'btn-danger',
+                            btnClass: 'btn-default',
                             keys: ['esc'],
                         },
                     },

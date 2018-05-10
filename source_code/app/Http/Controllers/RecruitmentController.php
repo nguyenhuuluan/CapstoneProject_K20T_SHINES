@@ -97,8 +97,8 @@ class RecruitmentController extends Controller
         if($request->ajax())
         {
             return ['recruitments'=>view('ajax.recruitmentList')->with(compact('recruitments'))->render(),
-            'next_page'=>$recruitments->nextPageUrl()
-        ];
+                    'next_page'=>$recruitments->nextPageUrl()
+                ];
     }
     
     return view('recruitments.search', compact('recruitments', 'total'));

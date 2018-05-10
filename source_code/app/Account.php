@@ -64,18 +64,13 @@ class Account extends Authenticatable
 
 
     public function isAdmin(){
-      if($this->status_id==5)
-      {
         foreach ($this->roles->pluck('name')->all() as $key => $value) 
         {
-          if($value == 'Admin' || $value =='Staff')
+          if($value == 'Admin' || ($value =='Staff' && $this->status_id==5))
             {return true;}
           else
             {return false;}
         }
-      }
-      else
-        {return false;}
     }
     public function isRepresentative(){
       if($this->status_id==5)

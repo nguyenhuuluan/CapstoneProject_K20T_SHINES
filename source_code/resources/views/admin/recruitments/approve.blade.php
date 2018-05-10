@@ -100,17 +100,14 @@
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script type="text/javascript">
 
-       $(document).ready(function() {
-        $('#dataTables-example').DataTable({
+     $(document).ready(function() {
+        var table = $('#dataTables-example').DataTable({
             responsive: true
         });
-    });
 
-       $('.btn-approve').click(function() {
-
-           var currentelement = $(this);
-
-           $.confirm({
+        $('.btn-approve').click(function() {
+         var currentelement = $(this);
+         $.confirm({
             icon: 'fa fa-warning',
             title: 'Cảnh báo!!',
             type: 'orange',
@@ -146,28 +143,24 @@
                                             alertError('Vui lòng nhập nội dung phản hồi ...');
                                             return false;
                                         }
-
                                         feedbackRecruitment(recruitmentID, message);
-
-
-                                        // $.alert('Your name is ' + message);
-                                        // $.alert('RecruitmentID ' + recruitmentID);
                                     }
                                 },
                                 cancel: function () {
-            //close
-        },
-    },
-    onContentReady: function () {
-        // bind to events
-        var jc = this;
-        this.$content.find('form').on('submit', function (e) {
-            // if the user submits the form by pressing enter in the field.
-            e.preventDefault();
-            jc.$$formSubmit.trigger('click'); // reference the button and click it
-        });
-    }
-});
+                                //close
+                            },
+                        },
+                        onContentReady: function () {
+                        // bind to events
+                        var jc = this;
+                        this.$content.find('form').on('submit', function (e) {
+                         // if the user submits the form by pressing enter in the field.
+                         e.preventDefault();
+                         jc.$$formSubmit.trigger('click'); 
+                        // reference the button and click it
+                    });
+                    }
+                });
                     }    
                 },
                 Không: {
@@ -176,8 +169,9 @@
                 }
             }
         });
-       });
-
+     });
+       //end of approve
+       
        function feedbackRecruitment(recruitmentID, message){
         $('.modal-ajax-loading').fadeIn("200");
         $.ajax({
@@ -204,16 +198,16 @@
             success: function(){
                 $('.modal-ajax-loading').fadeOut("200");
                 alertSuccess('Xác nhận thành công ...')
-                element.parent().parent().remove();
-           },
-           error: function(){
-            $('.modal-ajax-loading').hide();
-            alertError('Xác nhận thất bại ...');
-        }            
-    });
+                table.row(element.parent().parent()).remove().draw();
+            },
+            error: function(){
+                $('.modal-ajax-loading').hide();
+                alertError('Xác nhận thất bại ...');
+            }            
+        });
     }
-
-
+    
+});
 </script>
 @endsection
 

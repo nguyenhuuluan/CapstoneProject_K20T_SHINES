@@ -8,6 +8,10 @@ use App\Staff;
 use App\Permission;
 use Auth;
 use DataTables;
+use DB;
+use Validator;
+use App\Account;
+
 
 class AdminStaffController extends Controller
 {
@@ -75,7 +79,54 @@ class AdminStaffController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validation = Validator::make($request->all(),
+          [
+            'name' => 'required',
+            'phone'  => 'required|max:20',
+            'email'  => 'required|email|unique:staff,email',
+            'password'  => 'required',
+            'account'  => 'required|unique:accounts,username',
+        ],[
+            'name.required'=>'Tên không được bỏ trống!',
+            'email.required'=>'Email không được bỏ trống!',
+            'phone.required'=>'SĐT không được bỏ trống!',
+            'phone.max'=>'SĐT tối đa 20 ký tự!',
+            'account.required'=>'Tài khoản đăng nhập không được bỏ trống!',
+            'account.unique'=>'Tài khoản đăng nhập này đã tồn tại!',
+            'email.unique'=>'Email này đã tồn tại!',
+        ]);
+
+         $error_array = array();
+         $success_output = '';
+         if ($validation->fails())
+         {
+            foreach($validation->messages()->getMessages() as $field_name => $messages)
+            {
+                $error_array[] = $messages;
+            }
+        }
+        else
+        {   
+            $account = Account::create([
+                'username'=>$request->account,
+                'password' => bcrypt($request->password),
+                'status_id' => 5,
+            ]);
+            $account->roles()->attach(2);
+            $staff = new Staff;
+            $staff->name = $request->name;
+            $staff->phone = $request->phone;
+            $staff->email = $request->email;
+            $staff->account_id = $account->id;
+            $staff->save();
+            $staff['username']=$account->username;
+            $success_output = $staff;
+        }
+        $output = array(
+            'error'     =>  $error_array,
+            'success'   =>  $success_output,
+        );
+        return $output;
     }
 
     /**
@@ -84,11 +135,20 @@ class AdminStaffController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, $type)
     {
-        $staff = Staff::with('account.permissions')->find($id);
-        $permissions = Permission::all();
-        return view('ajax.permissionList', compact('staff', 'permissions'));
+        if($type == 'permission')
+        {
+            $staff = Staff::with('account.permissions')->find($id);
+            $permissions = Permission::all();
+            return view('ajax.permissionList', compact('staff', 'permissions'));
+        }elseif ($type == 'profile') {
+            $staff = Staff::with('account')->find($id);
+            return view('ajax.staffUpdate', compact('staff'));
+        }else{
+            return response()->json('error', 400);
+        }
+        
     }
 
     /**
@@ -109,10 +169,80 @@ class AdminStaffController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
+    {   
+
+        $staff = Staff::with('account')->findOrFail($request->staff_id);
+        if($request->button_action =='permission')
+        {
+            $staff->account->permissions()->sync($request->permission);
+            $output = array(
+                'success'   =>  $staff,
+                'type'      =>  'permission',
+            );
+            return $output;
+        }elseif($request->button_action =='profile')
+        {
+         $validation = Validator::make($request->all(),
+          [
+            'name' => 'required',
+            'phone'  => 'required|max:20',
+            'email'  => 'required|email|unique:staff,email,'.$request->staff_id,
+            'account'  => 'required|unique:accounts,username,'.$staff->account->id,
+        ],[
+            'name.required'=>'Tên không được bỏ trống!',
+            'email.required'=>'Email không được bỏ trống!',
+            'phone.required'=>'SĐT không được bỏ trống!',
+            'phone.max'=>'SĐT tối đa 20 ký tự!',
+            'account.required'=>'Tài khoản đăng nhập không được bỏ trống!',
+            'account.unique'=>'Tài khoản đăng nhập này đã tồn tại!',
+            'email.unique'=>'Email này đã tồn tại!',
+        ]);
+
+         $error_array = array();
+         $success_output = '';
+         if ($validation->fails())
+         {
+            foreach($validation->messages()->getMessages() as $field_name => $messages)
+            {
+                $error_array[] = $messages;
+            }
+        }
+        else
+        {
+            $staff->name = $request->name;
+            $staff->phone = $request->phone;
+            $staff->email = $request->email;
+            $staff->save();
+            $staff->account()->update(['username'=>$request->account]);
+            $success_output = $staff;
+        }
+        $output = array(
+            'error'     =>  $error_array,
+            'success'   =>  $success_output,
+            'type'      =>  'profile',
+        );
+        return $output;
+    }elseif($request->button_action =='active')
+    {   
+        if($request->status_id ==5)
+        {
+            $staff->account()->update(['status_id'=> 6 ]);
+        }elseif($request->status_id ==6)
+        {
+            $staff->account()->update(['status_id'=> 5 ]);
+        }
+        $output = array(
+            'success'   =>  $staff,
+            'type'      =>  'active',
+        );
+        return $output;
+    }else
     {
-        //
+        return response()->json('error', 400);
     }
+
+}
 
     /**
      * Remove the specified resource from storage.
@@ -122,6 +252,8 @@ class AdminStaffController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(Staff::findOrFail($id)->account()->delete())
+            {return response()->json('success', 200);}
+            else{return response()->json('error', 400);}
     }
 }

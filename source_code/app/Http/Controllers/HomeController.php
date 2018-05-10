@@ -101,7 +101,6 @@ class HomeController extends Controller
                     'next_page'=>$recruitments->nextPageUrl()
                     ];
         }
-
         return view('recruitments.list', compact('recruitments', 'total'));
     }
 

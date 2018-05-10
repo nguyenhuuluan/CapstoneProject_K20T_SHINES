@@ -181,12 +181,13 @@
           is_busy = true;
           var page = $('.endless-pagination').data('next-page');
           if (page!==null && page!==''){
+            var url = window.location.href+'?page='+page.split('page=')[1];
             $loadding.removeClass('hidden');
             $.ajax(
             {
               type: 'get',
               dataType: 'text',
-              url: page,
+              url: url,
               success: function (data) {
                 $('.recruitments').append(JSON.parse(data)["recruitments"]);
                 $('.endless-pagination').data('next-page', JSON.parse(data)["next_page"]);
