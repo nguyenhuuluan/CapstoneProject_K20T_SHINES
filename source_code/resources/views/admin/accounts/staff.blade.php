@@ -220,6 +220,7 @@
         ele = $(this).parent().parent();
         var id = $(this).attr("id");
         $('#form_output').html('');
+        $('#button_action').val('permission');
         var url = '{{ route("staffs.show", [":id","permission"]) }}';
         url = url.replace(':id', id);
         list = $('#permission_list');

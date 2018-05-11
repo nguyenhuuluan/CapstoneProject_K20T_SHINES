@@ -63,15 +63,26 @@ class Account extends Authenticatable
     }
 
 
-    public function isAdmin(){
-        foreach ($this->roles->pluck('name')->all() as $key => $value) 
-        {
-          if($value == 'Admin' || ($value =='Staff' && $this->status_id==5))
-            {return true;}
-          else
-            {return false;}
-        }
+    public function isAdmin()
+    {
+      foreach ($this->roles->pluck('name')->all() as $key => $value) 
+      {
+        if($value == 'Admin' || ($value =='Staff' && $this->status_id==5))
+          {return true;}
+      }
+      return false;
+
     }
+    public function isSuperAdmin()
+    {
+      foreach ($this->roles->pluck('name')->all() as $key => $value) 
+      {
+        if($value == 'Admin')
+          {return true;}
+      }
+      return false;
+    }
+
     public function isRepresentative(){
       if($this->status_id==5)
       {

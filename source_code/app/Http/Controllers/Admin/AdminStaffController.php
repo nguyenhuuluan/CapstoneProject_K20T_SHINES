@@ -96,10 +96,10 @@ class AdminStaffController extends Controller
             'email.unique'=>'Email này đã tồn tại!',
         ]);
 
-         $error_array = array();
-         $success_output = '';
-         if ($validation->fails())
-         {
+        $error_array = array();
+        $success_output = '';
+        if ($validation->fails())
+        {
             foreach($validation->messages()->getMessages() as $field_name => $messages)
             {
                 $error_array[] = $messages;
@@ -183,26 +183,26 @@ class AdminStaffController extends Controller
             return $output;
         }elseif($request->button_action =='profile')
         {
-         $validation = Validator::make($request->all(),
-          [
-            'name' => 'required',
-            'phone'  => 'required|max:20',
-            'email'  => 'required|email|unique:staff,email,'.$request->staff_id,
-            'account'  => 'required|unique:accounts,username,'.$staff->account->id,
-        ],[
-            'name.required'=>'Tên không được bỏ trống!',
-            'email.required'=>'Email không được bỏ trống!',
-            'phone.required'=>'SĐT không được bỏ trống!',
-            'phone.max'=>'SĐT tối đa 20 ký tự!',
-            'account.required'=>'Tài khoản đăng nhập không được bỏ trống!',
-            'account.unique'=>'Tài khoản đăng nhập này đã tồn tại!',
-            'email.unique'=>'Email này đã tồn tại!',
-        ]);
+           $validation = Validator::make($request->all(),
+              [
+                'name' => 'required',
+                'phone'  => 'required|max:20',
+                'email'  => 'required|email|unique:staff,email,'.$request->staff_id,
+                'account'  => 'required|unique:accounts,username,'.$staff->account->id,
+            ],[
+                'name.required'=>'Tên không được bỏ trống!',
+                'email.required'=>'Email không được bỏ trống!',
+                'phone.required'=>'SĐT không được bỏ trống!',
+                'phone.max'=>'SĐT tối đa 20 ký tự!',
+                'account.required'=>'Tài khoản đăng nhập không được bỏ trống!',
+                'account.unique'=>'Tài khoản đăng nhập này đã tồn tại!',
+                'email.unique'=>'Email này đã tồn tại!',
+            ]);
 
-         $error_array = array();
-         $success_output = '';
-         if ($validation->fails())
-         {
+           $error_array = array();
+           $success_output = '';
+           if ($validation->fails())
+           {
             foreach($validation->messages()->getMessages() as $field_name => $messages)
             {
                 $error_array[] = $messages;
@@ -255,5 +255,5 @@ class AdminStaffController extends Controller
         if(Staff::findOrFail($id)->account()->delete())
             {return response()->json('success', 200);}
             else{return response()->json('error', 400);}
+        }
     }
-}

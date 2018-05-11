@@ -16,6 +16,13 @@ class AccountPolicy
      * @param  \App\Account  $account
      * @return mixed
      */
+    public function before(Account $user, $ability)
+    {
+        if ($user->isSuperAdmin()) 
+        {
+            return true;
+        }
+    }
     public function view(Account $user)
     {
          return $this->getRole($user);

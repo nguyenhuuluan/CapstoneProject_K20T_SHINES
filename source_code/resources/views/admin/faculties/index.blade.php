@@ -32,7 +32,9 @@
                     <div class="">
                         <!-- /.panel-heading -->
                         <div class="panel-body">
+                            @can('faculties.create')
                             <div align="right"><a href="{{ route('faculties.create') }}" class="btn btn-sm btn-success add" id=""><i class="fa fa-plus-square" aria-hidden="true"></i> Thêm mới</a></div>
+                            @endcan
                             <div class="table-responsive">
                                 <table width="100%" class="table table-striped table-hover" id="faculty_table">
                                     <thead>

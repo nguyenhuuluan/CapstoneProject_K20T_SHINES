@@ -99,29 +99,36 @@
                     <li>
                         <a href="{{ route('admin.home') }}"><i class="fa fa-dashboard fa-fw"></i> Bảng điều khiển</a>
                     </li>
+                    @can('recruitments.view', Auth::user())
                     <li>
                         <a href="#"><i class="fa fa-newspaper-o fa-fw"></i> Tin tuyển dụng<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="{{ route('admin.recruitments.index') }}">Danh sách tin tuyển dụng</a>
                             </li>
+                            @can('recruitments.update', Auth::user())
                             <li>
                                 <a href="{{route('admin.recruitments.approve')}}">Tin tuyển dụng chờ xác nhận</a>
-                            </li>                   
+                            </li> 
+                            @endcan                  
                         </ul>
                     </li>
+                    @endcan
+                    @can('companies.view', Auth::user())
                     <li>
                         <a href="#"><i class="fa fa-building fa-fw"></i> Công ty<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-
                             <li>
                                 <a href="{{ route('company') }}">Danh sách công ty</a>
                             </li>
+                            @can('companies.update', Auth::user())
                             <li>
                                 <a href="{{route('company.registration')}}">Công ty đang chờ xác nhận</a>
                             </li>
+                            @endcan
                         </ul>
                     </li>
+                    @endcan
                     @can('accounts.view', Auth::user())
                     <li>
                         <a href="#"><i class="fa fa-users fa-fw"></i> Danh sách tài khoản<span class="fa arrow"></span></a>
@@ -138,14 +145,17 @@
                         </ul>
                     </li>
                     @endcan
-                    
+                    @can('faculties.view', Auth::user())
                     <li>
                         <a href="#"><i class="fa fa-archive fa-fw"></i> Phòng ban<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="{{ route('faculties.index') }}">Danh sách Phòng Ban</a></li>
+                            @can('faculties.create', Auth::user())
                             <li><a href="{{route('faculties.create')}}">Thêm Phòng Ban</a></li>
+                            @endcan
                         </ul>
                     </li>
+                    @endcan
                     <li>
                         <a href="#"><i class="fa fa-pencil-square-o fa-fw"></i> Blog<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
