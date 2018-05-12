@@ -55,7 +55,7 @@ Route::POST('student/recruitments/{id}/apply', 'Student\StudentRecruitmentContro
 // Route::get('/recruitments/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
 
 Route::group(['middleware' => 'filter'], function() {
-    Route::get('/recruitments/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
+	Route::get('/recruitments/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
 });
 
 Route::get('search', 'RecruitmentController@search')->name('recruitments.search');
@@ -82,26 +82,26 @@ Route::GET('student/update-success','StudentController@updateSuccess')->name('st
 
 Route::middleware(['student', 'web'])->group(function () {
 
-Route::get('student/profile', 'Student\StudentProfileController@index')->name('profile.index');
-Route::get('student/profile/edit', 'Student\StudentProfileController@edit')->name('profile.edit');
-Route::post('student/profile/edit', 'Student\StudentProfileController@update')->name('profile.update');
+	Route::get('student/profile', 'Student\StudentProfileController@index')->name('profile.index');
+	Route::get('student/profile/edit', 'Student\StudentProfileController@edit')->name('profile.edit');
+	Route::post('student/profile/edit', 'Student\StudentProfileController@update')->name('profile.update');
 
-Route::POST('student/photo/update', 'Student\StudentProfileController@editPhoto')->name('student.photo.edit');
+	Route::POST('student/photo/update', 'Student\StudentProfileController@editPhoto')->name('student.photo.edit');
 
 
-Route::GET('student/cv', 'Student\StudentCvController@show')->name('student.cv.show');
-Route::POST('student/cv/{id}', 'Student\StudentCvController@store')->name('student.cv.store');
-Route::POST('student/cv/', 'Student\StudentCvController@destroy')->name('student.cv.destroy');
+	Route::GET('student/cv', 'Student\StudentCvController@show')->name('student.cv.show');
+	Route::POST('student/cv/{id}', 'Student\StudentCvController@store')->name('student.cv.store');
+	Route::POST('student/cv/', 'Student\StudentCvController@destroy')->name('student.cv.destroy');
 
 
 // Route::resource('student/cv', 'Student\StudentCvController');
 
-Route::GET('student/recruitments/apply', 'Student\StudentRecruitmentController@showApply')->name('student.apply.show');
-Route::GET('student/recruitments/save', 'Student\StudentRecruitmentController@showRecruitment')->name('student.recruitment.show');
+	Route::GET('student/recruitments/apply', 'Student\StudentRecruitmentController@showApply')->name('student.apply.show');
+	Route::GET('student/recruitments/save', 'Student\StudentRecruitmentController@showRecruitment')->name('student.recruitment.show');
 
 // Route::get('student/profile', 'StudentController@profile')->name('student.profile');
 
-Route::get('student/profile/update', 'StudentController@updateProfile')->name('student.profile.update');
+	Route::get('student/profile/update', 'StudentController@updateProfile')->name('student.profile.update');
 // Route::POST('student/profile/update', 'StudentController@editProfile')->name('student.profile.edit');
 });
 
@@ -162,15 +162,15 @@ Route::middleware(['admin', 'web'])->group(function () {
 
 	//Company - ADMIN
 	Route::get('/admin/getcompanies', 'CompanyController@getCompanies')->name('getcompanies');
-	Route::get('/admin/company', 'CompanyController@index')->name('company');
-	Route::get('/admin/company/approve/{companyID}', 'CompanyController@approveCompany')->name('approvecompany');
-	Route::get('/admin/company/active/{companyID}', 'CompanyController@setActiveCompany')->name('activecompany');
+	Route::get('/admin/companies', 'Admin\AdminCompanyController@index')->name('company');
+	Route::get('/admin/company/approve/{companyID}', 'Admin\AdminCompanyController@approveCompany')->name('approvecompany');
+	Route::get('/admin/company/active/{companyID}', 'Admin\AdminCompanyController@setActiveCompany')->name('activecompany');
 
-	Route::get('/admin/company/setishot/{companyID}', 'CompanyController@setIsHotCompany')->name('ishotcompany');
+	Route::get('/admin/company/setishot/{companyID}', 'Admin\AdminCompanyController@setIsHotCompany')->name('ishotcompany');
 
 
-	Route::get('/admin/company/company-registration', 'CompanyController@companyRegistration')->name('company.registration');
-	Route::get('/admin/company/sendemailconfirm/{accID}/{repreID}/{compID}', 'CompanyController@sendConfirmEmail')->name('company.sendConfirmEmail');
+	Route::get('/admin/company/company-registration', 'Admin\AdminCompanyController@companyRegistration')->name('company.registration');
+	Route::get('/admin/company/sendemailconfirm/{accID}/{repreID}/{compID}', 'Admin\AdminCompanyController@sendConfirmEmail')->name('company.sendConfirmEmail');
 
 
 	//Dashboard 
@@ -179,8 +179,9 @@ Route::middleware(['admin', 'web'])->group(function () {
 	Route::get('/admin/statistics/statisticsNumberOfRecruitmentByYear/{year}', 'Admin\DashboardController@statisticsNumberOfRecruitmentByYear')->name('admin.statistics.statisticsNumberOfRecruitmentByYear');
 
 	//Blog - ADMIN
-	Route::resource('/admin/blogs', 'Admin\AdminBlogController');
+	Route::resource('/admin/blogs', 'Admin\AdminBlogController',['except' => ['destroy']]);
 	Route::get('/admin/getdata/blogs', 'Admin\AdminBlogController@getdata')->name('blogs.getdata');
+	Route::delete('/admin/removedata/blogs', 'Admin\AdminBlogController@destroy')->name('blogs.destroy');
 
 
 

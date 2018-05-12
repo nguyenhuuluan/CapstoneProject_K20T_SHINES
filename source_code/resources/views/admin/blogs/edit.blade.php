@@ -45,11 +45,11 @@
                 <h1 class="page-header">Đăng blog</h1>
             </div>
             <!-- /.col-lg-12 -->
-            {!! Form::open(['method'=>'POST', 'route'=>'blogs.store', 'files'=>true]) !!}
+            {!! Form::model($blog, ['method'=>'PATCh', 'route'=>['blogs.update',$blog->slug], 'files'=>true]) !!}
             <div class="col-xs-12 col-md-9">
                 <div class="form-group {{ $errors->has('title') ? ' has-error' : '' }}">
                     <label for="title">Tiêu đề Blog</label>
-                    <input name="title" class="form-control" value="{{ old('title') }}" required placeholder="Nhập tiêu đề blog">
+                    <input name="title" class="form-control" value="{{ old('title') ?? $blog->title }}" required placeholder="Nhập tiêu đề blog">
                     @if ($errors->has('title'))
                     <span class="help-block">
                         <strong>Tiêu đề không được bỏ trống!</strong>
@@ -62,7 +62,7 @@
                     <div class="input-group">
                         <span class="input-group-btn">
                             <span class="btn btn-default btn-file">
-                                Browse… <input type="file" required value="{{ old('imgInp') }}" id="imgInp" name="imgInp" accept=".png,.jpg, image/gif, image/jpeg">
+                                Browse… <input type="file" value="{{ old('imgInp') }}" id="imgInp" name="imgInp" accept=".png,.jpg, image/gif, image/jpeg">
                             </span>
                         </span>
                         <input type="text" class="form-control" readonly id="imgText">
@@ -72,12 +72,12 @@
                         <strong>Vui lòng chọn ảnh đại diện cho bài BLOG!</strong>
                     </span>
                     @endif
-                    <img id='img-upload' />
+                    <img id='img-upload' src="{{ asset($blog->photo) }}" />
                 </div>
                 <div class="form-group {{ $errors->has('content') ? ' has-error' : '' }}">
                     <label>Nội dung</label>
                     {{-- <textarea id="summernote" class="form-control" name="content"></textarea> --}}
-                    <textarea name="content" class="form-control " id="editor1">{{ old('content') }}</textarea>
+                    <textarea name="content" class="form-control " id="editor1">{{ old('content') ?? $blog->content }}</textarea>
                     
                     @if ($errors->has('content'))
                     <span class="help-block">
@@ -89,12 +89,12 @@
                 <div class="form-group">
                     <label>Tags</label>
                     <br>
-                    <input name="tags" id="tags" type="text" class="tagsinput-typeahead form-control" placeholder="Nhập tags bài viết" value="{{ old('tags') }}" data-role="tagsinput">
+                    <input name="tags" id="tags" type="text" class="tagsinput-typeahead form-control" placeholder="Nhập tags bài viết" data-role="tagsinput" value="{{ old('tags')??$blog->tags }}">
                     <br>
                 </div>
                 <div class="form-group  {{ $errors->has('description') ? ' has-error' : '' }}">
                     <label>Mô tả tìm kiếm</label>
-                    <textarea name="description" required class="form-control" rows="3" placeholder="Mô tả tiêu đề tìm kiếm (SEO)">{{ old('description') }}</textarea>
+                    <textarea name="description" required class="form-control" rows="3" placeholder="Mô tả tiêu đề tìm kiếm (SEO)">{{ old('description') ?? $blog->description }}</textarea>
                     @if ($errors->has('description'))
                     <span class="help-block">
                         <strong>Vui lòng nhập nội dung!</strong>

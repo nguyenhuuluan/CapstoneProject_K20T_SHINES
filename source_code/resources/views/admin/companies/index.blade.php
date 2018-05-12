@@ -57,30 +57,42 @@
                                             <td>{{$comp->email}}</td>
 
                                             <td>{{$comp->created_at}}</td>
-                                             <td> @if ($comp->is_hot == false)
-                                                <input type="checkbox" class="switch is-hot-switch" id="myswitch" data-backdrop="static" data-keyboard="false" 
-                                                value="{{$comp->id}}" />                                              
+                                             <td>
+                                                @if(Auth::user()->can('companies.update')) 
+                                                    @if ($comp->is_hot == false)
+                                                    <input type="checkbox" class="switch is-hot-switch" id="myswitch" data-backdrop="static" data-keyboard="false" 
+                                                    value="{{$comp->id}}" />                                              
+                                                    @else
+                                                    <input type="checkbox" class="switch is-hot-switch" id="myswitch" data-backdrop="static" data-keyboard="false" 
+                                                    checked value="{{$comp->id}}" />
+                                                    @endif
                                                 @else
-
-                                                <input type="checkbox" class="switch is-hot-switch" id="myswitch" data-backdrop="static" data-keyboard="false" 
-                                                checked value="{{$comp->id}}" />
-
+                                                    @if ($comp->is_hot == false)
+                                                    <input type="checkbox" disabled="true" class="switch is-hot-switch" id="myswitch" data-backdrop="static" data-keyboard="false" 
+                                                    value="{{$comp->id}}" />                                              
+                                                    @else
+                                                    <input type="checkbox" disabled="true" class="switch is-hot-switch" id="myswitch" data-backdrop="static" data-keyboard="false" 
+                                                    checked value="{{$comp->id}}" />
+                                                    @endif
                                                 @endif
                                             </td>
 
-                                            <td>  
+                                            <td>
+                                            @if(Auth::user()->can('companies.update'))  
                                                 @if ($comp->status_id == 3)
                                                 <input type="checkbox" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" 
                                                 checked value="{{$comp->id}}" />
-                                                @elseif($comp->status_id == 4)                                           
+                                                @elseif($comp->status_id == 4)                                        
                                                 <input type="checkbox" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" value="{{$comp->id}}" />
-
-                                                @else
-
-                                                <input type="checkbox" disabled="true" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" 
-                                                checked value="{{$comp->id}}" />
-
                                                 @endif
+                                            @else
+                                                @if ($comp->status_id == 3)
+                                                <input type="checkbox" disabled="false" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" 
+                                                checked value="{{$comp->id}}" />
+                                                @elseif($comp->status_id == 4)                                        
+                                                <input type="checkbox" disabled="false" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" value="{{$comp->id}}" />
+                                                @endif
+                                            @endif
                                             </td>
                                             <td>
                                                 

@@ -156,13 +156,17 @@
                         </ul>
                     </li>
                     @endcan
+                    @can('blogs.view', Auth::user())
                     <li>
                         <a href="#"><i class="fa fa-pencil-square-o fa-fw"></i> Blog<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="{{ route('blogs.index') }}">Danh sách Blog</a></li>
+                            @can('blogs.create', Auth::user())
                             <li><a href="{{route('blogs.create')}}">Đăng Blog</a></li>
+                            @endcan
                         </ul>
                     </li>
+                    @endcan
                 </ul>
 
             </ul>

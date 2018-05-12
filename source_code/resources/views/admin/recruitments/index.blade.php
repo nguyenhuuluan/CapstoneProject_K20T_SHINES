@@ -58,17 +58,17 @@
                                         
                                         <td>
                                             @if(Auth::user()->can('recruitments.update'))
-                                            @if ($recruitment->status_id == 1)
-                                            <input type="checkbox" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" checked value="{{$recruitment->id}}" />
-                                            @elseif($recruitment->status_id == 2)                                           
-                                            <input type="checkbox" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" value="{{$recruitment->id}}" />
+                                                @if ($recruitment->status_id == 1)
+                                                <input type="checkbox" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" checked value="{{$recruitment->id}}" />
+                                                @elseif($recruitment->status_id == 2)                                           
+                                                <input type="checkbox" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" value="{{$recruitment->id}}" />
+                                                @endif
                                             @else
-
-                                            <input type="checkbox" disabled="true" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" 
-                                            checked value="{{$recruitment->id}}" />
-                                            @endif
-                                            @else
-                                            <input type="checkbox" class="switch status-switch" id="myswitch" data-backdrop="static" disabled="true" data-keyboard="false" checked value="{{$recruitment->id}}" />
+                                                @if ($recruitment->status_id == 1)
+                                                <input type="checkbox" disabled="true" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" checked value="{{$recruitment->id}}" />
+                                                @elseif($recruitment->status_id == 2)                                           
+                                                <input type="checkbox" disabled="true" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" value="{{$recruitment->id}}" />
+                                                @endif
                                             @endif
                                         </td>
                                         <td>

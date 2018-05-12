@@ -18,6 +18,7 @@ class CreateBlogsTable extends Migration
             $table->string('title',255);
             $table->text('content');
             $table->integer('account_id')->index()->unsigned();
+            $table->string('slug',255)->nullable();
             $table->timestamps();
 
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
