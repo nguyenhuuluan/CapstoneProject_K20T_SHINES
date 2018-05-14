@@ -252,7 +252,7 @@
   $('.bxslider').bxSlider({
     mode: 'fade',
     captions: true,
-    slideWidth: 380
+    slideWidth: 500
   });
 
 

@@ -1,6 +1,4 @@
-@extends('layouts2.master-layout',['title' => 'Partner', 'isDisplaySearchHeader' => false])
-
-
+@extends('layouts2.master-layout',['title' => 'Partnership', 'isDisplaySearchHeader' => false])
 @section('content')
 <section>
 	<div class="container">

@@ -75,4 +75,4 @@ public function getLogoAttribute($value){
 public function socialNetworks(){
     return $this->hasMany('App\CompaniesSocialNetwork');
 }
-}	
+} 

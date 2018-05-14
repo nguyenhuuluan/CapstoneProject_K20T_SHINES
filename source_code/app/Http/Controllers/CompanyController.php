@@ -137,45 +137,51 @@ class CompanyController extends Controller
 
  $comp->tags()->sync((Tag::all()->intersect($collectionTags)));
 
- if ( !empty(trim($request->facebook)) ) {
-  if ($request->socialnetworkfbID) {
-    $social = CompaniesSocialNetwork::findOrFail($request->socialnetworkfbID);
-    $social->url = $request->facebook;
-    $social->company_id = $request->id;
+ if ($request->facebook) {
+   if ( !empty(trim($request->facebook)) ) {
+    if ($request->socialnetworkfbID) {
+      $social = CompaniesSocialNetwork::findOrFail($request->socialnetworkfbID);
+      $social->url = $request->facebook;
+      $social->company_id = $request->id;
 
-    $social->save();
-  }else{
-   $social = CompaniesSocialNetwork::create([
-    "name" => "Facebook",
-    "url" => $request->facebook,
-    "company_id" => $request->id
-  ]); 
- }
-}else{
+      $social->save();
+    }else{
+     $social = CompaniesSocialNetwork::create([
+      "name" => "Facebook",
+      "url" => $request->facebook,
+      "company_id" => $request->id
+    ]); 
+   }
+ }else{
   $social = CompaniesSocialNetwork::findOrFail($request->socialnetworkfbID);
   $social->delete();
 }
+}
 
+if ($request->linkedin) {
+  if (!empty(trim($request->linkedin))) {
+    if ($request->socialnetworkinID) {
+      $social = CompaniesSocialNetwork::findOrFail($request->socialnetworkinID);
+      $social->url = $request->linkedin;
+      $social->company_id = $request->id;
 
-if (!empty(trim($request->linkedin))) {
-  if ($request->socialnetworkinID) {
-    $social = CompaniesSocialNetwork::findOrFail($request->socialnetworkinID);
-    $social->url = $request->linkedin;
-    $social->company_id = $request->id;
+      $social->save();
+    }else{
+     $social = CompaniesSocialNetwork::create([
+      "name" => "LinkedIn",
+      "url" => $request->linkedin,
+      "company_id" => $request->id
+    ]); 
+   }
 
-    $social->save();
-  }else{
-   $social = CompaniesSocialNetwork::create([
-    "name" => "LinkedIn",
-    "url" => $request->linkedin,
-    "company_id" => $request->id
-  ]); 
- }
-
-}else{
+ }else{
   $social = CompaniesSocialNetwork::findOrFail($request->socialnetworkinID);
   $social->delete();
 }
+
+}
+
+
 
 return redirect()->route("company.details",$comp->slug);
 
@@ -190,10 +196,10 @@ public function details($slug)
 
  // $company = Company::findBySlugOrFail($slug);
  $company = Company::with(['recruitments' => function ($query) {
-             $query->with('sections', 'categories', 'tags')
-             ->where('recruitments.status_id', 1)->orderBy('created_at','desc');
-            },'sections', 'socialNetworks', 'tags', 'photos'])
-                    ->where('slug', '=', $slug)->first();
+   $query->with('sections', 'categories', 'tags')
+   ->where('recruitments.status_id', 1)->orderBy('created_at','desc');
+ },'sections', 'socialNetworks', 'tags', 'photos'])
+ ->where('slug', '=', $slug)->first();
 
 // return $company;
  if($company->status_id==3)
@@ -216,7 +222,7 @@ public function updateImages(Request $request)
 
 
    $validator = Validator::make($request->all(), [
-     'imagefile' => 'image|mimes:jpeg,png,jpg|max:1024',
+     'imagefile' => 'image|mimes:jpeg,png,jpg|max:5120',
    ]);
 
 
@@ -254,16 +260,17 @@ public function updateImages(Request $request)
 
 
 
-public function deleteImage(Request $request)
+public function deleteImage($imageName)
 {
 
-   // unlink(base_path()."/images/companies/public_html/'".$ImageName);
+ 
+   // unlink(base_path()."/images/companies/public_html/'".$imageName);
 
-    // unlink(base_path()."/images/companies/public_html/'.$ImageName);
+    // unlink(base_path()."/images/companies/public_html/".$imageName);
 
- unlink(public_path()."/images/companies/".$request->ImageName);
-
- $photo = Photo::where('name', $request->ImageName);
+ unlink(public_path()."/images/companies/".$imageName);
+ 
+ $photo = Photo::where('name', $imageName);
 
  $photo->delete();
 
@@ -276,7 +283,7 @@ public function updateLogo(Request $request)
   if($file = $request->file('imagefile'))
   {
     $validator = Validator::make($request->all(), [
-      'imagefile' => 'required|image|mimes:jpeg,png,jpg|max:1024',
+      'imagefile' => 'required|image|mimes:jpeg,png,jpg|max:2048',
     ]);
 
     if ($validator->passes()) 
@@ -439,19 +446,19 @@ public function setIsHotCompany($company_id){
   $isHotCompCount = Company::Where('is_hot', true)->count();
   if ($isHotCompCount >= 8) {
    return response()->json(false);
-  }
+ }
 
-  $comp = Company::Where('id', $company_id)->first();
+ $comp = Company::Where('id', $company_id)->first();
 
-if ($comp->is_hot == true) {
+ if ($comp->is_hot == true) {
   $comp->is_hot = false;
 }else{
   $comp->is_hot = true;
 }
 
- $comp->save();     
+$comp->save();     
 
- return $comp;
+return $comp;
 }
 
 public function createAccountRepresentative($compRegis)

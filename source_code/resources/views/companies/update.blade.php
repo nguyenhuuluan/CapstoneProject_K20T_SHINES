@@ -33,7 +33,7 @@
             <br>
         </div>
         <div class="col-md-9 col-sm-12 col-xs-12">
-         <div class="table-responsive">
+           <div class="table-responsive">
 
 
             {!! Form::model($company, ['method' => 'POST', 'route' => ['company.edit', $company->id], 'class' => 'form-horizontal']) !!}
@@ -41,133 +41,133 @@
             <input id="companyID" type="hidden" name="id" value="{{$company->id}}">
 
             <table class="table">
-               <thead>
-                   <tr>
-                     <h2>Cập nhật thông tin công ty</h2>
-                 </tr>
-             </thead>
-             <tbody>
-                <tr>
-                    <td>Tên công ty</td>
-                    <td>
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : 'ERROR' }}">
-                            <div class="col-sm-9">
-                                {!! Form::text('name', $company->name, ['class' => 'form-control']) !!}
-                                <small class="text-danger">{{ $errors->first('name') }}</small>
-                            </div>
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Mã số kinh doanh</td>
-                    <td>
-                        <div class="form-group{{ $errors->has('business_code') ? ' has-error' : 'ERROR' }}">
-                            <div class="col-sm-9">
-                                {!! Form::text('business_code', $company->business_code, ['class' => 'form-control']) !!}
-                                <small class="text-danger">{{ $errors->first('business_code') }}</small>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Email</td>
-                    <td>
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : 'ERROR' }}">
-                            <div class="col-sm-9">
-                                {!! Form::text('email', $company->email, ['class' => 'form-control']) !!}
-                                <small class="text-danger">{{ $errors->first('email') }}</small>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                  <td>Website</td>
-                  <td>
-                    <div class="form-group{{ $errors->has('website') ? ' has-error' : 'ERROR' }}">
+             <thead>
+                 <tr>
+                   <h2>Cập nhật thông tin công ty</h2>
+               </tr>
+           </thead>
+           <tbody>
+            <tr>
+                <td>Tên công ty</td>
+                <td>
+                    <div class="form-group{{ $errors->has('name') ? ' has-error' : 'ERROR' }}">
                         <div class="col-sm-9">
-                            {!! Form::text('website', $company->website, ['class' => 'form-control']) !!}
-                            <small class="text-danger">{{ $errors->first('website') }}</small>
+                            {!! Form::text('name', $company->name, ['class' => 'form-control']) !!}
+                            <small class="text-danger">{{ $errors->first('name') }}</small>
+                        </div>
+                    </div>
+                </td>
+
+            </tr>
+            <tr>
+                <td>Mã số kinh doanh</td>
+                <td>
+                    <div class="form-group{{ $errors->has('business_code') ? ' has-error' : 'ERROR' }}">
+                        <div class="col-sm-9">
+                            {!! Form::text('business_code', $company->business_code, ['class' => 'form-control']) !!}
+                            <small class="text-danger">{{ $errors->first('business_code') }}</small>
                         </div>
                     </div>
                 </td>
             </tr>
             <tr>
-              <td>Liên kết mạng xã hội</td>
+                <td>Email</td>
+                <td>
+                    <div class="form-group{{ $errors->has('email') ? ' has-error' : 'ERROR' }}">
+                        <div class="col-sm-9">
+                            {!! Form::text('email', $company->email, ['class' => 'form-control']) !!}
+                            <small class="text-danger">{{ $errors->first('email') }}</small>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+              <td>Website</td>
               <td>
-                <div class="form-group{{ $errors->has('facebook') ? ' has-error' : 'ERROR' }}">
+                <div class="form-group{{ $errors->has('website') ? ' has-error' : 'ERROR' }}">
                     <div class="col-sm-9">
-                        {!! Form::text('facebook', $company->socialNetworks()->where('name', 'facebook')->first()["url"], ['class' => 'form-control input-sm', 'placeholder' => 'Facebook']) !!}
-                        <small class="text-danger">{{ $errors->first('facebook') }}</small>
+                        {!! Form::text('website', $company->website, ['class' => 'form-control']) !!}
+                        <small class="text-danger">{{ $errors->first('website') }}</small>
                     </div>
                 </div>
-                <input type="hidden" name="socialnetworkfbID" value="{{$company->socialNetworks()->where('name', 'facebook')->first()["id"]}}">
-
-                <div class="form-group{{ $errors->has('linkedin') ? ' has-error' : 'ERROR' }}">
-                    <div class="col-sm-9" style="margin-top: 5px;">
-                        {!! Form::text('linkedin', $company->socialNetworks()->where('name', 'linkedin')->first()["url"], ['class' => 'form-control input-sm', 'placeholder' => 'LinkedIn']) !!}
-                        <small class="text-danger">{{ $errors->first('linkedin') }}</small>
-                    </div>
-                </div>
-                <input type="hidden" name="socialnetworkinID" value="{{$company->socialNetworks()->where('name', 'linkedin')->first()["id"]}}">
             </td>
         </tr>
-
         <tr>
-           <td>Số điện thoại</td>
-           <td>
-            <div class="form-group{{ $errors->has('phone') ? ' has-error' : 'ERROR' }}">
+          <td>Liên kết mạng xã hội</td>
+          <td>
+            <div class="form-group{{ $errors->has('facebook') ? ' has-error' : 'ERROR' }}">
                 <div class="col-sm-9">
-                    {!! Form::text('phone', $company->phone, ['class' => 'form-control input-sm']) !!}
-                    <small class="text-danger">{{ $errors->first('phone') }}</small>
+                    {!! Form::text('facebook', $company->socialNetworks()->where('name', 'facebook')->first()["url"], ['class' => 'form-control input-sm', 'placeholder' => 'Facebook']) !!}
+                    <small class="text-danger">{{ $errors->first('facebook') }}</small>
                 </div>
             </div>
+            <input type="hidden" name="socialnetworkfbID" value="{{$company->socialNetworks()->where('name', 'facebook')->first()["id"]}}">
+
+            <div class="form-group{{ $errors->has('linkedin') ? ' has-error' : 'ERROR' }}">
+                <div class="col-sm-9" style="margin-top: 5px;">
+                    {!! Form::text('linkedin', $company->socialNetworks()->where('name', 'linkedin')->first()["url"], ['class' => 'form-control input-sm', 'placeholder' => 'LinkedIn']) !!}
+                    <small class="text-danger">{{ $errors->first('linkedin') }}</small>
+                </div>
+            </div>
+            <input type="hidden" name="socialnetworkinID" value="{{$company->socialNetworks()->where('name', 'linkedin')->first()["id"]}}">
         </td>
     </tr>
+
     <tr>
-       <td>Địa chỉ</td>
-       <td>
-
-        <div class="form-group{{ ($errors->has('address') || Session::has('address-invalid'))  ? ' has-error' : 'ERROR' }}">
-            <div class="col-sm-6">
-                {!! Form::text('address', count($company->address) == 0 ? "" : $company->address->address, ['class' => 'form-control input-sm', 'required' => 'required', 'placeholder' => '45 Nguyễn Khắc Nhu, Phường Cô Giang']) !!}
-                <small class="text-danger">{{ $errors->first('address') }}</small>
-
-                @if(Session::has('address-invalid'))
-                <small class="text-danger">{!! session('address-invalid') !!}</small>
-                @endif
+     <td>Số điện thoại</td>
+     <td>
+        <div class="form-group{{ $errors->has('phone') ? ' has-error' : 'ERROR' }}">
+            <div class="col-sm-9">
+                {!! Form::text('phone', $company->phone, ['class' => 'form-control input-sm']) !!}
+                <small class="text-danger">{{ $errors->first('phone') }}</small>
             </div>
-
-            <div class="col-sm-3">
-                <select class="form-control input-sm" name="district" id="lst-district">
-                    @foreach($districts as $district)
-                    <option value="{{ $district->id }}" {{(count($company->address) == 0 ? $districts[0]->id : $company->address->district->id) == $district->id ? "selected" : "" }}>{{ $district->name}}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <input id="district-name" type="hidden" name="districtname" value="">
-
-            <div class="col-sm-3">
-                <select class="form-control input-sm" name="city" id="lst-cities">
-                    @foreach($cities as $city)
-                    <option value="{{ $city->id }}" {{(count($company->address) == 0 ? $cities[0]->id : $company->address->district->city->id) == $city->id ? "selected" : "" }}>{{ $city->name}}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <input id="city-name" type="hidden" name="cityname" value="">
-
-
-
-
         </div>
     </td>
 </tr>
+<tr>
+ <td>Địa chỉ</td>
+ <td>
+
+    <div class="form-group{{ ($errors->has('address') || Session::has('address-invalid'))  ? ' has-error' : 'ERROR' }}">
+        <div class="col-sm-6">
+            {!! Form::text('address', count($company->address) == 0 ? "" : $company->address->address, ['class' => 'form-control input-sm', 'required' => 'required', 'placeholder' => '45 Nguyễn Khắc Nhu, Phường Cô Giang']) !!}
+            <small class="text-danger">{{ $errors->first('address') }}</small>
+
+            @if(Session::has('address-invalid'))
+            <small class="text-danger">{!! session('address-invalid') !!}</small>
+            @endif
+        </div>
+
+        <div class="col-sm-3">
+            <select class="form-control input-sm" name="district" id="lst-district">
+                @foreach($districts as $district)
+                <option value="{{ $district->id }}" {{(count($company->address) == 0 ? $districts[0]->id : $company->address->district->id) == $district->id ? "selected" : "" }}>{{ $district->name}}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <input id="district-name" type="hidden" name="districtname" value="">
+
+        <div class="col-sm-3">
+            <select class="form-control input-sm" name="city" id="lst-cities">
+                @foreach($cities as $city)
+                <option value="{{ $city->id }}" {{(count($company->address) == 0 ? $cities[0]->id : $company->address->district->city->id) == $city->id ? "selected" : "" }}>{{ $city->name}}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <input id="city-name" type="hidden" name="cityname" value="">
+
+
+
+
+    </div>
+</td>
+</tr>
 
 <tr>
- <td>Thời gian làm việc</td>
- <td>
+   <td>Thời gian làm việc</td>
+   <td>
     <div class="form-group{{ $errors->has('working_day') ? ' has-error' : 'ERROR' }}">
         <div class="col-sm-9">
             {!! Form::text('working_day', $company->working_day, ['class' => 'form-control input-sm']) !!}
@@ -223,7 +223,7 @@
         <div id="UploadImages" class="" style="margin-top: 10px;">
             <ul class="list-group col-sm-6">
                 @foreach ($company->photos()->pluck('name')->toArray() as $photoname)
-                    <li class="list-group-item" style="margin-bottom:4px;"><img src="{{ asset('images/companies/'.$photoname) }}" width="150px" height="150px"/> <span><button type="button" class = "btn btn-danger";" href="#" id="DeleteImage" data-imagename="{{$photoname}}">Xóa</button></span></li>
+                <li class="list-group-item" style="margin-bottom:4px;"><img src="{{ asset('images/companies/'.$photoname) }}" width="150px" height="150px"/> <span><button type="button" class = "btn btn-danger";" href="#" id="DeleteImage" data-imagename="{{$photoname}}">Xóa</button></span></li>
                 @endforeach
             </ul>
         </div>
@@ -320,11 +320,11 @@
             cache:false,
             data: data,
             success: function (ImageNames) {
-               PreviewImages(ImageNames);
+             PreviewImages(ImageNames);
              // RenderInputHiddenImageName(ImageNames);                
          },
          error: function () {
-            alert('error');
+            alert('Hình ảnh phải dưới 2.0 Mb');
         }
     });
 
@@ -348,16 +348,13 @@
     }
 
     function DeleteImage(ImageName) {
-
-        var route = '{{ route('company.deleteImage') }}';
-
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            type: 'POST',
-            url: route,
-            data: {ImageName: ImageName },
+            type: 'GET',
+            url: '../company/deleteImage/' + ImageName,
+            // data: {ImageName: ImageName },
             success: function () {
 
             },
@@ -379,9 +376,9 @@
 
 
     function GetDistrict(cityID) {
-       var urlDistrict = '{{ route("address.districts", ":id") }}';
-       urlDistrict = urlDistrict.replace(':id', cityID);
-       $.ajax({
+     var urlDistrict = '{{ route("address.districts", ":id") }}';
+     urlDistrict = urlDistrict.replace(':id', cityID);
+     $.ajax({
         url: urlDistrict,
         type: 'GET',
         success: function (response) {
@@ -397,36 +394,36 @@
             alert('error');
         }
     });
-   }
+ }
 
-   function updateLogo(){
+ function updateLogo(){
 
-      var id = $('#companyID').val();
-      var imagefile = document.getElementById("logoname").files[0];
-      var urlImg = '{{ route('company.updateLogo') }}';
-      var data = new FormData();
-      data.append("id", id);
-      data.append("imagefile", imagefile);
+  var id = $('#companyID').val();
+  var imagefile = document.getElementById("logoname").files[0];
+  var urlImg = '{{ route('company.updateLogo') }}';
+  var data = new FormData();
+  data.append("id", id);
+  data.append("imagefile", imagefile);
 
-      $.ajax({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        type: 'POST',
-        url: urlImg,
-        contentType: false,
-        processData: false,
-        cache:false,
-        data: data,
-        success: function (response) {
-           if (response == 200) {
+  $.ajax({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    type: 'POST',
+    url: urlImg,
+    contentType: false,
+    processData: false,
+    cache:false,
+    data: data,
+    success: function (response) {
+     if (response == 200) {
 
-               $( ".update-logo-noti" ).fadeIn( 300 ).delay( 2000 ).fadeOut( 00 );
-           }
-       },
-       error: function () {
-        alert('Đã có lỗi xảy ra');
-    }
+         $( ".update-logo-noti" ).fadeIn( 300 ).delay( 2000 ).fadeOut( 00 );
+     }
+ },
+ error: function () {
+    alert('Đã có lỗi xảy ra');
+}
 });
 
       // e.preventDefault();
@@ -437,14 +434,14 @@
 
   var urlTag = '{{ route('tags') }}';
   var tagnames = new Bloodhound({
-     datumTokenizer: Bloodhound.tokenizers.obj.whitespace("name"),
-     queryTokenizer: Bloodhound.tokenizers.whitespace,
-     prefetch: {
-         url: urlTag,
-         cache: false,
-         filter: function(list) {
+   datumTokenizer: Bloodhound.tokenizers.obj.whitespace("name"),
+   queryTokenizer: Bloodhound.tokenizers.whitespace,
+   prefetch: {
+       url: urlTag,
+       cache: false,
+       filter: function(list) {
           return $.map(list, function(tagname) {
-           return { name: tagname }; });
+             return { name: tagname }; });
       }
   }
 });
@@ -453,11 +450,11 @@
 
   $('.tagsinput').tagsinput({
     typeaheadjs: {
-     name: 'tags',
-     displayKey: 'name',
-     valueKey: 'name',
-     source: tagnames.ttAdapter()
- }
+       name: 'tags',
+       displayKey: 'name',
+       valueKey: 'name',
+       source: tagnames.ttAdapter()
+   }
 });
 </script>
 

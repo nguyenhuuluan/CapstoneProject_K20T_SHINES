@@ -56,7 +56,7 @@ Route::POST('student/recruitments/{id}/apply', 'Student\StudentRecruitmentContro
 // Route::get('/recruitments/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
 
 Route::group(['middleware' => 'filter'], function() {
-    Route::get('/recruitments/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
+	Route::get('/recruitments/{id}', 'RecruitmentController@detailrecruitment')->name('detailrecruitment');
 });
 
 Route::get('search', 'RecruitmentController@search')->name('recruitments.search');
@@ -83,26 +83,26 @@ Route::GET('student/update-success','StudentController@updateSuccess')->name('st
 
 Route::middleware(['student', 'web'])->group(function () {
 
-Route::get('student/profile', 'Student\StudentProfileController@index')->name('profile.index');
-Route::get('student/profile/edit', 'Student\StudentProfileController@edit')->name('profile.edit');
-Route::post('student/profile/edit', 'Student\StudentProfileController@update')->name('profile.update');
+	Route::get('student/profile', 'Student\StudentProfileController@index')->name('profile.index');
+	Route::get('student/profile/edit', 'Student\StudentProfileController@edit')->name('profile.edit');
+	Route::post('student/profile/edit', 'Student\StudentProfileController@update')->name('profile.update');
 
-Route::POST('student/photo/update', 'Student\StudentProfileController@editPhoto')->name('student.photo.edit');
+	Route::POST('student/photo/update', 'Student\StudentProfileController@editPhoto')->name('student.photo.edit');
 
 
-Route::GET('student/cv', 'Student\StudentCvController@show')->name('student.cv.show');
-Route::POST('student/cv/{id}', 'Student\StudentCvController@store')->name('student.cv.store');
-Route::POST('student/cv/', 'Student\StudentCvController@destroy')->name('student.cv.destroy');
+	Route::GET('student/cv', 'Student\StudentCvController@show')->name('student.cv.show');
+	Route::POST('student/cv/{id}', 'Student\StudentCvController@store')->name('student.cv.store');
+	Route::POST('student/cv/', 'Student\StudentCvController@destroy')->name('student.cv.destroy');
 
 
 // Route::resource('student/cv', 'Student\StudentCvController');
 
-Route::GET('student/recruitments/apply', 'Student\StudentRecruitmentController@showApply')->name('student.apply.show');
-Route::GET('student/recruitments/save', 'Student\StudentRecruitmentController@showRecruitment')->name('student.recruitment.show');
+	Route::GET('student/recruitments/apply', 'Student\StudentRecruitmentController@showApply')->name('student.apply.show');
+	Route::GET('student/recruitments/save', 'Student\StudentRecruitmentController@showRecruitment')->name('student.recruitment.show');
 
 // Route::get('student/profile', 'StudentController@profile')->name('student.profile');
 
-Route::get('student/profile/update', 'StudentController@updateProfile')->name('student.profile.update');
+	Route::get('student/profile/update', 'StudentController@updateProfile')->name('student.profile.update');
 // Route::POST('student/profile/update', 'StudentController@editProfile')->name('student.profile.edit');
 });
 
@@ -214,11 +214,13 @@ Route::middleware(['representative', 'web'])->group(function () {
 	//Company
 	Route::get('/company/update', 'CompanyController@update')->name('company.update');
 	Route::POST('/company/edit/{id}', 'CompanyController@edit')->name('company.edit');
-	Route::POST('/company/updateLogo', 'CompanyController@updateLogo')->name('company.updateLogo');
-	Route::POST('/company/updateImages', 'CompanyController@updateImages')->name('company.updateImages');
-	Route::POST('/company/deleteImage', 'CompanyController@deleteImage')->name('company.deleteImage');
 	
 });
+
+Route::POST('/company/updateLogo', 'CompanyController@updateLogo')->name('company.updateLogo');
+Route::POST('/company/updateImages', 'CompanyController@updateImages')->name('company.updateImages');
+Route::GET('/company/deleteImage/{imageName}', 'CompanyController@deleteImage')->name('company.deleteImage');
+
 
 Route::GET('representative/reset-password/{token}','Representative\RepresentativeController@resetPassword')->name('representative.resetpassword');
 

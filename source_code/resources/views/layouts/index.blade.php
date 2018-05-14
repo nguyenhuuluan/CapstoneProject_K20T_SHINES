@@ -155,7 +155,7 @@
 </script>
 <script type="text/javascript">
 
-  var route = "{{ route('recruitment.total') }}";
+  // var route = "{{ route('recruitment.total') }}";
 //   $.ajax({
 //     url: route,
 //     type: 'GET',

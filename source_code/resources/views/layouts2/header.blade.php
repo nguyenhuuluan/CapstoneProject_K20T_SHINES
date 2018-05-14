@@ -176,7 +176,7 @@
     <a class="active" href="{{ route('home') }}">Trang chủ</a>
   </li>
   <li>
-    <a href="#">Công ty</a>
+    <a href="{{ route('companies.list') }}">Công ty</a>
   </li>
   <li>
     <a href="#">Việc làm</a>
