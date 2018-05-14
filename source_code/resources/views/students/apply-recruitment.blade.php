@@ -35,10 +35,10 @@
 								<tbody>
 									@foreach ($applies as $apply)
 									<tr>
-										<td><a href="{!! route('detailrecruitment', $apply->slug) !!}" target="_blank">{!! $apply->title !!}</a></td>
+										<td><a href="{!! route('detailrecruitment', $apply->recrui) !!}" target="_blank">{!! $apply->title !!}</a></td>
 										<td>Hồ Chí Minh</td>
-										<td>{!! date("d-m-Y | H:i:s", strtotime($apply->pivot->created_at))  !!}</td>
-										<td><a href="{!! route('company.details', $apply->company->slug) !!}" target="_blank">{!! $apply->company->name !!}</a></td>
+										<td>{!! date("d-m-Y | H:i:s", strtotime($apply->created_at))  !!}</td>
+										<td><a href="{!! route('company.details', $apply->recruitment->company->slug) !!}" target="_blank">{!! $apply->recruitment->company->name !!}</a></td>
 									</tr>
 									@endforeach
 									

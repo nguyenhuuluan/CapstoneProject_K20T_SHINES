@@ -59,6 +59,7 @@ class Recruitment extends Model
     	//return $this->belongsTo('App\Company', 'company_id', 'id');
     }
 
+
     public function status(){
     	return $this->belongsTo('App\Status');
     }
@@ -77,5 +78,17 @@ class Recruitment extends Model
     public function tags(){
         return $this->belongsToMany('App\Tag', 'tag_recruitment', 'recruitment_id', 'tag_id')->withTimestamps();
     }
+
+    public function cvs()
+    {
+        return $this->belongsToMany('App\Cv', 'applies', 'recruitment_id', 'cv_id')->withTimestamps()->withPivot(['description', 'student_id']);;
+    }
+
+    public function applies()
+    {
+        return $this->hasMany('App\Apply');
+    }
+
+
     
 }

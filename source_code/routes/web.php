@@ -217,6 +217,7 @@ Route::middleware(['representative', 'web'])->group(function () {
 
 	Route::GET('representative/home', 'Representative\RepresentativeController@index');   
 	Route::resource('representative/recruitments', 'Representative\RepresentativeRecruitmentController');
+	Route::get('/representative/getdata/recruitments', 'Representative\RepresentativeRecruitmentController@getCV')->name('recruitments.getcv');
 
 	//Company
 	Route::get('/company/update', 'CompanyController@update')->name('company.update');

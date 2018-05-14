@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use App\Student;
 use App\Recruitment;
+use App\Apply;
 use Exception;
 
 class StudentRecruitmentController extends Controller
@@ -47,8 +48,16 @@ class StudentRecruitmentController extends Controller
 
         $student = Auth::user()->student;
 
+        $data = [
+            'student_id'=>$student->id,
+            'recruitment_id'=> Recruitment::findBySlugOrFail($slug)->id,
+            'cv_id'=>$request['mycv'],
+            'description'=>$request['description']
+        ];
         try {
-            $student->recruitments()->save(Recruitment::findBySlugOrFail($slug), ['cv_id'=>$request['mycv'], 'description'=>$request['description']]);
+            $apply = Apply::create($data);
+
+            // $student->applies()->save(Recruitment::findBySlugOrFail($slug), ['cv_id'=>$request['mycv'], 'description'=>$request['description']]);
             return redirect()->back()->with('success', 'Nộp hồ sơ CV thành công!');
         }
         catch (Exception $e){
@@ -70,7 +79,10 @@ class StudentRecruitmentController extends Controller
     public function showApply()
     {   
         $student = Auth::user()->student;
-        $applies = $student->recruitments;
+        $applies = $student->load('applies.recruitment.company');
+        $applies = $student->applies;
+        // return $applies->applies->first()->recruitment->company->slug;
+        // return $applies->first()->recruitment->company->slug;
         return view('students.apply-recruitment', compact('applies'));  
     }
     public function saveRecruitment($slug)

@@ -56,20 +56,20 @@ class RecruitmentController extends Controller
         $texts = explode(",", $request['searchtext']);
 
 
-          $recruitments = Recruitment::with('categories','company', 'sections')
-                                ->leftjoin('companies', 'company_id', '=', 'companies.id')
-                                ->leftjoin('section_recruitment', 'recruitments.id', '=', 'section_recruitment.recruitment_id')
-                                ->select('recruitments.*', 'section_recruitment.content as content')
-                                ->where('companies.status_id', '=', '3')
-                                ->where('section_recruitment.section_id', '=', '1')
-                                ->where('recruitments.status_id', '=', '1')
-                                ->where(function($q) use ($texts){
-                                        foreach ($texts as $key => $value) {
-                                            $q->orWhere('recruitments.searching', 'like', '%'.$value.'%');
-                                        }
-                                    })
-                                ->orderBy('recruitments.created_at','desc')
-                                ->paginate($this->per_page_number);
+        $recruitments = Recruitment::with('categories','company', 'sections')
+        ->leftjoin('companies', 'company_id', '=', 'companies.id')
+        ->leftjoin('section_recruitment', 'recruitments.id', '=', 'section_recruitment.recruitment_id')
+        ->select('recruitments.*', 'section_recruitment.content as content')
+        ->where('companies.status_id', '=', '3')
+        ->where('section_recruitment.section_id', '=', '1')
+        ->where('recruitments.status_id', '=', '1')
+        ->where(function($q) use ($texts){
+            foreach ($texts as $key => $value) {
+                $q->orWhere('recruitments.searching', 'like', '%'.$value.'%');
+            }
+        })
+        ->orderBy('recruitments.created_at','desc')
+        ->paginate($this->per_page_number);
 
         // return $recruitments;
 
@@ -97,8 +97,8 @@ class RecruitmentController extends Controller
         if($request->ajax())
         {
             return ['recruitments'=>view('ajax.recruitmentList')->with(compact('recruitments'))->render(),
-                    'next_page'=>$recruitments->nextPageUrl()
-                ];
+            'next_page'=>$recruitments->nextPageUrl()
+        ];
     }
     
     return view('recruitments.search', compact('recruitments', 'total'));
@@ -143,35 +143,29 @@ class RecruitmentController extends Controller
 
        $recruitment = Recruitment::findBySlugOrFail($slug);
 
-     Event::fire('recruitment.view', $recruitment);
+       Event::fire('recruitment.view', $recruitment);
 
-     if($recruitment->status_id==1)
-     {
-
+       if($recruitment->status_id==1){
         return view('recruitments.detail',compact('recruitment', 'currentURL'));
-
-    }else{
-        abort(404);
-
-    }
+    }else{abort(404);}
 
 }
 
 public function totalRecruitments()
 {
    $total = Recruitment::join('companies','recruitments.company_id', '=', 'companies.id')
-                         ->where('recruitments.status_id', 1)
-                         ->where('companies.status_id', 3)
-                         ->get()->count();
+   ->where('recruitments.status_id', 1)
+   ->where('companies.status_id', 3)
+   ->get()->count();
    return response()->json($total);
 }
 
 public function increaseView($recruitmentID)
 {
 
-     $recruitment = Recruitment::where('id', $recruitmentID)->first();
+ $recruitment = Recruitment::where('id', $recruitmentID)->first();
 
-    if (Auth::user() == null ) {
+ if (Auth::user() == null ) {
      $recruitment->number_of_anonymous_view = $recruitment->number_of_anonymous_view + 1;
  }elseif (Auth::user()->isStudent()) {
      $recruitment->number_of_view = $recruitment->number_of_view + 1;
@@ -192,7 +186,7 @@ public function increaseView($recruitmentID)
  //     $recruitment->increment('number_of_anonymous_view');
  // }
 
-  $recruitment->update();
+$recruitment->update();
 
 
 return response()->json(200);

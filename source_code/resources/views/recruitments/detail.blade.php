@@ -92,13 +92,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="{!!$currentURL!!}" />
 <meta property="og:image" content="{!! asset($recruitment->company->logo) !!}" />
-<meta property="og:description" content="{{  substr($recruitment->sections[0]->content, 0, 150) }}" />
+<meta property="og:description" content="{!! substr(strip_tags($recruitment->sections[0]->pivot->content), 0, 150) !!}" />
 <meta property="og:site_name" content="tyendungvanlang.tech" />
 
 @endsection
 
 @section('page-header')
-
 
 <header class="page-header bg-img size-lg" style="background-image: url({{ asset('assets/img/bg-banner2.jpg') }} )">
 	<div class="container">
@@ -107,8 +106,7 @@
 			<div class="hgroup">
 				<h1>{!! $recruitment->title !!}</h1>
 			</div>
-              <?php \Carbon\Carbon::setLocale('vi')?>
-			<time>{!! $recruitment->created_at->diffForhumans() !!}</time>
+			<time>{!! $recruitment->getCreatedAtAtrribute() !!}</time>
 			<ul class="details cols-3"  style="text-align: center">
 				<li>
 					<h3><a href="{!! route('company.details', $recruitment->company->slug) !!}">{!! $recruitment->company->name !!}</a></h3>
@@ -206,11 +204,11 @@
 
 
 		<div class="col-md-4 col-lg-3">
-
+	
 			<div class="widget widget_tag_cloud">
 				<h6 class="widget-title">Tags</h6>
 				<div class="widget-body">
-					<a href="#">blog</a>
+					<a href="#">blog </a>
 					<a href="#">new</a>
 					<a href="#">google</a>
 					<a href="#">position</a>
