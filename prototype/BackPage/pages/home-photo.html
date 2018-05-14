@@ -17,13 +17,11 @@
     <!-- MetisMenu CSS -->
     <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
-    <!-- ChartJS -->
-    <script src="../vendor/chartjs/Chart.min.js"></script>
-    <script src="../vendor/chartjs/Chart.bundle.js"></script>
-    <script src="../vendor/chartjs/utils.js"></script>
-
     <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- ImageUploadify -->
+    <link href="../vendor/imageuploadify/imageuploadify.min.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -41,7 +39,6 @@
 
     <div id="wrapper">
 
-        <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -184,18 +181,7 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Bảng điều khiển<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="statistics-recruiment.html">Tin tuyển dụng</a>
-                                </li>
-                                <li>
-                                    <a href="statistics-candidate.html">Ứng viên</a>
-                                </li>
-                                <li>
-                                    <a href="statistics-other.html">Khác</a>
-                                </li>
-                            </ul>
+                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Bảng điều khiển</a>
                         </li>
                         <li>
                             <a href="list-recruitment.html"><i class="fa fa-newspaper-o fa-fw"></i> Tin tuyển dụng</a>
@@ -206,6 +192,9 @@
                          <li>
                             <a href="#"><i class="fa fa-users fa-fw"></i> Danh sách tài khoản<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                            	<li>
+                                    <a href="create-account.html">Tạo tài khoản</a>
+                                </li>
                                 <li>
                                     <a href="list-account-company.html">Công ty</a>
                                 </li>
@@ -220,6 +209,9 @@
                         <li>
                             <a href="#"><i class="fa fa-pencil-square-o fa-fw"></i> Blog</a>
                         </li>
+                         <li>
+                            <a href="#"><i class="fa fa-photo"></i> Quản lý ảnh</a>
+                        </li>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -227,99 +219,27 @@
             <!-- /.navbar-static-side -->
         </nav>
 
+        <!-- Page Content -->
         <div id="page-wrapper">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">Bảng điều khiển</h1>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Quản lý ảnh</h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                    <div class="col-xs-12 col-md-12">
+                        <div class="form-group">
+                        <p>Thời gian chuyển slide (giây): </p>    
+                        <input class="form-control" type="text" placeholder="ví dụ. 60">
+                        <br><br>
+                        <input type="file" accept="image/*" multiple>
+                        <br><br>
+                        <button type="button" class="btn btn-success">Cập nhật</button>
+                    </div>
                 </div>
-                <!-- /.col-lg-12 -->
+                <!-- /.row -->
             </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-newspaper-o fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">126</div>
-                                    <div>Tin tuyển dụng</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-green">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-building fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">125</div>
-                                    <div>Công ty</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-yellow">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-users fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">12124</div>
-                                    <div>Ứng viên</div>
-                                </div>
-                            </div>
-                        </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-red">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-user fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">50</div>
-                                    <div>Nhân viên</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                
-
-			<div class="row">
-            	<center><h3>Số lượt truy cập website</h3></center>
-            	<div class="form-group col-lg-3 col-md-6 col-xs-12">
-                                            <label>Chọn tháng</label>
-                                            <select class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                <canvas id="bar-chart" width="100%" height="40%"></canvas>
-            </div>
-           
-
-
-            </div>
-            <!-- /.row -->
-            
+            <!-- /.container-fluid -->
         </div>
         <!-- /#page-wrapper -->
 
@@ -338,11 +258,14 @@
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
 
-    <!-- Chart js data -->
-    <script src="../data/dataChartjs.js"></script>
+    <!-- ImageUploadify -->
+    <script src="../vendor/imageuploadify/imageuploadify.min.js"></script>
 
-
-
+    <script type="text/javascript">
+        $(document).ready(function() {
+                $('input[type="file"]').imageuploadify();
+            })
+    </script>
 </body>
 
 </html>

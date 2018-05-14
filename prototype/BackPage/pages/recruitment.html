@@ -14,13 +14,17 @@
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+    <link href="../vendor/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
+
     <!-- MetisMenu CSS -->
     <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
-    <!-- ChartJS -->
-    <script src="../vendor/chartjs/Chart.min.js"></script>
-    <script src="../vendor/chartjs/Chart.bundle.js"></script>
-    <script src="../vendor/chartjs/utils.js"></script>
+    <!-- SummerNote -->
+    <link href="../vendor/summernote/summernote.css" rel="stylesheet">
+    <script src="../vendor/summernote/jquery.js"></script>
+    <script src="../vendor/summernote/summernote.js"></script>
+
+    <link href="../vendor/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
@@ -34,6 +38,32 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style type="text/css">
+        .btn-file {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-file input[type=file] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            outline: none;
+            background: white;
+            cursor: inherit;
+            display: block;
+        }
+        
+        #img-upload {
+            width: 30%;
+        }
+    </style>
 
 </head>
 
@@ -41,7 +71,6 @@
 
     <div id="wrapper">
 
-        <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -105,8 +134,7 @@
                     </ul>
                     <!-- /.dropdown-messages -->
                 </li>
-                
-                
+
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -184,18 +212,7 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Bảng điều khiển<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="statistics-recruiment.html">Tin tuyển dụng</a>
-                                </li>
-                                <li>
-                                    <a href="statistics-candidate.html">Ứng viên</a>
-                                </li>
-                                <li>
-                                    <a href="statistics-other.html">Khác</a>
-                                </li>
-                            </ul>
+                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Bảng điều khiển</a>
                         </li>
                         <li>
                             <a href="list-recruitment.html"><i class="fa fa-newspaper-o fa-fw"></i> Tin tuyển dụng</a>
@@ -204,6 +221,9 @@
                             <a href="list-company.html"><i class="fa fa-building fa-fw"></i> Công ty</a>
                         </li>
                          <li>
+                            <a href="faculty-manage.html"><i class="fa fa-leanpub fa-fw"></i> Quản lý nghành</a>
+                        </li>
+                        <li>
                             <a href="#"><i class="fa fa-users fa-fw"></i> Danh sách tài khoản<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -218,7 +238,15 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-pencil-square-o fa-fw"></i> Blog</a>
+                            <a href="#"><i class="fa fa-users fa-fw"></i> Blog<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="blog-post.html">Đăng blog</a>
+                                </li>
+                                <li>
+                                    <a href="blog-post-list.html">Danh sách blog</a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -227,99 +255,92 @@
             <!-- /.navbar-static-side -->
         </nav>
 
+        <!-- Page Content -->
         <div id="page-wrapper">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">Bảng điều khiển</h1>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Quản lý tin tuyển dụng</h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                    <div class="col-xs-12 col-md-9">
+                        <div class="form-group">
+                            <input class="form-control" value="05 Mobile Devs (Xamarin/ iOS/ Android)" placeholder="Tiêu đề tin tuyển dụng">
+                            <br><br>
+
+                           	<input class="form-control" value="22.000 VND/hour" placeholder="Lương">
+                           	<br><br>
+                            
+                           	<p><label>Ngày hết hạn: </label> 22/12/2018</p>
+
+                            <label>Mô Tả Công Việc</label>
+                            <textarea class="form-control" rows="3" placeholder="Cái này là để trình editor của m bỏ vô nha"></textarea>
+                            <br><br>
+
+                            <label>Kỹ Năng, Công Việc</label>
+                            <textarea class="form-control" rows="3" placeholder="Cái này là để trình editor của m bỏ vô nha"></textarea>
+                            <br><br>
+
+                            <label>Phúc Lợi</label>
+                            <textarea class="form-control" rows="3" placeholder="Cái này là để trình editor của m bỏ vô nha"></textarea>
+                            <br><br>
+
+                            <label>Tùy Chọn</label>
+                            <textarea class="form-control" rows="3" placeholder="Cái này là để trình editor của m bỏ vô nha"></textarea>
+                            <br><br>
+
+                            <label>Tags</label>
+                            <br>
+                            <input type="text" class="tagsinput-typeahead form-control" placeholder="Nhập tags bài viết" data-role="tagsinput" value="HTML, CSS, JavaScript">
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-3">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                Công cụ đăng
+                            </div>
+                            <div class="panel-body">
+                                <button type="button" class="btn btn-default">Xem trước</button>
+                                <br>
+                                <br>
+                                <p class="fa fa-calendar"></p> Thời gian:
+
+                                <div id="datetimepicker2" class="input-append">
+                                    <input data-format="MM/dd/yyyy HH:mm:ss PP" type="text" class="form-control" style="width: 90%" value="2/3/2018 4:15 PM">
+                                    <span class="add-on">
+	                           			<i class="fa fa-clock-o"></i>
+	                           		</span>
+                                    </input>
+                                </div>
+                            </div>
+
+                            <div class="panel-footer">
+                                <button type="button" class="btn btn-warning">Hủy</button>
+                                <button type="button" class="btn btn-success">Cập nhật</button>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                Vị trí tuyển dụng
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <select class="form-control" multiple="">
+                                                <option>Fulltime</option>
+                                                <option>Parttime</option>
+                                                <option>Intership</option>
+                           			</select>
+                           			<p style="color: red;">Nhấn shift để chọn nhiều mục<p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <!-- /.col-lg-12 -->
+                <!-- /.row -->
             </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-newspaper-o fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">126</div>
-                                    <div>Tin tuyển dụng</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-green">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-building fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">125</div>
-                                    <div>Công ty</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-yellow">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-users fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">12124</div>
-                                    <div>Ứng viên</div>
-                                </div>
-                            </div>
-                        </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-red">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-user fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">50</div>
-                                    <div>Nhân viên</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                
-
-			<div class="row">
-            	<center><h3>Số lượt truy cập website</h3></center>
-            	<div class="form-group col-lg-3 col-md-6 col-xs-12">
-                                            <label>Chọn tháng</label>
-                                            <select class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                <canvas id="bar-chart" width="100%" height="40%"></canvas>
-            </div>
-           
-
-
-            </div>
-            <!-- /.row -->
-            
+            <!-- /.container-fluid -->
         </div>
         <!-- /#page-wrapper -->
 
@@ -327,10 +348,12 @@
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="../vendor/bootstrap-tagsinput/bootstrap3-typeahead.js"></script>
+    <script src="../vendor/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
     <script src="../vendor/metisMenu/metisMenu.min.js"></script>
@@ -338,11 +361,85 @@
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
 
-    <!-- Chart js data -->
-    <script src="../data/dataChartjs.js"></script>
+    <script src="../vendor/datetimepicker/bootstrap-datetimepicker.min.js"></script>
 
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#summernote').summernote({
+                height: 200
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(function() {
+            $('#datetimepicker2').datetimepicker({
+                language: 'en',
+                pick12HourFormat: true
+            });
+        });
+    </script>
+    <script>
+        var places = [{
+            name: "PHP"
+        }, {
+            name: "JavaScript"
+        }, {
+            name: "BIM"
+        }, {
+            name: "HTML"
+        }, {
+            name: "CSS"
+        }];
 
+        $('.tagsinput-typeahead').tagsinput({
+            typeahead: {
+                source: places.map(function(item) {
+                    return item.name
+                }),
+                afterSelect: function() {
+                    this.$element[0].value = '';
+                }
+            }
+        })
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(document).on('change', '.btn-file :file', function() {
+                var input = $(this),
+                    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+                input.trigger('fileselect', [label]);
+            });
 
+            $('.btn-file :file').on('fileselect', function(event, label) {
+
+                var input = $(this).parents('.input-group').find(':text'),
+                    log = label;
+
+                if (input.length) {
+                    input.val(log);
+                } else {
+                    if (log) alert(log);
+                }
+
+            });
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $('#img-upload').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $("#imgInp").change(function() {
+                readURL(this);
+            });
+        });
+    </script>
 </body>
 
 </html>
