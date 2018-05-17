@@ -230,3 +230,31 @@ span.positionwork {
     display: initial;
   }
 }
+
+
+ .w3-content{
+    max-width:980px;
+    margin:auto
+}
+
+.w3-display-container:hover .w3-display-hover{
+    display:block
+}
+.w3-display-container:hover span.w3-display-hover{
+    display:inline-block
+  }
+
+  .w3-display-left{
+    position:absolute;
+    top:50%;
+    left:0%;
+    transform:translate(0%,-50%);
+    -ms-transform:translate(-0%,-50%)
+}
+ .w3-display-right{
+    position:absolute;
+    top:50%;
+    right:0%;
+    transform:translate(0%,-50%);
+    -ms-transform:translate(0%,-50%)
+}

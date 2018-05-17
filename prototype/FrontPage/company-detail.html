@@ -1,535 +1,555 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Post a job position or create your online resume by TheJobs!">
-  <meta name="keywords" content="">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Post a job position or create your online resume by TheJobs!">
+    <meta name="keywords" content="">
 
-  <title>Jobee</title>
+    <title>Jobee</title>
 
-  <!-- Styles -->
-  <link href="assets/css/app.min.css" rel="stylesheet">
-  <link href="assets/css/thejobs.css" rel="stylesheet">
-  <link href="assets/css/custom.css" rel="stylesheet">
-  <link href="assets/css/jquery.bxslider.css" rel="stylesheet">
+    <!-- Styles -->
+    <link href="assets/css/app.min.css" rel="stylesheet">
+    <link href="assets/css/thejobs.css" rel="stylesheet">
+    <link href="assets/css/custom.css" rel="stylesheet">
+    <link href="assets/css/jquery.bxslider.css" rel="stylesheet">
 
-  <!-- Fonts -->
-  <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
+    <!-- Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
 
-  <!-- Favicons -->
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="icon" href="assets/img/favicon.ico">
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="icon" href="assets/img/favicon.ico">
 </head>
 
 <body class="nav-on-header smart-nav">
 
 
-  <!-- Navigation bar -->
-  <nav class="navbar">
-    <div class="container">
+    <!-- Navigation bar -->
+    <nav class="navbar">
+        <div class="container">
 
-      <!-- Logo -->
-      <div class="pull-left">
-        <a class="navbar-toggle" href="#" data-toggle="offcanvas"><i class="ti-menu"></i></a>
+            <!-- Logo -->
+            <div class="pull-left">
+                <a class="navbar-toggle" href="#" data-toggle="offcanvas"><i class="ti-menu"></i></a>
 
-        <div class="logo-wrapper">
-          <a class="logo" href="index.html"><img src="assets/img/logo.png" alt="logo"></a>
-          <a class="logo-alt" href="index.html"><img src="assets/img/logo-alt.png" alt="logo-alt"></a>
-        </div>
+                <div class="logo-wrapper">
+                    <a class="logo" href="index.html"><img src="assets/img/logo.png" alt="logo"></a>
+                    <a class="logo-alt" href="index.html"><img src="assets/img/logo-alt.png" alt="logo-alt"></a>
+                </div>
 
-      </div>
-      <!-- END Logo -->
+            </div>
+            <!-- END Logo -->
 
-      <!-- SignUp/SignIn Candidate-->
-      <div id="id02" class="modal fade">
-        <form class="modal-content animate" action="#">
-          <div class="login-block">
-            <img src="assets/img/logo.png" alt="">
-            <br><br>
-            <ul class="nav nav-tabs">
-              <li class="active">
-                <a data-toggle="tab" onclick="modalSignInOut('dangnhap')" href="#">Đăng nhập</a>
-              </li>
-              <li>
-                <a data-toggle="tab" onclick="modalSignInOut('dangky')" href="#">Đăng ký</a>
-              </li>
+            <!-- SignUp/SignIn Candidate-->
+            <div id="id02" class="modal fade">
+                <form class="modal-content animate" action="#">
+                    <div class="login-block">
+                        <img src="assets/img/logo.png" alt="">
+                        <br><br>
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a data-toggle="tab" onclick="modalSignInOut('dangnhap')" href="#">Đăng nhập</a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" onclick="modalSignInOut('dangky')" href="#">Đăng ký</a>
+                            </li>
+                        </ul>
+
+                        <div id="dangnhap" class="modalinout">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="ti-email"></i></span>
+                                    <input type="text" class="form-control" placeholder="Email">
+                                </div>
+                            </div>
+                            <hr class="hr-xs">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="ti-unlock"></i></span>
+                                    <input type="password" class="form-control" placeholder="Mật khẩu">
+                                </div>
+                            </div>
+                            <button class="btn btn-primary btn-block" type="submit">Đăng Nhập</button>
+                            <div class="login-links">
+                                <center><a href="forget-password.html">Quên mật khẩu?</a></center>
+                            </div>
+                        </div>
+
+                        <div id="dangky" class="modalinout" style="display:none">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="ti-email"></i></span>
+                                    <input name="emailCompany" type="text" class="form-control" placeholder="Email">
+                                </div>
+                            </div>
+                            <button name="registerCandidate" class="btn btn-primary btn-block" type="submit">Đăng Ký</button><br>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+            <!-- End SignUp/SignIn Candidate -->
+
+            <!-- User account -->
+            <div class="pull-right user-login">
+                <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#id02" href="#">Đăng nhập</a> | <a href="#">Nhà tuyển dụng</a>
+            </div>
+            <!-- END User account -->
+
+            <!-- Navigation menu -->
+            <ul class="nav-menu">
+                <li>
+                    <a class="active" href="index.html">Trang chủ</a>
+                </li>
+                <li>
+                    <a href="company-list.html">Công ty</a>
+                </li>
+                <li>
+                    <a href="job-list-1.html">Việc làm</a>
+                </li>
+                <li>
+                    <a href="#">Blog</a>
+                </li>
+                <li>
+                    <a href="#">Giới thiệu</a>
+                </li>
             </ul>
+            <!-- END Navigation menu -->
 
-            <div id="dangnhap" class="modalinout">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="ti-email"></i></span>
-                  <input type="text" class="form-control" placeholder="Email">
+        </div>
+    </nav>
+    <!-- END Navigation bar -->
+
+    <!-- Page header -->
+    <header class="page-header bg-img size-lg" style="background-image: url(assets/img/bg-banner1.jpg)">
+        <div class="container">
+            <div class="header-detail">
+                <img class="logo" src="assets/img/logo-google.png" alt="">
+                <div class="hgroup">
+                    <h1>Google</h1>
+                    <h3>Mạng và phần mềm</h3>
                 </div>
-              </div>
-              <hr class="hr-xs">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="ti-unlock"></i></span>
-                  <input type="password" class="form-control" placeholder="Mật khẩu">
+                <hr>
+
+                <ul class="details cols-3">
+                    <li>
+                        <i class="fa fa-map-marker"></i>
+                        <span>Hồ Chí Minh</span>
+                    </li>
+
+                    <li>
+                        <i class="fa fa-globe"></i>
+                        <a href="#">Google.com.vn</a>
+                    </li>
+
+                    <li>
+                        <i class="fa fa-users"></i>
+                        <span>Hơn 300 nhân viên</span>
+                    </li>
+
+                    <li>
+                        <i class="fa fa-birthday-cake"></i>
+                        <span>Từ 1998</span>
+                    </li>
+
+                    <li>
+                        <i class="fa fa-phone"></i>
+                        <span>(+84) 123456789</span>
+                    </li>
+
+                    <li>
+                        <i class="fa fa-calendar"></i>
+                        <span>Thứ hai - thứ sáu</span>
+                    </li>
+                </ul>
+
+                <div class="button-group">
+                    <ul class="social-icons">
+                        <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+                        <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
+                    </ul>
+
+                    <div class="action-buttons">
+                        <a class="btn btn-success" href="#">Liên hệ</a>
+                    </div>
                 </div>
-              </div>
-              <button class="btn btn-primary btn-block" type="submit">Đăng Nhập</button>
-              <div class="login-links">
-                <center><a href="forget-password.html">Quên mật khẩu?</a></center>
-              </div>
+
             </div>
-
-            <div id="dangky" class="modalinout" style="display:none">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="ti-email"></i></span>
-                  <input name="emailCompany" type="text" class="form-control" placeholder="Email">
-                </div>
-              </div>
-              <button name="registerCandidate" class="btn btn-primary btn-block" type="submit">Đăng Ký</button><br>
-            </div>
-            
-          </div>
-        </form>
-      </div>
-
-      <!-- End SignUp/SignIn Candidate -->
-
-      <!-- User account -->
-      <div class="pull-right user-login">
-        <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#id02" href="#">Đăng nhập</a> | <a href="#">Nhà tuyển dụng</a>
-      </div>
-      <!-- END User account -->
-
-      <!-- Navigation menu -->
-      <ul class="nav-menu">
-        <li>
-          <a class="active" href="index.html">Trang chủ</a>
-        </li>
-        <li>
-          <a href="company-list.html">Công ty</a>
-        </li>
-        <li>
-          <a href="job-list-1.html">Việc làm</a>
-        </li>
-        <li>
-          <a href="#">Blog</a>
-        </li>
-        <li>
-          <a href="#">Giới thiệu</a>
-        </li>
-      </ul>
-      <!-- END Navigation menu -->
-
-    </div>
-  </nav>
-  <!-- END Navigation bar -->
-
-  <!-- Page header -->
-  <header class="page-header bg-img size-lg" style="background-image: url(assets/img/bg-banner1.jpg)">
-    <div class="container">
-      <div class="header-detail">
-        <img class="logo" src="assets/img/logo-google.png" alt="">
-        <div class="hgroup">
-          <h1>Google</h1>
-          <h3>Mạng và phần mềm</h3>
         </div>
-        <hr>
-
-        <ul class="details cols-3">
-          <li>
-            <i class="fa fa-map-marker"></i>
-            <span>Hồ Chí Minh</span>
-          </li>
-
-          <li>
-            <i class="fa fa-globe"></i>
-            <a href="#">Google.com.vn</a>
-          </li>
-
-          <li>
-            <i class="fa fa-users"></i>
-            <span>Hơn 300 nhân viên</span>
-          </li>
-
-          <li>
-            <i class="fa fa-birthday-cake"></i>
-            <span>Từ 1998</span>
-          </li>
-
-          <li>
-            <i class="fa fa-phone"></i>
-            <span>(+84) 123456789</span>
-          </li>
-
-          <li>
-            <i class="fa fa-calendar"></i>
-            <span>Thứ hai - thứ sáu</span>
-          </li>
-        </ul>
-
-        <div class="button-group">
-          <ul class="social-icons">
-            <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-            <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-            <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
-            <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-            <li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
-          </ul>
-
-          <div class="action-buttons">
-            <a class="btn btn-success" href="#">Liên hệ</a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </header>
-  <!-- END Page header -->
-
-
-  <!-- Main container -->
-  <main>
-
-
-    <!-- Company detail -->
-    <section>
-      <div class="container">
-        <br>
-        <br>
-        <header class="section-header">
-          <h2>Giới thiệu</h2>
-        </header>
-
-        <p>Google là một công ty Internet có trụ sở tại Hoa Kỳ, được thành lập vào năm 1998. Sản phẩm chính của công ty này là công cụ tìm kiếm Google, được nhiều người đánh giá là công cụ tìm kiếm hữu ích và mạnh mẽ nhất trên Internet. Trụ sở của Google tên là "Googleplex" tại Mountain View, California. Giám đốc công ty là Larry Page, một trong hai người sáng lập ra công ty. Tên "Google" là một lỗi chính tả của từ googol, bằng 10100. Google chọn tên này để thể hiện sứ mệnh của công ty để sắp xếp số lượng thông tin khổng lồ trên mạng. Googleplex, tên của trụ sở Google, có nghĩa là 10googol.</p>
-
-        <p>Đầu năm 2012, Google đứng đầu trong danh sách 100 công ty có môi trường làm việc tốt nhất ở Mỹ do tạp chí Fortune bình chọn với tỷ lệ tăng trưởng việc làm trong năm 2011 là 33%.[4]</p>
-
-        <p>Tháng 8 2015, Google thông báo kế hoạch tái cơ cấu tập đoàn dưới một công ty mẹ mới có tên là Alphabet Inc..[5][6][7] Đầu năm 2016,Google là công ty đầu tiên vượt mặt Apple để trở thành công ty có giá trị thị trường lớn nhất thế giới với 570 tỷ USD vốn hóa và Apple xếp thứ 2 với 535 tỷ USD.</p>
-
-        <p>Tính đến tháng 9 năm 2016, Google là trang web được nhiều người truy cập nhất trên thế giới, đứng vị trí thứ 2 và thứ 3 là YouTube và mạng xã hội Facebook.</p>
-        <center>
-        <div class="bxslider">
-          <div><img src="assets/img/test_bck.jpg" title="Funky roots"></div>
-          <div><img src="assets/img/bg-banner1.jpg" title="The long and winding road"></div>
-        </div>
-        </center>
-      </div>
-    </section>
-    <!-- END Company detail -->
-
-
-    <!-- Open positions -->
-    <section id="open-positions" class="bg-alt">
-      <div class="container">
-        <header class="section-header">
-          <h2>Vị trí đang tuyển</h2>
-        </header>
-
-        <div class="row">
-
-          <!-- Job item -->
-          <div class="col-xs-12">
-            <a class="item-block" href="job-detail.html">
-              <header>
-                <img src="assets/img/logo-google.png" alt="">
-                <div class="hgroup">
-                  <h4>Senior front-end developer</h4>
-                  <h5>Google <span class="label label-danger">Full-time</span></h5>
-                </div>
-                <time datetime="2016-03-10 20:00">32 phút trước</time>
-              </header>
-
-              <div class="item-body">
-                <p>Tham gia phát triển các dự án trên nền tảng C# của khách hàng, tham gia vào tất cả các giai đoạn của 1 dự án như: lập kế hoạch, phân tích, thiết kế, thực thi, kiểm thử, và triển khai cũng như bảo trì.</p>
-              </div>
-
-              <footer>
-                <ul class="details cols-3">
-                  <li>
-                    <i class="fa fa-map-marker"></i>
-                    <span>Hồ Chí Minh</span>
-                  </li>
-
-                  <li>
-                    <i class="fa fa-money"></i>
-                    <span class="salary">$90,000 - $110,000 / năm</span>
-                  </li>
-
-                  <li>
-                    <i class="fa fa-tag"></i>
-                    <span>Master or Bachelor</span>
-                  </li>
-                </ul>
-              </footer>
-            </a>
-          </div>
-          <!-- END Job item -->
-          <!-- Job item -->
-          <div class="col-xs-12">
-            <a class="item-block" href="job-detail.html">
-              <header>
-                <img src="assets/img/logo-google.png" alt="">
-                <div class="hgroup">
-                  <h4>Senior front-end developer</h4>
-                  <h5>Google <span class="label label-danger">Full-time</span></h5>
-                </div>
-                <time datetime="2016-03-10 20:00">34 phút trước</time>
-              </header>
-
-              <div class="item-body">
-                <p>Tham gia phát triển các dự án trên nền tảng C# của khách hàng, tham gia vào tất cả các giai đoạn của 1 dự án như: lập kế hoạch, phân tích, thiết kế, thực thi, kiểm thử, và triển khai cũng như bảo trì.</p>
-              </div>
-
-              <footer>
-                <ul class="details cols-3">
-                  <li>
-                    <i class="fa fa-map-marker"></i>
-                    <span>Hồ Chí Minh</span>
-                  </li>
-
-                  <li>
-                    <i class="fa fa-money"></i>
-                    <span class="salary">$90,000 - $110,000 / năm</span>
-                  </li>
-
-                  <li>
-                    <i class="fa fa-tag"></i>
-                    <span>HTML, CSS, JavaScript</span>
-                  </li>
-                </ul>
-              </footer>
-            </a>
-          </div>
-          <!-- END Job item -->
-          <!-- Job item -->
-          <div class="col-xs-12">
-            <a class="item-block" href="job-detail.html">
-              <header>
-                <img src="assets/img/logo-google.png" alt="">
-                <div class="hgroup">
-                  <h4>Senior front-end developer</h4>
-                  <h5>Google <span class="label label-success">Full-time</span></h5>
-                </div>
-                <time datetime="2016-03-10 20:00">32 phút trước</time>
-              </header>
-
-              <div class="item-body">
-                <p>Tham gia phát triển các dự án trên nền tảng C# của khách hàng, tham gia vào tất cả các giai đoạn của 1 dự án như: lập kế hoạch, phân tích, thiết kế, thực thi, kiểm thử, và triển khai cũng như bảo trì.</p>
-              </div>
-
-              <footer>
-                <ul class="details cols-3">
-                  <li>
-                    <i class="fa fa-map-marker"></i>
-                    <span>Hồ Chí Minh</span>
-                  </li>
-
-                  <li>
-                    <i class="fa fa-money"></i>
-                    <span class="salary">$90,000 - $110,000 / năm</span>
-                  </li>
-
-                  <li>
-                    <i class="fa fa-tag"></i>
-                    <span>HTML, CSS, JavaScript</span>
-                  </li>
-                </ul>
-              </footer>
-            </a>
-          </div>
-          <!-- END Job item -->
-          <!-- Job item -->
-          <div class="col-xs-12">
-            <a class="item-block" href="job-detail.html">
-              <header>
-                <img src="assets/img/logo-google.png" alt="">
-                <div class="hgroup">
-                  <h4>Senior front-end developer</h4>
-                  <h5>Google <span class="label label-success">Full-time</span></h5>
-                </div>
-                <time datetime="2016-03-10 20:00">34 phút trước</time>
-              </header>
-
-              <div class="item-body">
-                <p>Tham gia phát triển các dự án trên nền tảng C# của khách hàng, tham gia vào tất cả các giai đoạn của 1 dự án như: lập kế hoạch, phân tích, thiết kế, thực thi, kiểm thử, và triển khai cũng như bảo trì.</p>
-              </div>
-
-              <footer>
-                <ul class="details cols-3">
-                  <li>
-                    <i class="fa fa-map-marker"></i>
-                    <span>Hồ Chí Minh</span>
-                  </li>
-
-                  <li>
-                    <i class="fa fa-money"></i>
-                    <span class="salary">$90,000 - $110,000 / năm</span>
-                  </li>
-
-                  <li>
-                    <i class="fa fa-tag"></i>
-                    <span>HTML, CSS, JavaScript</span>
-                  </li>
-                </ul>
-              </footer>
-            </a>
-          </div>
-          <!-- END Job item -->
-          <!-- Job item -->
-          <div class="col-xs-12">
-            <a class="item-block" href="job-detail.html">
-              <header>
-                <img src="assets/img/logo-google.png" alt="">
-                <div class="hgroup">
-                  <h4>Senior front-end developer</h4>
-                  <h5>Google <span class="label label-success">Full-time</span></h5>
-                </div>
-                <time datetime="2016-03-10 20:00">34 phút trước</time>
-              </header>
-
-              <div class="item-body">
-                <p>Tham gia phát triển các dự án trên nền tảng C# của khách hàng, tham gia vào tất cả các giai đoạn của 1 dự án như: lập kế hoạch, phân tích, thiết kế, thực thi, kiểm thử, và triển khai cũng như bảo trì.</p>
-              </div>
-
-              <footer>
-                <ul class="details cols-3">
-                  <li>
-                    <i class="fa fa-map-marker"></i>
-                    <span>Hồ Chí Minh</span>
-                  </li>
-
-                  <li>
-                    <i class="fa fa-money"></i>
-                    <span class="salary">$90,000 - $110,000 / năm</span>
-                  </li>
-
-                  <li>
-                    <i class="fa fa-tag"></i>
-                    <span>HTML, CSS, JavaScript</span>
-                  </li>
-                </ul>
-              </footer>
-            </a>
-          </div>
-          <!-- END Job item -->
-
-
-        </div>
-
-      </div>
-    </section>
-    <!-- END Open positions -->
-    <header class="section-header-map">
-      <center><h2>Vị trí</h2></center>
-      <center><strong><span>45 Nguyễn Khắc Nhu, Quận 1, Tp. Hồ Chí Minh</span></strong></center>
-      <br>
     </header>
-
-    <div id="contact-map" style="height: 400px"></div>
-
-  </main>
-  <!-- END Main container -->
+    <!-- END Page header -->
 
 
-  <!-- Site footer -->
-  <footer class="site-footer">
+    <!-- Main container -->
+    <main>
 
-    <!-- Top section -->
-    <div class="container">
-      <div class="row">
 
-        <div class="col-xs-6 col-sm-6 col-md-3">
-          <h6>Việc làm theo nghành nghề</h6>
-          <ul class="footer-links">
-            <li><a href="job-list.html">Việc làm Kế toán</a></li>
-            <li><a href="job-list.html">Việc làm Ngân hàng</a></li>
-            <li><a href="job-list.html">Việc làm IT - Phần mềm</a></li>
-            <li><a href="job-list.html">Việc làm IT-Phần cứng/Mạng</a></li>
-            <li><a href="job-list.html">Việc làm Xây dựng</a></li>
-          </ul>
-        </div>
+        <!-- Company detail -->
+        <section>
+            <div class="container">
+                <br>
+                <br>
+                <header class="section-header">
+                    <h2>Giới thiệu</h2>
+                </header>
 
-        <div class="col-xs-6 col-sm-6 col-md-3">
-          <ul class="footer-links">
+                <p>Google là một công ty Internet có trụ sở tại Hoa Kỳ, được thành lập vào năm 1998. Sản phẩm chính của công ty này là công cụ tìm kiếm Google, được nhiều người đánh giá là công cụ tìm kiếm hữu ích và mạnh mẽ nhất trên Internet. Trụ sở của
+                    Google tên là "Googleplex" tại Mountain View, California. Giám đốc công ty là Larry Page, một trong hai người sáng lập ra công ty. Tên "Google" là một lỗi chính tả của từ googol, bằng 10100. Google chọn tên này để thể hiện sứ mệnh
+                    của công ty để sắp xếp số lượng thông tin khổng lồ trên mạng. Googleplex, tên của trụ sở Google, có nghĩa là 10googol.</p>
+
+                <p>Đầu năm 2012, Google đứng đầu trong danh sách 100 công ty có môi trường làm việc tốt nhất ở Mỹ do tạp chí Fortune bình chọn với tỷ lệ tăng trưởng việc làm trong năm 2011 là 33%.[4]</p>
+
+                <p>Tháng 8 2015, Google thông báo kế hoạch tái cơ cấu tập đoàn dưới một công ty mẹ mới có tên là Alphabet Inc..[5][6][7] Đầu năm 2016,Google là công ty đầu tiên vượt mặt Apple để trở thành công ty có giá trị thị trường lớn nhất thế giới với
+                    570 tỷ USD vốn hóa và Apple xếp thứ 2 với 535 tỷ USD.</p>
+
+                <p>Tính đến tháng 9 năm 2016, Google là trang web được nhiều người truy cập nhất trên thế giới, đứng vị trí thứ 2 và thứ 3 là YouTube và mạng xã hội Facebook.</p>
+                <br>
+                <center>
+                    <div class="w3-content w3-display-container">
+                        <img class="mySlides" src="assets/img/O7MF5N0.jpg" style="width:100%; max-width: 80%; max-height: 400px;">
+                        <img class="mySlides" src="assets/img/bg-banner1.jpg" style="width:100%; max-width: 80%; max-height: 400px;">
+                        <br>
+                        <button class="btn" style="color: black; background-color: #f1f1f1; font-weight: bold;" onclick="plusDivs(-1)">&#10094; Trước</button>
+                        <button class="btn" style="color: black; background-color: #f1f1f1; font-weight: bold;" onclick="plusDivs(1)">Sau &#10095;</button>
+                    </div>
+                </center>
+            </div>
+        </section>
+        <!-- END Company detail -->
+
+
+        <!-- Open positions -->
+        <section id="open-positions" class="bg-alt">
+            <div class="container">
+                <header class="section-header">
+                    <h2>Vị trí đang tuyển</h2>
+                </header>
+
+                <div class="row">
+
+                    <!-- Job item -->
+                    <div class="col-xs-12">
+                        <a class="item-block" href="job-detail.html">
+                            <header>
+                                <img src="assets/img/logo-google.png" alt="">
+                                <div class="hgroup">
+                                    <h4>Senior front-end developer</h4>
+                                    <h5>Google <span class="label label-danger">Full-time</span></h5>
+                                </div>
+                                <time datetime="2016-03-10 20:00">32 phút trước</time>
+                            </header>
+
+                            <div class="item-body">
+                                <p>Tham gia phát triển các dự án trên nền tảng C# của khách hàng, tham gia vào tất cả các giai đoạn của 1 dự án như: lập kế hoạch, phân tích, thiết kế, thực thi, kiểm thử, và triển khai cũng như bảo trì.</p>
+                            </div>
+
+                            <footer>
+                                <ul class="details cols-3">
+                                    <li>
+                                        <i class="fa fa-map-marker"></i>
+                                        <span>Hồ Chí Minh</span>
+                                    </li>
+
+                                    <li>
+                                        <i class="fa fa-money"></i>
+                                        <span class="salary">$90,000 - $110,000 / năm</span>
+                                    </li>
+
+                                    <li>
+                                        <i class="fa fa-tag"></i>
+                                        <span>Master or Bachelor</span>
+                                    </li>
+                                </ul>
+                            </footer>
+                        </a>
+                    </div>
+                    <!-- END Job item -->
+                    <!-- Job item -->
+                    <div class="col-xs-12">
+                        <a class="item-block" href="job-detail.html">
+                            <header>
+                                <img src="assets/img/logo-google.png" alt="">
+                                <div class="hgroup">
+                                    <h4>Senior front-end developer</h4>
+                                    <h5>Google <span class="label label-danger">Full-time</span></h5>
+                                </div>
+                                <time datetime="2016-03-10 20:00">34 phút trước</time>
+                            </header>
+
+                            <div class="item-body">
+                                <p>Tham gia phát triển các dự án trên nền tảng C# của khách hàng, tham gia vào tất cả các giai đoạn của 1 dự án như: lập kế hoạch, phân tích, thiết kế, thực thi, kiểm thử, và triển khai cũng như bảo trì.</p>
+                            </div>
+
+                            <footer>
+                                <ul class="details cols-3">
+                                    <li>
+                                        <i class="fa fa-map-marker"></i>
+                                        <span>Hồ Chí Minh</span>
+                                    </li>
+
+                                    <li>
+                                        <i class="fa fa-money"></i>
+                                        <span class="salary">$90,000 - $110,000 / năm</span>
+                                    </li>
+
+                                    <li>
+                                        <i class="fa fa-tag"></i>
+                                        <span>HTML, CSS, JavaScript</span>
+                                    </li>
+                                </ul>
+                            </footer>
+                        </a>
+                    </div>
+                    <!-- END Job item -->
+                    <!-- Job item -->
+                    <div class="col-xs-12">
+                        <a class="item-block" href="job-detail.html">
+                            <header>
+                                <img src="assets/img/logo-google.png" alt="">
+                                <div class="hgroup">
+                                    <h4>Senior front-end developer</h4>
+                                    <h5>Google <span class="label label-success">Full-time</span></h5>
+                                </div>
+                                <time datetime="2016-03-10 20:00">32 phút trước</time>
+                            </header>
+
+                            <div class="item-body">
+                                <p>Tham gia phát triển các dự án trên nền tảng C# của khách hàng, tham gia vào tất cả các giai đoạn của 1 dự án như: lập kế hoạch, phân tích, thiết kế, thực thi, kiểm thử, và triển khai cũng như bảo trì.</p>
+                            </div>
+
+                            <footer>
+                                <ul class="details cols-3">
+                                    <li>
+                                        <i class="fa fa-map-marker"></i>
+                                        <span>Hồ Chí Minh</span>
+                                    </li>
+
+                                    <li>
+                                        <i class="fa fa-money"></i>
+                                        <span class="salary">$90,000 - $110,000 / năm</span>
+                                    </li>
+
+                                    <li>
+                                        <i class="fa fa-tag"></i>
+                                        <span>HTML, CSS, JavaScript</span>
+                                    </li>
+                                </ul>
+                            </footer>
+                        </a>
+                    </div>
+                    <!-- END Job item -->
+                    <!-- Job item -->
+                    <div class="col-xs-12">
+                        <a class="item-block" href="job-detail.html">
+                            <header>
+                                <img src="assets/img/logo-google.png" alt="">
+                                <div class="hgroup">
+                                    <h4>Senior front-end developer</h4>
+                                    <h5>Google <span class="label label-success">Full-time</span></h5>
+                                </div>
+                                <time datetime="2016-03-10 20:00">34 phút trước</time>
+                            </header>
+
+                            <div class="item-body">
+                                <p>Tham gia phát triển các dự án trên nền tảng C# của khách hàng, tham gia vào tất cả các giai đoạn của 1 dự án như: lập kế hoạch, phân tích, thiết kế, thực thi, kiểm thử, và triển khai cũng như bảo trì.</p>
+                            </div>
+
+                            <footer>
+                                <ul class="details cols-3">
+                                    <li>
+                                        <i class="fa fa-map-marker"></i>
+                                        <span>Hồ Chí Minh</span>
+                                    </li>
+
+                                    <li>
+                                        <i class="fa fa-money"></i>
+                                        <span class="salary">$90,000 - $110,000 / năm</span>
+                                    </li>
+
+                                    <li>
+                                        <i class="fa fa-tag"></i>
+                                        <span>HTML, CSS, JavaScript</span>
+                                    </li>
+                                </ul>
+                            </footer>
+                        </a>
+                    </div>
+                    <!-- END Job item -->
+                    <!-- Job item -->
+                    <div class="col-xs-12">
+                        <a class="item-block" href="job-detail.html">
+                            <header>
+                                <img src="assets/img/logo-google.png" alt="">
+                                <div class="hgroup">
+                                    <h4>Senior front-end developer</h4>
+                                    <h5>Google <span class="label label-success">Full-time</span></h5>
+                                </div>
+                                <time datetime="2016-03-10 20:00">34 phút trước</time>
+                            </header>
+
+                            <div class="item-body">
+                                <p>Tham gia phát triển các dự án trên nền tảng C# của khách hàng, tham gia vào tất cả các giai đoạn của 1 dự án như: lập kế hoạch, phân tích, thiết kế, thực thi, kiểm thử, và triển khai cũng như bảo trì.</p>
+                            </div>
+
+                            <footer>
+                                <ul class="details cols-3">
+                                    <li>
+                                        <i class="fa fa-map-marker"></i>
+                                        <span>Hồ Chí Minh</span>
+                                    </li>
+
+                                    <li>
+                                        <i class="fa fa-money"></i>
+                                        <span class="salary">$90,000 - $110,000 / năm</span>
+                                    </li>
+
+                                    <li>
+                                        <i class="fa fa-tag"></i>
+                                        <span>HTML, CSS, JavaScript</span>
+                                    </li>
+                                </ul>
+                            </footer>
+                        </a>
+                    </div>
+                    <!-- END Job item -->
+
+
+                </div>
+
+            </div>
+        </section>
+        <!-- END Open positions -->
+        <header class="section-header-map">
+            <center>
+                <h2>Vị trí</h2>
+            </center>
+            <center><strong><span>45 Nguyễn Khắc Nhu, Quận 1, Tp. Hồ Chí Minh</span></strong></center>
             <br>
-            <li><a href="job-list.html">Việc làm Quảng cáo/Khuyến mãi</a></li>
-            <li><a href="job-list.html">Việc làm Hàng không/Du lịch</a></li>
-            <li><a href="job-list.html">Việc làm Giáo dục/Đào tạo</a></li>
-            <li><a href="job-list.html">Việc làm Điện/Điện tử</a></li>
-            <li><a href="job-list.html">Việc làm Bán hàng</a></li>
-          </ul>
+        </header>
+
+        <div id="contact-map" style="height: 400px"></div>
+
+    </main>
+    <!-- END Main container -->
+
+
+    <!-- Site footer -->
+    <footer class="site-footer">
+
+        <!-- Top section -->
+        <div class="container">
+            <div class="row">
+
+                <div class="col-xs-6 col-sm-6 col-md-3">
+                    <h6>Việc làm theo nghành nghề</h6>
+                    <ul class="footer-links">
+                        <li><a href="job-list.html">Việc làm Kế toán</a></li>
+                        <li><a href="job-list.html">Việc làm Ngân hàng</a></li>
+                        <li><a href="job-list.html">Việc làm IT - Phần mềm</a></li>
+                        <li><a href="job-list.html">Việc làm IT-Phần cứng/Mạng</a></li>
+                        <li><a href="job-list.html">Việc làm Xây dựng</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-xs-6 col-sm-6 col-md-3">
+                    <ul class="footer-links">
+                        <br>
+                        <li><a href="job-list.html">Việc làm Quảng cáo/Khuyến mãi</a></li>
+                        <li><a href="job-list.html">Việc làm Hàng không/Du lịch</a></li>
+                        <li><a href="job-list.html">Việc làm Giáo dục/Đào tạo</a></li>
+                        <li><a href="job-list.html">Việc làm Điện/Điện tử</a></li>
+                        <li><a href="job-list.html">Việc làm Bán hàng</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-xs-6 col-sm-6 col-md-3">
+                    <h6>Việc làm IT theo công ty</h6>
+                    <ul class="footer-links">
+                        <li><a href="page-about.html">Global CyberSoft</a></li>
+                        <li><a href="page-typography.html">Vingroup</a></li>
+                        <li><a href="page-faq.html">Capella Holding</a></li>
+                        <li><a href="page-typography.html">Vietjetair</a></li>
+                        <li><a href="page-contact.html">Standard Charter</a></li>
+                    </ul>
+                </div>
+
+
+                <div class="col-xs-6 col-sm-6 col-md-3">
+                    <h6>Việc làm IT theo thành phố</h6>
+                    <ul class="footer-links">
+                        <li><a href="job-list.html">Hồ Chí Minh</a></li>
+                        <li><a href="job-list.html">Hà Nội</a></li>
+                        <li><a href="job-list.html">Đà Nẵng</a></li>
+                        <li><a href="job-list.html">Thêm</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr>
         </div>
+        <!-- END Top section -->
 
-        <div class="col-xs-6 col-sm-6 col-md-3">
-          <h6>Việc làm IT theo công ty</h6>
-          <ul class="footer-links">
-            <li><a href="page-about.html">Global CyberSoft</a></li>
-            <li><a href="page-typography.html">Vingroup</a></li>
-            <li><a href="page-faq.html">Capella Holding</a></li>
-            <li><a href="page-typography.html">Vietjetair</a></li>
-            <li><a href="page-contact.html">Standard Charter</a></li>
-          </ul>
+        <!-- Bottom section -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                    <p class="copyright-text">Copyrights &copy; 2017 All Rights Reserved by <a href="#">Shines Team</a>.</p>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <ul class="social-icons">
+                        <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+                        <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
+        <!-- END Bottom section -->
+
+    </footer>
+    <!-- END Site footer -->
 
 
-        <div class="col-xs-6 col-sm-6 col-md-3">
-          <h6>Việc làm IT theo thành phố</h6>
-          <ul class="footer-links">
-            <li><a href="job-list.html">Hồ Chí Minh</a></li>
-            <li><a href="job-list.html">Hà Nội</a></li>
-            <li><a href="job-list.html">Đà Nẵng</a></li>
-            <li><a href="job-list.html">Thêm</a></li>
-          </ul>
-        </div>
-      </div>
+    <!-- Back to top button -->
+    <a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
+    <!-- END Back to top button -->
 
-      <hr>
-    </div>
-    <!-- END Top section -->
-
-    <!-- Bottom section -->
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8 col-sm-6 col-xs-12">
-          <p class="copyright-text">Copyrights &copy; 2017 All Rights Reserved by <a href="#">Shines Team</a>.</p>
-        </div>
-
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <ul class="social-icons">
-            <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-            <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-            <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
-            <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-            <li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <!-- END Bottom section -->
-
-  </footer>
-  <!-- END Site footer -->
-
-
-  <!-- Back to top button -->
-  <a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
-  <!-- END Back to top button -->
-
-  <!-- Scripts -->
-  <script src="assets/js/app.min.js"></script>
-  <script src="assets/js/thejobs.js"></script>
-  <script src="assets/js/custom.js"></script>
-  <script src="assets/js/jquery.bxslider.js"></script>
-  <script>
-	$(function(){
-	  $('.bxslider').bxSlider({
-	    mode: 'fade',
-	    captions: true,
-	    slideWidth: 600
-	  });
-	});
-  </script>
-  <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
-  <script>
+    <!-- Scripts -->
+    <script src="assets/js/app.min.js"></script>
+    <script src="assets/js/thejobs.js"></script>
+    <script src="assets/js/custom.js"></script>
+    <script src="assets/js/jquery.bxslider.js"></script>
+    <script>
+        var slideIndex = 1;
+        showDivs(slideIndex);
+        
+        function plusDivs(n) {
+          showDivs(slideIndex += n);
+        }
+        
+        function showDivs(n) {
+          var i;
+          var x = document.getElementsByClassName("mySlides");
+          if (n > x.length) {slideIndex = 1}    
+          if (n < 1) {slideIndex = x.length}
+          for (i = 0; i < x.length; i++) {
+             x[i].style.display = "none";  
+          }
+          x[slideIndex-1].style.display = "block";  
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
+    <script>
         function modalSignInOut(nameinout) {
           var i;
           var x = document.getElementsByClassName("modalinout");
@@ -538,7 +558,8 @@
           }
           document.getElementById(nameinout).style.display = "block";  
         }
-      </script>
+    </script>
 
 </body>
+
 </html>
