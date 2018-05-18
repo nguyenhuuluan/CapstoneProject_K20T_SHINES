@@ -45,7 +45,7 @@
                 <h1 class="page-header">Đăng blog</h1>
             </div>
             <!-- /.col-lg-12 -->
-            {!! Form::model($blog, ['method'=>'PATCh', 'route'=>['blogs.update',$blog->slug], 'files'=>true]) !!}
+            {!! Form::model($blog, ['method'=>'PATCH', 'route'=>['blogs.update',$blog->slug], 'files'=>true]) !!}
             <div class="col-xs-12 col-md-9">
                 <div class="form-group {{ $errors->has('title') ? ' has-error' : '' }}">
                     <label for="title">Tiêu đề Blog</label>
@@ -161,8 +161,8 @@
     $(document).ready(function() {
 
         CKEDITOR.replace( 'editor1', {
-            filebrowserImageBrowseUrl: '../../laravel-filemanager?type=Images',
-            filebrowserBrowseUrl: '../../laravel-filemanager?type=Files',
+            filebrowserImageBrowseUrl: '../../../laravel-filemanager?type=Images',
+            filebrowserBrowseUrl: '../../../laravel-filemanager?type=Files',
         }); 
 
         $(window).keypress(function(event){

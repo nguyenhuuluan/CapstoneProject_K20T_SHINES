@@ -44,13 +44,14 @@ class AdminBlogController extends Controller
                 return $tmp;
             })       
             ->addColumn('action', function($blog){
-                $tmp = '';
+                $tmp = '<div style="display:grid; grid-template-columns: repeat(3,1fr);grid-gap: 5px">';
                 if(Auth::user()->can('blogs.update')){
                     $tmp .= '<a href="'.route('blogs.edit',$blog->slug).'" class="btn btn-xs btn-primary edit" id="'.$blog->id.'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a>';
                 }
                 if(Auth::user()->can('blogs.delete')){
                     $tmp .='<a href="#" class="btn btn-xs btn-danger delete" id="'.$blog->slug.'"><i class="fa fa-trash" aria-hidden="true"></i>Delete</a>';
                 }
+                $tmp .= '</div>';
                 return $tmp;
                 
             })

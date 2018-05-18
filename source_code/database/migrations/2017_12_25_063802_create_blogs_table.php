@@ -17,7 +17,7 @@ class CreateBlogsTable extends Migration
             $table->increments('id');
             $table->string('title',255);
             $table->text('content');
-            $table->string('description',255);
+            $table->text('description');
             $table->integer('account_id')->index()->unsigned();
             $table->string('slug',255)->nullable();
             $table->timestamps();
