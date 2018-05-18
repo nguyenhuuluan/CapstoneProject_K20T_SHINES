@@ -18,14 +18,14 @@ use DB;
 use Analytics;
 use Spatie\Analytics\Period;
 
-// use Carbon\Carbon;
+ use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
   public function index()
   { 
-
-     return $this->statisticsCVByFaculty();
+$analytdicsData = Analytics::fetchMostVisitedPages(Period::days(7));
+     return $analytdicsData;
 
 
   }
@@ -50,7 +50,7 @@ class DashboardController extends Controller
         $recruitCount[(int)$key] = count($value);
     }
 
-    for($i = 1; $i <= 12; $i++){statisticsNumberOfRecruitmentByAllFaculties();
+    for($i = 1; $i <= 12; $i++){
         if(!empty($recruitCount[$i])){
           $recruitArr[$i] = $recruitCount[$i];    
       }else{
@@ -219,6 +219,10 @@ public function statisticsTagsInRecruitmentByRangeDate($from, $to, $limit)
 
    return $tags;
 }
+
+//retrieve visitors and pageview data for the current day and the last seven days
+
+
 
 
 }

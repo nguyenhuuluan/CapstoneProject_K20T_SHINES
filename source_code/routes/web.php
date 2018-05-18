@@ -132,6 +132,7 @@ Route::GET('password/reset/{token}','Admin\ResetPasswordController@showResetForm
 Route::middleware(['admin', 'web'])->group(function () {
 	Route::GET('admin', 'Admin\AdminController@index')->name('admin.home');  
 	Route::GET('admin/home', 'Admin\AdminController@index');  
+	Route::GET('admin/home2', 'Admin\AdminController@index2');  
 	Route::resource('admin/recruitments', 'Admin\AdminRecruitmentController', [
 		'names' => [
 			'index' => 'admin.recruitments.index',
@@ -169,8 +170,33 @@ Route::middleware(['admin', 'web'])->group(function () {
 
 	//Dashboard 
 	Route::get('/admin/dashboard', 'Admin\DashboardController@index')->name('admin.dasboard');
+	// [1]
+	Route::get('/admin/statistics/statisticsNumberOfRecruitmentByYear/{year}', 'Admin\AdminController@statisticsNumberOfRecruitmentByYear')->name('admin.statistics.statisticsNumberOfRecruitmentByYear');
 
-	Route::get('/admin/statistics/statisticsNumberOfRecruitmentByYear/{year}', 'Admin\DashboardController@statisticsNumberOfRecruitmentByYear')->name('admin.statistics.statisticsNumberOfRecruitmentByYear');
+	// [2]
+	Route::get('/admin/statistics/statisticsNumberOfRecruitmentByAllFaculties', 'Admin\AdminController@statisticsNumberOfRecruitmentByAllFaculties')->name('admin.statistics.statisticsNumberOfRecruitmentByAllFaculties');
+
+	// [3]
+	Route::get('/admin/statistics/statisticsCategiesOfRecruitments', 'Admin\AdminController@statisticsCategiesOfRecruitments')->name('admin.statistics.statisticsCategiesOfRecruitments');
+
+	// [4] [5]
+	Route::get('/admin/statistics/statisticsNumberOfView', 'Admin\AdminController@statisticsNumberOfView')->name('admin.statistics.statisticsNumberOfView');
+
+	// [7]
+	Route::get('/admin/statistics/statisticsStudentAndCVByFaculty', 'Admin\AdminController@statisticsStudentAndCVByFaculty')->name('admin.statistics.statisticsStudentAndCVByFaculty');
+
+	// [10]
+	Route::post('/admin/statistics/statisticsTagsInStudentByRangeDate', 'Admin\AdminController@statisticsTagsInStudentByRangeDate')->name('admin.statistics.statisticsTagsInStudentByRangeDate');
+
+	// [11]
+	Route::post('/admin/statistics/statisticsTagsInRecruitmentByRangeDate', 'Admin\AdminController@statisticsTagsInRecruitmentByRangeDate')->name('admin.statistics.statisticsTagsInRecruitmentByRangeDate');
+
+	//[12]
+	Route::post('/admin/statistics/fetchUserTypes', 'Admin\AdminController@fetchUserTypes')->name('admin.statistics.fetchUserTypes');
+
+	//[13]
+	Route::post('/admin/statistics/fetchTopBrowsers', 'Admin\AdminController@fetchTopBrowsers')->name('admin.statistics.fetchTopBrowsers');
+
 
 	//Blog - ADMIN
 	Route::resource('/admin/blogs', 'Admin\AdminBlogController');
@@ -214,12 +240,12 @@ Route::middleware(['representative', 'web'])->group(function () {
 	//Company
 	Route::get('/company/update', 'CompanyController@update')->name('company.update');
 	Route::POST('/company/edit/{id}', 'CompanyController@edit')->name('company.edit');
-	
+	Route::POST('/company/updateLogo', 'CompanyController@updateLogo')->name('company.updateLogo');
+	Route::POST('/company/updateImages', 'CompanyController@updateImages')->name('company.updateImages');
+	Route::GET('/company/deleteImage/{imageName}', 'CompanyController@deleteImage')->name('company.deleteImage');
 });
 
-Route::POST('/company/updateLogo', 'CompanyController@updateLogo')->name('company.updateLogo');
-Route::POST('/company/updateImages', 'CompanyController@updateImages')->name('company.updateImages');
-Route::GET('/company/deleteImage/{imageName}', 'CompanyController@deleteImage')->name('company.deleteImage');
+
 
 
 Route::GET('representative/reset-password/{token}','Representative\RepresentativeController@resetPassword')->name('representative.resetpassword');
