@@ -63,6 +63,44 @@
 <!-- END How it works -->
 @endsection
 
+@section('blogs')
+<!-- Categories -->
+<section class="bg-alt">
+ <div class="container">
+   <header class="section-header">
+    <h3>Tin tức</h3>
+  </header>
+
+  <!-- blog -->
+  
+  @foreach ($blogs as $blog)
+  <div class="col-md-4">
+    <div class="blog">
+      <a href="{{ route('detailblog', $blog->slug) }}">
+        <div class="blog-img">
+          <img class="img-responsive" src="{{ asset($blog->photo) }}" style="height:200px; width: 350px;">
+        </div>
+      </a>
+      <div class="blog-content">
+        <ul class="blog-meta">
+          <li><i class="fa fa-user"></i>{{ $blog->owner->staff->name }}</li>
+          <li><i class="fa fa-clock-o"></i>{{ date_format($blog->created_at,"d-m-Y") }}</li>
+          {{-- <li><i class="fa fa-comments"></i>57</li> --}}
+        </ul>
+        <a href="{{ route('detailblog', $blog->slug) }}" style="text-decoration : none; color : #000;"><h4>{{ $blog->title }}</h4></a>
+        <p>{{ substr($blog->description,0,150).'...' }}</p>
+        <a href="{{ route('detailblog', $blog->slug) }}">Xem thêm</a>
+      </div>
+    </div>
+  </div>
+</a>
+@endforeach
+</div>
+</section>
+<!-- END Categories -->
+
+@endsection
+
 
 @section('scripts')
 <script src="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap3-typeahead.js') }}"></script>

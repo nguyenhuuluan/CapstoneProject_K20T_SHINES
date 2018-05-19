@@ -5,7 +5,7 @@
     <div class="row">
 
       <div class="col-xs-6 col-sm-6 col-md-3">
-        <h6>Việc làm theo nghành nghề</h6>
+        <h6>Việc làm theo ngành nghề</h6>
         <ul class="footer-links">
           <li><a href="job-list.html">Việc làm Kế toán</a></li>
           <li><a href="job-list.html">Việc làm Ngân hàng</a></li>

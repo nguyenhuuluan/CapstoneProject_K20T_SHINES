@@ -22,6 +22,7 @@ Route::get('/' , 'HomeController@index')->name('index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/contact', 'HomeController@contact')->name('contact');
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login')->middleware('guest');
 Route::get('/recruitments', 'HomeController@listRecruitments')->name('lst.recruitment');
 
@@ -61,6 +62,11 @@ Route::group(['middleware' => 'filter'], function() {
 Route::get('search', 'RecruitmentController@search')->name('recruitments.search');
 
 Route::get('/recruitment/increaseView/{recruitmentID}', 'RecruitmentController@increaseView')->name('recruitment.increaseview');
+
+
+// Blog - WEB
+Route::get('/blogs/{slug}', 'HomeController@detailblog')->name('detailblog');
+
 
 // Company - WEB
 // Route::get('/company/details/{id}', 'CompanyController@details')->name('company.details');

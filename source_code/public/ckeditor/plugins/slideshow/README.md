@@ -3,7 +3,7 @@ SlideShow
 SlideShow Plugin for CKEditor
 
 ### New Feature
-**December 12, 2015 : NEW Feature which allows to add "clickable" link on images, 
+**December 12, 2015 : NEW Feature which allows to add "clickable" link on images,
 look at the [documentation](http://devlabnet.eu/softdev/slideshow/index.php) for more information.**
 
 A cool plugin which allow to create and manage SlideShow in CKEditor.

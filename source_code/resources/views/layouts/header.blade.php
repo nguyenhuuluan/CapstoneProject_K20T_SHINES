@@ -172,13 +172,13 @@
     <a href="{{ route('companies.list') }}">Công ty</a>
   </li>
   <li>
-    <a href="#">Việc làm</a>
+    <a href="{{ route('lst.recruitment') }}">Việc làm</a>
   </li>
   <li>
     <a href="#">Blog</a>
   </li>
   <li>
-    <a href="#">Giới thiệu</a>
+    <a href="{{ route('contact') }}">Giới thiệu</a>
   </li>
 </ul>
 <!-- END Navigation menu -->

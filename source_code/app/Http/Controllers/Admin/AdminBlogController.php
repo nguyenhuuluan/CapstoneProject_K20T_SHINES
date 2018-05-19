@@ -128,6 +128,7 @@ class AdminBlogController extends Controller
                             $blog->tags()->save($tg);
                         }
                     }
+
                     /*Save ava image*/
                     return redirect(route('blogs.index'))->with('message','Tạo Blog thành công!');
                 }
@@ -194,7 +195,7 @@ class AdminBlogController extends Controller
             }
             return view('blogs.preview', compact('data', 'tags2') );
 
-            case 'Đăng bài':
+            case 'Cập nhật':
             if(Auth::user()->can('blogs.update')){
                 if($file = $request->file('imgInp')){
                     $fileName = time().'_'.$file->getClientOriginalName(); 

@@ -116,7 +116,7 @@
                     <div class="panel-footer">
                         {!! Form::submit('Xem trước', ['class'=>'btn btn-default', 'name'=>'submitbutton' , 'formtarget'=>'_blank']) !!}
                         <button type="button" class="btn btn-warning">Hủy</button>
-                        {!! Form::submit('Đăng bài', ['class'=>'btn btn-success', 'name'=>'submitbutton']) !!}
+                        {!! Form::submit('Cập nhật', ['class'=>'btn btn-success', 'name'=>'submitbutton']) !!}
                         {{-- <input type="submit" style="position: absolute; left: -9999px"> --}}
                     </div>
                 </div>
