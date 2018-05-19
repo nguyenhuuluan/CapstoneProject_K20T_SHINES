@@ -129,6 +129,7 @@
                         </ul>
                     </li>
                     @endcan
+                    
                     @can('accounts.view', Auth::user())
                     <li>
                         <a href="#"><i class="fa fa-users fa-fw"></i> Danh sách tài khoản<span class="fa arrow"></span></a>
