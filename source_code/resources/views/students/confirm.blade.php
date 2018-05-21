@@ -55,12 +55,15 @@
                <div class="form-group ol-md-3 col-xs-12 col-sm-3">
                   <h7>Ngày sinh</h7>
                </div>
-               <div class="form-group col-md-9 col-xs-12 col-sm-9{{ $errors->has('dateofbirth') ? ' has-error' : '' }}">
-
-                  <div class="form-group{{ $errors->has('dateofbirth') ? ' has-error' : '' }}">
+               {{-- <div class="form-group col-md-9 col-xs-12 col-sm-9{{ $errors->has('dateofbirth') ? ' has-error' : '' }}"> --}}
+                <br>
+                  <div class="form-group  col-md-9 col-xs-12 col-sm-9{{ $errors->has('dateofbirth') ? ' has-error' : '' }}">
+                  <small class="text-success"><strong>Định dạng: tháng/ngày/năm</strong></small>
                    {!! Form::date('dateofbirth', null, ['class' => 'form-control']) !!}
+
                    <small class="text-danger">{{ $errors->first('dateofbirth') }}</small>
-                </div>
+
+                {{-- </div> --}}
 
              </div>
 
@@ -86,13 +89,13 @@
          <div class="form-group col-md-3 col-xs-12 col-sm-3">
             <h7>Chuyên ngành</h7>
          </div>
-         <div class="form-group col-md-9 col-xs-12 col-sm-9{{ $errors->has('faculty_id') ? ' has-error' : '' }}">
-            <div class="form-group{{ $errors->has('faculty_id') ? ' has-error' : '' }}">
+      {{--    <div class="form-group col-md-9 col-xs-12 col-sm-9{{ $errors->has('faculty_id') ? ' has-error' : '' }}"> --}}
+            <div class="form-group col-md-9 col-xs-12 col-sm-9{{ $errors->has('faculty_id') ? ' has-error' : '' }}">
               {!! Form::select('faculty_id', $faculs, null, ['id' => 'faculty_id', 'class' => 'form-control']) !!}
               <small class="text-danger">{{ $errors->first('faculty_id') }}</small>
            </div>
-           <small class="text-danger">{{ $errors->first('faculty_id') }}</small>
-        </div>
+           {{-- <small class="text-danger">{{ $errors->first('faculty_id') }}</small> --}}
+        {{-- </div> --}}
 
         <hr class="col-md-12 col-xs-12 col-sm-12">
 
@@ -111,16 +114,16 @@
       <div class="form-group col-md-3 col-xs-12 col-sm-3">
          <h7>Mật khẩu</h7>
       </div>
-      <div class="form-group col-md-9 col-xs-12 col-sm-9{{ $errors->has('confirmpassword') ? ' has-error' : '' }}">
+      <div class="form-group col-md-9 col-xs-12 col-sm-9{{ $errors->has('password') ? ' has-error' : '' }}">
         <input type="password" class="form-control" value="{{old('password')}}" name="password" placeholder="ít nhất 10 kí tự">
-        <small class="text-danger">{{ $errors->first('confirmpassword') }}</small>
+        <small class="text-danger">{{ $errors->first('password') }}</small>
      </div>
 
 
       <div class="form-group col-md-3 col-xs-12 col-sm-3">
          <h7>Nhập lại mật khẩu</h7>
       </div>
-      <div class="form-group col-md-9 col-xs-12 col-sm-9{{ $errors->has('password') ? ' has-error' : '' }}">
+      <div class="form-group col-md-9 col-xs-12 col-sm-9{{ $errors->has('confirmpassword') ? ' has-error' : '' }}">
          <input type="password" class="form-control" name="password_confirmation" placeholder="ít nhất 10 kí tự">
          <small class="text-danger">{{ $errors->first('password') }}</small>
       </div>

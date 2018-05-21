@@ -55,27 +55,28 @@
                                         <td>{{ $recruitment->company->name }}</td>
                                         <td>{!! $recruitment->created_at !!}</td>
                                         {{-- <td>{!! $recruitment->is_hot ==1? 'Hot' : 'Not Hot' !!}</td> --}}
-
+                                        
                                         <td>
-                                            @if ($recruitment->status_id == 1)
-                                            <input type="checkbox" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" checked value="{{$recruitment->id}}" />
-                                            @elseif($recruitment->status_id == 2)                                           
-                                            <input type="checkbox" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" value="{{$recruitment->id}}" />
+                                            @if(Auth::user()->can('recruitments.update'))
+                                                @if ($recruitment->status_id == 1)
+                                                <input type="checkbox" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" checked value="{{$recruitment->id}}" />
+                                                @elseif($recruitment->status_id == 2)                                           
+                                                <input type="checkbox" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" value="{{$recruitment->id}}" />
+                                                @endif
                                             @else
-
-                                            <input type="checkbox" disabled="true" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" 
-                                            checked value="{{$recruitment->id}}" />
-
+                                                @if ($recruitment->status_id == 1)
+                                                <input type="checkbox" disabled="true" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" checked value="{{$recruitment->id}}" />
+                                                @elseif($recruitment->status_id == 2)                                           
+                                                <input type="checkbox" disabled="true" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" value="{{$recruitment->id}}" />
+                                                @endif
                                             @endif
                                         </td>
                                         <td>
                                             <div style="display: inline-block; width: 100px ">
                                                 <a href=" {{ route('admin.recruitments.show', $recruitment->slug) }}" class="btnreview btn-success" target="_blank" style="display: inline-block;">Xem</a>
-                                                {!! Form::open(['method'=>'PATCH', 'action'=>['Admin\AdminRecruitmentController@update',$recruitment->id], 'style'=>'display: inline-block']) !!}
                                             </div>
                                             
                                         </td>
-                                        {!! Form::close() !!} 
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -118,77 +119,73 @@
 
 <script type="text/javascript">
 
-   $(document).ready(function() {
+ $(document).ready(function() {
+    var element;
     $('#dataTables-example').DataTable({
         responsive: true
     });
-});
-
-   $('.switch').bootstrapSwitch({
-    size: 'mini',
-    onText: 'Bật',
-    offText: 'Tắt'      
-});
+    var table = $('.switch').bootstrapSwitch({
+        size: 'mini',
+        onText: 'Bật',
+        offText: 'Tắt'      
+    });
 
 
+    $('.status-switch').on('switchChange.bootstrapSwitch', function (e, data) {
 
-   $('.status-switch').on('switchChange.bootstrapSwitch', function (e, data) {
+        element = $(this);
 
-    var element = $(this);
+        element.bootstrapSwitch('state', !data, true);
 
-    element.bootstrapSwitch('state', !data, true);
-
-    $.confirm({
-        icon: 'fa fa-warning',
-        title: 'Cảnh báo!!',
-        content: 'Bạn có muốn thay đổi trạng thái của tin tuyển dụng này?',
-        type: 'orange',
-        buttons: {
-            Có: {
-                keys: ['enter'],
-                btnClass: 'btn-green',
-                action: function(){
-                    activeRecruitment(element.val());
-                    element.bootstrapSwitch('toggleState', true, true);
+        $.confirm({
+            icon: 'fa fa-warning',
+            title: 'Cảnh báo!!',
+            content: 'Bạn có muốn thay đổi trạng thái của tin tuyển dụng này?',
+            type: 'orange',
+            buttons: {
+                Có: {
+                    keys: ['enter'],
+                    btnClass: 'btn-green',
+                    action: function(){
+                        activeRecruitment(element.val());
+                    }
+                },
+                Không: {
+                    keys: ['esc'],
+                    btnClass: 'btn-red'
                 }
-            },
-            Không: {
-                keys: ['esc'],
-                btnClass: 'btn-red'
-
             }
-
-        }
+        });
     });
+
+
+    function activeRecruitment(id){
+        $('.modal-ajax-loading').show();
+        $.ajax({
+            url: 'recruitments/active/' + id,
+            type: 'GET',
+            dataType: 'json',
+
+            success: function(){
+                element.bootstrapSwitch('toggleState', true, true);
+                alertSuccess('Cập nhật trạng thái thành công...')
+            },
+            error: function(){
+             alertError('Đã có lỗi xảy ra, vui lòng reload lại trang ...');
+         }            
+     });
+    }
 });
 
 
-   function alertError(){
-     $.alert({
-        title: 'Thông báo!',
-        content: 'Đã có lỗi xảy ra, vui lòng reload lại trang.',
-    });
- }
 
 
- function activeRecruitment(id){
-    $('.modal-ajax-loading').show();
 
-    $.ajax({
-        url: 'recruitments/active/' + id,
-        type: 'GET',
-        dataType: 'json',
 
-        success: function(){
-           $('.modal-ajax-loading').hide();
 
-       },
-       error: function(){
-           $('.modal-ajax-loading').hide();
-           alertError();
-       }            
-   });
-}
+
+
+
 
 </script>
 @endsection

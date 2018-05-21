@@ -118,13 +118,13 @@
       <img src={{ asset(Auth::user()->student->photo) }} alt="avatar" id="avatarAccount">
     </a>
     <ul class="dropdown-menu dropdown-menu-right">
-      <li><a href=""><i class="fa fa-user" aria-hidden="true"></i>Tài khoản</a></li>
+      <li><a href=""><i class="fa fa-user" aria-hidden="true"></i> Tài khoản</a></li>
       <li><a href=" {!! route('profile.index') !!}"><i class="fa fa-eye" aria-hidden="true"></i> Xem Hồ sơ</a></li>
-      <li><a href="{!! route('profile.edit') !!}"><i class="fa fa-file" aria-hidden="true"></i>Cập nhật Hồ sơ</a></li>
+      <li><a href="{!! route('profile.edit') !!}"><i class="fa fa-file" aria-hidden="true"></i> Cập nhật Hồ sơ</a></li>
       <li><a href="{!! route('student.recruitment.show') !!}"><i class="fa fa-save" aria-hidden="true"></i> Việc làm đã lưu</a></li>
       <li><a href="{!! route('student.apply.show') !!}"><i class="fa fa-check-circle" aria-hidden="true"></i> Việc làm đã ứng tuyển</a></li> 
       <li>
-        <a href="{!! route('logout') !!}"onclick="event.preventDefault();document.getElementById('logout-form').submit();">Đăng xuất</a>
+        <a href="{!! route('logout') !!}"onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="fa fa-sign-out" aria-hidden="true"></i> Đăng xuất</a>
         <form id="logout-form" action="{!! route('logout') !!}" method="POST" style="display: none;">
           {{ csrf_field() }}
         </form>
@@ -172,13 +172,13 @@
     <a href="{{ route('companies.list') }}">Công ty</a>
   </li>
   <li>
-    <a href="#">Việc làm</a>
+    <a href="{{ route('lst.recruitment') }}">Việc làm</a>
   </li>
   <li>
     <a href="#">Blog</a>
   </li>
   <li>
-    <a href="#">Giới thiệu</a>
+    <a href="{{ route('contact') }}">Giới thiệu</a>
   </li>
 </ul>
 <!-- END Navigation menu -->

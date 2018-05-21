@@ -18,7 +18,7 @@ use DB;
 use Analytics;
 use Spatie\Analytics\Period;
 
- use Carbon\Carbon;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {

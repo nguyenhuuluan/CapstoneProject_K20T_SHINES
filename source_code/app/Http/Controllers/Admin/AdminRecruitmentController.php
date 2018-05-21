@@ -7,6 +7,12 @@ use App\Http\Controllers\Controller;
 use App\Recruitment;
 use Mail;
 use GuzzleHttp\Client;
+use App\City;
+use App\District;
+use App\Section;
+use App\Category;
+use Auth;
+
 
 
 class AdminRecruitmentController extends Controller
@@ -18,10 +24,14 @@ class AdminRecruitmentController extends Controller
      */
     public function index()
     {
-        //
-        $recruitments = Recruitment::where('status_id', '1')->orWhere('status_id', '2')->get();
-        return view ('admin.recruitments.index',compact('recruitments'));
-    }
+
+        if(Auth::user()->can('recruitments.view'))
+            {
+                $recruitments = Recruitment::with('company')->where('status_id', '1')->orWhere('status_id', '2')->get();
+                return view ('admin.recruitments.index',compact('recruitments'));
+            }
+            return view('errors.admin_auth');
+        }
 
     /**
      * Show the form for creating a new resource.
@@ -37,8 +47,11 @@ class AdminRecruitmentController extends Controller
 
     public function approve()
     {
-        $recruitments = Recruitment::where('status_id', 8)->get();
-        return view ('admin.recruitments.approve', compact('recruitments'));
+        if(Auth::user()->can('recruitments.update')){
+            $recruitments = Recruitment::where('status_id', 8)->get();
+            return view ('admin.recruitments.approve', compact('recruitments'));
+        }
+        return view('errors.admin_auth');
 
     }
 
@@ -86,30 +99,33 @@ class AdminRecruitmentController extends Controller
 
         Mail::send('admin.recruitments.email-feedback', ['company' => $company, 'representative' => $representative, 'recruitment' => $recruitment, 'message1' => $message],  function ($message) use($representative)
         {
-           $message->to($representative['email'])->subject('Phản hồi tin tuyển dụng');
-       });
+         $message->to($representative['email'])->subject('Phản hồi tin tuyển dụng');
+     });
 
         return response()->json(['OK' => 'OK'], 200);
     }
 
-   
-
-
-
-
 
     public function setActiveRecruitment($recruitment_id){
-        $recruitment = Recruitment::Where('id', $recruitment_id)->first();
 
-        if ($recruitment->status_id != 1) {
-           $recruitment->status_id = 1;
-       }else {
-           $recruitment->status_id = 2;
-       }
+        if(Auth::user()->can('recruitments.update'))
+            {
+                $recruitment = Recruitment::Where('id', $recruitment_id)->first();
+                if ($recruitment->status_id != 1) {
+                 $recruitment->status_id = 1;
+             }else {
+                 $recruitment->status_id = 2;
+             }
+             $recruitment->save();     
+             return $recruitment;
+         }
+         else
+         {
+            return response()->json('error', 400);
+        }
 
-       $recruitment->save();     
-       return $recruitment;
-   }
+
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -143,7 +159,27 @@ class AdminRecruitmentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $recruitment = Recruitment::with('sections', 'tags', 'status', 'categories')->where('id',$id)->first();
+
+        $cities = City::with('districts')->get();
+        $categories  = Category::pluck('name', 'id')->all();
+        // $categories  = Category::all();
+
+        $sections = Section::all();
+        $tags =  implode(',', $recruitment->tags->pluck('name')->all());
+
+        // return $recruitment->categories->pluck('id')->all();
+        // return array_map('trim', explode('-', $recruitment->location));
+        // return $cities[0]->districts;
+        // $categories = $recruitment->categories->pluck('id')->all();
+        // return $categories
+        $recruitment->location = array_map('trim', explode('-', $recruitment->location));
+        // $recruitment['categories'] = array_map('trim', $categories);
+        // return $recruitment;
+        // return  $recruitment->tags->pluck('name')->all();
+        // return $categosries;
+
+        return view('admin.recruitments.edit', compact('recruitment', 'cities', 'districts', 'categories', 'sections', 'tags'));
     }
 
     /**
@@ -156,9 +192,16 @@ class AdminRecruitmentController extends Controller
     public function update(Request $request, $id)
     {
         //
-        Recruitment::findOrFail($id)->update($request->all());
-        return redirect()->back();
-    }
+     $this->validate($request,[
+        'title'=>'required',
+        'salary'=>'required',
+        'expire_date'=>'required',
+        'category_id'=>'required|array|exists:categories,id',
+            //'hidden-tags'=>'required|array|exists:tags,name',
+            //'tags.*'=>'required|exists:tags,name',
+            //'hidden-tags'=>'required',
+    ]);
+ }
 
     /**
      * Remove the specified resource from storage.

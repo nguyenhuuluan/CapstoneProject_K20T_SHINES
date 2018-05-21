@@ -55,53 +55,62 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        return view('admin.auth.login');
-    }
-
-    protected function hasTooManyLoginAttempts(Request $request)
-    {
-        return $this->limiter()->tooManyAttempts(
-            $this->throttleKey($request), $this->maxAttempts(), $this->decayMinutes()
-        );
-    }
-
-    protected function sendFailedLoginResponse(Request $request)
-    {
-        throw ValidationException::withMessages([
-            $this->username() => [trans('auth.failed')=>'Email hoặc mật khẩu không chính xác!'],
-        ]);
-    }
-    public function login(Request $request)
-    {   
-
-        $this->validate($request,[
-         'email'=>'required|string|email|max:255',
-         'password' => 'required|string|min:6',
-     ]);
-
-        if ($this->hasTooManyLoginAttempts($request)) {
-            $this->fireLockoutEvent($request);
-
-            return $this->sendLockoutResponse($request);
+        if(Auth::check() && Auth::user()->isAdmin())
+            {return redirect(route('admin.home'));}
+            return view('admin.auth.login');
         }
 
-        if(Auth::attempt(['username'=>$request->email, 'password'=>$request->password] ) &&Auth::user()->roles->first()->name == 'Admin' ){
-            return redirect('/admin/home');
-        }elseif(Auth::attempt(['username'=>$request->email, 'password'=>$request->password] ) && (Auth::user()->roles->first()->name == 'Representative' || Auth::user()->roles->first()->name == 'Student')){
-            $this->guard()->logout();
-
-            $request->session()->invalidate();
-            $request->session()->flash('comment_message','Email hoặc mật khẩu không chính xác!');          
-            return redirect('admin');
+        protected function hasTooManyLoginAttempts(Request $request)
+        {
+            return $this->limiter()->tooManyAttempts(
+                $this->throttleKey($request), $this->maxAttempts(), $this->decayMinutes()
+            );
         }
-        $this->incrementLoginAttempts($request);
 
-        return $this->sendFailedLoginResponse($request);
-    }
+        protected function sendFailedLoginResponse(Request $request)
+        {
+            throw ValidationException::withMessages([
+                $this->username() => [trans('auth.failed')=>'Email hoặc mật khẩu không chính xác!'],
+            ]);
+        }
+        public function login(Request $request)
+        {   
+
+            $this->validate($request,
+                [
+             'email'=>'required|string|max:255',
+             'password' => 'required|string|min:6',
+         ],[
+            'email.required'=>'Tên đăng nhập không được bỏ trống!',
+            'password.required'=>'Mật khẩu không được bỏ trống!',
+            'email.string'=>'Tên đăng nhập phải có ký tự!',
+            'password.string'=>'Mật khẩu phải có ký tự!',
+            'password.min'=>'Mật khẩu tối thiểu phải 6 ký tự!'
+         ]);
+
+            if ($this->hasTooManyLoginAttempts($request)) {
+                $this->fireLockoutEvent($request);
+
+                return $this->sendLockoutResponse($request);
+            }
+
+            if(Auth::attempt(['username'=>$request->email, 'password'=>$request->password] ) &&Auth::user()->roles->first()->name == 'Admin' ){
+                return redirect('/admin/home');
+            }elseif(Auth::attempt(['username'=>$request->email, 'password'=>$request->password] ) && (Auth::user()->roles->first()->name == 'Representative' || Auth::user()->roles->first()->name == 'Student')){
+                $this->guard()->logout();
+
+                $request->session()->invalidate();
+                $request->session()->flash('comment_message','Email hoặc mật khẩu không chính xác!');          
+                return redirect('admin');
+            }
+            $this->incrementLoginAttempts($request);
+
+            return $this->sendFailedLoginResponse($request);
+        }
 
     // protected function guard()
     // {
     //     return Auth::guard('admin');
     // }
 
-}
+    }

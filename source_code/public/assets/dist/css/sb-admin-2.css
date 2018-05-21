@@ -531,7 +531,7 @@ table.dataTable thead .sorting:after {
     margin: 5px auto; /* 15% from the top and centered */
     border: 1px solid #888;
     width: 40%; /* Could be more or less, depending on screen size */
-    border-radius: 20%;
+    border-radius: 2%;
     margin-top: 20%;
 }
 

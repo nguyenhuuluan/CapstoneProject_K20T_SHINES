@@ -255,7 +255,7 @@
     // [groupName, [list of button]]
     ['style', ['bold', 'italic']],
     ['para', ['ul', 'ol']],
-    ['insert', ['picture', 'hr']],
+    ['insert', ['hr']],
     ['height', ['height']]
     ],
     dialogsInBody: true,

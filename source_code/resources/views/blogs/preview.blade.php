@@ -134,14 +134,15 @@
   <!-- END Site header -->
   <!-- Main container -->
   <main class="container blog-page">
-  <div id="watermark">
-    <p>Xem trước</p>
-  </div>
+    <div id="watermark">
+      <p>Xem trước</p>
+    </div>
     <div class="row">
       <div class="col-md-8 col-lg-9">
 
         <article class="post">
-
+          <p style=" font-style: italic; font-weight: bold;">{{ $data['description'] }}</p>
+          <br>
           <div class="blog-content" style="text-align: justify;">
             {!! $data['content'] !!}
 
@@ -205,19 +206,19 @@
         </div>
 
         <div class="widget widget_tag_cloud">
-            <h6 class="widget-title">Tags</h6>
-            <div class="widget-body">
-              <a href="#">Blog</a>
-              <a href="#">New</a>
-              <a href="#">Google</a>
-              <a href="#">Position</a>
-              <a href="#">Facebook</a>
-              <a href="#">Hire</a>
-              <a href="#">Chance</a>
-              <a href="#">TopNew</a>
-              <a href="#">Tips</a>
-            </div>
+          <h6 class="widget-title">Tags</h6>
+          <div class="widget-body">
+            <a href="#">Blog</a>
+            <a href="#">New</a>
+            <a href="#">Google</a>
+            <a href="#">Position</a>
+            <a href="#">Facebook</a>
+            <a href="#">Hire</a>
+            <a href="#">Chance</a>
+            <a href="#">TopNew</a>
+            <a href="#">Tips</a>
           </div>
+        </div>
 
       </div>
     </div>

@@ -41,9 +41,9 @@ class Student extends Model
         return $this->hasMany('App\Skill');
     }
 
-    public function recruitments()
+    public function applies()
     {
-        return $this->belongsToMany('App\Recruitment', 'apply', 'student_id','recruitment_id')->withTimestamps()->withPivot('cv_id', 'description');
+        return $this->hasMany('App\Apply');
     }
 
     public function saves()

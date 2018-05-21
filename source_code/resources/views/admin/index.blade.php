@@ -116,6 +116,33 @@
 		</div>
 		
 	</div>
+	<div class="row">
+		
+		<div class="form-group col-lg-12 col-md-12 col-xs-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<center>
+						<h3>Số lượng nhà tuyển dụng của năm: 
+							<span class="current-year-comp">2018</span>
+						</h3>
+					</center>
+				</div>
+
+				<div class="panel-body">
+					<div  class="form-group col-lg-4 col-md-4 col-xs-12">
+						<label>Chọn năm</label>
+						<select class="form-control year-select year-select-comp">
+							<option>2017</option>
+							<option selected>2018</option>
+						</select>
+					</div>
+					<canvas id="bar-chart14" width="100%" height="40%"></canvas>
+				</div>
+				
+			</div>
+		</div>
+		
+	</div>
 
 
 	<div id="canvas-holder" class="col-lg-6 col-md-6 col-xs-6">
@@ -190,16 +217,19 @@
 			<div class="panel-body">
 				<div class="row">
 					<div class="form-group col-xs-4">
+						<label>Từ ngày:</label>
 						<input id='datetimepicker1' class="form-control" type="text"
 						placeholder="Ngày bắt đầu"/>
 					</div>
 
 					<div class="form-group col-xs-4">
+						<label>Đến ngày:</label>
 						<input id='datetimepicker2' class="form-control" type="text"
 						placeholder="Ngày kết thúc"/>
 					</div>
 
 					<div class="form-group col-xs-3">
+						<label>S.lượng xem:</label>
 						<select class="form-control year-select" id="limit1">
 							<option value="5" selected>5</option>
 							<option value="10" >10</option>
@@ -228,16 +258,19 @@
 			<div class="panel-body">
 				<div class="row">
 					<div class="form-group col-xs-4">
+						<label>Từ ngày:</label>
 						<input id='datetimepicker3' class="form-control" type="text"
 						placeholder="Ngày bắt đầu"/>
 					</div>
 
 					<div class="form-group col-xs-4">
+						<label>Đến ngày:</label>
 						<input id='datetimepicker4' class="form-control" type="text"
 						placeholder="Ngày kết thúc"/>
 					</div>
 
 					<div class="form-group col-xs-3">
+						<label>S.lượng xem:</label>
 						<select class="form-control year-select" id="limit2">
 							<option value="5" selected>5</option>
 							<option value="10" >10</option>
@@ -429,6 +462,7 @@ $('#datetimepicker6').datetimepicker().on('dp.change', function() {
 var presets = window.chartColors;
 var utils = Samples.utils;
 
+// [1]
 var element = document.getElementById('bar-chart');
 var abc = new Chart(element, {
 	type: 'line',
@@ -439,6 +473,46 @@ var abc = new Chart(element, {
 			borderColor: presets.blue,
 			data: [],
 			label: 'Số lượng tin tuyển dụng'
+		}]
+	},
+	options:{
+		maintainAspectRatio: true,
+		spanGaps: true,
+		elements: {
+			line: {
+				tension: 0.3
+			}
+		}
+		,
+		plugins: {
+			filler: {
+				propagate: false
+			}
+		},
+		scales: {
+			xAxes: [{
+				ticks: {
+					autoSkip: false,
+					maxRotation: 3
+				}
+			}]
+		}
+	},
+
+});
+
+
+// [14]
+var element14 = document.getElementById('bar-chart14');
+var chart14 = new Chart(element14, {
+	type: 'line',
+	data: {
+		labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
+		datasets: [{
+			backgroundColor: utils.transparentize(presets.red),
+			borderColor: presets.red,
+			data: [],
+			label: 'Số lượng nhà tuyển dụng'
 		}]
 	},
 	options:{
@@ -735,7 +809,13 @@ var myHorizontalBarConfig = {
 		statisiticsRecruitmentByYear($(this).val());
 	});
 
+	$('.year-select-comp').on("change", function(){
+		$('.current-year-comp').text($(this).val());
+		statisticsNumberOfCompanyByYear($(this).val());
+	});
+
 	statisiticsRecruitmentByYear(2018);
+	statisticsNumberOfCompanyByYear(2018);
 	statisticsCategiesOfRecruitments();	
 	statisticsNumberOfRecruitmentByAllFaculties();
 	statisticsNumberOfView();
@@ -744,6 +824,29 @@ var myHorizontalBarConfig = {
 	statisticsTagsInRecruitmentByRangeDate();
 	fetchUserTypes();
 	fetchTopBrowsers();
+
+
+	// [14]
+		function statisticsNumberOfCompanyByYear(year){
+			$.ajax({
+				url: 'statistics/statisticsNumberOfCompanyByYear/' + year,
+				type: 'GET',
+				dataType: 'json',
+
+				success: function(data) {
+
+					var arr = new Array();
+
+					for(i = 1; i <= 12; i++ ){
+						arr.push(data[i])
+					}
+
+					chart14.data.datasets[0].data = arr;
+					chart14.update();	
+				}
+
+			});
+		}
 
 
 	//[13]
@@ -994,7 +1097,6 @@ function fetchUserTypes(){
 					}
 
 					statisiticsRecruitmentCategoryConfig.data.datasets[0].data= arrdata;
-
 					var ctx = document.getElementById('chart-area');
 					var statisiticsRecruitmentCategoryChart = new Chart(ctx, statisiticsRecruitmentCategoryConfig);
 				}
@@ -1049,15 +1151,10 @@ function fetchUserTypes(){
 					}
 
 					abc.data.datasets[0].data = arr;
-					abc.update();
+					abc.update();	
+				}
 
-					// statisiticsRecruitmentByYearConfig.data.datasets[0].data = arr;
-
-					 // var ctx = document.getElementById("bar-chart");
-					 // var statisiticsRecruitmentByYearChart = new Chart(ctx,statisiticsRecruitmentByYearConfig);
-					}
-
-				});
+			});
 		}
 
 	</script>

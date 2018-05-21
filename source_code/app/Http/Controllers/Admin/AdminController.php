@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Recruitment;
 use App\Tag;
 use App\Company;
+
 use App\Category;
 use App\Faculty;
 use App\Student;
@@ -20,19 +21,15 @@ use Spatie\Analytics\Period;
 
 use Carbon\Carbon;
 
+// use Response;
+
+
 class AdminController extends Controller
 {
   public function index()
   {   
-
-    $startDate = Carbon::now()->subYear(2);
-    $endDate = Carbon::now();
-
-   // $analyticsData = Analytics::fetchUserTypes(Period::days(150));
-  // $analyticsData = Analytics::fetchTopBrowsers(Period::days(150));
-
-
   //  return $analyticsData;
+
 
     $studentCount = Student::get()->count();
     $companyCount = Company::get()->count();
@@ -41,6 +38,36 @@ class AdminController extends Controller
 
     return view('admin.index')->with(compact('recruitmentCount','companyCount','cvCount','studentCount'));
   }
+
+  //[14] số lượng công ty
+  public function statisticsNumberOfCompanyByYear($year)
+  {
+
+    $companies = Company::select('id', 'created_at')->whereYear('created_at', $year)
+    ->get()
+    ->groupBy(function($date) {
+            //return Carbon::parse($date->created_at)->format('Y'); // grouping by years
+            return Carbon::parse($date->created_at)->format('m'); // grouping by months
+          });
+
+    $compCount = [];
+    $compArr = [];
+
+    foreach ($companies as $key => $value) {
+      $compCount[(int)$key] = count($value);
+    }
+
+    for($i = 1; $i <= 12; $i++){
+      if(!empty($compCount[$i])){
+        $compArr[$i] = $compCount[$i];    
+      }else{
+        $compArr[$i] = 0;    
+      }
+    }
+
+    return $compArr;
+  }
+
 
   //[13] Loại trình duyệt
 
@@ -122,8 +149,7 @@ class AdminController extends Controller
  }
 
 //[3] Thống kê số lượng tin tuyển dụng theo loại tin tuyển dụng (full-time hoặc part-time hoặc full-time và part-time) - Chart tròn (DONE)
- public function statisticsCategiesOfRecruitments()
- {
+ public function statisticsCategiesOfRecruitments(){
 
   $array1 = array('CategoryName' => 'Full-time', 'RecruitmentCount' => 0);
   $array2 = array('CategoryName' => 'Part-time', 'RecruitmentCount' => 0);
@@ -134,7 +160,9 @@ class AdminController extends Controller
   $array7 = array('CategoryName' => 'Full-time & Part-time & Intership', 'RecruitmentCount' => 0);
 
   $recruitments = Recruitment::all();
+
   foreach ($recruitments as $recruitment) {
+
     $categories = $recruitment->categories;
     $categoriesCount = $categories->count();
 
@@ -142,8 +170,8 @@ class AdminController extends Controller
       $array7['RecruitmentCount'] ++;
     }
 
-    if ($categoriesCount == 2) {
 
+    if ($categoriesCount == 2) {
       if (($categories[0]->id == 1 || $categories[0]->id == 2) && ($categories[1]->id == 2 || $categories[1]->id == 1) ) {
         $array4['RecruitmentCount'] ++;
       } 
@@ -154,11 +182,11 @@ class AdminController extends Controller
 
       if (($categories[0]->id == 2 || $categories[0]->id == 3) && ($categories[1]->id == 3 || $categories[1]->id == 2)) {
         $array6['RecruitmentCount'] ++;
-      }       
+      }
     }
 
     if ($categoriesCount == 1) {
-     if ($categories[0]->id == 1) {
+      if ($categories[0]->id == 1) {
        $array1['RecruitmentCount'] ++;
      }
      if ($categories[0]->id == 2) {
@@ -169,11 +197,10 @@ class AdminController extends Controller
      }
    }
 
+   $arrayReturn = array($array1, $array2, $array3, $array4, $array5, $array6, $array7);
+   
  }
-
- $arrayReturn = array($array1, $array2, $array3, $array4, $array5, $array6, $array7);
-
- return $arrayReturn;
+return $arrayReturn;
 }
 
 

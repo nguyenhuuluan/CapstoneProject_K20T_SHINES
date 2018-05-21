@@ -9,6 +9,7 @@ use App\Blog;
 use App\Photo;
 use App\Tag;
 use DataTables;
+use Auth;
 
 
 class AdminBlogController extends Controller
@@ -20,28 +21,46 @@ class AdminBlogController extends Controller
      */
     public function index(Request $request)
     {
-        return view('admin.blogs.index');
+        if(Auth::user()->can('blogs.view')){
+            return view('admin.blogs.index');
+        }
+        else{return view('errors.admin_auth');}
+
     }
     function getdata()
     {
       // $blogs = Blog::select('id', 'title', 'content', 'created_at');
-      $blogs = Blog::with('tags');
-      return DataTables()::of($blogs)
-      ->addColumn('tag', function($blog)
-      {
-        $tmp = '';
-        foreach ($blog->tags as $tag)
-        {
-            $tmp .=  '<span class="label label-default">'.$tag->name.'</span>';
+        if(Auth::user()->can('blogs.view')){
+            $blogs = Blog::all();
+            return DataTables()::of($blogs)
+            ->addColumn('tag', function($blog)
+            {
+                $tmp = '<div style="display:grid; grid-template-columns: repeat(2,1fr);grid-gap: 5px">';
+                foreach ($blog->tags as $tag)
+                {
+                    $tmp .=  '<div style="display:grid"><span class="label label-default">'.$tag->name.'</span></div>';
+                }
+                $tmp .= '</div>';
+                return $tmp;
+            })       
+            ->addColumn('action', function($blog){
+                $tmp = '<div style="display:grid; grid-template-columns: repeat(3,1fr);grid-gap: 5px">';
+                if(Auth::user()->can('blogs.update')){
+                    $tmp .= '<a href="'.route('blogs.edit',$blog->slug).'" class="btn btn-xs btn-primary edit" id="'.$blog->id.'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a>';
+                }
+                if(Auth::user()->can('blogs.delete')){
+                    $tmp .='<a href="#" class="btn btn-xs btn-danger delete" id="'.$blog->slug.'"><i class="fa fa-trash" aria-hidden="true"></i>Delete</a>';
+                }
+                $tmp .= '</div>';
+                return $tmp;
+                
+            })
+            ->rawColumns(['tag', 'action'])
+            ->make(true);
         }
-        return $tmp;
-    })       
-      ->addColumn('action', function($blog){
-        return '<a href="#" class="btn btn-xs btn-primary edit" id="'.$blog->id.'">Edit</a>';
-    })
-      ->rawColumns(['tag', 'action'])
-      ->make(true);
-  }
+        else{return response()->json('error',400);}
+
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -50,7 +69,11 @@ class AdminBlogController extends Controller
      */
     public function create()
     {
-        return view('admin.blogs.create');
+        if(Auth::user()->can('blogs.create')){
+            return view('admin.blogs.create');
+        }
+        else{return view('errors.admin_auth');}
+
     }
 
     /**
@@ -69,51 +92,48 @@ class AdminBlogController extends Controller
             'content'=>'required',
         ]);
 
-        $tags = explode(',', request('tags')); 
+        $tags1 = explode(',', request('tags'));
+        $file = $request->file('imgInp');
+        $fileName = time().'_'.$file->getClientOriginalName(); 
         $data = [
             'title'=>request('title'),
             'description'=>request('description'),
             'content'=>request('content'),
             'account_id'=>auth()->id(),
+            'photo'=>$fileName,
         ];
         switch (request('submitbutton'))
         {
             case 'Xem trước':
-            foreach ($tags as $key => $value) 
+            foreach ($tags1 as $key => $value) 
             {
                 $tags2[]= $value;
             }
             return view('blogs.preview', compact('data', 'tags2') );
 
             case 'Đăng bài':
-            $blog = Blog::create($data);
-
-            /*Save tagss*/
-            foreach ($tags as $key => $value) {
-                if(count(Tag::Where('name',$value)->get()) !=0)
-                    {
-
-                        $blog->tags()->save(Tag::where('name',$value)->first());
-                    }
-                    else
-                    {
-                        $tg = Tag::create(['name'=>$value]);
-                        $blog->tags()->save($tg);
-                    }
-                }
-
+            if(Auth::user()->can('blogs.create')){
+                $blog = Blog::create($data);
                 /*Save ava image*/
-                $file = $request->file('imgInp');
-                $fileName = time().'_'.$file->getClientOriginalName();
-                $photo = Photo::create(["name" => $fileName]);
-                $blog->photos()->attach($photo->id);
                 $file->move('blogs/ava', $fileName);
-                return redirect(route('blogs.index'))->with('message','Tạo Blog thành công!');
-            }
+                /*Save tagss*/
+                foreach ($tags1 as $key => $value) {
+                    if(count(Tag::Where('name',$value)->get()) !=0)
+                        {
+                            $blog->tags()->save(Tag::where('name',$value)->first());
+                        }
+                        else
+                        {
+                            $tg = Tag::create(['name'=>$value]);
+                            $blog->tags()->save($tg);
+                        }
+                    }
 
-        // $file = $request->file('imgInp');
-        // return $file;
-        // return $request->all();
+                    /*Save ava image*/
+                    return redirect(route('blogs.index'))->with('message','Tạo Blog thành công!');
+                }
+                else{return view('errors.admin_auth');}
+            }
         }
 
     /**
@@ -135,7 +155,13 @@ class AdminBlogController extends Controller
      */
     public function edit($id)
     {
-        //
+        if(Auth::user()->can('blogs.update')){
+
+            $blog = Blog::findBySlugOrFail($id);
+            $blog['tags'] = implode(',', $blog->tags->pluck('name')->all());
+            return view('admin.blogs.edit',compact('blog'));
+        }else{return view('errors.admin_auth');}
+
     }
 
     /**
@@ -147,8 +173,57 @@ class AdminBlogController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
+        $this->validate($request, [
+            'title'=>'required',
+            'description'=>'required',
+            'content'=>'required',
+        ]);
+        $blog = Blog::findBySlugOrFail($id);
+        $tags1 = explode(',', request('tags'));
+        
+        $data = [
+            'title'=>request('title'),
+            'description'=>request('description'),
+            'content'=>request('content'),
+        ];
+        switch (request('submitbutton'))
+        {
+            case 'Xem trước':
+            foreach ($tags1 as $key => $value) 
+            {
+                $tags2[]= $value;
+            }
+            return view('blogs.preview', compact('data', 'tags2') );
+
+            case 'Cập nhật':
+            if(Auth::user()->can('blogs.update')){
+                if($file = $request->file('imgInp')){
+                    $fileName = time().'_'.$file->getClientOriginalName(); 
+                    $data['photo'] = $fileName;
+                    $file->move('blogs/ava', $fileName);
+                    unlink(public_path().$blog->photo);
+                }
+                $blog->update($data);
+                /*Save ava image*/
+                /*Save tagss*/
+                $blog->tags()->detach();
+                foreach ($tags1 as $key => $value) {
+                    if(count(Tag::Where('name',$value)->get()) !=0)
+                        {
+                            $blog->tags()->save(Tag::where('name',$value)->first());
+                        }
+                        else
+                        {
+                            $tg = Tag::create(['name'=>$value]);
+                            $blog->tags()->save($tg);
+                        }
+                    }
+                    /*Save ava image*/
+                    return redirect(route('blogs.index'))->with('message','Cập nhật Blog thành công!');
+                }
+                else{return view('errors.admin_auth');}
+            }
+        }
 
     /**
      * Remove the specified resource from storage.
@@ -156,8 +231,22 @@ class AdminBlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
-    }
+        if(Auth::user()->can('blogs.delete')){
+            $blog =Blog::findBySlugOrFail($request->slug);
+            if($blog->delete())
+            {
+                    //chay trên host
+                    // unlink(base_path().'/public_html/'.$student->photo);
+
+                unlink(public_path().$blog->photo);
+                return response()->json('success');
+            }
+            else{
+               return response()->json('error',400);
+           }
+       }else{return response()->json('error',400);}
+
+   }
 }

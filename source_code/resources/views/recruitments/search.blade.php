@@ -95,15 +95,23 @@
                 {{-- <h5>{!! $recruitment->company !!} <span class="label label-success">Full-time</span>
                 </h5> --}}
                 @foreach ($recruitment->categories as $category)
-                @if($category->name =='FULL-TIME')
+               {{--  @if($category->name =='FULL-TIME')
                 <span class="label label-success">{!! $category->name !!}</span>
                 @else
                 <span class="label label-danger">{!! $category->name !!}</span>
+                @endif --}}
+                @if ($category->id == 1)
+                <span class="label label-success">{!! $category->name !!}</span>
+                @endif
+                @if ($category->id == 2)
+                <span class="label label-danger">{!! $category->name !!}</span>
+                @endif
+                @if ($category->id == 3)
+                <span class="label label-warning">{!! $category->name !!}</span>
                 @endif
                 @endforeach
               </div>
-              <?php \Carbon\Carbon::setLocale('vi')?>
-              <time>{!! Carbon\Carbon::parse($recruitment->created_at)->diffForHumans() !!}</time>
+              <time>{!!$recruitment->getCreatedAtAtrribute()!!}</time>
             </header>
 
             <div class="item-body">

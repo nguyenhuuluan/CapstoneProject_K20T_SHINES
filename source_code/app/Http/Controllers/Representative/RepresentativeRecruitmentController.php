@@ -13,6 +13,7 @@ use App\Company;
 use App\Account;
 use App\District;
 use App\City;
+use App\Apply;
 
 class RepresentativeRecruitmentController extends Controller
 {
@@ -29,11 +30,19 @@ class RepresentativeRecruitmentController extends Controller
     }
     public function index()
     {
-        //
 
-        $recruitments = Recruitment::where('company_id', Auth::user()->representative->company->id )->get();
+        $recruitments = Recruitment::with('tags','status','applies')->withCount('applies')->where('company_id', Auth::user()->representative->company->id )->orderBy('created_at','desc')->get();
+
         return view('representative.recruitments.index',compact('recruitments'));
 
+    }
+
+    public function getCV(Request $request)
+    {
+        // $recruitment = Recruitment::with('applies.student')->whereId(29);
+        $recruitment = Apply::with('student.faculty','cv')->where('recruitment_id',$request->id);
+        return DataTables()::of($recruitment)
+        ->make(true);
     }
 
     /**
@@ -59,7 +68,6 @@ class RepresentativeRecruitmentController extends Controller
      */
     public function store(Request $request)
     {    
-
         // return count(Tag::Where('name','php')->get());
         //return $request;
         //$tags = explode(',', request('hidden-tags'));

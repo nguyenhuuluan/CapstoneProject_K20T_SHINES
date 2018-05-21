@@ -57,15 +57,15 @@ class LoginController extends Controller
     
     public function showLoginForm()
     {
-     return view('representative.auth.login');
- }
+       return view('representative.auth.login');
+   }
 
- public function login(Request $request)
- {
+   public function login(Request $request)
+   {
     $this->validate($request,[
-     'email'=>'required|string|email|max:255',
-     'password' => 'required|string|min:6',
- ]);
+       'email'=>'required|string|email|max:255',
+       'password' => 'required|string|min:6',
+   ]);
 
     if ($this->hasTooManyLoginAttempts($request)) {
         $this->fireLockoutEvent($request);

@@ -22,9 +22,9 @@ Route::get('/' , 'HomeController@index')->name('index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/contact', 'HomeController@contact')->name('contact');
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login')->middleware('guest');
 Route::get('/recruitments', 'HomeController@listRecruitments')->name('lst.recruitment');
-Route::get('/recruitments/total', 'RecruitmentController@totalRecruitments')->name('recruitment.total');
 
 
 //Password reset routes
@@ -62,6 +62,11 @@ Route::group(['middleware' => 'filter'], function() {
 Route::get('search', 'RecruitmentController@search')->name('recruitments.search');
 
 Route::get('/recruitment/increaseView/{recruitmentID}', 'RecruitmentController@increaseView')->name('recruitment.increaseview');
+
+
+// Blog - WEB
+Route::get('/blogs/{slug}', 'HomeController@detailblog')->name('detailblog');
+
 
 // Company - WEB
 // Route::get('/company/details/{id}', 'CompanyController@details')->name('company.details');
@@ -132,18 +137,22 @@ Route::GET('password/reset/{token}','Admin\ResetPasswordController@showResetForm
 Route::middleware(['admin', 'web'])->group(function () {
 	Route::GET('admin', 'Admin\AdminController@index')->name('admin.home');  
 	Route::GET('admin/home', 'Admin\AdminController@index');  
-	Route::GET('admin/home2', 'Admin\AdminController@index2');  
+
+
+	//Recruitment-- ADMIN
 	Route::resource('admin/recruitments', 'Admin\AdminRecruitmentController', [
 		'names' => [
 			'index' => 'admin.recruitments.index',
-			'store' => 'admin.recruitments.store',
-			'create' => 'admin.recruitments.create',
 			'show' => 'admin.recruitments.show',
-			'update' => 'admin.recruitments.update',
-			'destroy' => 'admin.recruitments.destroy',
 			'edit' => 'admin.recruitments.edit',
-			
-		]]);
+			'update'=>'admin.recruitments.update'
+		],
+		'except' => ['destroy', 'store', 'create']
+	]);
+	// Route::get('admin/recruitments/{id}/edit', 'Admin\AdminRecruitmentController@edit')->name('admin.recruitments.edit');
+
+
+
 	Route::get('admin/approve/recruitments', 'Admin\AdminRecruitmentController@approve')->name('admin.recruitments.approve');
 	Route::get('/admin/recruitments/approve/{recruitmentID}', 'Admin\AdminRecruitmentController@approveRecruitment')->name('approverecruitment');
 	Route::get('/admin/recruitments/active/{recruitment_id}', 'Admin\AdminRecruitmentController@setActiveRecruitment')->name('activerecruitment');
@@ -151,21 +160,24 @@ Route::middleware(['admin', 'web'])->group(function () {
 
 
 
-
-	//Route::get('/admin/recruitment/{id}/preview', 'RecruitmentController@preview')->name('preview');
-
+	//Staff - ADMIN
+	//them middleware->lỗi chuyển sang page 403
+	// Route::resource('admin/staffs', 'Admin\AdminStaffController')->middleware('can:accounts.staff');
+	Route::resource('admin/staffs', 'Admin\AdminStaffController', ['except' => ['update','show']]);
+	Route::patch('admin/staffs', 'Admin\AdminStaffController@update')->name('staffs.update');
+	Route::get('admin/staffs/{id}/{type}', 'Admin\AdminStaffController@show')->name('staffs.show');
 
 	//Company - ADMIN
 	Route::get('/admin/getcompanies', 'CompanyController@getCompanies')->name('getcompanies');
-	Route::get('/admin/company', 'CompanyController@index')->name('company');
-	Route::get('/admin/company/approve/{companyID}', 'CompanyController@approveCompany')->name('approvecompany');
-	Route::get('/admin/company/active/{companyID}', 'CompanyController@setActiveCompany')->name('activecompany');
+	Route::get('/admin/companies', 'Admin\AdminCompanyController@index')->name('company');
+	Route::get('/admin/company/approve/{companyID}', 'Admin\AdminCompanyController@approveCompany')->name('approvecompany');
+	Route::get('/admin/company/active/{companyID}', 'Admin\AdminCompanyController@setActiveCompany')->name('activecompany');
 
-	Route::get('/admin/company/setishot/{companyID}', 'CompanyController@setIsHotCompany')->name('ishotcompany');
+	Route::get('/admin/company/setishot/{companyID}', 'Admin\AdminCompanyController@setIsHotCompany')->name('ishotcompany');
 
 
-	Route::get('/admin/company/company-registration', 'CompanyController@companyRegistration')->name('company.registration');
-	Route::get('/admin/company/sendemailconfirm/{accID}/{repreID}/{compID}', 'CompanyController@sendConfirmEmail')->name('company.sendConfirmEmail');
+	Route::get('/admin/company/company-registration', 'Admin\AdminCompanyController@companyRegistration')->name('company.registration');
+	Route::get('/admin/company/sendemailconfirm/{accID}/{repreID}/{compID}', 'Admin\AdminCompanyController@sendConfirmEmail')->name('company.sendConfirmEmail');
 
 
 	//Dashboard 
@@ -197,10 +209,15 @@ Route::middleware(['admin', 'web'])->group(function () {
 	//[13]
 	Route::post('/admin/statistics/fetchTopBrowsers', 'Admin\AdminController@fetchTopBrowsers')->name('admin.statistics.fetchTopBrowsers');
 
+	// [14]
+	Route::get('/admin/statistics/statisticsNumberOfCompanyByYear/{year}', 'Admin\AdminController@statisticsNumberOfCompanyByYear')->name('admin.statistics.statisticsNumberOfCompanyByYear');
+
+
 
 	//Blog - ADMIN
-	Route::resource('/admin/blogs', 'Admin\AdminBlogController');
+	Route::resource('/admin/blogs', 'Admin\AdminBlogController',['except' => ['destroy']]);
 	Route::get('/admin/getdata/blogs', 'Admin\AdminBlogController@getdata')->name('blogs.getdata');
+	Route::delete('/admin/removedata/blogs', 'Admin\AdminBlogController@destroy')->name('blogs.destroy');
 
 
 
@@ -236,6 +253,7 @@ Route::middleware(['representative', 'web'])->group(function () {
 
 	Route::GET('representative/home', 'Representative\RepresentativeController@index');   
 	Route::resource('representative/recruitments', 'Representative\RepresentativeRecruitmentController');
+	Route::get('/representative/getdata/recruitments', 'Representative\RepresentativeRecruitmentController@getCV')->name('recruitments.getcv');
 
 	//Company
 	Route::get('/company/update', 'CompanyController@update')->name('company.update');

@@ -3,11 +3,26 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Cviebrock\EloquentSluggable\Sluggable;
+use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 class Blog extends Model
 {
     //
-    protected $fillable = ['title', 'content', 'account_id'];
+    use Sluggable;
+    use SluggableScopeHelpers;
+    protected $fillable = ['title', 'content', 'account_id', 'slug', 'photo','description'];
+    protected $path = '/blogs/ava/';
+    protected $with = ['tags'];
+
+    public function sluggable()
+    {   
+        return [
+            'slug' => [
+                'source'        => 'title',
+                'onUpdate'      => true,
+            ],
+        ];
+    }
 
 
     public function owner()
@@ -23,5 +38,9 @@ class Blog extends Model
     public function photos()
     {
     	return $this->belongsToMany('App\Photo', 'photo_blog', 'blog_id', 'photo_id')->withTimestamps();
+    }
+
+    public function getPhotoAttribute($value){
+            return $this->path.$value;
     }
 }

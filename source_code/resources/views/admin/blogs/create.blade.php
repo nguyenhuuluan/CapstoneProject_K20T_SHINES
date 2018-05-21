@@ -89,7 +89,7 @@
                 <div class="form-group">
                     <label>Tags</label>
                     <br>
-                    <input name="tags" id="tags" type="text" class="tagsinput-typeahead form-control" placeholder="Nhập tags bài viết" data-role="tagsinput">
+                    <input name="tags" id="tags" type="text" class="tagsinput-typeahead form-control" placeholder="Nhập tags bài viết" value="{{ old('tags') }}" data-role="tagsinput">
                     <br>
                 </div>
                 <div class="form-group  {{ $errors->has('description') ? ' has-error' : '' }}">

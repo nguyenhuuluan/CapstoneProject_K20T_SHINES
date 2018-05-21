@@ -2,7 +2,7 @@
 @section('stylesheet')
 <link href="{{ asset('assets/css/bootstrap-tagsinput.css') }}" rel="stylesheet">
 <style type="text/css">
-  .loading-dots {
+.loading-dots {
   text-align: center;
   margin-top: 3em;
   z-index: 5;
@@ -16,19 +16,19 @@
   font-size: 3.5em;
   opacity: 0;
   -webkit-animation: showHideDot 2.5s ease-in-out infinite;
-          animation: showHideDot 2.5s ease-in-out infinite;
+  animation: showHideDot 2.5s ease-in-out infinite;
 }
 .loading-dots .dot.one {
   -webkit-animation-delay: 0.2s;
-          animation-delay: 0.2s;
+  animation-delay: 0.2s;
 }
 .loading-dots .dot.two {
   -webkit-animation-delay: 0.4s;
-          animation-delay: 0.4s;
+  animation-delay: 0.4s;
 }
 .loading-dots .dot.three {
   -webkit-animation-delay: 0.6s;
-          animation-delay: 0.6s;
+  animation-delay: 0.6s;
 }
 
 @-webkit-keyframes showHideDot {
@@ -95,15 +95,23 @@
                 {{-- <h5>{!! $recruitment->company !!} <span class="label label-success">Full-time</span>
                 </h5> --}}
                 @foreach ($recruitment->categories as $category)
-                @if($category->name =='FULL-TIME')
+                {{-- @if($category->name =='FULL-TIME')
                 <span class="label label-success">{!! $category->name !!}</span>
                 @else
                 <span class="label label-danger">{!! $category->name !!}</span>
+                @endif --}}
+                @if ($category->id == 1)
+                <span class="label label-success">{!! $category->name !!}</span>
+                @endif
+                @if ($category->id == 2)
+                <span class="label label-danger">{!! $category->name !!}</span>
+                @endif
+                @if ($category->id == 3)
+                <span class="label label-warning">{!! $category->name !!}</span>
                 @endif
                 @endforeach
               </div>
-              <?php \Carbon\Carbon::setLocale('vi')?>
-              <time>{!! Carbon\Carbon::parse($recruitment->created_at)->diffForHumans() !!}</time>
+              <time>{!!$recruitment->getCreatedAtAtrribute()!!}</time>
             </header>
             {{-- {!!$recruitment->sections[0]->pivot->content !!} --}}
             <div class="item-body">
@@ -140,9 +148,9 @@
       </div> --}}
     </div>
 
-      <div class="loading-dots hidden" id="loading-dots">
-        <h1 class="dot one">.</h1><h1 class="dot two">.</h1><h1 class="dot three">.</h1>
-      </div>
+    <div class="loading-dots hidden" id="loading-dots">
+      <h1 class="dot one">.</h1><h1 class="dot two">.</h1><h1 class="dot three">.</h1>
+    </div>
 
   </div>
 </section>
@@ -154,22 +162,22 @@
 <script src="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap3-typeahead.js') }}"></script>
 <script src="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.js') }}"></script>
 <script> 
-    $('.tagsinput-typeahead').tagsinput({
-        typeahead: {
-            source: $.get('{{ route('tags') }}'),
-            afterSelect: function() {
-                this.$element[0].value = '';    
-            },
-        },
-        trimValue: true,
-        freeInput: true,
-        tagClass: 'label label-default',
-    })
+  $('.tagsinput-typeahead').tagsinput({
+    typeahead: {
+      source: $.get('{{ route('tags') }}'),
+      afterSelect: function() {
+        this.$element[0].value = '';    
+      },
+    },
+    trimValue: true,
+    freeInput: true,
+    tagClass: 'label label-default',
+  })
 </script>
 <script type="text/javascript">
   var is_busy = false;
-    $(window).scroll(function(){
-      $element = $('#itemrecruitment');
+  $(window).scroll(function(){
+    $element = $('#itemrecruitment');
       // ELement hiển thị chữ loadding
       $loadding = $('#loading-dots');
       // Nếu màn hình đang ở dưới cuối thẻ thì thực hiện ajax
@@ -182,12 +190,13 @@
           is_busy = true;
           var page = $('.endless-pagination').data('next-page');
           if (page!==null && page!==''){
+            var url = window.location.href+'?page='+page.split('page=')[1];
             $loadding.removeClass('hidden');
             $.ajax(
             {
               type: 'get',
               dataType: 'text',
-              url: page,
+              url: url,
               success: function (data) {
                 $('.recruitments').append(JSON.parse(data)["recruitments"]);
                 $('.endless-pagination').data('next-page', JSON.parse(data)["next_page"]);
@@ -205,5 +214,5 @@
         }
       });
 
-</script>
-@endsection
+    </script>
+    @endsection

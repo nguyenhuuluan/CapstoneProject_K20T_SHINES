@@ -30,12 +30,23 @@ class Recruitment extends Model
         ];
     }
 
-     public function getSearchingAttribute() {
+    public function getSearchingAttribute() {
         $tmp = array();
         foreach ($this->tags as $tag) {
             $tmp[] = $tag->name;
         }
+        foreach ($this->categories as $category) {
+            $tmp[] = $category->name;
+            if($category->id == 2)
+            {
+                $tmp[]=  str_replace('-', '', $category->name);
+            }
+        }
         return implode(" ",$tmp);
+    }
+    public function getCreatedAtAtrribute(){
+        \Carbon\Carbon::setLocale('vi');
+        return $this->created_at->diffForHumans();
     }
 
     public function path(){
@@ -47,6 +58,7 @@ class Recruitment extends Model
     	return $this->belongsTo('App\Company');
     	//return $this->belongsTo('App\Company', 'company_id', 'id');
     }
+
 
     public function status(){
     	return $this->belongsTo('App\Status');
@@ -66,5 +78,17 @@ class Recruitment extends Model
     public function tags(){
         return $this->belongsToMany('App\Tag', 'tag_recruitment', 'recruitment_id', 'tag_id')->withTimestamps();
     }
+
+    public function cvs()
+    {
+        return $this->belongsToMany('App\Cv', 'applies', 'recruitment_id', 'cv_id')->withTimestamps()->withPivot(['description', 'student_id']);;
+    }
+
+    public function applies()
+    {
+        return $this->hasMany('App\Apply');
+    }
+
+
     
 }

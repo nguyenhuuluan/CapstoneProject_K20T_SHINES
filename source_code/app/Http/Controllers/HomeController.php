@@ -7,9 +7,10 @@ use App\Recruitment;
 use App\Tag;
 use App\Company;
 use App\Student;
-use App\CV;
+use App\Cv;
 use Response;
 use DB;
+use App\Blog;
 class HomeController extends Controller
 {   
     protected $per_page_number = 1; 
@@ -39,6 +40,9 @@ class HomeController extends Controller
                                     ->orderBy('recruitments.created_at','desc')
                                     ->take(5)->get();
 
+        $blogs = Blog::with('tags','owner.staff')->orderBy('created_at','desc')->take(3)->get();
+
+
 
         // $recruitments = DB::table('recruitments')
         //                 ->join('companies','recruitments.company_id', '=', 'companies.id')
@@ -63,7 +67,17 @@ class HomeController extends Controller
 
         // $companies = Company::where('status_id', 3)->orderBy('created_at','desc')->take(8)->get();
 
-        return view('welcome', compact('recruitments', 'companies', 'totalRecruitments','totalStudents','totalCVs','totalCompanies'));
+        return view('welcome', compact('recruitments','blogs','companies','totalRecruitments','totalStudents','totalCVs','totalCompanies'));
+    }
+
+    public function contact()
+    {
+        return view('contact');
+    }
+    public function detailblog($slug)
+    {
+        $blog = Blog::findBySlugOrFail($slug);
+        return view('blogs.detail', compact('blog'));
     }
 
     
@@ -101,7 +115,6 @@ class HomeController extends Controller
                     'next_page'=>$recruitments->nextPageUrl()
                     ];
         }
-
         return view('recruitments.list', compact('recruitments', 'total'));
     }
 

@@ -5,7 +5,12 @@ function alertSuccess(message)
     type: 'blue',
     title:'Thông báo!!',
     content: message,
-    btnClass: 'btn-success'
+    buttons: {
+      Ok: {
+        keys: ['enter'],
+        btnClass: 'btn-default',
+      }
+    }
   });
 }
 function alertError(message)

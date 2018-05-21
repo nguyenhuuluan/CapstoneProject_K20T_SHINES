@@ -50,10 +50,12 @@
                                             <td>{{$recruitment->company->name}}</td>
                                             <td>{{$recruitment->created_at}}</td>
                                             <td>
+                                                <a href=" {{ route('admin.recruitments.show', $recruitment->slug) }}" class="btn btn-xs btn-success" target="_blank" style="display: inline-block;">Xem trước</a>
+                                                <a href=" {{ route('admin.recruitments.edit', $recruitment->id) }}" class="btn btn-xs btn-primary edit" target="_blank" style="display: inline-block;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a>
                                                 <button type="button" class="btn btn-default btn-xs btn-approve" value = "{{$recruitment->id}}">
                                                     <span class="glyphicon glyphicon-globe"></span> Xác nhận
                                                 </button>
-                                                <a href=" {{ route('admin.recruitments.show', $recruitment->slug) }}" class="btnreview btn-success" target="_blank" style="display: inline-block;">Xem</a>
+
                                             </td>                                          
                                             @endforeach
                                         </tbody>
@@ -98,17 +100,14 @@
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script type="text/javascript">
 
-       $(document).ready(function() {
-        $('#dataTables-example').DataTable({
+     $(document).ready(function() {
+        var table = $('#dataTables-example').DataTable({
             responsive: true
         });
-    });
 
-       $('.btn-approve').click(function() {
-
-           var currentelement = $(this);
-
-           $.confirm({
+        $('.btn-approve').click(function() {
+         var currentelement = $(this);
+         $.confirm({
             icon: 'fa fa-warning',
             title: 'Cảnh báo!!',
             type: 'orange',
@@ -144,28 +143,24 @@
                                             alertError('Vui lòng nhập nội dung phản hồi ...');
                                             return false;
                                         }
-
                                         feedbackRecruitment(recruitmentID, message);
-
-
-                                        // $.alert('Your name is ' + message);
-                                        // $.alert('RecruitmentID ' + recruitmentID);
                                     }
                                 },
                                 cancel: function () {
-            //close
-        },
-    },
-    onContentReady: function () {
-        // bind to events
-        var jc = this;
-        this.$content.find('form').on('submit', function (e) {
-            // if the user submits the form by pressing enter in the field.
-            e.preventDefault();
-            jc.$$formSubmit.trigger('click'); // reference the button and click it
-        });
-    }
-});
+                                //close
+                            },
+                        },
+                        onContentReady: function () {
+                        // bind to events
+                        var jc = this;
+                        this.$content.find('form').on('submit', function (e) {
+                         // if the user submits the form by pressing enter in the field.
+                         e.preventDefault();
+                         jc.$$formSubmit.trigger('click'); 
+                        // reference the button and click it
+                    });
+                    }
+                });
                     }    
                 },
                 Không: {
@@ -174,8 +169,9 @@
                 }
             }
         });
-       });
-
+     });
+       //end of approve
+       
        function feedbackRecruitment(recruitmentID, message){
         $('.modal-ajax-loading').fadeIn("200");
         $.ajax({
@@ -202,16 +198,16 @@
             success: function(){
                 $('.modal-ajax-loading').fadeOut("200");
                 alertSuccess('Xác nhận thành công ...')
-                element.parent().parent().remove();
-           },
-           error: function(){
-            $('.modal-ajax-loading').hide();
-            alertError('Xác nhận thất bại ...');
-        }            
-    });
+                table.row(element.parent().parent()).remove().draw();
+            },
+            error: function(){
+                $('.modal-ajax-loading').hide();
+                alertError('Xác nhận thất bại ...');
+            }            
+        });
     }
-
-
+    
+});
 </script>
 @endsection
 

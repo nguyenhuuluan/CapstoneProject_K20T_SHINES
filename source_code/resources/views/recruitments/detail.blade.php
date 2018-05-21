@@ -3,88 +3,88 @@
 
 @section('stylesheet')
 <style type="text/css">
-		.social-iconss {
-		  background-color: #ef4d42; 
-		  color: #ffffff;
-		  font-size:16px;
-		  display:inline-block;
-		  line-height:44px;
-		  width:44px;
-		  height:44px;
-		  text-align:center;
-		  margin-right:8px;
-		  border-radius:100%;
-		  transition:all .2s linear;
-		}
-		/* Tooltip container */
-	.tooltipsave {
-		position: relative;
-		display: inline-block;
-		border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
-	}
+.social-iconss {
+	background-color: #ef4d42; 
+	color: #ffffff;
+	font-size:16px;
+	display:inline-block;
+	line-height:44px;
+	width:44px;
+	height:44px;
+	text-align:center;
+	margin-right:8px;
+	border-radius:100%;
+	transition:all .2s linear;
+}
+/* Tooltip container */
+.tooltipsave {
+	position: relative;
+	display: inline-block;
+	border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
 
-	/* Tooltip text */
-	.tooltipsave .tooltiptext {
-		visibility: hidden;
-		width: 90px;
-		background: transparent;
-		color: black;
-		text-align: center;
-		border-radius: 6px;
-		right: 105%; 
+/* Tooltip text */
+.tooltipsave .tooltiptext {
+	visibility: hidden;
+	width: 90px;
+	background: transparent;
+	color: black;
+	text-align: center;
+	border-radius: 6px;
+	right: 105%; 
 
-		/* Position the tooltip text - see examples below! */
-		position: absolute;
-		z-index: 1;
-	}
+	/* Position the tooltip text - see examples below! */
+	position: absolute;
+	z-index: 1;
+}
 
-	/* Show the tooltip text when you mouse over the tooltip container */
-	.tooltipsave:hover .tooltiptext {
-		visibility: visible;
-	}
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltipsave:hover .tooltiptext {
+	visibility: visible;
+}
 
+#save-recruitment {
+	position: fixed;
+	display: inline-block;
+	bottom: 72px;
+	right: 30px;
+	z-index: 99;
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	font-size: 22px;
+	text-align: center;
+	border: none;
+	outline: none;
+	background-color: #ef4d42; 
+	color: #ffffff;
+	margin-right: 0px;
+
+	border-radius: 4px;
+	opacity: 0.5;
+}
+#save-recruitment:hover {
+	background-color: red;
+	opacity: 1;
+}
+@media (max-width:991px) {
 	#save-recruitment {
-		position: fixed;
-		display: inline-block;
-		bottom: 72px;
-		right: 30px;
-		z-index: 99;
-		width: 40px;
-		height: 40px;
-		line-height: 40px;
-		font-size: 22px;
-		text-align: center;
-		border: none;
-		outline: none;
-		background-color: #ef4d42; 
-		color: #ffffff;
-		margin-right: 0px;
-
-		border-radius: 4px;
-		opacity: 0.5;
+		right:15px;
+		bottom:39px;
+		width:34px;
+		height:34px;
+		line-height:34px;
+		font-size:18px;
 	}
-	#save-recruitment:hover {
-		background-color: red;
-		opacity: 1;
-	}
-	@media (max-width:991px) {
-		#save-recruitment {
-			right:15px;
-			bottom:39px;
-			width:34px;
-			height:34px;
-			line-height:34px;
-			font-size:18px;
-		}
-	}
-	</style>
-  <script>	(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.12&appId=415131908928137&autoLogAppEvents=1';
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));</script>
+}
+</style>
+<script>	(function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0];
+	if (d.getElementById(id)) return;
+	js = d.createElement(s); js.id = id;
+	js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.12&appId=415131908928137&autoLogAppEvents=1';
+	fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 @endsection
 @section('meta-data')
 
@@ -92,13 +92,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="{!!$currentURL!!}" />
 <meta property="og:image" content="{!! asset($recruitment->company->logo) !!}" />
-<meta property="og:description" content="{{  substr($recruitment->sections[0]->content, 0, 150) }}" />
+<meta property="og:description" content="{!! substr(strip_tags($recruitment->sections[0]->pivot->content), 0, 150) !!}" />
 <meta property="og:site_name" content="tyendungvanlang.tech" />
 
 @endsection
 
 @section('page-header')
-
 
 <header class="page-header bg-img size-lg" style="background-image: url({{ asset('assets/img/bg-banner2.jpg') }} )">
 	<div class="container">
@@ -107,8 +106,7 @@
 			<div class="hgroup">
 				<h1>{!! $recruitment->title !!}</h1>
 			</div>
-              <?php \Carbon\Carbon::setLocale('vi')?>
-			<time>{!! $recruitment->created_at->diffForhumans() !!}</time>
+			<time>{!! $recruitment->getCreatedAtAtrribute() !!}</time>
 			<ul class="details cols-3"  style="text-align: center">
 				<li>
 					<h3><a href="{!! route('company.details', $recruitment->company->slug) !!}">{!! $recruitment->company->name !!}</a></h3>
@@ -119,10 +117,20 @@
 				</li>
 				<li>
 					@foreach ($recruitment->categories as $category)
-					@if($category->name == 'FULL-TIME' )
+					{{-- @if($category->name == 'FULL-TIME' )
 					<span class="label label-success">{!! $category->name !!}</span>
 					@else
 					<span class="label label-danger">{!! $category->name !!}</span>
+					@endif --}}
+
+					@if ($category->id == 1)
+					<span class="label label-success">{!! $category->name !!}</span>
+					@endif
+					@if ($category->id == 2)
+					<span class="label label-danger">{!! $category->name !!}</span>
+					@endif
+					@if ($category->id == 3)
+					<span class="label label-warning">{!! $category->name !!}</span>
 					@endif
 					@endforeach
 				</li>
@@ -206,11 +214,11 @@
 
 
 		<div class="col-md-4 col-lg-3">
-
+			
 			<div class="widget widget_tag_cloud">
 				<h6 class="widget-title">Tags</h6>
 				<div class="widget-body">
-					<a href="#">blog</a>
+					<a href="#">blog </a>
 					<a href="#">new</a>
 					<a href="#">google</a>
 					<a href="#">position</a>
@@ -226,7 +234,7 @@
 	</div>
 
 
-<a class="social-iconss tooltipsave" id="save-recruitment" href="#"><i class="fa fa-heart"><span style="font-weight: bold; font-size: 14px;" class="tooltiptext">Lưu việc làm</span></i></a>
+	<a class="social-iconss tooltipsave" id="save-recruitment" href="#"><i class="fa fa-heart"><span style="font-weight: bold; font-size: 14px;" class="tooltiptext">Lưu việc làm</span></i></a>
 </main>
 
 @endsection
