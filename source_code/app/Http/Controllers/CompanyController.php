@@ -262,11 +262,12 @@ public function updateImages(Request $request)
 public function deleteImage($imageName)
 {
 
+  // cài này trên host
+ // unlink(base_path()."/public_html/images/companies/".$imageName);
+
+
  
-   // unlink(base_path()."/images/companies/public_html/'".$imageName);
-
-    // unlink(base_path()."/images/companies/public_html/".$imageName);
-
+  // cái này ở local
  unlink(public_path()."/images/companies/".$imageName);
  
  $photo = Photo::where('name', $imageName);
@@ -296,9 +297,10 @@ public function updateLogo(Request $request)
         //chay tren host
         //unlink(base_path().'/public_html/'.$comp->logo);
         
+
+        // chạy ở local
         unlink(public_path().$comp->logo);
 
-        //  return "OK";
       }
 
       $comp->logo = $name;

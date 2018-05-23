@@ -36,13 +36,18 @@
       <div class="alert alert-success">         
         <span>{!! session('resigter-success') !!}</span>
       </div>
+      @elseif(Session::has('resigter-error'))
+      <br>
+      <div class="alert alert-danger">         
+        <span>{!! session('resigter-error') !!}</span>
+      </div>
       @endif
       {!! Form::open(['method' => 'POST', 'route' => 'company.register.partnership.store', 'class' => 'form-horizontal']) !!}
 
       <div class="form-group">
         <div class="input-group">
           <span class="input-group-addon"><i class="ti-home"></i></span>
-          <input name="company_name" type="text" class="form-control" placeholder="Tên Công Ty">
+          <input value = "{{ old('company_name') }}" name="company_name" type="text" class="form-control" placeholder="Tên Công Ty">
           
         </div>
         <small class="text-danger">{{ $errors->first('company_name') }}</small>
@@ -53,7 +58,7 @@
       <div class="form-group">
         <div class="input-group">
           <span class="input-group-addon"><i class="ti-world"></i></span>
-          <input name="company_website" type="text" class="form-control" placeholder="Website Công Ty">
+          <input name="company_website" type="text" value = "{{ old('company_website') }}" class="form-control" placeholder="Website Công Ty">
           
         </div>
         <small class="text-danger">{{ $errors->first('company_website') }}</small>
@@ -64,7 +69,7 @@
       <div class="form-group">
         <div class="input-group">
           <span class="input-group-addon"><i class="ti-user"></i></span>
-          <input name="representative_name" type="text" class="form-control" placeholder="Tên của bạn">
+          <input name="representative_name" value = "{{ old('representative_name') }}" type="text" class="form-control" placeholder="Tên của bạn">
           
         </div>
         <small class="text-danger">{{ $errors->first('representative_name') }}</small>
@@ -75,7 +80,7 @@
       <div class="form-group">
         <div class="input-group">
           <span class="input-group-addon"><i class="ti-bag"></i></span>
-          <input name="representative_position" type="text" class="form-control" placeholder="Chức vụ">
+          <input name="representative_position" type="text" value = "{{ old('representative_position') }}" class="form-control" placeholder="Chức vụ">
           
         </div>
         <small class="text-danger">{{ $errors->first('representative_position') }}</small>
@@ -86,7 +91,7 @@
       <div class="form-group">
         <div class="input-group">
           <span class="input-group-addon"><i class="ti-email"></i></span>
-          <input name="representative_email" type="text" class="form-control" placeholder="Email của bạn">
+          <input name="representative_email" value = "{{ old('representative_email') }}" type="text" class="form-control" placeholder="Email của bạn">
           
         </div>
         <small class="text-danger">{{ $errors->first('representative_email') }}</small>
@@ -97,7 +102,7 @@
       <div class="form-group">
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-          <input name="representative_phone" type="text" class="form-control" placeholder="Điện thoại của bạn">
+          <input name="representative_phone" value = "{{ old('representative_phone') }}" type="text" class="form-control" placeholder="Điện thoại của bạn">
           
         </div>
         <small class="text-danger">{{ $errors->first('representative_phone') }}</small>

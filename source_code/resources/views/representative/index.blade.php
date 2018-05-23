@@ -22,8 +22,8 @@
         <li>{{$recruitcount}} tin tuyển dụng </li>
         <li>{{$totalrepresentative}} tài khoản thành viên</li>
       </ul>
-      <br>
-       <button type="button" style="width: 280px;" class="btn btn-success-detail display-home-btn">Đăng ký hiển thị trang chủ</button>
+      {{-- <br>
+       <button type="button" style="width: 280px;" class="btn btn-success-detail display-home-btn">Đăng ký hiển thị trang chủ</button> --}}
 
       <br>
 <br>

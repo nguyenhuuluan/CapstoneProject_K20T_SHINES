@@ -155,6 +155,9 @@ Route::middleware(['admin', 'web'])->group(function () {
 
 	Route::get('admin/approve/recruitments', 'Admin\AdminRecruitmentController@approve')->name('admin.recruitments.approve');
 	Route::get('/admin/recruitments/approve/{recruitmentID}', 'Admin\AdminRecruitmentController@approveRecruitment')->name('approverecruitment');
+
+	Route::get('/admin/recruitments/mail/approved/{recruitmentID}', 'Admin\AdminRecruitmentController@sendMailToNotifyApproved')->name('approverecruitmentsendmail');
+
 	Route::get('/admin/recruitments/active/{recruitment_id}', 'Admin\AdminRecruitmentController@setActiveRecruitment')->name('activerecruitment');
 	Route::get('admin/recruitment/feedback/{recruitmentID}/{message}', 'Admin\AdminRecruitmentController@feedback')->name('admin.recruitments.feedback');
 

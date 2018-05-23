@@ -160,7 +160,7 @@
 
 
     function activeRecruitment(id){
-        $('.modal-ajax-loading').show();
+      //  $('.modal-ajax-loading').show();
         $.ajax({
             url: 'recruitments/active/' + id,
             type: 'GET',
@@ -175,6 +175,8 @@
          }            
      });
     }
+
+  
 });
 
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CompanyRegistration;
+use App\Account;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\CompanyRegistrationRequest;
@@ -21,13 +22,20 @@ class CompanyRegistrationController extends Controller
 
 	public function registerPartnership(\App\Http\Requests\CompanyRegistrationRequest $request)
 	{
+		$isExistEmail = Account::where('username', '=', trim($request["representative_email"]))->first();
+		if ($isExistEmail != null) {
+			$request->session()->flash('resigter-error', '<strong>Email đã có người xử dụng</strong>, vui lòng nhập lại email khác');
+			
+			return redirect()->route("company.register.partnership.form")->withInput();
+		}
+
 		$compRegis = CompanyRegistration::create([
 			"company_name" => $request["company_name"],
 			"company_website" => $request["company_website"],
 			"representative_name" => $request["representative_name"],
 			"representative_position" => $request["representative_position"],
 			"representative_phone" => $request["representative_phone"],
-			"representative_email" => $request["representative_email"],
+			"representative_email" => trim($request["representative_email"]),
 			"status_id" => 9
 		]);
 

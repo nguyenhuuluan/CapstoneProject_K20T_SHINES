@@ -14,7 +14,6 @@ use App\Category;
 use Auth;
 
 
-
 class AdminRecruitmentController extends Controller
 {
     /**
@@ -25,13 +24,14 @@ class AdminRecruitmentController extends Controller
     public function index()
     {
 
+       
         if(Auth::user()->can('recruitments.view'))
-            {
-                $recruitments = Recruitment::with('company')->where('status_id', '1')->orWhere('status_id', '2')->get();
-                return view ('admin.recruitments.index',compact('recruitments'));
-            }
-            return view('errors.admin_auth');
+        {
+            $recruitments = Recruitment::with('company')->where('status_id', '1')->orWhere('status_id', '2')->get();
+            return view ('admin.recruitments.index',compact('recruitments'));
         }
+        return view('errors.admin_auth');
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -78,54 +78,67 @@ class AdminRecruitmentController extends Controller
         $recruitment->status_id = 1;
         $recruitment->save();
 
-
   //  return $repre;
 
         return response()->json(['isSuccess' => true]);
 
     }
 
-    public function feedback($recruitmentID, $message){
 
-        $recruitment = Recruitment::where('id', $recruitmentID)->first();
+    protected function sendMailToNotifyApproved($recruitmentID)
+    {
+     $recruitment = Recruitment::where('id', $recruitmentID)->first();
+     $company = $recruitment->company()->get()->first();
+     $represen = $company->representatives()->get()->first();
 
-        $company = $recruitment->company()->first();
+     Mail::send('admin.recruitments.email-recruitment-approved',
+       ['company' => $company, 'representative' => $represen, 'recruitment' => $recruitment],
+       function ($message) use($represen){
+         $message->to($represen['email'])->subject('Chấp thuận tin tuyển dụng');
+     });   
 
-        $representative = $recruitment->company()->first()->representatives()->first();
+     return response()->json(['isSuccess' => true]);
 
-        return $representative;
-
-        // return view ('admin.recruitments.email-feedback', compact('recruitment','company','representative','message'));
-
-        Mail::send('admin.recruitments.email-feedback', ['company' => $company, 'representative' => $representative, 'recruitment' => $recruitment, 'message1' => $message],  function ($message) use($representative)
-        {
-         $message->to($representative['email'])->subject('Phản hồi tin tuyển dụng');
-     });
-
-        return response()->json(['OK' => 'OK'], 200);
-    }
+ }
 
 
-    public function setActiveRecruitment($recruitment_id){
+public function feedback($recruitmentID, $message){
 
-        if(Auth::user()->can('recruitments.update'))
-            {
-                $recruitment = Recruitment::Where('id', $recruitment_id)->first();
-                if ($recruitment->status_id != 1) {
-                 $recruitment->status_id = 1;
-             }else {
-                 $recruitment->status_id = 2;
-             }
-             $recruitment->save();     
-             return $recruitment;
-         }
-         else
-         {
-            return response()->json('error', 400);
-        }
+    $recruitment = Recruitment::where('id', $recruitmentID)->first();
+
+    $company = $recruitment->company()->first();
+
+    $representative = $recruitment->company()->first()->representatives()->first();
+
+    Mail::send('admin.recruitments.email-feedback', ['company' => $company, 'representative' => $representative, 'recruitment' => $recruitment, 'message1' => $message],  function ($message) use($representative)
+    {
+       $message->to($representative['email'])->subject('Phản hồi tin tuyển dụng');
+   });
+
+    return response()->json(['OK' => 'OK'], 200);
+}
 
 
-    }
+public function setActiveRecruitment($recruitment_id){
+
+    if(Auth::user()->can('recruitments.update'))
+    {
+        $recruitment = Recruitment::Where('id', $recruitment_id)->first();
+        if ($recruitment->status_id != 1) {
+           $recruitment->status_id = 1;
+       }else {
+           $recruitment->status_id = 2;
+       }
+       $recruitment->save();     
+       return $recruitment;
+   }
+   else
+   {
+    return response()->json('error', 400);
+}
+
+
+}
 
     /**
      * Store a newly created resource in storage.
@@ -179,6 +192,9 @@ class AdminRecruitmentController extends Controller
         // return  $recruitment->tags->pluck('name')->all();
         // return $categosries;
 
+        // gửi mail thông báo sau khi sửa và cập đăng bài
+        $this->sendMailToNotifyApproved($id);
+
         return view('admin.recruitments.edit', compact('recruitment', 'cities', 'districts', 'categories', 'sections', 'tags'));
     }
 
@@ -192,7 +208,7 @@ class AdminRecruitmentController extends Controller
     public function update(Request $request, $id)
     {
         //
-     $this->validate($request,[
+       $this->validate($request,[
         'title'=>'required',
         'salary'=>'required',
         'expire_date'=>'required',
@@ -201,7 +217,7 @@ class AdminRecruitmentController extends Controller
             //'tags.*'=>'required|exists:tags,name',
             //'hidden-tags'=>'required',
     ]);
- }
+   }
 
     /**
      * Remove the specified resource from storage.

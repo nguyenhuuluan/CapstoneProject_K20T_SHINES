@@ -100,14 +100,14 @@
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script type="text/javascript">
 
-     $(document).ready(function() {
+       $(document).ready(function() {
         var table = $('#dataTables-example').DataTable({
             responsive: true
         });
 
         $('.btn-approve').click(function() {
-         var currentelement = $(this);
-         $.confirm({
+           var currentelement = $(this);
+           $.confirm({
             icon: 'fa fa-warning',
             title: 'Cảnh báo!!',
             type: 'orange',
@@ -118,6 +118,7 @@
                     btnClass: 'btn-green',
                     action: function(){
                         approveCompany(currentelement);
+                        sendMailToNotifyApproved(currentelement.val())
                     }
                 },
                 feedBack: {
@@ -169,44 +170,60 @@
                 }
             }
         });
-     });
+       });
        //end of approve
        
        function feedbackRecruitment(recruitmentID, message){
-        $('.modal-ajax-loading').fadeIn("200");
+        //$('.modal-ajax-loading').fadeIn("200");
         $.ajax({
             url: '../recruitment/feedback/' + recruitmentID + '/' + message,
             type: 'GET',
             dataType: 'json',
             success: function(){
-                $('.modal-ajax-loading').fadeOut("200");
+                //$('.modal-ajax-loading').fadeOut("200");
                 alertSuccess('Đã gửi thông tin phản hồi ...')
             },
             error: function(){
-                $('.modal-ajax-loading').hide();
+                //$('.modal-ajax-loading').hide();
                 alertError('Gửi phản hồi thất bại ...');
             }            
         });
     }
 
     function approveCompany(element){
-        $('.modal-ajax-loading').fadeIn("200");
+        //$('.modal-ajax-loading').fadeIn("200");
         $.ajax({
             url: '../recruitments/approve/' + element.val(),
             type: 'GET',
             dataType: 'json',
             success: function(){
-                $('.modal-ajax-loading').fadeOut("200");
-                alertSuccess('Xác nhận thành công ...')
-                table.row(element.parent().parent()).remove().draw();
-            },
-            error: function(){
-                $('.modal-ajax-loading').hide();
-                alertError('Xác nhận thất bại ...');
-            }            
-        });
+               // $('.modal-ajax-loading').fadeOut("200");
+               alertSuccess('Xác nhận thành công ...')
+               table.row(element.parent().parent()).remove().draw();
+           },
+           error: function(){
+               // $('.modal-ajax-loading').hide();
+               alertError('Xác nhận thất bại ...');
+           }            
+       });
     }
-    
+
+    function sendMailToNotifyApproved(id){
+      //  $('.modal-ajax-loading').show();
+      $.ajax({
+        url: '../recruitments/mail/approved/' + id,
+        type: 'GET',
+        dataType: 'json',
+
+        success: function(){    
+            alertSuccess('Đã gửi mail chấp thuận thành công')           
+        },
+        error: function(){
+           alertError('Gửi mail thông báo đã xảy ra lỗi');
+       }            
+   });
+  }
+  
 });
 </script>
 @endsection
