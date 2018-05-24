@@ -63,7 +63,7 @@
 
         <button name="registerCandidate" class="btn btn-primary btn-block" type="submit">Đăng Nhập</button>
         <div class="login-links">
-          <center><a href="forget-password.html">Quên mật khẩu?</a></center>
+          <center><a href="{{ route('forgot.password') }}">Quên mật khẩu?</a></center>
         </div>
       </div>
     </form>

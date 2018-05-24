@@ -21,6 +21,11 @@
 Route::get('/' , 'HomeController@index')->name('index');
 Auth::routes();
 
+Route::get('/forgot-password', 'Auth\ForgotPasswordController@forgotPassword')->name('forgot.password');
+
+Route::Post('/forgot-password', 'Auth\ForgotPasswordController@sendForgotPassword')->name('send.forgot.password');
+
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login')->middleware('guest');
 Route::get('/recruitments', 'HomeController@listRecruitments')->name('lst.recruitment');
