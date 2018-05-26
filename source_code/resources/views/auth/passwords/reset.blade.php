@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
  <meta charset="utf-8">
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
  <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -38,6 +39,7 @@
   <section>
    <div class="container">
     <div class="row">
+
 {{--            <div class="form-group col-md-12 col-xs-12 col-sm-12">
               <h3 class="text-center">Quên mật khẩu</h3>
               <br>
@@ -57,6 +59,7 @@
 </div> --}}
 
 
+
 @if(Session::has('email-not-found-error'))
 
     <div class="alert alert-danger">         
@@ -71,6 +74,7 @@
     </div>
     @endif
 
+
     @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -80,6 +84,7 @@
         </ul>
     </div>
     @endif
+
     <br>
 
 <label for="email" class="col-md-2 control-label">Nhập Email:</label>
@@ -91,7 +96,6 @@
 
     <br>
 
-    
 
 
 </div>
@@ -104,6 +108,7 @@
 {!! Form::close() !!}
 
 </div>
+<<<<<<< HEAD
 </div>
 </section>
 
@@ -123,6 +128,7 @@
  </div>
 </div>
 </div>
+
 <!-- END Bottom section -->
 </footer>
 <a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
