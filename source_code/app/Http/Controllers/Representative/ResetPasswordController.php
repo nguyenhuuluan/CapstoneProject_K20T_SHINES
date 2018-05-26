@@ -56,7 +56,7 @@ class ResetPasswordController extends Controller
         $acc = Account::where('id', $request['account_id'])->first();
         $acc->password = bcrypt($request['password']);
         $acc->status_id = 5;
-        $acc->remember_token = null;
+        $acc->remember_token = '';
         $acc->save();
 
         return redirect()->route('representative.update-success');     

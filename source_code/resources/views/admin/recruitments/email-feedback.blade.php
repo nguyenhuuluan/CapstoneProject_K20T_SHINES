@@ -59,7 +59,7 @@ xmlns:o="urn:schemas-microsoft-com:office:office">
 							</tr>
 							<tr>
 								<td colspan="2" style="padding:30px 0 0 0;border-top:1px solid #e9edee;color:#9b9fa5">
-									Nếu bạn có bất kì thắc mắc nào, đừng ngần ngại liên hệ với chúng tôi tại <a style="color:#666d74;text-decoration:none;" href="#" target="_blank">jobee0210@gmail.com</a>
+									Nếu bạn có bất kì thắc mắc nào, đừng ngần ngại liên hệ với chúng tôi tại <a style="color:#666d74;text-decoration:none;" href="#" target="_blank">jobee0210@gmail.com hoặc điện thoại: P.Tổng hợp: 028. 3836 7933</a>
 
 									<br>
 									<br>
