@@ -828,8 +828,10 @@ var myHorizontalBarConfig = {
 
 	// [14]
 		function statisticsNumberOfCompanyByYear(year){
+			url = '{{ route('admin.statistics.statisticsNumberOfCompanyByYear', ':id' ) }}';
+            url = url.replace(':id', year);
 			$.ajax({
-				url: 'statistics/statisticsNumberOfCompanyByYear/' + year,
+				url: url,
 				type: 'GET',
 				dataType: 'json',
 
@@ -859,7 +861,7 @@ var myHorizontalBarConfig = {
 		}
 
 		$.ajax({
-			url: 'statistics/fetchTopBrowsers',
+			url: '{{ route('admin.statistics.fetchTopBrowsers') }}',
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			},
@@ -897,7 +899,7 @@ function fetchUserTypes(){
 	}
 
 	$.ajax({
-		url: 'statistics/fetchUserTypes',
+		url: '{{ route('admin.statistics.fetchUserTypes') }}',
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		},
@@ -934,7 +936,7 @@ function fetchUserTypes(){
 		}
 
 		$.ajax({
-			url: 'statistics/statisticsTagsInStudentByRangeDate',
+			url: '{{ route('admin.statistics.statisticsTagsInStudentByRangeDate') }}',
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			},
@@ -985,7 +987,7 @@ function fetchUserTypes(){
 			}
 
 			$.ajax({
-				url: 'statistics/statisticsTagsInRecruitmentByRangeDate',
+				url: '{{ route('admin.statistics.statisticsTagsInRecruitmentByRangeDate') }}',
 				headers: {
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				},
@@ -1020,7 +1022,7 @@ function fetchUserTypes(){
 		// [7]
 		function statisticsStudentAndCVByFaculty(){
 			$.ajax({
-				url: 'statistics/statisticsStudentAndCVByFaculty',
+				url: '{{ route('admin.statistics.statisticsStudentAndCVByFaculty') }}',
 				type: 'GET',
 				dataType: 'json',
 
@@ -1057,7 +1059,7 @@ function fetchUserTypes(){
 		// [4] [5]
 		function statisticsNumberOfView(){
 			$.ajax({
-				url: 'statistics/statisticsNumberOfView',
+				url: '{{ route('admin.statistics.statisticsNumberOfView') }}',
 				type: 'GET',
 				dataType: 'json',
 
@@ -1083,8 +1085,9 @@ function fetchUserTypes(){
 
 		// [3]
 		function statisticsCategiesOfRecruitments(){
+
 			$.ajax({
-				url: 'statistics/statisticsCategiesOfRecruitments',
+				url: '{{ route('admin.statistics.statisticsCategiesOfRecruitments') }}',
 				type: 'GET',
 				dataType: 'json',
 
@@ -1107,7 +1110,7 @@ function fetchUserTypes(){
 		// [2]
 		function statisticsNumberOfRecruitmentByAllFaculties(){
 			$.ajax({
-				url: 'statistics/statisticsNumberOfRecruitmentByAllFaculties',
+				url: '{{ route('admin.statistics.statisticsNumberOfRecruitmentByAllFaculties') }}',
 				type: 'GET',
 				dataType: 'json',
 
@@ -1135,8 +1138,10 @@ function fetchUserTypes(){
 
 		// [1]
 		function statisiticsRecruitmentByYear(year){
+			url ='{{ route('admin.statistics.statisticsNumberOfRecruitmentByYear', ':id') }}';
+            url = url.replace(':id', year);
 			$.ajax({
-				url: 'statistics/statisticsNumberOfRecruitmentByYear/' + year,
+				url: url,
 				type: 'GET',
 				dataType: 'json',
 

@@ -24,7 +24,7 @@ class RecruitmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    protected $per_page_number = 1;
+    protected $per_page_number = 5;
     public function index()
     {
         //
@@ -140,13 +140,31 @@ class RecruitmentController extends Controller
     public function detailrecruitment($slug, Request $request){
 
        $currentURL = $request->url();
-
        $recruitment = Recruitment::findBySlugOrFail($slug);
+       $tmp = $recruitment->tags->pluck('name');
 
+       $recruitment2 = Recruitment::with('company')
+        ->leftjoin('companies', 'company_id', '=', 'companies.id')
+        ->select('recruitments.*')
+        ->where(function($q) use ($tmp){
+            foreach ($tmp as $key => $value) {
+                $q->orWhere('recruitments.searching', 'like', '%'.$value.'%');
+            }
+        })
+        ->where('companies.status_id', '=', '3')
+        ->where('recruitments.status_id', '=', '1')
+        ->orderBy('recruitments.created_at','DESC')
+        ->take(3)->get();
+
+        // return $recruitment2->pluck('title');
+        // return dd($recruitment2);
+        // return $recruitment2->load('company');
+
+        // return $recruitment2;
        Event::fire('recruitment.view', $recruitment);
 
        if($recruitment->status_id==1){
-        return view('recruitments.detail',compact('recruitment', 'currentURL'));
+        return view('recruitments.detail',compact('recruitment', 'currentURL', 'recruitment2'));
     }else{abort(404);}
 
 }

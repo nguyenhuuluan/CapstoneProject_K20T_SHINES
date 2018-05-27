@@ -1,232 +1,48 @@
-.demo-btn-margin .btn {
-  margin-bottom: 6px;
-}
-
-span.salary {
-	font-weight: bold;
-	color: red;
-}
-
-span.positionwork {
-	font-weight: bold;
-	color: rgba(92, 190, 254, 0.8);
-}
-
-.section-header-map {
-  text-align:center;
-  margin-bottom:20px;
-}
-
-.section-header-map span {
-  color:#161617;
-  font-family:Montserrat,sans-serif;
-  font-size:12px;
-  letter-spacing:2px;
-  text-transform:uppercase;
-}
-
+.demo-btn-margin .btn{margin-bottom:6px;}
+span.salary{font-weight:bold;color:red;}
+span.positionwork{font-weight:bold;color:rgba(92, 190, 254, 0.8);}
+.section-header-map{text-align:center;margin-bottom:20px;}
+.section-header-map span{color:#161617;font-family:Montserrat,sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;}
 .section-header-map h2,
-.section-header-map h3 {
-  position:relative;
-  margin-bottom:30px;
-  color:#55595c;
-  text-transform:capitalize;
-}
-
+.section-header-map h3{position:relative;margin-bottom:30px;color:#55595c;text-transform:capitalize;}
 .section-header-map h2::after,
-.section-header-map h3::after {
-  position:absolute;
-  left:50%;
-  margin-left:-24px;
-  bottom:-26px;
-  width:48px;
-  height:2px;
-  background-color:#29aafe;
-  content:"";
-}
-
+.section-header-map h3::after{position:absolute;left:50%;margin-left:-24px;bottom:-26px;width:48px;height:2px;background-color:#29aafe;content:"";}
 .section-header-map span ~ h2,
-.section-header-map span ~ h3 {
-  margin-top:12px;
-}
-
-.section-header-map p {
-  font-size:18px;
-}
-
-.section-header-map.text-left {
-  text-align:left;
-}
-
-.section-header-map-blog.text-left {
-  text-align:left;
-}
-
+.section-header-map span ~ h3{margin-top:12px;}
+.section-header-map p{font-size:18px;}
+.section-header-map.text-left{text-align:left;}
+.section-header-map-blog.text-left{text-align:left;}
 .section-header-map.text-left h2::after,
-.section-header-map.text-left h3::after {
-  left:0;
-  margin-left:0;
-}
-
-.section-header-map.text-right {
-  text-align:right;
-}
-
+.section-header-map.text-left h3::after{left:0;margin-left:0;}
+.section-header-map.text-right{text-align:right;}
 .section-header-map.text-right h2::after,
-.section-header-map.text-right h3::after {
-  left:100%;
-  margin-left:-48px;
-}
-
-.fa-money-recruitment:before {
-    content: "\f0d6";
-}
-
+.section-header-map.text-right h3::after{left:100%;margin-left:-48px;}
+.fa-money-recruitment:before{content:"\f0d6";}
 .user-account-text,
 .user-account-text:hover,
 .user-account-text:focus,
 .user-account-text:active,
-.user-account-text:active:focus {
-  color: #fff;
-  font-weight: 600;
+.user-account-text:active:focus{color:#fff;font-weight:600;}
+.blog{margin:15px 0px;}
+.blog .blog-content{padding:20px 20px 40px;}
+.blog .blog-meta{margin-bottom:20px;}
+.blog .blog-meta li{display:inline-block;font-size:14px;color:#10161A;margin-right:10px;}
+.blog .blog-meta li i{color:#6195FF;margin-right:5px;}
+.preview{-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none;opacity:0.6;}
+#watermark{color:#d0d0d0;font-size:50pt;position:absolute;width:100%;height:100%;margin:0;z-index:1;top:230px;left:600px;}
+.btnview{display:inline-block;padding:2px 4px;margin-bottom:0;font-size:10px;font-weight:400;line-height:1.42857143;text-align:center;white-space:nowrap;vertical-align:middle;-ms-touch-action:manipulation;touch-action:manipulation;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;background-image:none;border:1px solid transparent;border-radius:4px;}
+.table-bordered-company{border:1px solid #ddd !important;}
+#img-company{border:1px solid #ddd !important;}
+.modal-content{background-color:#fefefe;margin:5px auto;border:1px solid #888;width:40%;border-radius:20%;}
+@media (max-width:991px){.modal-content{background-color:#fefefe;margin:5px auto;border:1px solid #888;width:70%;}
+@media (max-width:480px){.modal-content{background-color:#fefefe;margin:5px auto;border:1px solid #888;width:90%;}
+.animate{-webkit-animation:animatezoom 0.6s;animation:animatezoom 0.6s}
+@-webkit-keyframes animatezoom{from{-webkit-transform:scale(0)}
+to{-webkit-transform:scale(1)}
 }
-
-/*------------------------------------*\
-  Blog index
-\*------------------------------------*/
-
-.blog {
-    margin: 15px 0px;
+@keyframes animatezoom{from{transform:scale(0)}
+to{transform:scale(1)}
 }
-
-.blog .blog-content {
-    padding: 20px 20px 40px;
-}
-
-.blog .blog-meta {
-    margin-bottom: 20px;
-}
-
-.blog .blog-meta li {
-    display: inline-block;
-    font-size: 14px;
-    color: #10161A;
-    margin-right: 10px;
-}
-
-.blog .blog-meta li i {
-    color: #6195FF;
-    margin-right: 5px;
-}
-
-/*------------------------------------*\
-  Không cho thao tác trên web 
-\*------------------------------------*/
-
-.preview{
-    -webkit-touch-callout: none;
-    -webkit-user-select: none; 
-    -moz-user-select: none;    
-    -ms-user-select: none;     
-    -o-user-select: none;
-    user-select: none;
-    opacity: 0.6;
-  }
-#watermark {
-  color: #d0d0d0;
-  font-size: 50pt;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  z-index: 1;
-  top: 230px;
-  left: 600px;
-}
-
-/*application list*/
-.btnview {
-    display: inline-block;
-    padding: 2px 4px;
-    margin-bottom: 0;
-    font-size: 10px;
-    font-weight: 400;
-    line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: 1px solid transparent;
-    border-radius: 4px;
-}
-
-/*information company*/
-.table-bordered-company
-{
-      border:1px solid #ddd !important;
-}
-
-#img-company{
-  border:1px solid #ddd !important;
-}
-
-
-/* Modal Content Box */
-.modal-content {
-    background-color: #fefefe;
-    margin: 5px auto; /* 15% from the top and centered */
-    border: 1px solid #888;
-    width: 40%; /* Could be more or less, depending on screen size */
-    border-radius: 20%;
-}
-
-@media (max-width:991px) {
-  .modal-content {
-    background-color: #fefefe;
-    margin: 5px auto; /* 15% from the top and centered */
-    border: 1px solid #888;
-    width: 70%; /* Could be more or less, depending on screen size */
-}
-
-@media (max-width:480px) {
-  .modal-content {
-    background-color: #fefefe;
-    margin: 5px auto; /* 15% from the top and centered */
-    border: 1px solid #888;
-    width: 90%; /* Could be more or less, depending on screen size */
-}
-
-/* Add Zoom Animation */
-.animate {
-    -webkit-animation: animatezoom 0.6s;
-    animation: animatezoom 0.6s
-}
-
-@-webkit-keyframes animatezoom {
-    from {-webkit-transform: scale(0)} 
-    to {-webkit-transform: scale(1)}
-}
-
-@keyframes animatezoom {
-    from {transform: scale(0)} 
-    to {transform: scale(1)}
-}
-
-/* End Modal Content Box, link to app.min.css, line 6933*/
-
-/* Menu login responsive */
-@media (max-width:991px) {
-  #menu-desktop {
-    display: none;
-  }
-  #menu-mobile {
-    display: initial;
-  }
+@media (max-width:991px){#menu-desktop{display:none;}
+#menu-mobile{display:initial;}
 }

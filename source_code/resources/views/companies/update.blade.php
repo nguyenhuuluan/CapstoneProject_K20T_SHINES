@@ -1,10 +1,14 @@
-@extends('layouts2.master-layout',['title' => 'Cập nhật thông tin công ty', 'isDisplaySearchHeader' => false])
+@extends('layouts.master-layout',['title' => 'Cập nhật thông tin công ty', 'isDisplaySearchHeader' => false])
 
 @section('stylesheet')
 
 <link href="{{asset('assets/vendors/summernote/summernote.css')}}" rel="stylesheet">
 <link href="{{asset('assets/css/imageuploadify.min.css')}}" rel="stylesheet">
 
+@endsection
+
+@section('page-header')
+<header class="page-header temp-header"></header>
 @endsection
 
 @section('content')

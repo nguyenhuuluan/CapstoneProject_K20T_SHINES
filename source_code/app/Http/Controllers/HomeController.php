@@ -62,7 +62,7 @@ class HomeController extends Controller
 
         $totalRecruitments = Recruitment::where('status_id', 1)->count();
         $totalStudents = Student::count();
-        $totalCVs = CV::count();
+        $totalCVs = Cv::count();
         $totalCompanies = Company::count();
 
         // $companies = Company::where('status_id', 3)->orderBy('created_at','desc')->take(8)->get();

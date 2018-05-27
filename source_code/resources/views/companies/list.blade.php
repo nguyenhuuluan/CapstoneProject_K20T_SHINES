@@ -119,13 +119,6 @@
     })
 </script>
 <script type="text/javascript">
-
-	$(document).ready(function() {
-        $('#dataTables-example').DataTable({
-            responsive: true
-        });
-    });
-	
 	var showlist;
 	var is_busy = false;
 
@@ -142,7 +135,6 @@
           // Thiết lập đang gửi ajax
           is_busy = true;
           var page = $('.endless-pagination').data('next-page');
-          console.log(page);
           if (page!==null && page!==''){
           	$loadding.removeClass('hidden');
 
