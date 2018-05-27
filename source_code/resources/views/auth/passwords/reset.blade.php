@@ -108,7 +108,6 @@
 {!! Form::close() !!}
 
 </div>
-<<<<<<< HEAD
 </div>
 </section>
 
