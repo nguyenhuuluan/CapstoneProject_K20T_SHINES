@@ -341,12 +341,12 @@ public function statisticsTagsInRecruitmentByRangeDate(Request $request)
     $sQuery->whereBetween('recruitments.created_at', array($from, $to));
   }))->take($limit)->get();
 
-  $array2 = array();
+  $array2 = array();  
 
   foreach ($tags as $tag) {
 
     $tagName = $tag->name;
-    $usedCount = $tag->students->count();
+    $usedCount = $tag->recruitments->count();
 
     $array1 = array('tagName' => $tagName, 'usedCount' =>  $usedCount);
 

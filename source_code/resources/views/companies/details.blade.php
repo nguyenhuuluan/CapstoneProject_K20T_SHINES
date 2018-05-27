@@ -156,57 +156,59 @@
         @foreach ($company->recruitments as $recruitment)
         <!-- Job item -->
 
-        <a class="item-block" href="{!! route('detailrecruitment', $recruitment->slug ) !!}">
-          <header>
-            <img src="{!! asset($recruitment->company->logo) !!}" alt="">
-            <div class="hgroup">
-              <h4>{!! $recruitment->title !!}</h4>
-              <h5>{!!$company->name!!} 
+         <a class="item-block" href="{!! route('detailrecruitment', $recruitment->slug) !!}">
+    <header>
+      <img src={!! asset($recruitment->company->logo)  !!} alt="">
+      <div class="hgroup">
+        <h4>{!! $recruitment->title !!}</h4>
+                {{-- <h5>{!! $recruitment->company !!} <span class="label label-success">Full-time</span>
+                </h5> --}}
                 @foreach ($recruitment->categories as $category)
-                @if($category->name =='FULL-TIME')
+                {{-- @if($category->name =='FULL-TIME')
                 <span class="label label-success">{!! $category->name !!}</span>
                 @else
                 <span class="label label-danger">{!! $category->name !!}</span>
+                @endif --}}
+                @if ($category->id == 1)
+                <span class="label label-success">{!! $category->name !!}</span>
                 @endif
+                @if ($category->id == 2)
+                <span class="label label-danger">{!! $category->name !!}</span>
+                @endif
+                @if ($category->id == 3)
+                <span class="label label-warning">{!! $category->name !!}</span>
+                @endif
+                
                 @endforeach
-              </h5>
+              </div>
+              <time>{!!$recruitment->getCreatedAtAtrribute()!!}</time>
+              
+              
+            </header>
+
+            <div class="item-body">
+              <p>{!! substr($recruitment->sections[0]->pivot->content, 0, 150) .'...' !!}</p>
             </div>
-            <time datetime="">{!! $recruitment->getCreatedAtAtrribute() !!}</time>
-          </header>
 
-          <div class="item-body truncate">
-
-            @foreach ($recruitment->sections as $section)
-            @if($section->title =='Job Description')
-            <p class="lead">{!! $section->pivot->content!!}</p>
-            @else
-            <span>{!! $section->pivot->content !!}</span>
-            @break
-
-            @endif
-            @endforeach
-
-          </div>
-
-          <footer>
-            <ul class="details cols-3">
-              <li>
-                <i class="fa fa-map-marker"></i>
-                <span class="location">{!! $company->address->district->city->name !!}</span>
-              </li>
-
-              <li>
-                <i class="fa fa-money"></i>
-                <span class="salary">{{ $recruitment->salary}}</span>
-              </li>
-
-              <li>
-                <i class="fa fa-tag"></i>
-                <span>{{implode(", ",$recruitment->tags->pluck('name')->toArray())}} </span>
-              </li>
-            </ul>
-          </footer>
-        </a>
+            <footer>
+              <ul class="details cols-3">
+                <li>
+                  <i class="fa fa-map-marker"></i>
+                  <span>{!! $recruitment->location!!}</span>
+                </li>
+                <li>
+                  <i class="fa fa-money"></i>
+                  <span class="salary">{!! $recruitment->salary !!}</span>
+                </li>
+                <li>
+                  <i class="fa fa-tag"></i>
+                  @foreach (App\Recruitment::findOrFail($recruitment->id)->tags as $tag)
+                  <span class="btn btn-info btn-xs">{!! $tag->name !!}</span>
+                  @endforeach
+                </li>
+              </ul>
+            </footer>
+          </a>
         @endforeach
       </div>
 

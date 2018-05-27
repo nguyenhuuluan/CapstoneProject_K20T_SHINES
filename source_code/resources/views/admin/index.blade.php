@@ -364,6 +364,31 @@
 
 <script>
 
+	window.chartColors.orange,
+	window.chartColors.green,
+	window.chartColors.red,
+	'#66ff33',
+	'#1a75ff',
+	'#ffff00',
+	window.chartColors.purple,
+	'#cc0000',
+	'#00cccc'
+
+	var backgroundColor = palette('tol', 12).map(function(hex) {
+		return '#' + hex;
+	});
+
+	backgroundColor.push(window.chartColors.orange);
+	backgroundColor.push(window.chartColors.green);
+	backgroundColor.push(window.chartColors.red);
+	backgroundColor.push('#66ff33');
+	backgroundColor.push('#1a75ff');
+	backgroundColor.push('#ffff00');
+	backgroundColor.push(window.chartColors.purple);
+	backgroundColor.push('#cc0000');
+	backgroundColor.push('#00cccc');
+
+
 	var currentDate = new Date();
 
 	var currentYear = currentDate.getFullYear();
@@ -827,26 +852,26 @@ var myHorizontalBarConfig = {
 
 
 	// [14]
-		function statisticsNumberOfCompanyByYear(year){
-			$.ajax({
-				url: 'statistics/statisticsNumberOfCompanyByYear/' + year,
-				type: 'GET',
-				dataType: 'json',
+	function statisticsNumberOfCompanyByYear(year){
+		$.ajax({
+			url: 'statistics/statisticsNumberOfCompanyByYear/' + year,
+			type: 'GET',
+			dataType: 'json',
 
-				success: function(data) {
+			success: function(data) {
 
-					var arr = new Array();
+				var arr = new Array();
 
-					for(i = 1; i <= 12; i++ ){
-						arr.push(data[i])
-					}
-
-					chart14.data.datasets[0].data = arr;
-					chart14.update();	
+				for(i = 1; i <= 12; i++ ){
+					arr.push(data[i])
 				}
 
-			});
-		}
+				chart14.data.datasets[0].data = arr;
+				chart14.update();	
+			}
+
+		});
+	}
 
 
 	//[13]
@@ -878,8 +903,6 @@ var myHorizontalBarConfig = {
 				}
 				config13.data.datasets[0].data = arrdata;
 				config13.data.labels = arrlable;
-
-				console.log(config13);
 
 				chart13.update();
 			}
@@ -956,9 +979,7 @@ function fetchUserTypes(){
 				char10Config.data.datasets[0].data = arrdata;
 				char10Config.data.labels = arrlable;
 
-				char10Config.data.datasets[0].backgroundColor = palette('tol',data.length).map(function(hex) {
-					return '#' + hex;
-				});
+				char10Config.data.datasets[0].backgroundColor = backgroundColor;
 
 				char10Config.update();
 
@@ -1006,10 +1027,9 @@ function fetchUserTypes(){
 
 					char11Config.data.datasets[0].data = arrdata;
 					char11Config.data.labels = arrlable;
+					
 
-					char11Config.data.datasets[0].backgroundColor = palette('tol',data.length).map(function(hex) {
-						return '#' + hex;
-					});
+					char11Config.data.datasets[0].backgroundColor = backgroundColor;
 
 					char11Config.update();
 				}
