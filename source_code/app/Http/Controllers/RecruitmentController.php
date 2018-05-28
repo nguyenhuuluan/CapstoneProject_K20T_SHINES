@@ -10,6 +10,7 @@ use App\Section;
 use App\Account;
 use App\Tag;
 use App\Company;
+use App\Faculty;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\View;
 
@@ -143,6 +144,7 @@ class RecruitmentController extends Controller
        $recruitment = Recruitment::findBySlugOrFail($slug);
        $tmp = $recruitment->tags->pluck('name');
 
+
        $recruitment2 = Recruitment::with('company')
         ->leftjoin('companies', 'company_id', '=', 'companies.id')
         ->select('recruitments.*')
@@ -154,7 +156,7 @@ class RecruitmentController extends Controller
         ->where('companies.status_id', '=', '3')
         ->where('recruitments.status_id', '=', '1')
         ->orderBy('recruitments.created_at','DESC')
-        ->take(3)->get();
+        ->take(4)->get();
 
         // return $recruitment2->pluck('title');
         // return dd($recruitment2);

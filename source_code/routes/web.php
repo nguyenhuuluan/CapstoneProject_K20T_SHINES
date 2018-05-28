@@ -21,6 +21,11 @@
 Route::get('/' , 'HomeController@index')->name('index');
 Auth::routes();
 
+Route::get('/forgot-password', 'Auth\ForgotPasswordController@forgotPassword')->name('forgot.password');
+
+Route::Post('/forgot-password', 'Auth\ForgotPasswordController@sendForgotPassword')->name('send.forgot.password');
+
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/contact', 'HomeController@contact')->name('contact');
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login')->middleware('guest');
@@ -270,6 +275,11 @@ Route::middleware(['representative', 'web'])->group(function () {
 
 
 Route::GET('representative/reset-password/{token}','Representative\RepresentativeController@resetPassword')->name('representative.resetpassword');
+
+Route::GET('representative/account-reset-password/{token}','Auth\ForgotPasswordController@resetPasswordForm')->name('account.resetpasswordForm');
+
+Route::POST('representative/account-reset-password','Auth\ForgotPasswordController@sendResetPassword')->name('account.sendresetpassword');
+
 
 Route::GET('representative/update-success','Representative\ResetPasswordController@updateSuccess')->name('representative.update-success');
 

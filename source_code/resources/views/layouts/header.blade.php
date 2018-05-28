@@ -63,7 +63,7 @@
 
         <button name="registerCandidate" class="btn btn-primary btn-block" type="submit">Đăng Nhập</button>
         <div class="login-links">
-          <center><a href="forget-password.html">Quên mật khẩu?</a></center>
+          <center><a href="{{ route('forgot.password') }}">Quên mật khẩu?</a></center>
         </div>
       </div>
     </form>
@@ -139,9 +139,9 @@
 @elseif(Auth::user()->isRepresentative())
 <div class="pull-right">
  <div class="dropdown user-account">
-  <a class="user-account-text"> {!! Auth::user()->representative->name!!}</a>
+  <a class="user-account-text"> {!! Auth::user()->representative->name !!}</a>
   <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-    <img src="{{ asset('assets/img/logo-envato.png') }} " alt="avatar" id="avatarAccount">
+    <img src="{{ asset(Auth::user()->representative->company->logo) }} " alt="avatar" id="avatarAccount">
   </a>
   <ul class="dropdown-menu dropdown-menu-right">
    <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i> Tài khoản</a></li>

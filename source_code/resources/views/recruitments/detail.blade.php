@@ -176,8 +176,7 @@
 			<div class="widget widget_tag_cloud" style="margin-bottom: 0px;">
 				<div class="widget-body">
 					@foreach ($recruitment->tags as $tag)
-					{{-- expr --}}
-					<a href="#">{!! $tag->name !!}</a>
+					<a href="{{ route('recruitments.search', 'searchtext='.$tag->name) }}">{!! $tag->name !!}</a>
 					@endforeach
 				</div>
 			</div>
@@ -224,9 +223,12 @@
 				</ul>
 			</div>
 
-			<div class="widget widget_tag_cloud">
+{{-- 			<div class="widget widget_tag_cloud">
 				<h6 class="widget-title">Tags</h6>
 				<div class="widget-body">
+					@foreach ($recruitment->tags as $tag)
+					<a href="{{ route('recruitments.search', 'searchtext='.$tag->name) }}">{!! $tag->name !!}</a>
+					@endforeach
 					<a href="#">Blog</a>
 					<a href="#">New</a>
 					<a href="#">Google</a>
@@ -237,7 +239,7 @@
 					<a href="#">TopNew</a>
 					<a href="#">Tips</a>
 				</div>
-			</div>
+			</div> --}}
 
 		</div>
 	</div>

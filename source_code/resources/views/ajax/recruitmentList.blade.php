@@ -2,7 +2,7 @@
  <div class="col-xs-12">
   <a class="item-block" href="{!! route('detailrecruitment', $recruitment->slug) !!}">
     <header>
-      <img src={!! asset($recruitment->company->logo)  !!} alt="">
+      <img src="{!! asset($recruitment->company->logo)  !!}" alt="">
       <div class="hgroup">
         <h4>{!! $recruitment->title !!}</h4>
                 {{-- <h5>{!! $recruitment->company !!} <span class="label label-success">Full-time</span>
@@ -31,7 +31,7 @@
             </header>
 
             <div class="item-body">
-              <p>{!! substr($recruitment->content, 0, 150) .'...' !!}</p>
+              <p>{{  strip_tags(substr($recruitment->sections->where('id',1)->first()->pivot->content, 0, 150) .'...') }}</p>
             </div>
 
             <footer>
@@ -45,7 +45,6 @@
                   <span class="salary">{!! $recruitment->salary !!}</span>
                 </li>
                 <li>
-                  <i class="fa fa-tag"></i>
                   @foreach (App\Recruitment::findOrFail($recruitment->id)->tags as $tag)
                   <span class="btn btn-info btn-xs">{!! $tag->name !!}</span>
                   @endforeach

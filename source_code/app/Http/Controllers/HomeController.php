@@ -93,21 +93,6 @@ class HomeController extends Controller
                         ->where('recruitments.status_id', '=', '1')
                         ->orderBy('recruitments.id','ASC')
                         ->paginate($this->per_page_number);
-
-        // $recruitments = DB::table('recruitments')
-        //                 ->leftjoin('companies', 'recruitments.company_id', '=', 'companies.id')
-        //                 ->leftjoin('addresses', 'addresses.company_id', '=', 'companies.id')
-        //                 ->leftjoin('districts', 'addresses.district_id', '=', 'districts.id')
-        //                 ->leftjoin('cities', 'districts.city_id', '=', 'cities.id')
-        //                 ->leftjoin('section_recruitment', 'recruitments.id', '=', 'section_recruitment.recruitment_id')
-        //                 ->select('recruitments.*', 'section_recruitment.content as content','companies.name as company', 'districts.name as district' ,'addresses.address as address', 'cities.name as city')
-        //                 ->where('section_recruitment.section_id', '=', '1')
-        //                 ->where('companies.status_id', '=', '3')
-        //                 ->where('recruitments.status_id', '=', '1')
-        //                 ->orderBy('recruitments.id','ASC')
-        //                 ->paginate($this->per_page_number);
-
-       // return $recruitments;
         $total = $recruitments->total();
         if($request->ajax())
         {
@@ -116,6 +101,11 @@ class HomeController extends Controller
                     ];
         }
         return view('recruitments.list', compact('recruitments', 'total'));
+    }
+
+    public function loadListRecruitments()
+    {
+
     }
 
 }
