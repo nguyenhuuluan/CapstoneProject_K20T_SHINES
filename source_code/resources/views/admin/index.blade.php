@@ -47,20 +47,19 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-3 col-md-6">
-			<div class="panel panel-yellow">
-				<div class="panel-heading">
-					<div class="row">
-						<div class="col-xs-3">
-							<i class="fa fa-users fa-5x"></i>
-						</div>
-						<div class="col-xs-9 text-right">
-							<div class="huge">{{$studentCount}}</div>
-							<div>Ứng viên</div>
-						</div>
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-yellow">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+						<i class="fa fa-users fa-5x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+						<div class="huge">{{$studentCount}}</div>
+						<div>Ứng viên</div>
 					</div>
 				</div>
-			</a>
+			</div>
 		</div>
 	</div>
 	<div class="col-lg-3 col-md-6">
@@ -78,8 +77,6 @@
 			</div>
 		</div>
 	</div>
-
-	
 	<br>
 	
 	<div>
@@ -87,10 +84,7 @@
 	</div>
 	<hr>
 
-
-
 	<div class="row">
-		
 		<div class="form-group col-lg-12 col-md-12 col-xs-12">
 			<div class="panel panel-default">
 				<div class="panel-heading">
@@ -111,13 +105,11 @@
 					</div>
 					<canvas id="bar-chart" width="100%" height="40%"></canvas>
 				</div>
-				
 			</div>
 		</div>
-		
 	</div>
+
 	<div class="row">
-		
 		<div class="form-group col-lg-12 col-md-12 col-xs-12">
 			<div class="panel panel-default">
 				<div class="panel-heading">
@@ -138,10 +130,8 @@
 					</div>
 					<canvas id="bar-chart14" width="100%" height="40%"></canvas>
 				</div>
-				
 			</div>
 		</div>
-		
 	</div>
 
 
@@ -152,11 +142,9 @@
 					<h3>Số lượng tin tuyển dụng theo loại</h3>
 				</center>
 			</div>
-			{{-- <center><h3>Số lượng tin tuyển dụng của năm: <span class="current-year">2018</span></h3></center> --}}
 			<div class="panel-body">
 				<canvas id="chart-area"></canvas>
 			</div>
-
 		</div>
 	</div>
 
@@ -167,11 +155,9 @@
 					<h3>Số lượt xem tin tuyển dụng</h3>
 				</center>
 			</div>
-			{{-- <center><h3>Số lượng tin tuyển dụng của năm: <span class="current-year">2018</span></h3></center> --}}
 			<div class="panel-body">
 				<canvas id="chart-area1"></canvas>
 			</div>
-
 		</div>
 	</div>
 
@@ -197,15 +183,11 @@
 					<h3>Số lượng ứng viên, CV theo chuyên ngành</h3>
 				</center>
 			</div>
-			{{-- <center><h3>Số lượng tin tuyển dụng của năm: <span class="current-year">2018</span></h3></center> --}}
 			<div class="panel-body">
 				<canvas id="canvas22"  height="300px"></canvas>
 			</div>
-
 		</div>
 	</div>
-	
-
 
 	<div id="canvas-holder" class="col-lg-6 col-md-6 col-xs-6">
 		<div class="panel panel-default">
@@ -238,13 +220,9 @@
 							{{-- <option value="" >Tất cả</option>							 --}}
 						</select>
 					</div>
-
-					
 				</div>
-
 				<canvas id="canvas10" height="300px"></canvas>
 			</div>
-
 		</div>
 	</div>
 
@@ -282,10 +260,8 @@
 
 					
 				</div>
-
 				<canvas id="canvas11" height="300px"></canvas>
 			</div>
-
 		</div>
 	</div>
 
@@ -304,12 +280,9 @@
 						<input id='datetimepicker5' class="form-control" type="text"
 						placeholder="Từ ngày"/>
 					</div>
-					
 				</div>
-
 				<canvas id="chart-area12"></canvas>
 			</div>
-
 		</div>
 	</div>
 
@@ -878,12 +851,13 @@ var myHorizontalBarConfig = {
 
 
 	// [14]
-	function statisticsNumberOfCompanyByYear(year){
-		$.ajax({
-			url: 'statistics/statisticsNumberOfCompanyByYear/' + year,
-			type: 'GET',
-			dataType: 'json',
-
+		function statisticsNumberOfCompanyByYear(year){
+			url = '{{ route('admin.statistics.statisticsNumberOfCompanyByYear', ':id' ) }}';
+            url = url.replace(':id', year);
+			$.ajax({
+				url: url,
+				type: 'GET',
+				dataType: 'json',
 			success: function(data) {
 
 				var arr = new Array();
@@ -910,7 +884,7 @@ var myHorizontalBarConfig = {
 		}
 
 		$.ajax({
-			url: 'statistics/fetchTopBrowsers',
+			url: '{{ route('admin.statistics.fetchTopBrowsers') }}',
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			},
@@ -946,7 +920,7 @@ function fetchUserTypes(){
 	}
 
 	$.ajax({
-		url: 'statistics/fetchUserTypes',
+		url: '{{ route('admin.statistics.fetchUserTypes') }}',
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		},
@@ -983,7 +957,7 @@ function fetchUserTypes(){
 		}
 
 		$.ajax({
-			url: 'statistics/statisticsTagsInStudentByRangeDate',
+			url: '{{ route('admin.statistics.statisticsTagsInStudentByRangeDate') }}',
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			},
@@ -1032,7 +1006,7 @@ function fetchUserTypes(){
 			}
 
 			$.ajax({
-				url: 'statistics/statisticsTagsInRecruitmentByRangeDate',
+				url: '{{ route('admin.statistics.statisticsTagsInRecruitmentByRangeDate') }}',
 				headers: {
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				},
@@ -1066,7 +1040,7 @@ function fetchUserTypes(){
 		// [7]
 		function statisticsStudentAndCVByFaculty(){
 			$.ajax({
-				url: 'statistics/statisticsStudentAndCVByFaculty',
+				url: '{{ route('admin.statistics.statisticsStudentAndCVByFaculty') }}',
 				type: 'GET',
 				dataType: 'json',
 
@@ -1103,7 +1077,7 @@ function fetchUserTypes(){
 		// [4] [5]
 		function statisticsNumberOfView(){
 			$.ajax({
-				url: 'statistics/statisticsNumberOfView',
+				url: '{{ route('admin.statistics.statisticsNumberOfView') }}',
 				type: 'GET',
 				dataType: 'json',
 
@@ -1129,8 +1103,9 @@ function fetchUserTypes(){
 
 		// [3]
 		function statisticsCategiesOfRecruitments(){
+
 			$.ajax({
-				url: 'statistics/statisticsCategiesOfRecruitments',
+				url: '{{ route('admin.statistics.statisticsCategiesOfRecruitments') }}',
 				type: 'GET',
 				dataType: 'json',
 
@@ -1153,7 +1128,7 @@ function fetchUserTypes(){
 		// [2]
 		function statisticsNumberOfRecruitmentByAllFaculties(){
 			$.ajax({
-				url: 'statistics/statisticsNumberOfRecruitmentByAllFaculties',
+				url: '{{ route('admin.statistics.statisticsNumberOfRecruitmentByAllFaculties') }}',
 				type: 'GET',
 				dataType: 'json',
 
@@ -1181,15 +1156,14 @@ function fetchUserTypes(){
 
 		// [1]
 		function statisiticsRecruitmentByYear(year){
+			url ='{{ route('admin.statistics.statisticsNumberOfRecruitmentByYear', ':id') }}';
+            url = url.replace(':id', year);
 			$.ajax({
-				url: 'statistics/statisticsNumberOfRecruitmentByYear/' + year,
+				url: url,
 				type: 'GET',
 				dataType: 'json',
 
 				success: function(data) {
-
-
-					
 					var arr = new Array();
 
 					for(i = 1; i <= 12; i++ ){

@@ -1,4 +1,4 @@
-@extends('layouts2.master-layout',['title' => 'Thông tin công ty', 'isDisplaySearchHeader' => false])
+@extends('layouts.master-layout',['title' => 'Thông tin công ty', 'isDisplaySearchHeader' => false])
 
 @section('stylesheet')
 
@@ -6,8 +6,8 @@
 
 @endsection
 
-@section('sub-header')
-<header class="page-header bg-img size-lg" style="background-image: url(assets/img/bg-banner1.jpg)">
+@section('page-header')
+<header class="page-header bg-img size-lg" style="background-image: url({{ asset('assets/img/bg-banner1.jpg') }})">
   <div class="container">
     <div class="header-detail">
       <img class="logo" src="{!! asset($company->logo) !!}" alt="">

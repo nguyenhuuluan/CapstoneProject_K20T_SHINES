@@ -19,14 +19,8 @@
               <h5>{!! $recruitment->company->name !!}</h5>
             </div>
             <div class="header-meta">
-              {{-- {{ $recruitment->company['address'] }} --}}
               <span class="location">{!! $recruitment->location !!}</span>
               @foreach ($recruitment->categories as $category)
-             {{--  @if($category->name =='FULL-TIME')
-              <span class="label label-success">{!! $category->name !!}</span>
-              @else
-              <span class="label label-danger">{!! $category->name !!}</span>
-              @endif --}}
               @if ($category->id == 1)
               <span class="label label-success">{!! $category->name !!}</span>
               @endif
@@ -36,9 +30,7 @@
               @if ($category->id == 3)
               <span class="label label-warning">{!! $category->name !!}</span>
               @endif
-
               @endforeach
-              {{-- <span class="label label-success">Full-time</span> --}}
             </div>
           </header>
         </a>

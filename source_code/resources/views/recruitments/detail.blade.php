@@ -170,16 +170,19 @@
 
 
 <main class="container blog-page">
-
+	
 	<div class="row">
 		<div class="col-md-8 col-lg-9">
-
+			<div class="widget widget_tag_cloud" style="margin-bottom: 0px;">
+				<div class="widget-body">
+					@foreach ($recruitment->tags as $tag)
+					<a href="{{ route('recruitments.search', 'searchtext='.$tag->name) }}">{!! $tag->name !!}</a>
+					@endforeach
+				</div>
+			</div>
 			<article class="post">
-
 				<div class="blog-content">
-
 					<!--START ARTICLES Job Description -->
-					
 					@foreach ($recruitment->sections as $section)
 					@if($section->title =='Job Description')
 					<p class="lead">{!! $section->pivot->content!!}</p>
@@ -199,36 +202,44 @@
 
 			</article>
 
-
-			<div class="widget widget_tag_cloud">
-				<div class="widget-body">
-					@foreach ($recruitment->tags as $tag)
-					{{-- expr --}}
-					<a href="#">{!! $tag->name !!}</a>
-					@endforeach
-				</div>
-			</div>
-
 		</div>
 
 
 
 		<div class="col-md-4 col-lg-3">
-			
-			<div class="widget widget_tag_cloud">
+			<br><br>
+			<div class="widget">
+				<h6 class="widget-title">Tin liên quan</h6>
+				<ul class="widget-body media-list">
+					@foreach ($recruitment2 as $recruitment)
+					<li>
+						<div class="thumb"><a href="{!! route('detailrecruitment', $recruitment->slug ) !!}"><img src="{!! asset($recruitment->company->logo)  !!}" alt="..."></a></div>
+						<div class="content">
+							<h5><a href="{!! route('detailrecruitment', $recruitment->slug ) !!}">{{ $recruitment->title }}</a></h5>
+							<time datetime="2018-04-14 20:00">{{ $recruitment->getCreatedAtAtrribute() }}</time>
+						</div>
+					</li>
+					@endforeach
+				</ul>
+			</div>
+
+{{-- 			<div class="widget widget_tag_cloud">
 				<h6 class="widget-title">Tags</h6>
 				<div class="widget-body">
-					<a href="#">blog </a>
-					<a href="#">new</a>
-					<a href="#">google</a>
-					<a href="#">position</a>
-					<a href="#">facebook</a>
-					<a href="#">hire</a>
-					<a href="#">chance</a>
-					<a href="#">resume</a>
-					<a href="#">tip</a>
+					@foreach ($recruitment->tags as $tag)
+					<a href="{{ route('recruitments.search', 'searchtext='.$tag->name) }}">{!! $tag->name !!}</a>
+					@endforeach
+					<a href="#">Blog</a>
+					<a href="#">New</a>
+					<a href="#">Google</a>
+					<a href="#">Position</a>
+					<a href="#">Facebook</a>
+					<a href="#">Hire</a>
+					<a href="#">Chance</a>
+					<a href="#">TopNew</a>
+					<a href="#">Tips</a>
 				</div>
-			</div>
+			</div> --}}
 
 		</div>
 	</div>

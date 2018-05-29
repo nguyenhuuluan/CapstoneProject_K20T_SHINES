@@ -201,6 +201,8 @@ class AdminBlogController extends Controller
                     $fileName = time().'_'.$file->getClientOriginalName(); 
                     $data['photo'] = $fileName;
                     $file->move('blogs/ava', $fileName);
+                    
+                     // unlink(base_path().'/public_html/'.$blog->photo);
                     unlink(public_path().$blog->photo);
                 }
                 $blog->update($data);

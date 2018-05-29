@@ -61,6 +61,7 @@
   }
 }
 </style>
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('page-header')
 <header class="page-header bg-img" style="background-image: url({{ asset('assets/img/bg-banner1.jpg') }} );">
@@ -129,7 +130,6 @@
                   <span class="salary">{!! $recruitment->salary !!}</span>
                 </li>
                 <li>
-                  <i class="fa fa-tag"></i>
                   @foreach ($recruitment->tags as $tag)
                   <span class="btn btn-info btn-xs">{!! $tag->name !!}</span>
                   @endforeach
@@ -190,13 +190,29 @@
           is_busy = true;
           var page = $('.endless-pagination').data('next-page');
           if (page!==null && page!==''){
-            var url = window.location.href+'?page='+page.split('page=')[1];
+            var url = page;
+            var token = $('meta[name="csrf-token"]').attr('content');
+            console.log(url);
+            // var url = window.location.href+'?page='+page.split('page=')[1];
             $loadding.removeClass('hidden');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $.ajax(
             {
+              data: { '_token': token},
               type: 'get',
               dataType: 'text',
               url: url,
+              beforeSend: function (xhr) {
+                  var token = $('meta[name="csrf_token"]').attr('content');
+
+                  if (token) {
+                        return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+                  }
+              },
               success: function (data) {
                 $('.recruitments').append(JSON.parse(data)["recruitments"]);
                 $('.endless-pagination').data('next-page', JSON.parse(data)["next_page"]);

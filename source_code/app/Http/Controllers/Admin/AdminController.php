@@ -163,7 +163,8 @@ public function statisticsCategiesOfRecruitments(){
   $array5 = array('CategoryName' => 'Full-time & Intership', 'RecruitmentCount' => 0);
   $array6 = array('CategoryName' => 'Part-time & Intership', 'RecruitmentCount' => 0);
   $array7 = array('CategoryName' => 'Full-time & Part-time & Intership', 'RecruitmentCount' => 0);
-
+  $arrayReturn = array($array1, $array2, $array3, $array4, $array5, $array6, $array7);
+  
   $recruitments = Recruitment::all();
 
   foreach ($recruitments as $recruitment) {
