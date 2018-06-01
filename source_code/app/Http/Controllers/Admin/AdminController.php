@@ -140,16 +140,21 @@ class AdminController extends Controller
 
      $count = count(array_unique($recruitmentIDs->toArray()));
 
-     $arr2 = array('FacultyName' => $faculty->name, 'RecruitmentCount' => $count);
+     if ($count != 0) {
+      $arr2 = array('FacultyName' => $faculty->name, 'RecruitmentCount' => $count);
+      array_push($arr1, $arr2);
+    }
 
-     array_push($arr1, $arr2);
-   }
+    
 
-   return $arr1;
- }
+
+  }
+
+  return $arr1;
+}
 
 //[3] Thống kê số lượng tin tuyển dụng theo loại tin tuyển dụng (full-time hoặc part-time hoặc full-time và part-time) - Chart tròn (DONE)
- public function statisticsCategiesOfRecruitments(){
+public function statisticsCategiesOfRecruitments(){
 
   $array1 = array('CategoryName' => 'Full-time', 'RecruitmentCount' => 0);
   $array2 = array('CategoryName' => 'Part-time', 'RecruitmentCount' => 0);
@@ -250,9 +255,14 @@ public function statisticsStudentByFaculty()
   foreach ($faculties as $faculty) {
     $facultyName = $faculty->name;
     $studentCount = $faculty->students->count();
-    $arrayTmp = array('facultyName' => $facultyName, 'studentCount'=> $studentCount);
 
-    array_push($arrayResult, $arrayTmp);
+    if ($studentCount != 0) {
+      $arrayTmp = array('facultyName' => $facultyName, 'studentCount'=> $studentCount);
+
+      array_push($arrayResult, $arrayTmp);
+    }
+
+
   }
 
   return $arrayResult;
@@ -349,16 +359,19 @@ public function statisticsTagsInRecruitmentByRangeDate(Request $request)
     $tagName = $tag->name;
     $usedCount = $tag->recruitments->count();
 
-    $array1 = array('tagName' => $tagName, 'usedCount' =>  $usedCount);
+    if ($usedCount != 0) {
+      $array1 = array('tagName' => $tagName, 'usedCount' =>  $usedCount);
 
-    array_push($array2, $array1);
+      array_push($array2, $array1);
+    }
+
+
   }
 
   $sorted_data = $this->orderBy($array2, 'usedCount');
 
   return $sorted_data;
 }
-
 
 
 //retrieve visitors and pageview data for the current day and the last seven days

@@ -493,6 +493,11 @@ var abc = new Chart(element, {
 					autoSkip: false,
 					maxRotation: 3
 				}
+			}],
+			yAxes: [{
+				ticks: {
+					callback: function(value) {if (value % 1 === 0) {return value;}}
+				}
 			}]
 		}
 	},
@@ -532,6 +537,11 @@ var chart14 = new Chart(element14, {
 				ticks: {
 					autoSkip: false,
 					maxRotation: 3
+				}
+			}],
+			yAxes: [{
+				ticks: {
+					callback: function(value) {if (value % 1 === 0) {return value;}}
 				}
 			}]
 		}
@@ -634,7 +644,11 @@ var chart = new Chart(ctx, {
 			xAxes: [{
 				position: "top",
 				id: "v",
-				type: 'linear'
+				type: 'linear',
+				ticks: {
+					beginAtZero: true,
+					callback: function(value) {if (value % 1 === 0) {return value;}}
+				}
 			}]
 		}
 	}
@@ -702,7 +716,11 @@ var char10Config = new Chart(ctx10,{
 			xAxes: [{
 				position: "top",
 				id: "a",
-				type: 'linear'
+				type: 'linear',
+				ticks: {
+					beginAtZero: true,
+					callback: function(value) {if (value % 1 === 0) {return value;}}
+				}
 			}]
 		},
 		elements: {
@@ -734,7 +752,11 @@ var char11Config = new Chart(ctx11,{
 			xAxes: [{
 				position: "top",
 				id: "a",
-				type: 'linear'
+				type: 'linear',
+				ticks: {
+					beginAtZero: true,
+					callback: function(value) {if (value % 1 === 0) {return value;}}
+				}
 			}]
 		},
 		elements: {
@@ -766,7 +788,11 @@ var myHorizontalBarConfig = {
 			xAxes: [{
 				position: "top",
 				id: "a",
-				type: 'linear'
+				type: 'linear',
+				ticks: {
+					beginAtZero: true,
+					callback: function(value) {if (value % 1 === 0) {return value;}}
+				}
 			}]
 		},
 		elements: {
