@@ -10,6 +10,8 @@ use App\Category;
 use App\Recruitment;
 use App\Section;
 use App\Company;
+use App\Representative;
+use App\Http\Requests\RepresentativeRequest;
 
 use App\Account;
 
@@ -45,6 +47,28 @@ class RepresentativeController extends Controller
         }
 
         return view('representative.confirm')->with(compact('acc'));
+    }
+
+    public function representativeProfile()
+    {
+        $representative = Auth::user()->representative; 
+
+        return view('representative.account-detail')->with(compact('representative'));
+    }
+
+    public function representativeUpdateProfile(\App\Http\Requests\RepresentativeRequest $request)
+    {
+        $id = Auth::user()->representative->id;
+        $representative = Representative::where('id', $id)->first();
+
+        $representative->phone = $request['phone'];
+        $representative->name = $request['name'];
+        $representative->position = $request['position'];
+        $representative->save();
+
+        $request->session()->flash('update-success', '<strong>Cập nhật thông tin thành công</strong>');
+
+        return redirect()->route('representative.profile');     
     }
 
 

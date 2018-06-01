@@ -262,6 +262,9 @@ Route::middleware(['representative', 'web'])->group(function () {
 	Route::GET('representative/home', 'Representative\RepresentativeController@index');   
 	Route::resource('representative/recruitments', 'Representative\RepresentativeRecruitmentController');
 	Route::get('/representative/getdata/recruitments', 'Representative\RepresentativeRecruitmentController@getCV')->name('recruitments.getcv');
+	Route::GET('/representative/details', 'Representative\RepresentativeController@representativeProfile')->name('representative.profile');
+
+	Route::POST('/representative/details', 'Representative\RepresentativeController@representativeUpdateProfile')->name('representative.update.profile');
 
 	//Company
 	Route::get('/company/update', 'CompanyController@update')->name('company.update');
@@ -269,6 +272,8 @@ Route::middleware(['representative', 'web'])->group(function () {
 	Route::POST('/company/updateLogo', 'CompanyController@updateLogo')->name('company.updateLogo');
 	Route::POST('/company/updateImages', 'CompanyController@updateImages')->name('company.updateImages');
 	Route::GET('/company/deleteImage/{imageName}', 'CompanyController@deleteImage')->name('company.deleteImage');
+
+
 });
 
 
