@@ -201,28 +201,6 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
-        function validateImg(input){
-            var ext = input.value.match(/\.([^\.]+)$/)[1];
-            switch(ext.toLowerCase())
-            {
-                case 'jpg':
-                case 'png':
-                case 'gif':
-                case 'bmp':
-                case 'jpeg':
-                return true;
-                break;
-                default:
-                return false;
-            }
-        }
-        function validateSizeIMG(input){
-            var file_size = input.files[0].size;
-            if(file_size>2097152){
-                return false;
-            } else{ return true;}
-        }
-
         $("#imgInp").change(function() {
             if(validateSizeIMG(this) && validateImg(this)) {
                 readURL(this);

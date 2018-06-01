@@ -24,17 +24,12 @@
         </li>
 
         <li>
-
-        </li>
-
-        <li>
           <i class="fa fa-globe"></i>
           <a href="#">{!!$company->website!!}</a>
         </li>
 
         <li>
           <i class="fa fa-phone"></i>
-
           <span>{{$company->phone == '' ? 'Chưa cập nhật số điện thoại' : $company->phone}}</span>
         </li>
 
@@ -50,25 +45,16 @@
 
       <div class="button-group">
         <ul class="social-icons">
-
-
-         {{--  @if ($company->socialNetworks[0]->name === 'Facebook')
-         <li><a class="facebook" href="{!!$company->socialNetworks[0]->url!!}"  target="_blank"><i class="fa fa-facebook"></i></a></li> --}}
-
          @if (!empty($company->socialNetworks->toArray()))
          @if ($company->socialNetworks[0]->name === 'Facebook')
          <li><a class="facebook" href="{!!$company->socialNetworks[0]->url!!}"  target="_blank"><i class="fa fa-facebook"></i></a></li>
-
          @endif  
-
          @if ($company->socialNetworks[1]->name === 'Facebook')
          <li><a class="facebook" href="{!!$company->socialNetworks[0]->url!!}"  target="_blank"><i class="fa fa-facebook"></i></a></li>
          @endif  
-
          @if($company->socialNetworks[0]->name === 'LinkedIn')
          <li><a class="linkedin" href="{!!$company->socialNetworks[0]->url!!}" target="_blank"><i class="fa fa-linkedin"></i></a></li>
          @endif
-
          @if($company->socialNetworks[1]->name === 'LinkedIn')
          <li><a class="linkedin" href="{!!$company->socialNetworks[0]->url!!}"  target="_blank"><i class="fa fa-linkedin"></i></a></li>
          @endif      
@@ -76,27 +62,21 @@
          Chưa Liên kết
          @endif
        </ul>
-
        <div class="action-buttons">
         <a class="btn btn-success" href="#">Liên hệ</a>
       </div>
     </div>
-
   </div>
-
 </div>
 </header>
 <br>
 <br>
-
 <div class="widget_tag_cloud" style="margin-left: 10%;">
   <div class="widget-body">
-
    @foreach ($company->tags as $tag)
    <a href="#">{{$tag->name}}</a>
    @endforeach
  </div>
-
 </div>
 
 @endsection

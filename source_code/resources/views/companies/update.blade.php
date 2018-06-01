@@ -2,8 +2,42 @@
 
 @section('stylesheet')
 
-<link href="{{asset('assets/vendors/summernote/summernote.css')}}" rel="stylesheet">
 <link href="{{asset('assets/css/imageuploadify.min.css')}}" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('croppie/croppie.css') }}" />
+
+<style>
+.container2 {
+    position: relative;
+}
+
+.image-upload.img-thumbnail>label:hover .overlay {
+    height: 25%;
+}
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #A4A4A4;
+    opacity: 0.9;
+    overflow: hidden;
+    width: 100%;
+    height: 0;
+    transition: .3s ease;
+    color:white;
+    font-size: 15px;
+    cursor: pointer;
+    /*padding:5px 0*/
+}
+.overlay div {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+</style>
 
 @endsection
 
@@ -12,22 +46,42 @@
 @endsection
 
 @section('content')
-
+<div id="myModal" class="modal fade " role="dialog">
+    <div class="modal-dialog" style="width: 100%">
+        <!-- Modal content-->
+        <div class="modal-content" style="border-radius: 6px">
+            <div class="modal-header">
+                <button type="button"   style=" " class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="upload-demo"></div>
+                <button class="btn btn-success upload-result" data-dismiss="modal">Upload Image</button>
+            </div>
+        </div>
+    </div>
+</div>
 <section>
     <div class="container">
         <div class="col-md-3 col-sm-12 col-xs-12">
-            <form enctype="multipart/form-data" id="upload-logo-form" role="form" method="POST" action="{{ route('company.updateLogo') }}" >
-                {{ csrf_field() }}
+            <div class="form-group">
+                <input id="compID" type="hidden" name="id" value="{{ $company->id}}">
                 <center>
-                    <div class="form-group">
-                        <input id="logoname" type="file" class="dropify" accept="image/x-png,image/gif,image/jpeg" data-default-file="{{ asset($company->logo) }}" name="logo">
-                        <span class="help-block">Logo công ty</span>
-                        <small class="text-success update-logo-noti" style="display: none;">Đã cập nhật logo</small>
+                    <div class="image-upload img-thumbnail">
+                        <label for="upload" class="container2">
+                            <img id="comp-logo" src="{{ asset($company->logo) }}"/>
+                            <div class="overlay">
+                                <div>
+                                    <i class="fa fa-camera" aria-hidden="true"></i>
+                                    Cập nhật ảnh đại diện
+                                </div>
+                            </div>
+                        </label>
+                        <input type="file" id="upload" style="display: none;" accept=".png,.jpg, image/gif, image/jpeg">
                     </div>
                 </center>
-
-            </form>
-
+                <br>
+                <small class="text-success update-ava-noti" style="display: none;">Đã cập nhật avatar thành công!</small>
+            </div>
             <hr>
             <center>
                 <p>Liên hệ với VLU Jobs</p>
@@ -257,8 +311,11 @@
 
 <script src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js" type="text/javascript" charset="utf-8"></script>
 
-<script src="{{ asset('assets/vendors/summernote/summernote.min.js') }}"></script>
 <script src="{{ asset('assets/js/imageuploadify.min.js') }}"></script>
+<script src="{{ asset('croppie/croppie.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/alert.js') }}"></script>
+
+
 
 <script type="text/javascript">
 
@@ -278,11 +335,6 @@
     $('#lst-district').bind('change', function() {
         $('#district-name').val($('#lst-district option:selected').text());
     });
-
-    $('#logoname').bind("change", function () {
-        updateLogo();
-    });
-
 
     $('#InputImages').on("change", function () {
         AutoUpLoadImages();
@@ -369,14 +421,6 @@
 
     }
 
-    // function RenderInputHiddenImageName(ImageNames) {
-    //     var html = '';
-    //     for (var i = 0; i < ImageNames.length; i++) {
-    //         html += '<input type="hidden" name="ImageNames" value="' + ImageNames[i] + '"></input>'
-    //     }
-    //     $('#form-create-product').append(html);
-    // }
-
 
 
     function GetDistrict(cityID) {
@@ -400,44 +444,9 @@
     });
  }
 
- function updateLogo(){
 
-  var id = $('#companyID').val();
-  var imagefile = document.getElementById("logoname").files[0];
-  var urlImg = '{{ route('company.updateLogo') }}';
-  var data = new FormData();
-  data.append("id", id);
-  data.append("imagefile", imagefile);
-
-  $.ajax({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    },
-    type: 'POST',
-    url: urlImg,
-    contentType: false,
-    processData: false,
-    cache:false,
-    data: data,
-    success: function (response) {
-     if (response == 200) {
-
-         $( ".update-logo-noti" ).fadeIn( 300 ).delay( 2000 ).fadeOut( 00 );
-     }
- },
- error: function () {
-    alert('Đã có lỗi xảy ra');
-}
-});
-
-      // e.preventDefault();
-
-      // $('#upload-logo-form').submit();
-  }
-
-
-  var urlTag = '{{ route('tags') }}';
-  var tagnames = new Bloodhound({
+ var urlTag = '{{ route('tags') }}';
+ var tagnames = new Bloodhound({
    datumTokenizer: Bloodhound.tokenizers.obj.whitespace("name"),
    queryTokenizer: Bloodhound.tokenizers.whitespace,
    prefetch: {
@@ -450,9 +459,9 @@
   }
 });
 
-  tagnames.initialize();
+ tagnames.initialize();
 
-  $('.tagsinput').tagsinput({
+ $('.tagsinput').tagsinput({
     typeaheadjs: {
        name: 'tags',
        displayKey: 'name',
@@ -460,6 +469,77 @@
        source: tagnames.ttAdapter()
    }
 });
+</script>
+
+
+<script type="text/javascript">
+    $uploadCrop = $('#upload-demo').croppie({
+        enableExif: true,
+        viewport: {
+            width: 360,
+            height: 360,
+            type: 'rectangle'
+        },
+        boundary: {
+            width: 400,
+            height: 400
+        }
+    });
+
+    var reader = new FileReader();
+    $("#myModal").on('shown.bs.modal', function () {
+        $uploadCrop.croppie('bind', {
+            url: reader.result
+        }).then(function(){
+            console.log('jQuery bind complete');
+        });
+    });
+
+    $('#upload').on('change', function () { 
+        if(validateImg(this))
+        {
+                    //Doc file vao reader
+                    reader.readAsDataURL(this.files[0]);
+                    $('#myModal').modal("show")  
+                }else{
+                    alertError('Vui lòng chọn ảnh đúng định dạng!');
+                }
+            });
+
+    $('.upload-result').on('click', function (ev) {
+        var id = $('#compID').val();
+        $uploadCrop.croppie('result', {
+            type: 'canvas',
+            size: 'viewport'
+        }).then(function (resp) {
+            $.ajax({
+                url: "{{ route('company.updateLogo') }}",
+                type: "POST",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "image":resp,
+                    "id" :id
+                },
+                success:function(data){
+                    document.getElementById('avatarAccount').src = '{{ asset('') }}'+data;
+                    document.getElementById('comp-logo').src = '{{ asset('') }}'+data;
+                    alertSuccess('Cập nhật ảnh đại diện thành công!');
+                    $( ".update-ava-noti" ).fadeIn( 300 ).delay( 2000 ).fadeOut( 00 );
+                },
+                error: function(data){
+                    alertError('Kiểm tra lại avatar upload đúng định dạng ...');
+                }
+            });
+        });
+    });
+
+    function editImage() {
+        $("#upload").click();
+    }
+
+    /*This function is added for Image Reupload Facility: End*/
+
+
 </script>
 
 @endsection

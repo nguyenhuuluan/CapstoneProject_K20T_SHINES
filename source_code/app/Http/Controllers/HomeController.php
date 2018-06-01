@@ -31,14 +31,13 @@ class HomeController extends Controller
      */
     public function index()
     {   
-
         $recruitments= Recruitment::with('categories', 'company', 'tags')
-                                    ->join('companies','recruitments.company_id', '=', 'companies.id')
-                                    ->where('recruitments.status_id', 1)
-                                    ->where('companies.status_id', '=', '3')
-                                    ->select('recruitments.*')
-                                    ->orderBy('recruitments.created_at','desc')
-                                    ->take(5)->get();
+        ->join('companies','recruitments.company_id', '=', 'companies.id')
+        ->where('recruitments.status_id', 1)
+        ->where('companies.status_id', '=', '3')
+        ->select('recruitments.*')
+        ->orderBy('recruitments.created_at','desc')
+        ->take(5)->get();
 
         $blogs = Blog::with('tags','owner.staff')->orderBy('created_at','desc')->take(3)->get();
 
@@ -85,27 +84,41 @@ class HomeController extends Controller
     {   
 
         $recruitments = Recruitment::with('categories','company', 'sections')
-                        ->leftjoin('companies', 'company_id', '=', 'companies.id')
-                        ->leftjoin('section_recruitment', 'recruitments.id', '=', 'section_recruitment.recruitment_id')
-                        ->select('recruitments.*', 'section_recruitment.content as content')
-                        ->where('companies.status_id', '=', '3')
-                        ->where('section_recruitment.section_id', '=', '1')
-                        ->where('recruitments.status_id', '=', '1')
-                        ->orderBy('recruitments.id','ASC')
-                        ->paginate($this->per_page_number);
+        ->leftjoin('companies', 'company_id', '=', 'companies.id')
+        ->leftjoin('section_recruitment', 'recruitments.id', '=', 'section_recruitment.recruitment_id')
+        ->select('recruitments.*', 'section_recruitment.content as content')
+        ->where('companies.status_id', '=', '3')
+        ->where('section_recruitment.section_id', '=', '1')
+        ->where('recruitments.status_id', '=', '1')
+        ->orderBy('recruitments.id','ASC')
+        ->paginate($this->per_page_number);
         $total = $recruitments->total();
         if($request->ajax())
         {
             return ['recruitments'=>view('ajax.recruitmentList')->with(compact('recruitments'))->render(),
-                    'next_page'=>$recruitments->nextPageUrl()
-                    ];
-        }
-        return view('recruitments.list', compact('recruitments', 'total'));
+            'next_page'=>$recruitments->nextPageUrl()
+        ];
     }
+    return view('recruitments.list', compact('recruitments', 'total'));
+}
 
-    public function loadListRecruitments()
-    {
-
-    }
+public function testupload(Request $request)
+{
+    // return $request->all();
+    $data = $request->image;
+    list($type, $data) = explode(';', $data);
+    // return $type;
+     list(, $data)      = explode(',', $data);
+    // return '123';
+    // return $data;
+            $data = base64_decode($data);
+            $imageName = time().'.png';
+            return file_put_contents('assets/'.$imageName, $data);
+            if(file_put_contents('assets/'.$imageName, $data))
+            {return '123';}
+            else
+            {return 'false';}
+            // echo "Image Uploaded";
+}
 
 }

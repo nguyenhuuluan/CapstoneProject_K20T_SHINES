@@ -5,6 +5,10 @@
 {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="http://malsup.github.com/jquery.form.js"></script> --}}
 <meta name="csrf-token" content="{{ csrf_token() }}">
+{{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> --}}
+
+<link rel="stylesheet" href="{{ asset('croppie/croppie.css') }}" />
+
 <style type="text/css">
 /* Tooltip container */
 .tooltipsave {
@@ -59,6 +63,41 @@
 	opacity: 1;
 }
 
+
+.container2 {
+	position: relative;
+}
+
+.image-upload.img-thumbnail>label:hover .overlay {
+	height: 25%;
+}
+.overlay {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: #A4A4A4;
+	opacity: 0.9;
+	overflow: hidden;
+	width: 100%;
+	height: 0;
+	transition: .3s ease;
+	color:white;
+	font-size: 15px;
+	cursor: pointer;
+	/*padding:5px 0*/
+}
+.overlay div {
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+
+
+
 @media (max-width:991px) {
 	#myBtn {
 		right:15px;
@@ -88,17 +127,47 @@
 	<div class="container">
 		<div class="row">
 			<div>
-				{!! Form::open(['method'=>'POST', 'route'=> 'student.photo.edit', 'files'=>true, 'id'=>'upload_ava']) !!}
 				<div class="col-xs-12 col-sm-4">
 					<div class="form-group">
-						{!! Form::file('photo', ['class'=>'dropify', 'data-height'=>'300', 'data-max-file-size'=>'1M' ,'data-default-file'=> asset(Auth::user()->student->photo), 'accept'=>'.pdf,.png,.jpeg,.jpg' ,'id'=>'photo' ])!!}
 						<input id="studentID" type="hidden" name="id" value="{{ Auth::user()->student->id}}">
-						<span class="help-block">Xin vui lòng chọn ảnh 4:6</span>
-						{{-- {!! Form::submit('Cập nhật avatar', ['class'=>'btn btn-xs btn-danger pull-right upload-ava']) !!} --}}
+						{{-- <span class="help-block">Xin vui lòng chọn ảnh 4:6</span> --}}
+						<center>
+							<div class="image-upload img-thumbnail">
+								<label for="upload" class="container2">
+									<img id="std-ava" src="{{ asset(Auth::user()->student->photo) }}"/>
+									{{-- <img src="{{ asset('assets/1.JPG') }}" style="cursor: pointer; "/> --}}
+									<div class="overlay">
+										<div>
+											<i class="fa fa-camera" aria-hidden="true"></i>
+											Cập nhật ảnh đại diện
+										</div>
+									</div>
+								</label>
+								{{-- <input type="file" id="upload" style="display: none;" accept=".png,.jpg, image/gif, image/jpeg"> --}}
+								{{-- <input type="file" id="upload" data-target="#myModal" data-toggle="modal" style="display: none;" accept=".png,.jpg, image/gif, image/jpeg"> --}}
+								<input type="file" id="upload" style="display: none;" accept=".png,.jpg, image/gif, image/jpeg">
+								{{-- <div id="upload-demo-i" style="cursor: pointer" onclick="editImage()"></div> --}}
+							</div>
+						</center>
+						<div id="myModal" class="modal fade " role="dialog">
+							<div class="modal-dialog" style="width: 100%">
+								<!-- Modal content-->
+								<div class="modal-content" style="border-radius: 6px">
+									<div class="modal-header">
+										<button type="button"   style=" " class="close" data-dismiss="modal">&times;</button>
+									</div>
+									<div class="modal-body">
+										<div id="upload-demo"></div>
+										<button class="btn btn-success upload-result" data-dismiss="modal">Upload Image</button>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<br>
 						<small class="text-success update-ava-noti" style="display: none;">Đã cập nhật avatar thành công!</small>
 					</div>
 				</div>
-				{!! Form::close() !!}
 			</div>
 			<div>
 				{!! Form::model( $student, ['method'=>'POST', 'route'=>'profile.update', 'id'=>'updateForm','files'=>true]) !!}
@@ -150,7 +219,7 @@
 					<div class="form-group col-xs-12 col-sm-12 {{ $errors->has('tags.*') ? ' has-error' : '' }}">
 
 						{!! Form::text('tags', $tags, ['class'=>'tagsinput 123input tm-input form-control tm-input-info tagsinput-typeahead','data-role'=>'tagsinput', 'placeholder'=> 'Nhập tag', 'value'=> old('tags')]) !!}
-						
+
 						{{-- 	@if ($errors->has('tags2.*'))
 							<span class="help-block">
 								<strong>Tồn tại TAG không có trong hệ thống!</strong>
@@ -209,7 +278,7 @@
 																<span class="input-group-addon">Từ</span>
 																{!! Form::date('datestart[]', null, ['class'=>'form-control']) !!}
 																<span class="input-group-addon">Đến</span>
-															{!! Form::date('dateend[]', null, ['class'=>'form-control']) !!}
+																{!! Form::date('dateend[]', null, ['class'=>'form-control']) !!}
 															</div>
 														</div>
 													</div>
@@ -417,6 +486,8 @@
 <script src="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap3-typeahead.js') }}"></script>
 <script src="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/alert.js') }}"></script>
+<script src="{{ asset('croppie/croppie.js') }}"></script>
+
 
 <script type="text/javascript">
 	$('.tagsinput-typeahead').tagsinput({
@@ -433,18 +504,6 @@
 
 	$(document).ready(function (e) {
 
-		//Update Avatar
-		$('#photo').bind("change", function () {
-			if(validateSize(this,'1') && validateFile(this,'Image'))
-			{
-				updateAvatar();
-			}
-			else{
-				alertError('Vui lòng chọn ảnh đúng định dạng và dung lượng tối đa 1MB ...')
-				return false;
-			}
-		});
-
 		//Upload CV
 		$("#cv").change(function() {
 			if(validateSize(this,'1') && validateFile(this,'Cv'))
@@ -458,36 +517,6 @@
 				return false;
 			}
 		});
-
-		function updateAvatar(){
-			var id = $('#studentID').val();
-			var photo = document.getElementById("photo").files[0];
-			var urlImg = '{{ route('student.photo.edit') }}';
-			var data = new FormData();
-			data.append("id", id);
-			data.append("photo", photo);
-
-			$.ajax({
-				headers: {
-					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-				},
-				type:'POST',
-				url: urlImg,
-				data:data,
-				cache:false,
-				contentType: false,
-				processData: false,
-				success:function(data){
-					document.getElementById('avatarAccount').src = '{{ asset('') }}'+data;
-					$( ".update-ava-noti" ).fadeIn( 300 ).delay( 2000 ).fadeOut( 00 );
-				},
-				error: function(data){
-					alertError('Kiểm tra lại avatar upload đúng định dạng ...');
-				}
-			});
-
-		}
-
 
 		//Hiển thị danh sách CV
 		showCv();
@@ -659,44 +688,81 @@
 					}
 					
 				}
-
 				function validateSize(input, size){
 					var file_size = input.files[0].size;
 					if(file_size>(size*1024*1024)){
 						return false;
 					} else{ return true;}
 				}
-
-
-
 			});
-
-
 		</script>
-
-		<script>
-
-			$('.dropify').dropify({
-				error: {
-					'fileSize': 'The file size is too big (1MB Max).',
-					'minWidth': 'The image width is too small (30 px min).',
-					'maxWidth': 'The image width is too big (30 px max).',
-					'minHeight': 'The image height is too small (30 px min).',
-					'maxHeight': 'The image height is too big (30 x max).',
-					'imageFormat': 'The image format is not allowed (30 only).'
+		<script type="text/javascript">
+			$uploadCrop = $('#upload-demo').croppie({
+				enableExif: true,
+				viewport: {
+					width: 280,
+					height: 210,
+					type: 'rectangle'
+				},
+				boundary: {
+					width: 300,
+					height: 300
 				}
 			});
 
+			var reader = new FileReader();
+			$("#myModal").on('shown.bs.modal', function () {
+				$uploadCrop.croppie('bind', {
+					url: reader.result
+				}).then(function(){
+					console.log('jQuery bind complete');
+				});
+			});
 
-			// // When the user scrolls down 20px from the top of the document, show the button
-			// window.onscroll = function() {scrollFunction()};
+			$('#upload').on('change', function () { 
+				if(validateImg(this))
+				{
+					//Doc file vao reader
+					reader.readAsDataURL(this.files[0]);
+					$('#myModal').modal("show")  
+				}else{
+					alertError('Vui lòng chọn ảnh đúng định dạng!');
+				}
+			});
 
-			// function scrollFunction() {
-			// 	if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-			// 		document.getElementById("myBtn").style.display = "block";
-			// 	} else {
-			// 		document.getElementById("myBtn").style.display = "none";
-			// 	}
-			// }
+			$('.upload-result').on('click', function (ev) {
+				var id = $('#studentID').val();
+				$uploadCrop.croppie('result', {
+					type: 'canvas',
+					size: 'viewport'
+				}).then(function (resp) {
+					$.ajax({
+						url: "{{ route('student.photo.edit') }}",
+						type: "POST",
+						data: {
+							"_token": "{{ csrf_token() }}",
+							"image":resp,
+							"id" :id
+						},
+						success:function(data){
+							document.getElementById('avatarAccount').src = '{{ asset('') }}'+data;
+							document.getElementById('std-ava').src = '{{ asset('') }}'+data;
+							alertSuccess('Cập nhật ảnh đại diện thành công!');
+							$( ".update-ava-noti" ).fadeIn( 300 ).delay( 2000 ).fadeOut( 00 );
+						},
+						error: function(data){
+							alertError('Kiểm tra lại avatar upload đúng định dạng ...');
+						}
+					});
+				});
+			});
+
+			function editImage() {
+				$("#upload").click();
+			}
+
+			/*This function is added for Image Reupload Facility: End*/
+
+
 		</script>
 		@endsection

@@ -91,41 +91,74 @@ class StudentProfileController extends Controller
 
     public function editPhoto(Request $request)
     {
-        if($file = $request->file('photo'))
-        {
-            $validator = Validator::make($request->all(), [
-                'photo' => 'required|image|mimes:jpeg,png,jpg|max:1024',
-            ]);
-
-            if ($validator->passes()) 
-            {   
-                $student = Student::findOrFail($request['id']);
-                $name  = time().$file->getClientOriginalName();
-
-                if(!strpos($student->photo, 'avatar.jpg'))
+        if($request->id == Auth::user()->student->id ){
+            $data = $request->image;
+            list($type, $data) = explode(';', $data);
+            list(, $data)      = explode(',', $data);
+            $data = base64_decode($data);
+            $imageName = time().'.png';
+            try{
+                if(file_put_contents('images/students/avatas/'.$imageName, $data))
                 {
+                //Kiểm tra ảnh có phải ảnh mặc định không
+                    $student = Student::findOrFail($request['id']);
+                    if(!strpos($student->photo, 'avatar.jpg'))
+                    {
                     // unlink(base_path().'/public_html/'.$student->photo);
-                    unlink(public_path().$student->photo);
-                }
+                        unlink(public_path().$student->photo);
+                    }
+                    $student['photo']=$imageName;
+                    $student->update();
+                    return response()->json($student['photo']);
+                }else{
+                //Lưu Ảnh không thành công
+                   return response()->json(['error'=>'Lưu ảnh không thành công']);
+               }
+           }
+           catch(Exception $e)
+           {return $e;}
+       }
+
+   }
 
 
-                $student['photo']=$name;
-                $student->update();
-                $file->move('images/students/avatas', $name);
-                return response()->json($student['photo']);
 
-                // return response()->json(['success'=>'success']);
-            }
-            else
-            {
-                return response()->json(['error'=>$validator->errors()->all()]);
-            }
-        }
-        else
-        {
-            return response()->json(['error'=>'error']);
-        }
-    }
+
+//    if($file = $request->file('photo'))
+//    {
+//     $validator = Validator::make($request->all(), [
+//         'photo' => 'required|image|mimes:jpeg,png,jpg|max:1024',
+//     ]);
+
+//     if ($validator->passes()) 
+//     {   
+//         $student = Student::findOrFail($request['id']);
+//         $name  = time().$file->getClientOriginalName();
+
+//         if(!strpos($student->photo, 'avatar.jpg'))
+//         {
+//                     // unlink(base_path().'/public_html/'.$student->photo);
+//             unlink(public_path().$student->photo);
+//         }
+
+
+//         $student['photo']=$name;
+//         $student->update();
+//         $file->move('images/students/avatas', $name);
+//         return response()->json($student['photo']);
+
+//                 // return response()->json(['success'=>'success']);
+//     }
+//     else
+//     {
+//         return response()->json(['error'=>$validator->errors()->all()]);
+//     }
+// }
+// else
+// {
+//     return response()->json(['error'=>'error']);
+// }
+// }
 
     /**
      * Update the specified resource in storage.

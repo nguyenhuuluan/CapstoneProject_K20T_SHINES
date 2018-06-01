@@ -39,7 +39,7 @@ class AccountTest extends TestCase
         $this->assertInstanceOf('App\Representative', $this->account->representative); 	
         $this->assertTrue($this->account->isRepresentative());
 
-    }
+    }a_account_has_representative
 
      /** @test */
     function a_account_has_staff(){

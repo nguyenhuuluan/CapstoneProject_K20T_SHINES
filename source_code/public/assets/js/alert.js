@@ -29,3 +29,29 @@ function alertError(message)
     }
   });
 }
+function validateImg(input){
+  var ext = input.value.match(/\.([^\.]+)$/)[1];
+  switch(ext.toLowerCase())
+  {
+    case 'jpg':
+    case 'png':
+    case 'gif':
+    case 'bmp':
+    case 'jpeg':
+    case 'JPG':
+    case 'PNG':
+    case 'GIF':
+    case 'BMP':
+    case 'JPEG':
+    return true;
+    break;
+    default:
+    return false;
+  }
+}
+function validateSizeIMG(input){
+  var file_size = input.files[0].size;
+  if(file_size>2097152){
+    return false;
+  } else{ return true;}
+}

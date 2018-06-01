@@ -291,7 +291,11 @@ Route::POST('representative/reset-password','Representative\ResetPasswordControl
 Route::get('/districts/{cityID}','AddressController@getDistricts')->name('address.districts');
 
 
-Route::get('/test/{id}','RecruitmentController@test')->name('test');
+Route::get('/test/', function(){
+	return view('test2');
+})->name('test');
+
+Route::post('/test/postimage', 'HomeController@testupload')->name('testupload');
 
 Route::get('/tags','TagController@getTags')->name('tags');
 

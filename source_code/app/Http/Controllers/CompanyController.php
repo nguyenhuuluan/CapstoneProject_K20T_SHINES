@@ -266,7 +266,7 @@ public function deleteImage($imageName)
  // unlink(base_path()."/public_html/images/companies/".$imageName);
 
 
- 
+
   // cái này ở local
  unlink(public_path()."/images/companies/".$imageName);
  
@@ -280,45 +280,35 @@ public function deleteImage($imageName)
 public function updateLogo(Request $request)
 {
 
-  if($file = $request->file('imagefile'))
-  {
-    $validator = Validator::make($request->all(), [
-      'imagefile' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-    ]);
-
-    if ($validator->passes()) 
-    { 
-
-      $comp = Company::Where('id', $request->id)->first();
-      $name  = time().'_'.$file->getClientOriginalName();
-
-      if( strpos($comp->logo, 'default-company-logo.jpg') == false )
+  if($request->id == Auth::user()->representative->company->id ){
+    $data = $request->image;
+    list($type, $data) = explode(';', $data);
+    list(, $data)      = explode(',', $data);
+    $data = base64_decode($data);
+    $imageName = time().'.png';
+    try{
+      if(file_put_contents('images/companies/logos/'.$imageName, $data))
       {
+                //Kiểm tra ảnh có phải ảnh mặc định không
+       $comp = Company::findOrFail($request['id']);
+       if(!strpos($comp->logo, 'default-company-logo.jpg'))
+       {
         //chay tren host
         //unlink(base_path().'/public_html/'.$comp->logo);
-        
-
-        // chạy ở local
-        unlink(public_path().$comp->logo);
-
-      }
-
-      $comp->logo = $name;
-      $comp->update();
-
-      $file->move('images/companies/logos', $name);
-
-      return response()->json(200);
-    }
-    else
-    {
-      return response()->json(['error'=>$validator->errors()->all()]);
-    }
-  }
-  else
-  {
-   return response()->json(500);
+         unlink(public_path().$comp->logo);
+       }
+       $comp->logo = $imageName;
+       $comp->update();
+       return response()->json($comp->logo);
+     }else{
+        //Lưu Ảnh không thành công
+      return response()->json(['error'=>'Lưu ảnh không thành công']);
+     }
+   }
+   catch(Exception $e)
+   {return $e;}
  }
+
 }
 
 public function index()
