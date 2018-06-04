@@ -49,10 +49,14 @@
           </li>
           <li>
             @foreach ($categories as $category)
-            @if($category->name == 'FULL-TIME' )
+            @if ($category->id == 1)
             <span class="label label-success">{!! $category->name !!}</span>
-            @else
+            @endif
+            @if ($category->id == 2)
             <span class="label label-danger">{!! $category->name !!}</span>
+            @endif
+            @if ($category->id == 3)
+            <span class="label label-warning">{!! $category->name !!}</span>
             @endif
             @endforeach
           </li>
@@ -81,8 +85,8 @@
   {{--  @yield('main-container') --}}
   <!-- Main container -->
   <div id="watermark">
-<p>Xem trước</p>
-</div>
+    <p>Xem trước</p>
+  </div>
   <main class="container blog-page">
 
     <div class="row">
@@ -94,65 +98,65 @@
 
             <!--START ARTICLES Job Description -->
 
-          @foreach ($sections as $section)
-          @if($section->title =='Job Description')
-          <p class="lead">{!! $section->content!!}</p>
-          @else
+            @foreach ($sections as $section)
+            @if($section->title =='Job Description')
+            <p class="lead">{!! $section->content!!}</p>
+            @else
 
-          <div class="job_reason_to_join_us" style="background-color: white; box-sizing: border-box; color: #333333; font-family: Roboto, sans-serif; font-size: 16px;">
-            <h2 class="title" style="box-sizing: border-box; color: #353535; font-family: &quot;Roboto Condensed&quot;, sans-serif; font-size: 27px; font-weight: 400; line-height: 35.2px; margin: 20px 0px;">
-              {!! $section->title !!}
-            </h2>
+            <div class="job_reason_to_join_us" style="background-color: white; box-sizing: border-box; color: #333333; font-family: Roboto, sans-serif; font-size: 16px;">
+              <h2 class="title" style="box-sizing: border-box; color: #353535; font-family: &quot;Roboto Condensed&quot;, sans-serif; font-size: 27px; font-weight: 400; line-height: 35.2px; margin: 20px 0px;">
+                {!! $section->title !!}
+              </h2>
               {!! $section->content !!}
+            </div>
+            @endif
+            @endforeach
+            <!--END ARTICLES -->
+
           </div>
-          @endif
-          @endforeach
-          <!--END ARTICLES -->
 
+        </article>
+
+
+        <div class="widget widget_tag_cloud">
+          <div class="widget-body">
+            @foreach ($tags2 as $key => $value)
+            {{-- expr --}}
+            <a href="#">{!! $value !!}</a>
+            @endforeach
+          </div>
         </div>
 
-      </article>
+      </div>
 
-
-      <div class="widget widget_tag_cloud">
-        <div class="widget-body">
-          @foreach ($tags2 as $key => $value)
-          {{-- expr --}}
-          <a href="#">{!! $value !!}</a>
-          @endforeach
+      <div class="col-md-4 col-lg-3">
+        <div class="widget widget_tag_cloud">
+          <h6 class="widget-title">Tags</h6>
+          <div class="widget-body">
+            <a href="#">blog</a>
+            <a href="#">new</a>
+            <a href="#">google</a>
+            <a href="#">position</a>
+            <a href="#">facebook</a>
+            <a href="#">hire</a>
+            <a href="#">chance</a>
+            <a href="#">resume</a>
+            <a href="#">tip</a>
+          </div>
         </div>
       </div>
 
     </div>
+  </main>
+  <!-- END Main container -->
 
-    <div class="col-md-4 col-lg-3">
-      <div class="widget widget_tag_cloud">
-        <h6 class="widget-title">Tags</h6>
-        <div class="widget-body">
-          <a href="#">blog</a>
-          <a href="#">new</a>
-          <a href="#">google</a>
-          <a href="#">position</a>
-          <a href="#">facebook</a>
-          <a href="#">hire</a>
-          <a href="#">chance</a>
-          <a href="#">resume</a>
-          <a href="#">tip</a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</main>
-<!-- END Main container -->
-
-<!-- Site footer -->
-@include('layouts.footer')
-<!-- END Site footer -->
-<!-- Scripts -->
-<script src="{{ asset('assets/js/app.min.js') }}"></script>
-<script src="{{ asset('assets/js/thejobs.js') }}"></script>
-<script src="{{ asset('assets/js/custom.js') }}"></script>
+  <!-- Site footer -->
+  @include('layouts.footer')
+  <!-- END Site footer -->
+  <!-- Scripts -->
+  <script src="{{ asset('assets/js/app.min.js') }}"></script>
+  <script src="{{ asset('assets/js/thejobs.js') }}"></script>
+  <script src="{{ asset('assets/js/custom.js') }}"></script>
 
 </body>
 {{-- @endsection --}}

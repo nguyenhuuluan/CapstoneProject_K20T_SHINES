@@ -11,6 +11,8 @@ use App\City;
 use App\District;
 use App\Section;
 use App\Category;
+use App\Company;    
+use App\Tag;
 use Auth;
 
 
@@ -24,14 +26,14 @@ class AdminRecruitmentController extends Controller
     public function index()
     {
 
-       
+
         if(Auth::user()->can('recruitments.view'))
-        {
-            $recruitments = Recruitment::with('company')->where('status_id', '1')->orWhere('status_id', '2')->get();
-            return view ('admin.recruitments.index',compact('recruitments'));
+            {
+                $recruitments = Recruitment::with('company')->where('status_id', '1')->orWhere('status_id', '2')->orderBy('created_at','desc')->get();
+                return view ('admin.recruitments.index',compact('recruitments'));
+            }
+            return view('errors.admin_auth');
         }
-        return view('errors.admin_auth');
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -102,7 +104,7 @@ class AdminRecruitmentController extends Controller
  }
 
 
-public function feedback($recruitmentID, $message){
+ public function feedback($recruitmentID, $message){
 
     $recruitment = Recruitment::where('id', $recruitmentID)->first();
 
@@ -122,20 +124,20 @@ public function feedback($recruitmentID, $message){
 public function setActiveRecruitment($recruitment_id){
 
     if(Auth::user()->can('recruitments.update'))
-    {
-        $recruitment = Recruitment::Where('id', $recruitment_id)->first();
-        if ($recruitment->status_id != 1) {
-           $recruitment->status_id = 1;
-       }else {
-           $recruitment->status_id = 2;
+        {
+            $recruitment = Recruitment::Where('id', $recruitment_id)->first();
+            if ($recruitment->status_id != 1) {
+               $recruitment->status_id = 1;
+           }else {
+               $recruitment->status_id = 2;
+           }
+           $recruitment->save();     
+           return $recruitment;
        }
-       $recruitment->save();     
-       return $recruitment;
-   }
-   else
-   {
-    return response()->json('error', 400);
-}
+       else
+       {
+        return response()->json('error', 400);
+    }
 
 
 }
@@ -213,11 +215,70 @@ public function setActiveRecruitment($recruitment_id){
         'salary'=>'required',
         'expire_date'=>'required',
         'category_id'=>'required|array|exists:categories,id',
-            //'hidden-tags'=>'required|array|exists:tags,name',
-            //'tags.*'=>'required|exists:tags,name',
-            //'hidden-tags'=>'required',
     ]);
-   }
+       $tags = explode(',', request('tags')); 
+       $request->request->add(['tags2' => $tags]); 
+       $sections =  request('sections');
+
+       $data = [
+        'title'=>request('title'),
+        'salary'=>request('salary'),
+        'expire_date'=>date("Y-m-d", strtotime(request('expire_date'))),
+        'location'=>request('districtname').' - '.request('cityname'),
+    ];
+
+    switch (request('submitbutton')) {
+        case 'Xem trước':
+        $company = Company::findOrFail($data['company_id']);
+        $categories = Category::find(request('category_id'));
+        foreach ($tags as $key => $value) {
+                //$tags2[]= Tag::where('name', $value)->first();
+            $tags2[]= $value;
+        }
+        foreach ($sections as $key => $value) {
+            $sections[$key] = Section::find($key);
+            $sections[$key]['content'] = $value;
+        }
+        return view('representative.recruitments.preview', compact('data', 'categories', 'tags2', 'company', 'sections'));
+        break;
+        case 'Cập nhật':
+        /* Create Recruitment */
+        $recruitment = Recruitment::findOrFail($id);
+        $recruitment->update($data);
+        foreach ($sections as $key => $value) {
+            $sections[$key] = Section::find($key);
+            if($value!=null)
+                $recruitment->sections()->updateExistingPivot($key, ['content'=>$value]);
+        }
+        /*Save categories*/
+        $recruitment->categories()->sync(array_values($request->category_id));
+        $tags2;
+        /*Save tagss*/
+        foreach ($tags as $key => $value) {
+            $tmpTag = Tag::where('name', $value)->get();
+                        // return $tmpTag->first()['id'];
+                        // $tmpTag = Tag::where('name', $value)->first(['id'])['id'];
+            if(count($tmpTag) !=0)
+            {
+                $id =  $tmpTag->first()['id'];
+                $tags2[$id] = $tags[$key];
+            }
+            else
+            {
+                $tg = Tag::create(['name'=>$value]);
+                $tags2[$tg->id] = $tags[$key];
+            }
+        }
+         //update tags
+        $recruitment->tags()->sync(array_keys($tags2));
+        $recruitment->save();
+
+        return redirect()->back()->with('message','Cập Nhật thành công!');
+            //return redirect($recruitment->path());
+        break;
+    }
+
+}
 
     /**
      * Remove the specified resource from storage.

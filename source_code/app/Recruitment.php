@@ -26,6 +26,7 @@ class Recruitment extends Model
             'searching'=>[
                 'source'        => ['title','created_at','company.name','searching'],
                 'onUpdate'      => true,
+                'separator'          => ' ',
             ],
         ];
     }
@@ -49,6 +50,20 @@ class Recruitment extends Model
         return $this->created_at->diffForHumans();
     }
 
+
+    public function getHeaderAttribute(){
+        $limit = 12;
+        $str_s ='';
+        if(stripos($this->title," ")){
+            $ex_str = explode(" ",$this->title);
+            if(count($ex_str)>$limit){
+                for($i=0;$i<$limit;$i++){
+                   $str_s.=$ex_str[$i]." ";
+               }
+               return $str_s.'...';
+           }else{return $this->title;}
+       }else{return $this->title;}
+   }
     public function path(){
          return "../recruitments/{$this->slug}";
          // host

@@ -47,8 +47,8 @@
                                 <tbody>
                                     @foreach ($recruitments as $recruitment)
                                     <tr>
-                                        <td>{!! $recruitment->id !!}</td>
-                                        <td>{!! $recruitment->title !!}</td>
+                                        <td>{{ $loop->index + 1 }}</td>
+                                        <td><a href="{{ $recruitment->path() }}" target="_blank">{{ $recruitment->title }}</a></td>
                                         <td>{!! $recruitment->salary !!}</td>
                                         <td>{!! $recruitment->expire_date !!}</td>
                                         <td style="text-align: center">{!! $recruitment->number_of_view !!}</td>
@@ -58,17 +58,17 @@
                                         
                                         <td>
                                             @if(Auth::user()->can('recruitments.update'))
-                                                @if ($recruitment->status_id == 1)
-                                                <input type="checkbox" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" checked value="{{$recruitment->id}}" />
-                                                @elseif($recruitment->status_id == 2)                                           
-                                                <input type="checkbox" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" value="{{$recruitment->id}}" />
-                                                @endif
+                                            @if ($recruitment->status_id == 1)
+                                            <input type="checkbox" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" checked value="{{$recruitment->id}}" />
+                                            @elseif($recruitment->status_id == 2)                                           
+                                            <input type="checkbox" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" value="{{$recruitment->id}}" />
+                                            @endif
                                             @else
-                                                @if ($recruitment->status_id == 1)
-                                                <input type="checkbox" disabled="true" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" checked value="{{$recruitment->id}}" />
-                                                @elseif($recruitment->status_id == 2)                                           
-                                                <input type="checkbox" disabled="true" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" value="{{$recruitment->id}}" />
-                                                @endif
+                                            @if ($recruitment->status_id == 1)
+                                            <input type="checkbox" disabled="true" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" checked value="{{$recruitment->id}}" />
+                                            @elseif($recruitment->status_id == 2)                                           
+                                            <input type="checkbox" disabled="true" class="switch status-switch" id="myswitch" data-backdrop="static" data-keyboard="false" value="{{$recruitment->id}}" />
+                                            @endif
                                             @endif
                                         </td>
                                         <td>
@@ -118,76 +118,65 @@
 
 
 <script type="text/javascript">
-
- $(document).ready(function() {
-    var element;
-    $('#dataTables-example').DataTable({
-        responsive: true
-    });
-    var table = $('.switch').bootstrapSwitch({
+    $('.switch').bootstrapSwitch({
         size: 'mini',
         onText: 'Bật',
         offText: 'Tắt'      
     });
-
-
-    $('.status-switch').on('switchChange.bootstrapSwitch', function (e, data) {
-
-        element = $(this);
-
-        element.bootstrapSwitch('state', !data, true);
-
-        $.confirm({
-            icon: 'fa fa-warning',
-            title: 'Cảnh báo!!',
-            content: 'Bạn có muốn thay đổi trạng thái của tin tuyển dụng này?',
-            type: 'orange',
-            buttons: {
-                Có: {
-                    keys: ['enter'],
-                    btnClass: 'btn-green',
-                    action: function(){
-                        activeRecruitment(element.val());
-                    }
-                },
-                Không: {
-                    keys: ['esc'],
-                    btnClass: 'btn-red'
-                }
-            }
+    $(document).ready(function() {
+        var element;
+        $('#dataTables-example').DataTable({
+            responsive: true
         });
-    });
 
 
-    function activeRecruitment(id){
+
+        $('.status-switch').on('switchChange.bootstrapSwitch', function (e, data) {
+
+            element = $(this);
+
+            element.bootstrapSwitch('state', !data, true);
+
+            $.confirm({
+                icon: 'fa fa-warning',
+                title: 'Cảnh báo!!',
+                content: 'Bạn có muốn thay đổi trạng thái của tin tuyển dụng này?',
+                type: 'orange',
+                buttons: {
+                    Có: {
+                        keys: ['enter'],
+                        btnClass: 'btn-green',
+                        action: function(){
+                            activeRecruitment(element.val());
+                        }
+                    },
+                    Không: {
+                        keys: ['esc'],
+                        btnClass: 'btn-red'
+                    }
+                }
+            });
+        });
+
+
+        function activeRecruitment(id){
       //  $('.modal-ajax-loading').show();
-        $.ajax({
-            url: 'recruitments/active/' + id,
-            type: 'GET',
-            dataType: 'json',
+      $.ajax({
+        url: 'recruitments/active/' + id,
+        type: 'GET',
+        dataType: 'json',
 
-            success: function(){
-                element.bootstrapSwitch('toggleState', true, true);
-                alertSuccess('Cập nhật trạng thái thành công...')
-            },
-            error: function(){
-             alertError('Đã có lỗi xảy ra, vui lòng reload lại trang ...');
-         }            
-     });
-    }
+        success: function(){
+            element.bootstrapSwitch('toggleState', true, true);
+            alertSuccess('Cập nhật trạng thái thành công...')
+        },
+        error: function(){
+           alertError('Đã có lỗi xảy ra, vui lòng reload lại trang ...');
+       }            
+   });
+  }
 
   
 });
-
-
-
-
-
-
-
-
-
-
-
 </script>
 @endsection

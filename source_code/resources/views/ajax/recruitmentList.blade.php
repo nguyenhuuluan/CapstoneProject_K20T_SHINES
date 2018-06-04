@@ -1,10 +1,10 @@
  @foreach ($recruitments as $recruitment)
  <div class="col-xs-12">
-  <a class="item-block" href="{!! route('detailrecruitment', $recruitment->slug) !!}">
+  <a class="item-block" href="{!! route('detailrecruitment', $recruitment->slug) !!}" title="{{ $recruitment->title }}">
     <header>
       <img src="{!! asset($recruitment->company->logo)  !!}" alt="">
       <div class="hgroup">
-        <h4>{!! $recruitment->title !!}</h4>
+        <h4>{!! $recruitment->header !!}</h4>
                 {{-- <h5>{!! $recruitment->company !!} <span class="label label-success">Full-time</span>
                 </h5> --}}
                 @foreach ($recruitment->categories as $category)

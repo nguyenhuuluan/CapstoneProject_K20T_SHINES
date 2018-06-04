@@ -25,7 +25,7 @@ class RecruitmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    protected $per_page_number = 5;
+    protected $per_page_number = 1;
     public function index()
     {
         //
@@ -56,7 +56,7 @@ class RecruitmentController extends Controller
         //Cắt chuối search
         $texts = explode(",", $request['searchtext']);
 
-
+        // return $texts;
         $recruitments = Recruitment::with('categories','company', 'sections')
         ->leftjoin('companies', 'company_id', '=', 'companies.id')
         ->leftjoin('section_recruitment', 'recruitments.id', '=', 'section_recruitment.recruitment_id')

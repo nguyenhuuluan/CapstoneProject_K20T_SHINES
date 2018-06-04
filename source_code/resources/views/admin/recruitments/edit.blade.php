@@ -25,8 +25,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">Quản lý tin tuyển dụng </h1>
+                @include('includes.message')
             </div>
-
             <div class="form-group col-xs-9 col-sm-9">
                 <div class="row">
                     <div class="form-group col-xs-6 col-sm-6 {{ $errors->has('title') ? ' has-error' : '' }}">
@@ -40,7 +40,7 @@
                         </span>
                         @endif
                     </div>
-
+                        <input type="hidden" name="compID" value="{{ $recruitment->company_id }}">
                     <div class="form-group col-xs-3 col-sm-3">
                         <div class="input-group input-group-sm">
                             <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>     
@@ -146,7 +146,7 @@
                 <div class="panel-footer">
                     {!! Form::submit('Xem trước', ['class'=>'btn btn-default', 'name'=>'submitbutton' , 'formtarget'=>'_blank']) !!}
                     <button type="button" class="btn btn-warning">Hủy</button>
-                    {!! Form::submit('Đăng bài', ['class'=>'btn btn-success', 'name'=>'submitbutton']) !!}
+                    {!! Form::submit('Cập nhật', ['class'=>'btn btn-success', 'name'=>'submitbutton']) !!}
                     {{-- <input type="submit" style="position: absolute; left: -9999px"> --}}
                 </div>
             </div>
@@ -265,7 +265,18 @@
     disableDragAndDrop: false,
     height: 200,
     maximumImageFileSize: 5242880,
+    callbacks: {
+        onPaste: function (e) {
+            var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
 
+            e.preventDefault();
+
+            // Firefox fix
+            setTimeout(function () {
+                document.execCommand('insertText', false, bufferText);
+            }, 10);
+        }
+    }
 
 });
 </script>

@@ -49,10 +49,14 @@
           </li>
           <li>
           @foreach ($recruitment->categories as $category)
-          @if($category->name == 'FULL-TIME' )
+          @if ($category->id == 1)
           <span class="label label-success">{!! $category->name !!}</span>
-          @else
+          @endif
+          @if ($category->id == 2)
           <span class="label label-danger">{!! $category->name !!}</span>
+          @endif
+          @if ($category->id == 3)
+          <span class="label label-warning">{!! $category->name !!}</span>
           @endif
           @endforeach
           </li>

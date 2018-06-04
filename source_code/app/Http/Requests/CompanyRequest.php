@@ -30,7 +30,7 @@ class CompanyRequest extends FormRequest
         return [
             'name' => 'required',
             'website' => 'required|regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
-            'email' => 'required|email',
+            'compEmail' => 'required|email',
             'phone' => 'required|numeric',
             'working_day' => 'required',
             'field' => 'required',
@@ -45,8 +45,8 @@ class CompanyRequest extends FormRequest
         return [
             'name.required' => 'Vui lòng nhập tên công ty đầy đủ',
             'website.required' => 'Vui lòng nhập website công ty, hoặc đúng định dạng URL', 
-            'email.required' => 'Vui lòng nhập Email', 
-            'email.email' => 'Email không đúng định dạng', 
+            'compEmail.required' => 'Vui lòng nhập Email', 
+            'compEmail.email' => 'Email không đúng định dạng', 
             'phone.required' => 'Vui lòng nhập số điện thoại', 
             'phone.numeric' => 'Số điện thoại chưa đúng định dạng',
             'working_day.required' => 'Vui lòng nhập thời gian làm việc', 

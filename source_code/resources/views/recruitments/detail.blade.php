@@ -117,12 +117,6 @@
 				</li>
 				<li>
 					@foreach ($recruitment->categories as $category)
-					{{-- @if($category->name == 'FULL-TIME' )
-					<span class="label label-success">{!! $category->name !!}</span>
-					@else
-					<span class="label label-danger">{!! $category->name !!}</span>
-					@endif --}}
-
 					@if ($category->id == 1)
 					<span class="label label-success">{!! $category->name !!}</span>
 					@endif
@@ -215,7 +209,7 @@
 					<li>
 						<div class="thumb"><a href="{!! route('detailrecruitment', $recruitment->slug ) !!}"><img src="{!! asset($recruitment->company->logo)  !!}" alt="..."></a></div>
 						<div class="content">
-							<h5><a href="{!! route('detailrecruitment', $recruitment->slug ) !!}">{{ $recruitment->title }}</a></h5>
+							<h5><a href="{!! route('detailrecruitment', $recruitment->slug ) !!}" title="{{ $recruitment->title }}">{{ $recruitment->header }}</a></h5>
 							<time datetime="2018-04-14 20:00">{{ $recruitment->getCreatedAtAtrribute() }}</time>
 						</div>
 					</li>

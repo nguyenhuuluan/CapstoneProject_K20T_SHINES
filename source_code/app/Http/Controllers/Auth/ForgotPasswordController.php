@@ -43,58 +43,54 @@ class ForgotPasswordController extends Controller
 
    public function sendForgotPassword(Request $request)
    {
+    // return $request->all();
 
      $request->validate([
-      'email' => 'required|email'
+      'account' => 'required|email|exists:accounts,username',
+      'g-recaptcha-response' => 'required|recaptcha',
+    ],[
+      'account.required'=>'Vui lòng nhập Email.',
+      'account.email'=>'Vui lòng nhập Email đúng định dạng.',
+      'account.exists'=>'Email không tồn tại trong hệ thống.',
+      'g-recaptcha-response.required' => 'Form quên mật khẩu không dành cho robot. Vui lòng Refresh lại trang.',
+      'g-recaptcha-response.recaptcha' => 'Form quên mật khẩu không dành cho robot. Vui lòng Refresh lại trang.',
     ]);
+     
+     $account = Account::where('username' , '=', trim($request->account))->first();
+     $token = str_random(20) . 'rEsEtPass' .str_random(20);
+     $account->remember_token = $token;
+     $account->save();
 
-     $account = Account::where('username' , '=', trim($request->email))->first();
+     $recivedMailDate = date("d/m/Y h:i:sa");
 
-     if ($account == null) {
-      $request->session()->flash('email-not-found-error', '<strong>Email này không tồn tại</strong>');
+     Mail::send('account.email-reset-password',
+       ['account' => $account, 'recivedMailDate' => $recivedMailDate],
+       function ($message) use($account){
+         $message->to($account['username'])->subject('Cập nhật lại mật khẩu');
+       });   
 
-      return redirect()->route("forgot.password")->withInput();
-    }
+     $request->session()->flash('send-email-success', 'Đã gửi thông tin cập nhật mật khẩu đến <strong> '. $account['username'] .' </strong>');
+     return redirect()->back();
+   }
 
-    $token = str_random(20) . 'rEsEtPass' .str_random(20);
-    $account->remember_token = $token;
-    $account->save();
-
-    $recivedMailDate = date("d/m/Y h:i:sa");
-
-    Mail::send('account.email-reset-password',
-     ['account' => $account, 'recivedMailDate' => $recivedMailDate],
-     function ($message) use($account){
-       $message->to($account['username'])->subject('Cập nhật lại mật khẩu');
-     });   
-
-    $request->session()->flash('send-email-success', 'Đã gửi thông tin cập nhật mật khẩu đến <strong> '. $account['username'] .' </strong>');
-
-    return View('auth.passwords.reset');
-  }
-
-  public function resetPasswordForm($token)
-  {
+   public function resetPasswordForm($token)
+   {
     $acc = Account::where('remember_token', '=', $token)->first();
 
     if (!$acc) {
-      return view('layouts2.custom-error-message')->with('errorMessage', 'Địa chỉ hiện tại không tồn tại');
+      return view('errors.404');
     }
-
     return view('representative.confirm')->with(compact('acc'));
   }
 
   public function sendResetPassword(\App\Http\Requests\AccountRequest $request)
   {
-
     $acc = Account::where('id', $request['account_id'])->first();
     $acc->password = bcrypt($request['password']);
-    $acc->status_id = 5;
+    // $acc->status_id = 5;
     $acc->remember_token = '';
     $acc->save();
-
     return redirect()->route('representative.update-success');     
-
   }
 
 

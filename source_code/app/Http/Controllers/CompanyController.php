@@ -55,69 +55,32 @@ class CompanyController extends Controller
 
   }
 
-  public function edit($id, CompanyRequest $request)
+  public function edit(CompanyRequest $request)
+  // public function edit(Request $request)
   { 
+    // return '123';
+    // return '11'.trim($request->facebook).'123';
+ // if (!empty(trim($request->facebook)) ) {
+    // if ($request->facebook){
+    //   return '123';
+    // }
+    // else{return '321';}
 
-
-    $client = new Client();
-
-    $res = $client->request('GET', 'https://maps.google.com/maps/api/geocode/json?key=AIzaSyBTKdxpxRWTD9UnpMVrGfdnNCmFZLde8Rw&address='.$request->address. $request->districtname. $request->cityname);
-
-    $jsonObj  = json_decode($res->getBody());  
-
-    if ($jsonObj->status != 'OK') {
-      $request->session()->flash('address-invalid', '<span> Địa chỉ không tồn tại </span>');
-      return redirect()->route("company.update")->withInput();
-    }
-
-
-    $address = $jsonObj->results[0]->formatted_address;
-
-    $lat = $jsonObj->results[0]->geometry->location->lat;
-    $lng = $jsonObj->results[0]->geometry->location->lng;
-
-
-    $comp = Company::Where('id', $request->id)->first();
+    // return '111';
+    $comp = Company::with('address')->withCount('address')->findOrFail($request->id);
     $comp->name = $request->name;
     $comp->website = $request->website;
-    $comp->email = $request->email;
+    $comp->email = $request->compEmail;
     $comp->phone = $request->phone;
     $comp->working_day = $request->working_day;
     $comp->field = $request->field;
     $comp->business_code = $request->business_code;
     $comp->introduce = $request->introduce;
-
     $comp->save();
-
-
-
-    $compaddress = $comp->address;
-
-    if (count($compaddress) == 0) {
-
-      $address = Address::create([
-        "address" => $request->address,
-        "latitude" => $lat,
-        "longtitude" => $lng,
-        "district_id" => $request->district,
-        "company_id" => $comp->id
-      ]);
-    }else{
-      $compaddress->address = $request->address;
-      $compaddress->latitude = $lat;
-      $compaddress->longtitude = $lng;
-      $compaddress->district_id = $request->district;
-      $compaddress->company_id = $comp->id;
-
-      $compaddress->save();
-    }
 
     $currenttags = array_map('strtolower', Tag::pluck('name')->toArray());
     $tags = array_map('strtolower', array_map('trim', explode(",", $request->tags)));
-
-   // $intersect = array_intersect($tags,$currenttags);
     $diff = array_diff($tags,$currenttags);
-
     if (count($diff) != 0) {
      foreach ($diff as $value) {
       $tag = Tag::create([
@@ -125,61 +88,95 @@ class CompanyController extends Controller
       ]);
     }
   }
-
   $collectionTags = collect();
-// $collectionTags = collect([]);
-
+  // $collectionTags = collect([]);
   foreach ($tags as $tag) {
    $collectionTags->push(Tag::where('name', $tag)->first());
  }
-
-
  $comp->tags()->sync((Tag::all()->intersect($collectionTags)));
+ // return $tags;
+ // return $comp;
 
- if ($request->facebook) {
-   if ( !empty(trim($request->facebook)) ) {
-    if ($request->socialnetworkfbID) {
-      $social = CompaniesSocialNetwork::findOrFail($request->socialnetworkfbID);
-      $social->url = $request->facebook;
-      $social->company_id = $request->id;
+ $client = new Client();
+ $res = $client->request('GET', 'https://maps.google.com/maps/api/geocode/json?key=AIzaSyBTKdxpxRWTD9UnpMVrGfdnNCmFZLde8Rw&address='.$request->address. $request->districtname. $request->cityname);
+ $jsonObj  = json_decode($res->getBody());  
+ if ($jsonObj->status != 'OK') {
+  $request->session()->flash('address-invalid', '<span> Địa chỉ không tồn tại </span>');
+  return redirect()->route("company.update")->withInput();
+}
 
-      $social->save();
-    }else{
-     $social = CompaniesSocialNetwork::create([
-      "name" => "Facebook",
-      "url" => $request->facebook,
-      "company_id" => $request->id
-    ]); 
-   }
- }else{
+
+$address = $jsonObj->results[0]->formatted_address;
+
+$lat = $jsonObj->results[0]->geometry->location->lat;
+$lng = $jsonObj->results[0]->geometry->location->lng;
+
+
+    // $comp = Company::with('address')->withCount('address')->findOrFail($request->id);
+$compaddress = $comp->address;
+if(!$comp->address_count)
+{
+  $address = Address::create([
+    "address" => $request->address,
+    "latitude" => $lat,
+    "longtitude" => $lng,
+    "district_id" => $request->district,
+    "company_id" => $comp->id
+  ]);
+}else{
+  $compaddress->address = $request->address;
+  $compaddress->latitude = $lat;
+  $compaddress->longtitude = $lng;
+  $compaddress->district_id = $request->district;
+  $compaddress->company_id = $comp->id;
+  $compaddress->save();
+}
+
+
+if ($request->socialnetworkfbID && $request->facebook){
+  // return 'cập nhật';
+  $social = CompaniesSocialNetwork::findOrFail($request->socialnetworkfbID);
+  $social->url = $request->facebook;
+  $social->company_id = $request->id;
+  $social->save();
+}elseif(!$request->socialnetworkfbID && $request->facebook){
+  // return 'dky mới';
+  $social = CompaniesSocialNetwork::create([
+    "name" => "Facebook",
+    "url" => $request->facebook,
+    "company_id" => $request->id
+  ]); 
+}elseif($request->socialnetworkfbID && !$request->facebook){
+  // return 'xóa fb';
   $social = CompaniesSocialNetwork::findOrFail($request->socialnetworkfbID);
   $social->delete();
 }
-}
+// elseif(!$request->socialnetworkfbID && !$request->facebook){
+//   return 'chưa có gì';  
+// }
 
-if ($request->linkedin) {
-  if (!empty(trim($request->linkedin))) {
-    if ($request->socialnetworkinID) {
-      $social = CompaniesSocialNetwork::findOrFail($request->socialnetworkinID);
-      $social->url = $request->linkedin;
-      $social->company_id = $request->id;
 
-      $social->save();
-    }else{
-     $social = CompaniesSocialNetwork::create([
-      "name" => "LinkedIn",
-      "url" => $request->linkedin,
-      "company_id" => $request->id
-    ]); 
-   }
-
- }else{
+if ($request->socialnetworkinID && $request->linkedin){
+  // return 'cập nhật';
+  $social = CompaniesSocialNetwork::findOrFail($request->socialnetworkinID);
+  $social->url = $request->linkedin;
+  $social->company_id = $request->id;
+  $social->save();
+}elseif(!$request->socialnetworkinID && $request->linkedin){
+  // return 'dky mới';
+  $social = CompaniesSocialNetwork::create([
+    "name" => "Facebook",
+    "url" => $request->linkedin,
+    "company_id" => $request->id
+  ]); 
+}elseif($request->socialnetworkinID && !$request->linkedin){
+  // return 'xóa fb';
   $social = CompaniesSocialNetwork::findOrFail($request->socialnetworkinID);
   $social->delete();
 }
-
-}
-
+// elseif(!$request->socialnetworkinID && !$request->linkedin){
+//   return 'chưa có gì';  
+// }
 
 
 return redirect()->route("company.details",$comp->slug);
@@ -303,11 +300,11 @@ public function updateLogo(Request $request)
      }else{
         //Lưu Ảnh không thành công
       return response()->json(['error'=>'Lưu ảnh không thành công']);
-     }
-   }
-   catch(Exception $e)
-   {return $e;}
- }
+    }
+  }
+  catch(Exception $e)
+  {return $e;}
+}
 
 }
 

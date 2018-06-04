@@ -22,8 +22,9 @@ Route::get('/' , 'HomeController@index')->name('index');
 Auth::routes();
 
 Route::get('/forgot-password', 'Auth\ForgotPasswordController@forgotPassword')->name('forgot.password');
-
 Route::Post('/forgot-password', 'Auth\ForgotPasswordController@sendForgotPassword')->name('send.forgot.password');
+Route::GET('/account-reset-password/{token}','Auth\ForgotPasswordController@resetPasswordForm')->name('account.resetpasswordForm');
+Route::POST('/account-reset-password','Auth\ForgotPasswordController@sendResetPassword')->name('account.sendresetpassword');
 
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -265,7 +266,7 @@ Route::middleware(['representative', 'web'])->group(function () {
 
 	//Company
 	Route::get('/company/update', 'CompanyController@update')->name('company.update');
-	Route::POST('/company/edit/{id}', 'CompanyController@edit')->name('company.edit');
+	Route::POST('/company/edit', 'CompanyController@edit')->name('company.edit');
 	Route::POST('/company/updateLogo', 'CompanyController@updateLogo')->name('company.updateLogo');
 	Route::POST('/company/updateImages', 'CompanyController@updateImages')->name('company.updateImages');
 	Route::GET('/company/deleteImage/{imageName}', 'CompanyController@deleteImage')->name('company.deleteImage');
@@ -275,10 +276,6 @@ Route::middleware(['representative', 'web'])->group(function () {
 
 
 Route::GET('representative/reset-password/{token}','Representative\RepresentativeController@resetPassword')->name('representative.resetpassword');
-
-Route::GET('representative/account-reset-password/{token}','Auth\ForgotPasswordController@resetPasswordForm')->name('account.resetpasswordForm');
-
-Route::POST('representative/account-reset-password','Auth\ForgotPasswordController@sendResetPassword')->name('account.sendresetpassword');
 
 
 Route::GET('representative/update-success','Representative\ResetPasswordController@updateSuccess')->name('representative.update-success');
@@ -291,9 +288,14 @@ Route::POST('representative/reset-password','Representative\ResetPasswordControl
 Route::get('/districts/{cityID}','AddressController@getDistricts')->name('address.districts');
 
 
-Route::get('/test/', function(){
-	return view('test2');
-})->name('test');
+// Route::get('/test/', function(){
+// 	return view('test2');
+// })->name('test');
+
+Route::get('/test2/{user}', function (App\User $user) {
+    //
+    return '123';
+});
 
 Route::post('/test/postimage', 'HomeController@testupload')->name('testupload');
 

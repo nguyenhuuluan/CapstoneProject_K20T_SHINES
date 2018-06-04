@@ -7,6 +7,7 @@
 <link href="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css') }} " rel="stylesheet">
 <link href="{{asset('assets/vendors/summernote/summernote.css')}}" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.min.css') }}">
+<link rel="stylesheet" href="{{ asset('croppie/croppie.css') }}" />
 
 <style type="text/css">
 .btn-file {
@@ -37,7 +38,20 @@
 @endsection
 
 @section('body')
-
+<div id="myModal" class="modal fade " role="dialog">
+    <div class="modal-dialog" style="width: 100%">
+        <!-- Modal content-->
+        <div class="modal-content" style="border-radius: 6px">
+            <div class="modal-header">
+                <button type="button"   style=" " class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="upload-demo"></div>
+                <button class="btn btn-success upload-result" data-dismiss="modal">Crop Image</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div id="page-wrapper" style="margin-bottom: 100px;">
     <div class="container-fluid">
         <div class="row">
@@ -57,22 +71,29 @@
                     @endif
                 </div>
 
-                <div class="form-group {{ $errors->has('imgInp') ? ' has-error' : '' }}">
+                <div class="form-group {{ $errors->has('imgBlog') ? ' has-error' : '' }}">
                     <label>Ảnh đại diện</label>
                     <div class="input-group">
                         <span class="input-group-btn">
                             <span class="btn btn-default btn-file">
-                                Browse… <input type="file" required value="{{ old('imgInp') }}" id="imgInp" name="imgInp" accept=".png,.jpg, image/gif, image/jpeg">
+                                Browse… <input type="file" required id="imgInp" accept=".png,.jpg, image/gif, image/jpeg">
                             </span>
                         </span>
-                        <input type="text" class="form-control" readonly id="imgText">
+                        <input type="text" class="form-control" readonly id="imgText" value="{{ old('imgText') }}" name ="imgText">
                     </div>
-                    @if ($errors->has('imgInp'))
+                    @if ($errors->has('imgBlog'))
                     <span class="help-block">
                         <strong>Vui lòng chọn ảnh đại diện cho bài BLOG!</strong>
                     </span>
                     @endif
-                    <img id='img-upload' />
+                    @if(session()->has('error'))
+                    <span class="help-block"  style="color:red">
+                        <strong>{!! session('error') !!}</strong>
+                    </span>
+                    @endif
+                    <img id='img-upload' class="img-thumbnail" src="{{ old('imgBlog') }}">
+                    <input type="hidden" name="imgBlog" id="imgBlog" value="{{ old('imgBlog') }}">
+
                 </div>
                 <div class="form-group {{ $errors->has('content') ? ' has-error' : '' }}">
                     <label>Nội dung</label>
@@ -139,8 +160,9 @@
 
 
 <script src="{{asset('assets/vendors/modal-confirm/jquery-confirm.min.js')}}"></script>
-
 <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+<script src="{{ asset('croppie/croppie.js') }}"></script>
+
 <script> 
     $('.tagsinput-typeahead').tagsinput({
         typeahead: {
@@ -189,29 +211,56 @@
             }
 
         });
+    });
+</script>
 
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
+<script type="text/javascript">
+    var reader = new FileReader();
 
-                reader.onload = function(e) {
-                    $('#img-upload').attr('src', e.target.result);
-                }
-
-                reader.readAsDataURL(input.files[0]);
-            }
+    $("#imgInp").change(function() {
+        if(validateImg(this)) {
+            reader.readAsDataURL(this.files[0]);
+            $('#myModal').modal("show")  
+        }else{
+            alertError('Vui lòng chọn ảnh đúng định dạng và dung lượng tối đa 2 MB ...');
+            $("#imgInp").val(null);
+            $("#imgText").val(null);
+            $('#img-upload').attr('src', '');
+            return false;
         }
-        $("#imgInp").change(function() {
-            if(validateSizeIMG(this) && validateImg(this)) {
-                readURL(this);
-            }else{
-                alertError('Vui lòng chọn ảnh đúng định dạng và dung lượng tối đa 2 MB ...');
-                $("#imgInp").val(null);
-                $("#imgText").val(null);
-                $('#img-upload').attr('src', '');
-                return false;
-            }
+    });
+    $uploadCrop = $('#upload-demo').croppie({
+        enableExif: true,
+        viewport: {
+            width: 350,
+            height: 200,
+            type: 'rectangle'
+        },
+        boundary: {
+            width: 400,
+            height: 400
+        }
+    });
+
+    $("#myModal").on('shown.bs.modal', function () {
+        $uploadCrop.croppie('bind', {
+            url: reader.result
+        }).then(function(){
+            console.log('jQuery bind complete');
         });
     });
+
+    $('.upload-result').on('click', function (ev) {
+        var id = $('#compID').val();
+        $uploadCrop.croppie('result', {
+            type: 'canvas',
+            size: 'viewport'
+        }).then(function (resp) {
+            var logo = document.getElementById('img-upload');
+            logo.src = resp;
+            $('#imgBlog').val(resp);
+        });
+    });
+
 </script>
 @endsection

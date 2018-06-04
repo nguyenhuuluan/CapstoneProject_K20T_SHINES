@@ -94,7 +94,7 @@
            <div class="table-responsive">
 
 
-            {!! Form::model($company, ['method' => 'POST', 'route' => ['company.edit', $company->id], 'class' => 'form-horizontal']) !!}
+            {!! Form::model($company, ['method' => 'POST', 'route' => 'company.edit', 'class' => 'form-horizontal']) !!}
 
             <input id="companyID" type="hidden" name="id" value="{{$company->id}}">
 
@@ -131,10 +131,10 @@
             <tr>
                 <td>Email</td>
                 <td>
-                    <div class="form-group{{ $errors->has('email') ? ' has-error' : 'ERROR' }}">
+                    <div class="form-group{{ $errors->has('compEmail') ? ' has-error' : 'ERROR' }}">
                         <div class="col-sm-9">
-                            {!! Form::text('email', $company->email, ['class' => 'form-control']) !!}
-                            <small class="text-danger">{{ $errors->first('email') }}</small>
+                            {!! Form::text('compEmail', $company->email, ['class' => 'form-control']) !!}
+                            <small class="text-danger">{{ $errors->first('compEmail') }}</small>
                         </div>
                     </div>
                 </td>

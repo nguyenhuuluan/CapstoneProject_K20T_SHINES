@@ -12,7 +12,7 @@
     <div class="header-detail">
       <img class="logo" src="{!! asset($company->logo) !!}" alt="">
       <div class="hgroup">
-        <h1>{!!$company->name!!}</h1>
+        <h1>{!!$company->name ?? ''!!}</h1>
         <h3>{!!$company->field!!}</h3>
       </div>
       <hr>
@@ -46,18 +46,13 @@
       <div class="button-group">
         <ul class="social-icons">
          @if (!empty($company->socialNetworks->toArray()))
-         @if ($company->socialNetworks[0]->name === 'Facebook')
-         <li><a class="facebook" href="{!!$company->socialNetworks[0]->url!!}"  target="_blank"><i class="fa fa-facebook"></i></a></li>
-         @endif  
-         @if ($company->socialNetworks[1]->name === 'Facebook')
-         <li><a class="facebook" href="{!!$company->socialNetworks[0]->url!!}"  target="_blank"><i class="fa fa-facebook"></i></a></li>
-         @endif  
-         @if($company->socialNetworks[0]->name === 'LinkedIn')
-         <li><a class="linkedin" href="{!!$company->socialNetworks[0]->url!!}" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+         @foreach ($company->socialNetworks as $socialNetwork)
+         @if($socialNetwork->name === 'Facebook')
+         <li><a class="facebook" href="{{ $socialNetwork->url ?? '' }}"  target="_blank"><i class="fa fa-facebook"></i></a></li>
+         @elseif($socialNetwork->name === 'LinkedIn')
+         <li><a class="linkedin" href="{{ $socialNetwork->url ?? '' }}" target="_blank"><i class="fa fa-linkedin"></i></a></li>
          @endif
-         @if($company->socialNetworks[1]->name === 'LinkedIn')
-         <li><a class="linkedin" href="{!!$company->socialNetworks[0]->url!!}"  target="_blank"><i class="fa fa-linkedin"></i></a></li>
-         @endif      
+         @endforeach
          @else
          Chưa Liên kết
          @endif
@@ -136,11 +131,11 @@
         @foreach ($company->recruitments as $recruitment)
         <!-- Job item -->
 
-         <a class="item-block" href="{!! route('detailrecruitment', $recruitment->slug) !!}">
-    <header>
-      <img src={!! asset($recruitment->company->logo)  !!} alt="">
-      <div class="hgroup">
-        <h4>{!! $recruitment->title !!}</h4>
+        <a class="item-block" href="{!! route('detailrecruitment', $recruitment->slug) !!}">
+          <header>
+            <img src={!! asset($recruitment->company->logo)  !!} alt="">
+            <div class="hgroup">
+              <h4>{!! $recruitment->title !!}</h4>
                 {{-- <h5>{!! $recruitment->company !!} <span class="label label-success">Full-time</span>
                 </h5> --}}
                 @foreach ($recruitment->categories as $category)
@@ -189,65 +184,65 @@
               </ul>
             </footer>
           </a>
-        @endforeach
+          @endforeach
+        </div>
+
+
+        <!-- END Job item -->
+
+
+
       </div>
+    </section>
+    <!-- END Open positions -->
+    <header class="section-header-map">
+      <center><h2>Vị trí</h2></center>
 
+      <center"><strong><span>
+        {{$company->address->address}}, {{$company->address->district->name}}, {{ $company->address->district->city->name}}
+      </span></strong></center>
+      <br>
+    </header>
 
-      <!-- END Job item -->
-
-
-
-    </div>
-  </section>
-  <!-- END Open positions -->
-  <header class="section-header-map">
-    <center><h2>Vị trí</h2></center>
-
-    <center"><strong><span>
-      {{$company->address->address}}, {{$company->address->district->name}}, {{ $company->address->district->city->name}}
-    </span></strong></center>
+    <center><div id="contact-map" style="height: 400px; width: 90%;"></div></center> 
     <br>
-  </header>
+    @endsection
 
-  <center><div id="contact-map" style="height: 400px; width: 90%;"></div></center> 
-  <br>
-  @endsection
-
-  @section('scripts')
-  <script type="text/javascript" src="{{ asset('assets/js/jquery.bxslider.js') }}"></script>
+    @section('scripts')
+    <script type="text/javascript" src="{{ asset('assets/js/jquery.bxslider.js') }}"></script>
 
 
-  <script>
-    $('.temp-header').hide();
+    <script>
+      $('.temp-header').hide();
 
-    $('.bxslider').bxSlider({
-      mode: 'fade',
-      captions: true,
-      slideWidth: 500
-    });
-
-  </script>
-
-  <script>
-
-    var lat = {{$company->address->latitude}};
-    var lng= {{$company->address->longtitude}};
-
-
-    function initMap() {
-      var uluru = {lat: lat, lng: lng};
-      var map = new google.maps.Map(document.getElementById('contact-map'), {
-        zoom: 15,
-        center: uluru
+      $('.bxslider').bxSlider({
+        mode: 'fade',
+        captions: true,
+        slideWidth: 500
       });
-      var marker = new google.maps.Marker({
-        position: uluru,
-        map: map
-      });
-    }
-  </script>
 
-  <script src="https://maps.googleapis.com/maps/api/js?callback=initMap&key=AIzaSyBTKdxpxRWTD9UnpMVrGfdnNCmFZLde8Rw" async defer></script>
+    </script>
+
+    <script>
+
+      var lat = {{$company->address->latitude}};
+      var lng= {{$company->address->longtitude}};
 
 
-  @endsection
+      function initMap() {
+        var uluru = {lat: lat, lng: lng};
+        var map = new google.maps.Map(document.getElementById('contact-map'), {
+          zoom: 15,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?callback=initMap&key=AIzaSyBTKdxpxRWTD9UnpMVrGfdnNCmFZLde8Rw" async defer></script>
+
+
+    @endsection

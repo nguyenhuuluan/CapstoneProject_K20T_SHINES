@@ -13,19 +13,24 @@
   <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/css/thejobs.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
-  <link href="{{ asset('assets/css/alpha.css') }}" rel="stylesheet">
+  <script src="https://www.google.com/recaptcha/api.js?render=6LdY8lwUAAAAAGprXsePTCCasbYtCqLuiueeOhsO"></script>
+  
+  <style type="text/css">
+  .form-group.has-error{
+    border: 2px solid #d22c33;
+    border-radius: 4px;
+  }
+</style>
 
-  <!-- Fonts -->
-  <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
+<!-- Fonts -->
+<link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
 
-  <!-- Favicons -->
-  <link rel="apple-touch-icon" href="{{ asset('/apple-touch-icon.png') }}">
-  <link rel="icon" href="{{ asset('assets/img/favicon.ico') }} ">
+<!-- Favicons -->
+<link rel="apple-touch-icon" href="{{ asset('/apple-touch-icon.png') }}">
+<link rel="icon" href="{{ asset('assets/img/favicon.ico') }} ">
 </head>
 
 <body class="login-page">
-
-
   <main>
 
     <div class="login-block">
@@ -42,74 +47,72 @@
         <span>{!! session('resigter-error') !!}</span>
       </div>
       @endif
-      {!! Form::open(['method' => 'POST', 'route' => 'company.register.partnership.store', 'class' => 'form-horizontal']) !!}
+      {!! Form::open(['method' => 'POST', 'route' => 'company.register.partnership.store', 'class' => 'form-horizontal', 'id' => 'download-form']) !!}
 
-      <div class="form-group">
+      <div class="form-group {{ $errors->has('company_name') ? 'has-error' : ''  }}">
         <div class="input-group">
           <span class="input-group-addon"><i class="ti-home"></i></span>
-          <input value = "{{ old('company_name') }}" name="company_name" type="text" class="form-control" placeholder="Tên Công Ty">
-          
+          <input value = "{{ old('company_name') }}" required name="company_name" type="text" class="form-control has-error2" placeholder="Tên Công Ty">
         </div>
-        <small class="text-danger">{{ $errors->first('company_name') }}</small>
       </div>
 
+      <span class="help-block" style="text-align: left;"><strong style="color: red">{{ $errors->first('company_name') ?? '' }}</strong></span>
       <hr class="hr-xs">
 
-      <div class="form-group">
+      <div class="form-group {{ $errors->has('company_website') ? 'has-error' : ''  }}">
         <div class="input-group">
           <span class="input-group-addon"><i class="ti-world"></i></span>
-          <input name="company_website" type="text" value = "{{ old('company_website') }}" class="form-control" placeholder="Website Công Ty">
-          
+          <input name="company_website" required type="text" value = "{{ old('company_website') }}" class="form-control" placeholder="Website Công Ty">
         </div>
-        <small class="text-danger">{{ $errors->first('company_website') }}</small>
       </div>
 
+      <span class="help-block" style="text-align: left;"><strong style="color: red">{{ $errors->first('company_website') ?? '' }}</strong></span>
       <hr class="hr-xs">
 
-      <div class="form-group">
+      <div class="form-group {{ $errors->has('representative_name') ? 'has-error' : ''  }}">
         <div class="input-group">
           <span class="input-group-addon"><i class="ti-user"></i></span>
-          <input name="representative_name" value = "{{ old('representative_name') }}" type="text" class="form-control" placeholder="Tên của bạn">
-          
+          <input name="representative_name" required value = "{{ old('representative_name') }}" type="text" class="form-control" placeholder="Tên của bạn">
         </div>
-        <small class="text-danger">{{ $errors->first('representative_name') }}</small>
       </div>
 
+      <span class="help-block" style="text-align: left;"><strong style="color: red">{{ $errors->first('representative_name') ?? '' }}</strong></span>
       <hr class="hr-xs">
 
-      <div class="form-group">
+      <div class="form-group {{ $errors->has('representative_position') ? 'has-error' : ''  }}">
         <div class="input-group">
           <span class="input-group-addon"><i class="ti-bag"></i></span>
-          <input name="representative_position" type="text" value = "{{ old('representative_position') }}" class="form-control" placeholder="Chức vụ">
-          
+          <input name="representative_position" required type="text" value = "{{ old('representative_position') }}" class="form-control" placeholder="Chức vụ">
         </div>
-        <small class="text-danger">{{ $errors->first('representative_position') }}</small>
       </div>
-
+      
+      <span class="help-block" style="text-align: left;"><strong style="color: red">{{ $errors->first('representative_position') ?? '' }}</strong></span>
       <hr class="hr-xs">
 
-      <div class="form-group">
+      <div class="form-group {{ $errors->has('representative_email') ? 'has-error' : ''  }}">
         <div class="input-group">
           <span class="input-group-addon"><i class="ti-email"></i></span>
-          <input name="representative_email" value = "{{ old('representative_email') }}" type="text" class="form-control" placeholder="Email của bạn">
-          
+          <input name="representative_email" required value = "{{ old('representative_email') }}" type="text" class="form-control" placeholder="Email của bạn">
         </div>
-        <small class="text-danger">{{ $errors->first('representative_email') }}</small>
       </div>
 
+
+      <span class="help-block" style="text-align: left;"><strong style="color: red">{{ $errors->first('representative_email') ?? '' }}</strong></span>
       <hr class="hr-xs">
 
-      <div class="form-group">
+      <div class="form-group {{ $errors->has('representative_phone') ? 'has-error' : ''  }}">
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-          <input name="representative_phone" value = "{{ old('representative_phone') }}" type="text" class="form-control" placeholder="Điện thoại của bạn">
-          
+          <input name="representative_phone" required value = "{{ old('representative_phone') }}" type="text" class="form-control" placeholder="Điện thoại của bạn">
         </div>
-        <small class="text-danger">{{ $errors->first('representative_phone') }}</small>
       </div>
+
+      <span class="help-block" style="text-align: left;"><strong style="color: red">{{ $errors->first('representative_phone') ?? '' }}</strong></span>
+      <span class="help-block" style="text-align: left;"><strong style="color: red">{{ $errors->first('g-recaptcha-response') ?? '' }}</strong></span>
+
+      <input id="g-recaptcha-response" type="hidden" name="g-recaptcha-response">
       <button name="registerCompany" class="btn btn-primary btn-block" type="submit">Gửi</button>
     </div>
-
 
     {!! Form::close() !!}
 
@@ -120,6 +123,16 @@
   <script src="{{ asset('assets/js/app.min.js') }} "></script>
   <script src="{{ asset('assets/js/thejobs.js') }} "></script>
   <script src="{{ asset('assets/js/custom.js') }} "></script>
+
+
+
+  <script>
+    grecaptcha.ready(function() {
+      grecaptcha.execute('6LdY8lwUAAAAAGprXsePTCCasbYtCqLuiueeOhsO', {action: 'post'}).then(function(token) {
+       $('#g-recaptcha-response').val(token);
+     });
+    });
+  </script>
 
 </body>
 </html>

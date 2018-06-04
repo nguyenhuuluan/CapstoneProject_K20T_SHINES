@@ -35,8 +35,8 @@ class AccountRequest extends FormRequest
         public function messages()
     {
         return [
-            'password.required' => 'Vui lòng nhập mật khẩu',  
-            'password.confirmed' => 'Password không trùng khớp'
+            'password.required' => 'Vui lòng nhập mật khẩu.',  
+            'password.confirmed' => 'Password không trùng khớp.'
 
         ];
     }

@@ -7,6 +7,8 @@ use App\Account;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\CompanyRegistrationRequest;
+use GuzzleHttp\Client;
+
 
 class CompanyRegistrationController extends Controller
 {
@@ -21,14 +23,10 @@ class CompanyRegistrationController extends Controller
 	}
 
 	public function registerPartnership(\App\Http\Requests\CompanyRegistrationRequest $request)
-	{
-		$isExistEmail = Account::where('username', '=', trim($request["representative_email"]))->first();
-		if ($isExistEmail != null) {
-			$request->session()->flash('resigter-error', '<strong>Email đã có người xử dụng</strong>, vui lòng nhập lại email khác');
-			
-			return redirect()->route("company.register.partnership.form")->withInput();
-		}
-
+	// public function registerPartnership(Request $request)
+	{	
+		// return $request['g-recaptcha-response'];
+		// return var_dump($body);
 		$compRegis = CompanyRegistration::create([
 			"company_name" => $request["company_name"],
 			"company_website" => $request["company_website"],

@@ -88,19 +88,14 @@
           @foreach ($recruitments as $recruitment)
           <!-- Job item -->
           <div class="col-xs-12">
-            <a class="item-block" href="{!! route('detailrecruitment', $recruitment->slug) !!}">
+            <a class="item-block" href="{!! route('detailrecruitment', $recruitment->slug) !!}" title="{{ $recruitment->title }}">
               <header>
                 <img src={!! asset($recruitment->company->logo)  !!} alt="">
                 <div class="hgroup">
-                  <h4>{!! $recruitment->title !!}</h4>
-                {{-- <h5>{!! $recruitment->company !!} <span class="label label-success">Full-time</span>
-                </h5> --}}
+                  <h4>{!! $recruitment->header !!}</h4>
+
                 @foreach ($recruitment->categories as $category)
-                {{-- @if($category->name =='FULL-TIME')
-                <span class="label label-success">{!! $category->name !!}</span>
-                @else
-                <span class="label label-danger">{!! $category->name !!}</span>
-                @endif --}}
+               
                 @if ($category->id == 1)
                 <span class="label label-success">{!! $category->name !!}</span>
                 @endif
@@ -181,7 +176,7 @@
       // ELement hiển thị chữ loadding
       $loadding = $('#loading-dots');
       // Nếu màn hình đang ở dưới cuối thẻ thì thực hiện ajax
-      if (($(window).scrollTop()+$(window).height()) >= ($element.height()+$(window).height())) {
+      if ($(window).scrollTop() + $(window).height() >= $element.height()) {
         // Nếu đang gửi ajax thì ngưng
         if (is_busy == true) {
           return false;
@@ -208,7 +203,6 @@
               url: url,
               beforeSend: function (xhr) {
                   var token = $('meta[name="csrf_token"]').attr('content');
-
                   if (token) {
                         return xhr.setRequestHeader('X-CSRF-TOKEN', token);
                   }

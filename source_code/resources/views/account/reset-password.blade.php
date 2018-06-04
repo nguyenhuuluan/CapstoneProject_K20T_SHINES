@@ -11,7 +11,6 @@
  <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet">
  <link href="{{ asset('assets/css/thejobs.css') }}" rel="stylesheet">
  <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
- <link href="{{ asset('assets/css/alpha.css') }}" rel="stylesheet">
 
  <!-- Fonts -->
  <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
@@ -72,57 +71,19 @@
  <button class="btn btn-primary btn-block" type="submit">Cập nhật</button>
 
  {!! Form::close() !!}
-               {{-- <div class="form-group col-md-3 col-xs-12 col-sm-3">
-                  <h7>Mật khẩu</h7>
-               </div>
-               <div class="form-group col-md-9 col-xs-12 col-sm-9">
-                  <input type="text" class="form-control" placeholder="ít nhất 10 kí tự">
-               </div>
+ 
+</div>
+</div>
+</section>
+<!-- Submit -->
+</main>
+<a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
+<!-- END Back to top button -->
+<!-- Scripts -->
 
-               <div class="form-group col-md-3 col-xs-12 col-sm-3">
-                  <h7>Nhập lại mật khẩu</h7>
-               </div>
-               <div class="form-group col-md-9 col-xs-12 col-sm-9">
-                  <input type="text" class="form-control" placeholder="ít nhất 10 kí tự">
-                </div> --}}
-              </div>
-            </div>
-          </section>
-          <!-- Submit -->
-      {{-- <div class="container">
-         <p class="text-center">
-            <a class="btn btn-danger btn-xl btn-round" data-toggle="modal" data-target="#thongbao" href="index.html">Cập nhật</a>
-         </p>
-         <br>
-       </div> --}}
-       <!-- END Submit -->
-
-       <!-- Modal ThongBao -->
-       <!-- END Modal ThongBao -->
-
-     </main>
-     <!-- END Main container -->
-     <!-- Site footer -->
-     <footer class="site-footer">
-      <!-- Bottom section -->
-      <div class="container">
-       <div class="row">
-        <div class="col-md-8 col-sm-6 col-xs-12">
-         <p class="copyright-text">Copyrights &copy; 2017 All Rights Reserved by <a href="#">Shines Team</a>.</p>
-       </div>
-     </div>
-   </div>
-   <!-- END Bottom section -->
- </footer>
- <!-- END Site footer -->
- <!-- Back to top button -->
- <a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
- <!-- END Back to top button -->
- <!-- Scripts -->
-
- <script src="{{ asset('assets/js/app.min.js') }} "></script>
- <script src="{{ asset('assets/js/thejobs.js') }} "></script>
- <script src="{{ asset('assets/js/custom.js') }} "></script>
+<script src="{{ asset('assets/js/app.min.js') }} "></script>
+<script src="{{ asset('assets/js/thejobs.js') }} "></script>
+<script src="{{ asset('assets/js/custom.js') }} "></script>
 
 </body>
 </html>
