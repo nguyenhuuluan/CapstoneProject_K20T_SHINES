@@ -1,5 +1,5 @@
 
-<header class="site-header size-lg text-center" style="background-image: url({{ asset('assets/img/bg-banner1.jpg') }} )">
+<header class="site-header size-lg text-center" style="background-image: url({{ asset('images/background/background.jpg') }} )">
   <div class="container">
     <div class="col-xs-12">
       <br><br>

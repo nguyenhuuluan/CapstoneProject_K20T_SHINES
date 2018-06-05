@@ -123,43 +123,35 @@
         onText: 'Bật',
         offText: 'Tắt'      
     });
-    $(document).ready(function() {
-        var element;
-        $('#dataTables-example').DataTable({
-            responsive: true
-        });
+    $('.status-switch').on('switchChange.bootstrapSwitch', function (e, data) {
 
+        element = $(this);
 
+        element.bootstrapSwitch('state', !data, true);
 
-        $('.status-switch').on('switchChange.bootstrapSwitch', function (e, data) {
-
-            element = $(this);
-
-            element.bootstrapSwitch('state', !data, true);
-
-            $.confirm({
-                icon: 'fa fa-warning',
-                title: 'Cảnh báo!!',
-                content: 'Bạn có muốn thay đổi trạng thái của tin tuyển dụng này?',
-                type: 'orange',
-                buttons: {
-                    Có: {
-                        keys: ['enter'],
-                        btnClass: 'btn-green',
-                        action: function(){
-                            activeRecruitment(element.val());
-                        }
-                    },
-                    Không: {
-                        keys: ['esc'],
-                        btnClass: 'btn-red'
+        $.confirm({
+            icon: 'fa fa-warning',
+            title: 'Cảnh báo!!',
+            content: 'Bạn có muốn thay đổi trạng thái của tin tuyển dụng này?',
+            type: 'orange',
+            buttons: {
+                Có: {
+                    keys: ['enter'],
+                    btnClass: 'btn-green',
+                    action: function(){
+                        activeRecruitment(element.val());
                     }
+                },
+                Không: {
+                    keys: ['esc'],
+                    btnClass: 'btn-red'
                 }
-            });
+            }
         });
+    });
 
 
-        function activeRecruitment(id){
+    function activeRecruitment(id){
       //  $('.modal-ajax-loading').show();
       $.ajax({
         url: 'recruitments/active/' + id,
@@ -171,12 +163,15 @@
             alertSuccess('Cập nhật trạng thái thành công...')
         },
         error: function(){
-           alertError('Đã có lỗi xảy ra, vui lòng reload lại trang ...');
-       }            
-   });
+         alertError('Đã có lỗi xảy ra, vui lòng reload lại trang ...');
+     }            
+ });
   }
-
-  
+  $(document).ready(function() {
+    var element;
+    $('#dataTables-example').DataTable({
+        responsive: true
+    });
 });
 </script>
 @endsection

@@ -11,9 +11,8 @@
 <link href="{{asset('assets/vendors/bootstrap-switch/bootstrap-switch.css')}}" rel="stylesheet">
 
 <link rel="stylesheet" href="{{ asset('vendor/multiselect/dist/css/bootstrap-select.css') }}">
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="{{ asset('assets/cc/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/cc/bootstrap.min.js') }}"></script>
 <script src="{{ asset('vendor/multiselect/dist/js/bootstrap-select.js') }}"></script>
 @endsection
 

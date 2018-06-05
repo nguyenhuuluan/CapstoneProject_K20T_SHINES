@@ -185,12 +185,35 @@
   <li>
     <a href="{{ route('contact') }}">Giới thiệu</a>
   </li>
+  <li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Web <b class="caret"></b></a>
+    <ul class="dropdown-menu">
+      <li><a href="#jquery" role="tab" data-toggle="tab">jQuery</a></li>
+      <li><a href="#boots" role="tab" data-toggle="tab">Bootstrap</a></li>
+      <li><a href="#html" role="tab" data-toggle="tab">HTML</a></li>
+    </ul>
+  </li>
 </ul>
 <!-- END Navigation menu -->
 </div>
 </nav>
+<script type="text/javascript" src="{{ asset('assets/js/jquery.min.js') }} "></script>
+<script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js') }} "></script>
+<script>
+    // var dropdown = document.querySelector('ul.nav-menu li.dropdown');
+  // dropdown.onmouseover = function() {
 
-
+  //   dropdown.querySelectorAll('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
+  // };
+  // dropdown.onmouseout = function() {
+  //   dropdown.querySelectorAll('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
+  // };
+  $('ul.nav-menu li.dropdown').hover(function() {
+    $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
+  }, function() {
+    $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
+  });
+</script>
 
 <script>
   function modalSignInOut(nameinout) {
@@ -220,6 +243,7 @@
   $('.nav-tabs li:first-child').removeClass('active');
   $('.nav-tabs li:last-child').addClass('active');
   modalSignInOut('dangky');
+
 </script>
 @endif
 

@@ -8,6 +8,13 @@
 {{-- <link href="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css') }} " rel="stylesheet"> --}}
 
 {{-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.css"> --}}
+<script src="{{ asset('assets/cc/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/cc/bootstrap.min.js') }}"></script>
+
+{{-- <link rel="stylesheet" href="{{ asset('assets/bootstrap.min.js') }}">
+<link rel="stylesheet" href="{{ asset('assets/jquery.min.js') }}">
+--}}
+
 <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.min.css') }}">
 @endsection
 
@@ -72,7 +79,9 @@
 					<div class="form-group col-xs-12 col-sm-6 col-md-6 {{ $errors->has('expire_date') ? ' has-error' : '' }}">
 						<div class="input-group input-group-sm">
 							<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-							{!! Form::date('expire_date', old('expire_date'), ['class'=>'form-control', 'placeholder'=>'Ngày hết hạn' , 'id' => 'datepicker']) !!}
+							{{-- {!! Form::text('expire_date', old('expire_date'), ['class'=>'form-control', 'placeholder'=>'Ngày hết hạn' , 'id' => 'datepicker', 'onfocus'=>'(this.type=\'date\')', 'onblur'=>'(this.type=\'text\')']) !!} --}}
+							{!! Form::text('expire_date', old('expire_date'), ['class'=>'form-control', 'placeholder'=>'Ngày hết hạn' , 'id' => 'datepicker']) !!}
+							{{-- <input placeholder="Date" class="textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">  --}}
 						</div>
 						@if ($errors->has('expire_date'))
 						<span class="help-block">
@@ -156,30 +165,44 @@
 @section('scripts')
 
 <script src="{{ asset('assets/js/jquery-ui.js') }}"></script>
-
+{{-- <script type="text/javascript" src="{{ asset('assets/js/jquery.min.js') }} "></script>
+<script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js') }} "></script> --}}
 
 <script src="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap3-typeahead.js') }}"></script>
 <script src="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.js') }}"></script>
 <script src="{{ asset('assets/vendors/summernote/summernote.min.js') }}"></script>
 
 <script> 
-    $('.tagsinput-typeahead').tagsinput({
-        typeahead: {
-            source: $.get('{{ route('tags') }}'),
-            afterSelect: function() {
-                this.$element[0].value = '';    
-            },
-        },
-        trimValue: true,
-        freeInput: true,
-        tagClass: 'label label-default',
-    });
-    $(window).keypress(function(event){
-            if(event.keyCode == 13) {
-              event.preventDefault();
-              return false;
-          }
-      });
+
+	var now = new Date(),
+	minDate = now.toISOString().substring(0,10);
+	$('#datepicker').prop('min', minDate);
+	$('#datepicker').prop('placeholder', '321321');
+	$('#datepicker').focus(function(){
+		this.type= 'date';
+		// $("#datepicker").data("DateTimePicker").show();
+		// $('#datepicker').show()
+		// $('#datepicker').trigger('click');
+	});
+
+// 'onfocus'=>'(this.type=\'date\')', 'onblur'=>'(this.type=\'text\')'
+	$('.tagsinput-typeahead').tagsinput({
+		typeahead: {
+			source: $.get('{{ route('tags') }}'),
+			afterSelect: function() {
+				this.$element[0].value = '';    
+			},
+		},
+		trimValue: true,
+		freeInput: true,
+		tagClass: 'label label-default',
+	});
+	$(window).keypress(function(event){
+		if(event.keyCode == 13) {
+			event.preventDefault();
+			return false;
+		}
+	});
 </script>
 
 <script>

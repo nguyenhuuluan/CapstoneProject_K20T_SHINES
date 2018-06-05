@@ -14,6 +14,8 @@ use App\Student;
 use App\Cv;
 use Response;
 use DB;
+use Illuminate\Support\Facades\Validator;
+
 
 // google analytics
 use Analytics;
@@ -37,6 +39,26 @@ class AdminController extends Controller
     $recruitmentCount = Recruitment::get()->count();
 
     return view('admin.index')->with(compact('recruitmentCount','companyCount','cvCount','studentCount'));
+  }
+
+  public function background(){
+    return view('admin.background');
+  }
+
+  public function backgroundUpdate(Request $request){
+    $this->validate($request, [
+      'imgBckgrd'=>'required|mimes:jpeg,png,jpg|max:1024',
+    ],[
+      'imgBckgrd.required'=>'Vui lòng chọn hình ảnh cập nhật.',
+      'imgBckgrd.mimes'=>'Vui lòng chọn đúng định hình ảnh.',
+      'imgBckgrd.max'=>'Vui lòng chọn hình ảnh có dung lượng tối đa 1MB.',
+    ]);
+    $file = $request->file('imgBckgrd');
+    $name  = 'background.jpg';
+    $file->move('images/background', $name);
+    // unlink(base_path().'/public_html/'.$student->photo);
+    // unlink(public_path().$student->photo);
+    return redirect()->back()->with('message', 'Cập nhật ảnh bìa thành công!');
   }
 
   //[14] số lượng công ty
@@ -145,7 +167,7 @@ class AdminController extends Controller
       array_push($arr1, $arr2);
     }
 
-    
+
 
 
   }
@@ -164,7 +186,7 @@ public function statisticsCategiesOfRecruitments(){
   $array6 = array('CategoryName' => 'Part-time & Intership', 'RecruitmentCount' => 0);
   $array7 = array('CategoryName' => 'Full-time & Part-time & Intership', 'RecruitmentCount' => 0);
   $arrayReturn = array($array1, $array2, $array3, $array4, $array5, $array6, $array7);
-  
+
   $recruitments = Recruitment::all();
 
   foreach ($recruitments as $recruitment) {
@@ -204,7 +226,7 @@ public function statisticsCategiesOfRecruitments(){
    }
 
    $arrayReturn = array($array1, $array2, $array3, $array4, $array5, $array6, $array7);
-   
+
  }
  return $arrayReturn;
 }

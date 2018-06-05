@@ -147,11 +147,11 @@
                     @endcan
                     @can('faculties.view', Auth::user())
                     <li>
-                        <a href="#"><i class="fa fa-archive fa-fw"></i> Phòng ban<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-archive fa-fw"></i> Ngành nghề<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="{{ route('faculties.index') }}">Danh sách Phòng Ban</a></li>
+                            <li><a href="{{ route('faculties.index') }}">Danh sách ngành nghề</a></li>
                             @can('faculties.create', Auth::user())
-                            <li><a href="{{route('faculties.create')}}">Thêm Phòng Ban</a></li>
+                            <li><a href="{{route('faculties.create')}}">Thêm ngành nghề</a></li>
                             @endcan
                         </ul>
                     </li>
@@ -165,6 +165,11 @@
                             <li><a href="{{route('blogs.create')}}">Đăng Blog</a></li>
                             @endcan
                         </ul>
+                    </li>
+                    @endcan
+                    @can('admin', Auth::user())
+                    <li>
+                        <a href="{{ route('admin.background') }}"><i class="fa fa-wrench" aria-hidden="true"></i> Cài đặt ảnh bìa</a>
                     </li>
                     @endcan
                 </ul>

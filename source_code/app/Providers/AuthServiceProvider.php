@@ -31,6 +31,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::resource('companies', 'App\Policies\CompanyPolicy');
         Gate::resource('faculties', 'App\Policies\FacultyPolicy');
         Gate::resource('blogs', 'App\Policies\BlogPolicy');
+        Gate::define('admin', function($user){
+            return $user->isSuperAdmin();
+        });
 
         //
     }

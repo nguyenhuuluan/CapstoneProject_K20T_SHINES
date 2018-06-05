@@ -22,7 +22,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Quản lý nghành đào tạo</h1>
+                <h1 class="page-header">Quản lý ngành nghề</h1>
                 <p class="alert alert-success" id="message" style="display: none;"></p>
                 @include('includes.message')
             </div>

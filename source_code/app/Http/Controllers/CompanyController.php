@@ -156,7 +156,7 @@ if ($request->socialnetworkinID && $request->linkedin){
 }elseif(!$request->socialnetworkinID && $request->linkedin){
   // return 'dky mới';
   $social = CompaniesSocialNetwork::create([
-    "name" => "Facebook",
+    "name" => "LinkedIn",
     "url" => $request->linkedin,
     "company_id" => $request->id
   ]); 

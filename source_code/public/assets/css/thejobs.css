@@ -2884,7 +2884,7 @@ dl.icon-holder dd {
 .nav-menu ul::before {
   content:'';
   position:absolute;
-  top:-4px;
+  /*top:-4px;*/
   left:30px;
   width:0;
   height:0;
@@ -4508,3 +4508,6 @@ section.no-overlay::before {
     cursor: pointer;
 }
 
+.total-recruitments {
+  text-shadow: 2px 0 0 #dad5d5, -2px 0 0 #dad5d5, 0 2px 0 #dad5d5, 0 -2px 0 #dad5d5, 1px 1px #dad5d5, -1px -1px 0 #dad5d5, 1px -1px 0 #dad5d5, -1px 1px 0 #dad5d5;
+}

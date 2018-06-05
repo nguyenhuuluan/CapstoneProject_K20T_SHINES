@@ -131,4 +131,5 @@
     });
   });
 </script>
+
 @endsection

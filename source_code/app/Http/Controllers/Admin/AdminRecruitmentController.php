@@ -229,7 +229,7 @@ public function setActiveRecruitment($recruitment_id){
 
     switch (request('submitbutton')) {
         case 'Xem trước':
-        $company = Company::findOrFail($data['company_id']);
+        $company = Company::findOrFail(request('compID'));
         $categories = Category::find(request('category_id'));
         foreach ($tags as $key => $value) {
                 //$tags2[]= Tag::where('name', $value)->first();

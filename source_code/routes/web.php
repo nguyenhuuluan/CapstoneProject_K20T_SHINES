@@ -167,6 +167,10 @@ Route::middleware(['admin', 'web'])->group(function () {
 	Route::get('/admin/recruitments/active/{recruitment_id}', 'Admin\AdminRecruitmentController@setActiveRecruitment')->name('activerecruitment');
 	Route::get('admin/recruitment/feedback/{recruitmentID}/{message}', 'Admin\AdminRecruitmentController@feedback')->name('admin.recruitments.feedback');
 
+	//SETTING BACKGROUND
+	Route::get('admin/background', 'Admin\AdminController@background')->name('admin.background');
+	Route::post('admin/background', 'Admin\AdminController@backgroundUpdate')->name('admin.background.update');
+
 
 
 	//Staff - ADMIN
