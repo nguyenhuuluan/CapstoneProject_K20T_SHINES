@@ -58,15 +58,6 @@ class CompanyController extends Controller
   public function edit(CompanyRequest $request)
   // public function edit(Request $request)
   { 
-    // return '123';
-    // return '11'.trim($request->facebook).'123';
- // if (!empty(trim($request->facebook)) ) {
-    // if ($request->facebook){
-    //   return '123';
-    // }
-    // else{return '321';}
-
-    // return '111';
     $comp = Company::with('address')->withCount('address')->findOrFail($request->id);
     $comp->name = $request->name;
     $comp->website = $request->website;

@@ -5,7 +5,7 @@
 
 @section('stylesheet')
 <link href="{{asset('assets/vendors/summernote/summernote.css')}}" rel="stylesheet">
-
+{{-- <link href="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css') }} " rel="stylesheet"> --}}
 
 {{-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.css"> --}}
 <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.min.css') }}">
@@ -158,43 +158,28 @@
 <script src="{{ asset('assets/js/jquery-ui.js') }}"></script>
 
 
-<script src="{{ asset('assets/js/typeahead.bundle.js') }}" type="text/javascript" charset="utf-8"></script>
+<script src="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap3-typeahead.js') }}"></script>
+<script src="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.js') }}"></script>
 <script src="{{ asset('assets/vendors/summernote/summernote.min.js') }}"></script>
 
-
-
-<script type="text/javascript">
-	var tagnames = new Bloodhound({
-		datumTokenizer: Bloodhound.tokenizers.obj.whitespace("name"),
-		queryTokenizer: Bloodhound.tokenizers.whitespace,
-		prefetch: {
-			url:'../../tags',
-			filter: function(list) {
-				return $.map(list, function(tagname) {
-					return { name: tagname }; });
-			}
-		}
-	});
-	tagnames.initialize();
-	$('.tagsinput').tagsinput({
-		typeaheadjs: {
-			name: 'tags',
-			displayKey: 'name',
-			valueKey: 'name',
-			source: tagnames.ttAdapter(),
-			templates: {
-				empty: [
-				'<div class="list-group search-results-dropdown"><div class="list-group-item">Không có kết quả phù hợp.</div></div>'
-				],
-				header: [
-				'<div class="list-group search-results-dropdown">'
-				],
-				suggestion: function (data) {
-					return '<p class="list-group-item">' + data.name + '</p>'
-				}
-			}
-		}
-	});
+<script> 
+    $('.tagsinput-typeahead').tagsinput({
+        typeahead: {
+            source: $.get('{{ route('tags') }}'),
+            afterSelect: function() {
+                this.$element[0].value = '';    
+            },
+        },
+        trimValue: true,
+        freeInput: true,
+        tagClass: 'label label-default',
+    });
+    $(window).keypress(function(event){
+            if(event.keyCode == 13) {
+              event.preventDefault();
+              return false;
+          }
+      });
 </script>
 
 <script>

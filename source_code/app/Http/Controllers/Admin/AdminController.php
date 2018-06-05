@@ -11,7 +11,7 @@ use App\Company;
 use App\Category;
 use App\Faculty;
 use App\Student;
-use App\CV;
+use App\Cv;
 use Response;
 use DB;
 

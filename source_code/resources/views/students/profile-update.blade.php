@@ -5,6 +5,7 @@
 {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="http://malsup.github.com/jquery.form.js"></script> --}}
 <meta name="csrf-token" content="{{ csrf_token() }}">
+
 {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> --}}
 
 <link rel="stylesheet" href="{{ asset('croppie/croppie.css') }}" />
@@ -480,7 +481,6 @@
 @endsection
 
 @section('scripts')
-<script src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js" type="text/javascript" charset="utf-8"></script>
 <script src="{{asset('assets/vendors/modal-confirm/jquery-confirm.min.js')}}"></script>
 
 <script src="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap3-typeahead.js') }}"></script>
