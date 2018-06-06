@@ -4,6 +4,7 @@
 
 
 @section('stylesheet')
+<link rel="stylesheet" href="{{asset('assets/vendors/modal-confirm/jquery-confirm.min.css')}}">
 <link href="{{asset('assets/vendors/summernote/summernote.css')}}" rel="stylesheet">
 {{-- <link href="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css') }} " rel="stylesheet"> --}}
 
@@ -29,7 +30,7 @@
 @section('content')
 <main>
 
-	{!! Form::open(['method'=>'POST', 'action'=>'Representative\RepresentativeRecruitmentController@store']) !!}
+	{!! Form::open(['method'=>'POST', 'action'=>'Representative\RepresentativeRecruitmentController@store', 'id'=>'frmPost']) !!}
 	<section>
 		<div class="container">
 			<div class="row">
@@ -165,44 +166,61 @@
 @section('scripts')
 
 <script src="{{ asset('assets/js/jquery-ui.js') }}"></script>
-{{-- <script type="text/javascript" src="{{ asset('assets/js/jquery.min.js') }} "></script>
-<script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js') }} "></script> --}}
-
 <script src="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap3-typeahead.js') }}"></script>
 <script src="{{ asset('assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.js') }}"></script>
 <script src="{{ asset('assets/vendors/summernote/summernote.min.js') }}"></script>
+<script src="{{asset('assets/vendors/modal-confirm/jquery-confirm.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/alert.js') }}"></script>
+
 
 <script> 
 
-	var now = new Date(),
+	var now = new Date();
+	var maxDate = new Date();
+	maxDate.setDate(now.getDate()+31);
 	minDate = now.toISOString().substring(0,10);
+	maxDate = maxDate.toISOString().substring(0,10);
 	$('#datepicker').prop('min', minDate);
-	$('#datepicker').prop('placeholder', '321321');
+	$('#datepicker').prop('max', maxDate);
 	$('#datepicker').focus(function(){
 		this.type= 'date';
-		// $("#datepicker").data("DateTimePicker").show();
-		// $('#datepicker').show()
-		// $('#datepicker').trigger('click');
+	});
+
+	$('#frmPost').submit(function(event){
+		console.log(maxDate);
+		console.log(minDate);
+		var tmp = $('#datepicker').val();
+		console.log(tmp);
+		if(tmp>maxDate){
+			event.preventDefault();
+			alertError('Vui lòng chọn ngày hết hạn tối đa 31 ngày kể từ ngày hiện tại.');
+		}else if(tmp<minDate){
+			event.preventDefault();
+			alertError('Vui lòng chọn ngày hết hạn từ ngày hiện tại trở về sau.');
+		}
+		else{
+			return true;
+		}
 	});
 
 // 'onfocus'=>'(this.type=\'date\')', 'onblur'=>'(this.type=\'text\')'
-	$('.tagsinput-typeahead').tagsinput({
-		typeahead: {
-			source: $.get('{{ route('tags') }}'),
-			afterSelect: function() {
-				this.$element[0].value = '';    
-			},
+$('.tagsinput-typeahead').tagsinput({
+	typeahead: {
+		source: $.get('{{ route('tags') }}'),
+		afterSelect: function() {
+			this.$element[0].value = '';    
 		},
-		trimValue: true,
-		freeInput: true,
-		tagClass: 'label label-default',
-	});
-	$(window).keypress(function(event){
-		if(event.keyCode == 13) {
-			event.preventDefault();
-			return false;
-		}
-	});
+	},
+	trimValue: true,
+	freeInput: true,
+	tagClass: 'label label-default',
+});
+$(window).keypress(function(event){
+	if(event.keyCode == 13) {
+		event.preventDefault();
+		return false;
+	}
+});
 </script>
 
 <script>

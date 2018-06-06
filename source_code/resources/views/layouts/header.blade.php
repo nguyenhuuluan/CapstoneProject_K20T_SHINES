@@ -8,7 +8,7 @@
       <div class="logo-wrapper">
 
         <a class="logo" href="{{ route('home') }}"><img src="{{ asset('assets/img/logo.png') }}" alt="logo"  style="padding: 5px;"></a>
-        <a class="logo-alt" href="{{ route('home') }}"><img src="{{ asset('assets/img/logo-alt.png') }}" alt="logo-alt"></a>
+        <a class="logo-alt" href="{{ route('home') }}"><img src="{{ asset('assets/img/logo.png') }}" alt="logo-alt"></a>
 
       </div>
     </div>
@@ -18,7 +18,7 @@
     <div id="id02" class="modal fade" role="dialog">
       <div class="modal-content animate">
         <div class="login-block">
-          <img style="max-width: 80%;" src="{{ asset('assets/img/logo.png') }}" alt="">
+          <img style="max-width: 80%;" src="{{ asset('assets/img/logo2.png') }}" alt="">
           <br><br>
           <ul class="nav nav-tabs">
             <li class="active">
@@ -108,9 +108,9 @@
 <!-- End SignUp/SignIn Candidate -->
 
 <!-- User account -->
-<div class="pull-right user-login">
+<div id="menu-desktop" class="pull-right user-login">
   @guest
-  <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#id02" href="#">Đăng nhập</a> | <a href="{!!route('company.partnership')!!}">Nhà tuyển dụng</a>
+  <a class="btn btn-xs btn-primary" data-toggle="modal" data-target="#id02" href="#">Đăng nhập</a> | <a href="{!!route('company.partnership')!!}">Nhà tuyển dụng</a>
   @else
   @if (Auth::user()->isStudent())
   <div class="pull-right">
@@ -136,7 +136,7 @@
   </div>
 
   @elseif(Auth::user()->isAdmin())
-  <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#id02" href="#">Đăng nhập</a> | <a href="{{route('company.partnership')}}">Nhà tuyển dụng</a>
+  <a class="btn btn-xs btn-primary" data-toggle="modal" data-target="#id02" href="#">Đăng nhập</a> | <a href="{{route('company.partnership')}}">Nhà tuyển dụng</a>
 
   @elseif(Auth::user()->isRepresentative())
   <div class="pull-right">
@@ -171,7 +171,7 @@
 <!-- Navigation menu -->
 <ul class="nav-menu">
   <li>
-    <a class="active" href="{{ route('home') }}">Trang chủ</a>
+    <a href="{{ route('home') }}">Trang chủ</a>
   </li>
   <li>
     <a href="{{ route('companies.list') }}">Công ty</a>
@@ -185,19 +185,31 @@
   <li>
     <a href="{{ route('contact') }}">Giới thiệu</a>
   </li>
-  <li class="dropdown">
-    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Web <b class="caret"></b></a>
-    <ul class="dropdown-menu">
-      <li><a href="#jquery" role="tab" data-toggle="tab">jQuery</a></li>
-      <li><a href="#boots" role="tab" data-toggle="tab">Bootstrap</a></li>
-      <li><a href="#html" role="tab" data-toggle="tab">HTML</a></li>
-    </ul>
+  <li>
+    <div id="menu-mobile" class="user-login" hidden>
+      <a style="font-weight:bold; color: red;" data-toggle="modal" data-target="#id02" href="#">Đăng nhập</a>
+    </div>
   </li>
+  <li>
+    <div id="menu-mobile" class="user-login" hidden>
+      <a style="font-weight:bold; color: red;" href="{{route('company.partnership')}}">Nhà tuyển dụng</a>
+    </div>
+  </li>
+{{--   <li class="user-account">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Web <b class="caret"></b></a>
+    <div class="dropdown user-account">
+      <ul class="dropdown-menu">
+        <li><a href="#jquery" role="tab" data-toggle="tab">jQuery</a></li>
+        <li><a href="#boots" role="tab" data-toggle="tab">Bootstrap</a></li>
+        <li><a href="#html" role="tab" data-toggle="tab">HTML</a></li>
+      </ul>
+    </div>
+  </li> --}}
 </ul>
 <!-- END Navigation menu -->
 </div>
 </nav>
-<script type="text/javascript" src="{{ asset('assets/js/jquery.min.js') }} "></script>
+{{-- <script type="text/javascript" src="{{ asset('assets/js/jquery.min.js') }} "></script>
 <script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js') }} "></script>
 <script>
     // var dropdown = document.querySelector('ul.nav-menu li.dropdown');
@@ -213,7 +225,8 @@
   }, function() {
     $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
   });
-</script>
+</script> --}}
+
 
 <script>
   function modalSignInOut(nameinout) {
@@ -243,7 +256,6 @@
   $('.nav-tabs li:first-child').removeClass('active');
   $('.nav-tabs li:last-child').addClass('active');
   modalSignInOut('dangky');
-
 </script>
 @endif
 

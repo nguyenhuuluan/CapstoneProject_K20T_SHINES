@@ -2847,7 +2847,7 @@ dl.icon-holder dd {
 
 .nav-menu a {
   display:inline-block;
-  font-size:14px;
+  /*font-size:14px;*/
   font-weight:500;
   letter-spacing:1px;
   padding:0 12px;
@@ -3004,7 +3004,7 @@ dl.icon-holder dd {
 
 .user-login a {
   color:#fff;
-  opacity:.6;
+  /*opacity:.6;*/
   transition:opacity .3s ease-in-out;
 }
 
@@ -3036,6 +3036,7 @@ dl.icon-holder dd {
   font-weight:bold;
   opacity:1;
   transition:opacity .3s ease-in-out;
+  text-shadow: -1px 0 #7f7676, 0 0.5px #7f7676, 0.5px 0 #7f7676, 0 -1px #7f7676;
 }
 
 .nav-on-header .navbar .navbar-toggle:hover,
@@ -3082,7 +3083,8 @@ dl.icon-holder dd {
   right:0;
   z-index:11;
   margin-top:0;
-  background-color:#fff;
+  /*background-color:#fff;*/
+  background-color:rgba(48,62,174,0.8);
   box-shadow:0 0 6px 2px rgba(0,0,0,0.1);
   transition:top .3s ease-in-out,left .2s ease-out,right .2s ease-out;
 }
@@ -3091,7 +3093,7 @@ dl.icon-holder dd {
 .sticky-nav.body-scrolled .navbar .nav-menu a,
 .smart-nav.body-scrolled .navbar .navbar-toggle,
 .smart-nav.body-scrolled .navbar .nav-menu a {
-  color:#000;
+  color:#fff;
   font-weight:bold;
   opacity:1;
 }
@@ -3133,7 +3135,8 @@ dl.icon-holder dd {
 
 .sticky-nav.body-scrolled .navbar .user-login a:not(.btn),
 .smart-nav.body-scrolled .navbar .user-login a:not(.btn) {
-  color:#29aafe;
+  color:#fff;
+  /*color:#29aafe;*/
 }
 
 .sticky-nav.body-scrolled .navbar {

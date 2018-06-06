@@ -20,7 +20,7 @@ use App\Tag;
 use App\CompaniesSocialNetwork;
 use App\Photo;
 use File;
-
+use Carbon;
 use Auth;
 
 
@@ -35,8 +35,14 @@ class CompanyController extends Controller
 
   public function detail($id)
   {
+    $mytime = Carbon\Carbon::today()->format('Y-m-d');
+    $mytime2 = Carbon\Carbon::today()->subMonth()->format('Y-m-d');
     $comp = Company::where('id', '=', $id)->first();
-    $recruitments = $comp->recruitments()->where('status_id', 1)->orderBy('created_at','desc')->get();
+    $recruitments = $comp->recruitments()
+    ->where('expire_date','>', $mytime)
+    ->whereBetween('created_at', [$mytime2,$mytime])
+    ->where('status_id', 1)
+    ->orderBy('created_at','desc')->get();
     
     return view('companies.detail')->with(compact('comp', 'recruitments'));
   }
@@ -178,17 +184,17 @@ return redirect()->route("company.details",$comp->slug);
 public function details($slug)
 {
 
+ $mytime = Carbon\Carbon::today()->format('Y-m-d');
+ $mytime2 = Carbon\Carbon::today()->subMonth()->format('Y-m-d');
 
-  //$currentURL = $request->url();
-
- // $company = Company::findBySlugOrFail($slug);
- $company = Company::with(['recruitments' => function ($query) {
+ $company = Company::with(['recruitments' => function ($query) use ($mytime, $mytime2) {
    $query->with('sections', 'categories', 'tags')
-   ->where('recruitments.status_id', 1)->orderBy('created_at','desc');
+   ->where('recruitments.status_id', 1)->orderBy('created_at','desc')
+   ->where('recruitments.expire_date','>', $mytime)
+   ->whereBetween('recruitments.created_at', [$mytime2,$mytime]);
  },'sections', 'socialNetworks', 'tags', 'photos'])
  ->where('slug', '=', $slug)->first();
 
-// return $company;
  if($company->status_id==3)
  {
    // $socials = CompaniesSocialNetwork::where('company_id',$company->id)->get()->sortBy('name');
@@ -206,7 +212,6 @@ public function updateImages(Request $request)
 
   if($files = $request->file('Images'))
   {
-
 
    $validator = Validator::make($request->all(), [
      'imagefile' => 'image|mimes:jpeg,png,jpg|max:5120',

@@ -67,7 +67,7 @@ Route::group(['middleware' => 'filter'], function() {
 
 Route::get('search', 'RecruitmentController@search')->name('recruitments.search');
 
-Route::get('/recruitment/increaseView/{recruitmentID}', 'RecruitmentController@increaseView')->name('recruitment.increaseview');
+// Route::get('/recruitment/increaseView/{recruitmentID}', 'RecruitmentController@increaseView')->name('recruitment.increaseview');
 
 
 // Blog - WEB

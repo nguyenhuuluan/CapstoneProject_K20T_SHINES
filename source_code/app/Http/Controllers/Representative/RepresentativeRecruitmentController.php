@@ -75,6 +75,9 @@ class RepresentativeRecruitmentController extends Controller
         $request->request->add(['tags2' => $tags]); 
         $sections =  request('sections');
 
+        $mytime = Carbon\Carbon::today()->format('Y-m-d');
+        $mytime2 = Carbon\Carbon::today()->subDays(30)->format('Y-m-d');
+        
         $this->validate($request,[
             'title'=>'required',
             'salary'=>'required',

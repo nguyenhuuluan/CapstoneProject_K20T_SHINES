@@ -11,6 +11,7 @@ use App\Cv;
 use Response;
 use DB;
 use App\Blog;
+use Carbon;
 class HomeController extends Controller
 {   
     protected $per_page_number = 1; 
@@ -31,40 +32,31 @@ class HomeController extends Controller
      */
     public function index()
     {   
+        $mytime = Carbon\Carbon::today()->format('Y-m-d');
+        $mytime2 = Carbon\Carbon::today()->subMonth()->format('Y-m-d');
+
+
         $recruitments= Recruitment::with('categories', 'company', 'tags')
         ->join('companies','recruitments.company_id', '=', 'companies.id')
+        ->where('recruitments.expire_date','>', $mytime)
         ->where('recruitments.status_id', 1)
         ->where('companies.status_id', '=', '3')
+        ->whereBetween('recruitments.created_at', [$mytime2,$mytime])
         ->select('recruitments.*')
         ->orderBy('recruitments.created_at','desc')
         ->take(5)->get();
 
+        // return $recruitments;
         $blogs = Blog::with('tags','owner.staff')->orderBy('created_at','desc')->take(3)->get();
-
-
-
-        // $recruitments = DB::table('recruitments')
-        //                 ->join('companies','recruitments.company_id', '=', 'companies.id')
-        //                 ->select('recruitments.*', 'companies.logo')
-        //                 ->where('companies.status_id', '=', '3')
-        //                 ->where('recruitments.status_id', '=', '1')
-        //                 ->orderBy('created_at','desc')->take(5)->get();
-
-
-
-        // $companies =Company::where('status_id', 3)->orderBy('created_at','desc')->take(8)->get();
         $companies = Company::with('address.district.city')->where('is_hot', true)->get();
-        // $companies =Company::with (['address.district.city' => function ($query) {
-        //      $query->where('companies.status_id', 3)->orderBy('created_at','desc')->take(8);
-        //     }])->get();
 
-
-        $totalRecruitments = Recruitment::where('status_id', 1)->count();
+        $totalRecruitments = Recruitment::where('status_id', 1)
+        ->where('expire_date','>', $mytime)
+        ->whereBetween('created_at', [$mytime2,$mytime])
+        ->count();
         $totalStudents = Student::count();
         $totalCVs = Cv::count();
         $totalCompanies = Company::count();
-
-        // $companies = Company::where('status_id', 3)->orderBy('created_at','desc')->take(8)->get();
 
         return view('welcome', compact('recruitments','blogs','companies','totalRecruitments','totalStudents','totalCVs','totalCompanies'));
     }
@@ -82,24 +74,29 @@ class HomeController extends Controller
     
     public function listRecruitments(Request $request)
     {   
+     $mytime = Carbon\Carbon::today()->format('Y-m-d');
+     $mytime2 = Carbon\Carbon::today()->subMonth()->format('Y-m-d');
 
-        $recruitments = Recruitment::with('categories','company', 'sections')
-        ->leftjoin('companies', 'company_id', '=', 'companies.id')
-        ->leftjoin('section_recruitment', 'recruitments.id', '=', 'section_recruitment.recruitment_id')
-        ->select('recruitments.*', 'section_recruitment.content as content')
-        ->where('companies.status_id', '=', '3')
-        ->where('section_recruitment.section_id', '=', '1')
-        ->where('recruitments.status_id', '=', '1')
-        ->orderBy('recruitments.id','ASC')
-        ->paginate($this->per_page_number);
-        $total = $recruitments->total();
-        if($request->ajax())
-        {
-            return ['recruitments'=>view('ajax.recruitmentList')->with(compact('recruitments'))->render(),
-            'next_page'=>$recruitments->nextPageUrl()
-        ];
-    }
-    return view('recruitments.list', compact('recruitments', 'total'));
+     $recruitments = Recruitment::with('categories','company', 'sections')
+     ->leftjoin('companies', 'company_id', '=', 'companies.id')
+     ->leftjoin('section_recruitment', 'recruitments.id', '=', 'section_recruitment.recruitment_id')
+     ->select('recruitments.*', 'section_recruitment.content as content')
+     ->where('companies.status_id', '=', '3')
+     ->where('recruitments.expire_date','>', $mytime)
+     ->whereBetween('recruitments.created_at', [$mytime2,$mytime])
+     ->where('recruitments.expire_date','>', $mytime)
+     ->where('section_recruitment.section_id', '=', '1')
+     ->where('recruitments.status_id', '=', '1')
+     ->orderBy('recruitments.id','ASC')
+     ->paginate($this->per_page_number);
+     $total = $recruitments->total();
+     if($request->ajax())
+     {
+        return ['recruitments'=>view('ajax.recruitmentList')->with(compact('recruitments'))->render(),
+        'next_page'=>$recruitments->nextPageUrl()
+    ];
+}
+return view('recruitments.list', compact('recruitments', 'total'));
 }
 
 public function testupload(Request $request)
@@ -108,16 +105,16 @@ public function testupload(Request $request)
     $data = $request->image;
     list($type, $data) = explode(';', $data);
     // return $type;
-     list(, $data)      = explode(',', $data);
+    list(, $data)      = explode(',', $data);
     // return '123';
     // return $data;
-            $data = base64_decode($data);
-            $imageName = time().'.png';
-            return file_put_contents('assets/'.$imageName, $data);
-            if(file_put_contents('assets/'.$imageName, $data))
-            {return '123';}
-            else
-            {return 'false';}
+    $data = base64_decode($data);
+    $imageName = time().'.png';
+    return file_put_contents('assets/'.$imageName, $data);
+    if(file_put_contents('assets/'.$imageName, $data))
+        {return '123';}
+    else
+        {return 'false';}
             // echo "Image Uploaded";
 }
 

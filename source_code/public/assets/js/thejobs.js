@@ -117,7 +117,7 @@ $(function() {
 
     // Smart scroll
     if (st >= lastScrollTop) { // Downscroll
-      navbar.css('top', "-70px");
+      navbar.css('top', "0px");
     }
     else { // Upscroll
       navbar.css('top', '0');

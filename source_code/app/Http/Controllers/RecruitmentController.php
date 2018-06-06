@@ -13,7 +13,7 @@ use App\Company;
 use App\Faculty;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\View;
-
+use Carbon;
 use DB;
 use Auth;
 
@@ -55,13 +55,16 @@ class RecruitmentController extends Controller
     {       
         //Cắt chuối search
         $texts = explode(",", $request['searchtext']);
-
+        $mytime = Carbon\Carbon::today()->format('Y-m-d');
+        $mytime2 = Carbon\Carbon::today()->subMonth()->format('Y-m-d');
         // return $texts;
         $recruitments = Recruitment::with('categories','company', 'sections')
         ->leftjoin('companies', 'company_id', '=', 'companies.id')
         ->leftjoin('section_recruitment', 'recruitments.id', '=', 'section_recruitment.recruitment_id')
         ->select('recruitments.*', 'section_recruitment.content as content')
         ->where('companies.status_id', '=', '3')
+        ->where('recruitments.expire_date','>', $mytime)
+        ->whereBetween('recruitments.created_at', [$mytime2,$mytime])
         ->where('section_recruitment.section_id', '=', '1')
         ->where('recruitments.status_id', '=', '1')
         ->where(function($q) use ($texts){
@@ -71,39 +74,16 @@ class RecruitmentController extends Controller
         })
         ->orderBy('recruitments.created_at','desc')
         ->paginate($this->per_page_number);
-
-        // return $recruitments;
-
-        //Searching theo từng chuỗi đã cắt
-        // $recruitments= Recruitment::with('categories', 'company', 'tags')
-        //                             ->join('companies','recruitments.company_id', '=', 'companies.id')
-        //                             ->leftjoin('section_recruitment', 'recruitments.id', '=', 'section_recruitment.recruitment_id')
-        //                             ->where('section_recruitment.section_id', '=', '1')
-        //                             ->where('companies.status_id', '=', '3')
-        //                             ->where('recruitments.status_id', 1)
-        //                             ->where(function($q) use ($texts){
-        //                                 foreach ($texts as $key => $value) {
-        //                                     $q->orWhere('recruitments.searching', 'like', '%'.$value.'%');
-        //                                 }
-        //                             })
-        //                             ->orderBy('recruitments.created_at','desc')
-        //                             ->paginate($this->per_page_number);
-
-
-        
-
         //Tổng số kq tìm được
         $total = $recruitments->total();
         //Kiểm tra yều cầu nếu ajax thì trả ra dữ liệu kiểu view
-        if($request->ajax())
-        {
+        if($request->ajax()){
             return ['recruitments'=>view('ajax.recruitmentList')->with(compact('recruitments'))->render(),
-            'next_page'=>$recruitments->nextPageUrl()
-        ];
+            'next_page'=>$recruitments->nextPageUrl()];
+        }
+        
+        return view('recruitments.search', compact('recruitments', 'total'));
     }
-    
-    return view('recruitments.search', compact('recruitments', 'total'));
-}
 
     /**
      * Show the form for editing the specified resource.
@@ -140,78 +120,60 @@ class RecruitmentController extends Controller
     }
     public function detailrecruitment($slug, Request $request){
 
-       $currentURL = $request->url();
-       $recruitment = Recruitment::findBySlugOrFail($slug);
-       $tmp = $recruitment->tags->pluck('name');
+        $mytime = Carbon\Carbon::today()->format('Y-m-d');
+        $mytime2 = Carbon\Carbon::today()->subMonth()->format('Y-m-d');
+        $currentURL = $request->url();
+        $recruitment = Recruitment::where('slug','=',$slug)
+        ->where('status_id', '=', 1)
+        ->where('expire_date','>', $mytime)
+        ->whereBetween('created_at', [$mytime2,$mytime])->get()->first();
+        // return $recruitment;
+
+        if($recruitment)
+        {
+            $tmp = $recruitment->tags->pluck('name');
+            $recruitment2 = Recruitment::with('company')
+            ->leftjoin('companies', 'company_id', '=', 'companies.id')
+            ->select('recruitments.*')
+            ->where(function($q) use ($tmp){
+                foreach ($tmp as $key => $value) {
+                    $q->orWhere('recruitments.searching', 'like', '%'.$value.'%');
+                }
+            })
+            ->where('companies.status_id', '=', '3')
+            ->where('recruitments.status_id', '=', '1')
+            ->where('recruitments.expire_date','>', $mytime)
+            ->whereBetween('recruitments.created_at', [$mytime2,$mytime])
+            ->orderBy('recruitments.created_at','DESC')
+            ->take(4)->get();
+            $tmp = $recruitment->tags->pluck('name');
+            Event::fire('recruitment.view', $recruitment);
+            return view('recruitments.detail',compact('recruitment', 'currentURL', 'recruitment2'));
+        }else{
+            abort(404);
+        }
+    }
 
 
-       $recruitment2 = Recruitment::with('company')
-        ->leftjoin('companies', 'company_id', '=', 'companies.id')
-        ->select('recruitments.*')
-        ->where(function($q) use ($tmp){
-            foreach ($tmp as $key => $value) {
-                $q->orWhere('recruitments.searching', 'like', '%'.$value.'%');
-            }
-        })
-        ->where('companies.status_id', '=', '3')
-        ->where('recruitments.status_id', '=', '1')
-        ->orderBy('recruitments.created_at','DESC')
-        ->take(4)->get();
+//    public function increaseView($recruitmentID)
+//    {
 
-        // return $recruitment2->pluck('title');
-        // return dd($recruitment2);
-        // return $recruitment2->load('company');
+//      $recruitment = Recruitment::where('id', $recruitmentID)->first();
 
-        // return $recruitment2;
-       Event::fire('recruitment.view', $recruitment);
+//      if (Auth::user() == null ) {
+//          $recruitment->number_of_anonymous_view = $recruitment->number_of_anonymous_view + 1;
+//      }elseif (Auth::user()->isStudent()) {
+//          $recruitment->number_of_view = $recruitment->number_of_view + 1;
+//      }else{
+//        $recruitment->number_of_anonymous_view = $recruitment->number_of_anonymous_view + 1;
+//    }
 
-       if($recruitment->status_id==1){
-        return view('recruitments.detail',compact('recruitment', 'currentURL', 'recruitment2'));
-    }else{abort(404);}
-
-}
-
-public function totalRecruitments()
-{
-   $total = Recruitment::join('companies','recruitments.company_id', '=', 'companies.id')
-   ->where('recruitments.status_id', 1)
-   ->where('companies.status_id', 3)
-   ->get()->count();
-   return response()->json($total);
-}
-
-public function increaseView($recruitmentID)
-{
-
- $recruitment = Recruitment::where('id', $recruitmentID)->first();
-
- if (Auth::user() == null ) {
-     $recruitment->number_of_anonymous_view = $recruitment->number_of_anonymous_view + 1;
- }elseif (Auth::user()->isStudent()) {
-     $recruitment->number_of_view = $recruitment->number_of_view + 1;
- }else{
-   $recruitment->number_of_anonymous_view = $recruitment->number_of_anonymous_view + 1;
-}
+//    $recruitment->update();
 
 
-
- //    if (Auth::user() == null ) {
- //       //$recruitment->number_of_anonymous_view = $recruitment->number_of_anonymous_view + 1;
- //       $recruitment->increment('number_of_anonymous_view');
- //   }elseif (Auth::user()->isStudent()) {
- //      // $recruitment->number_of_view = $recruitment->number_of_view + 1;
- //       $recruitment->increment('number_of_view');
- //   }else{
- //    // $recruitment->number_of_anonymous_view = $recruitment->number_of_anonymous_view + 1;
- //     $recruitment->increment('number_of_anonymous_view');
- // }
-
-$recruitment->update();
+//    return response()->json(200);
 
 
-return response()->json(200);
-
-
-}
+// }
 
 }
