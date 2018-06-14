@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Cv;
 use Auth;
 use Response;
+use App\Student;
 
 class StudentCvController extends Controller
 {
@@ -39,13 +40,22 @@ class StudentCvController extends Controller
      */
     public function store(Request $request, $id)
     {
-        if($file = $request->file('cv'))
+        $std = Student::withCount('cvs')->findOrFail($id);
+
+
+        $validator = Validator::make($request->all(), [
+            'cv' => 'required|mimes:jpeg,png,jpg,pdf,docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document|max:1024',
+        ],
+        [
+            'cv.required'=>'Vui lòng chọn file trước khi upload.',
+            'cv.mimes'=>'Vui lòng chọn file cv đúng định dạng.',
+            'cv.max'=>'Vui lòng chọn file có dung lượng tối da 1MB.',
+        ]);
+        if ($validator->passes()) 
         {
-            $validator = Validator::make($request->all(), [
-                'cv' => 'required|mimes:jpeg,png,jpg,pdf,docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document|max:1024',
-            ]);
-            if ($validator->passes()) 
-            {
+            $file = $request->file('cv');
+            if(Auth::user()->student->id == $id && $std->cvs_count<3){
+            // return response()->json(['error'=>'123']);
                 $input = $request->except(['cv']);
                 $name  = time().$file->getClientOriginalName();
                 $input['name'] = $file->getClientOriginalName();
@@ -54,19 +64,17 @@ class StudentCvController extends Controller
                 $cv = CV::create($input);
                 $cvs[] = $cv;
                 $file->move('cvs', $name);
-
                 // return response($cv);
                 return ['cvs'=>view('ajax.cvList')->with(compact('cvs'))->render()];
-            }
-            else
-            {
-                return response()->json(['error'=>$validator->errors()->all()]);
+            }else{
+                return response()->json(['errorTotal'=>'Mỗi tài khoản chỉ được upload tối đa 3 CV.'],500);
             }
         }
         else
         {
-            return response()->json(['error'=>'error']);
+            return response()->json(['error'=>$validator->errors()->all()],500);
         }
+
     }
 
     /**
@@ -102,10 +110,10 @@ class StudentCvController extends Controller
     }
     public function preview($name)
     {
-       $cv = CV::where('file',$name)->first();
+     $cv = CV::where('file',$name)->first();
 
-       return view('students.cv-preview',compact('cv'));
-   }
+     return view('students.cv-preview',compact('cv'));
+ }
 
     /**
      * Show the form for editin gthe specified resource.

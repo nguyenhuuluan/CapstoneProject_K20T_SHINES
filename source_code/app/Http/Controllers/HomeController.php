@@ -48,7 +48,10 @@ class HomeController extends Controller
 
         // return $recruitments;
         $blogs = Blog::with('tags','owner.staff')->orderBy('created_at','desc')->take(3)->get();
-        $companies = Company::with('address.district.city')->where('is_hot', true)->get();
+        $companies = Company::with('address.district.city')
+        ->where('is_hot', true)
+        ->where('status_id','=',3)
+        ->get();
 
         $totalRecruitments = Recruitment::where('status_id', 1)
         ->where('expire_date','>', $mytime)
@@ -68,7 +71,8 @@ class HomeController extends Controller
     public function detailblog($slug)
     {
         $blog = Blog::findBySlugOrFail($slug);
-        return view('blogs.detail', compact('blog'));
+        $blogs = Blog::where('slug','!=', $slug)->orderBy('created_at','desc')->take(3)->get();
+        return view('blogs.detail', compact('blog','blogs'));
     }
 
     
@@ -87,7 +91,7 @@ class HomeController extends Controller
      ->where('recruitments.expire_date','>', $mytime)
      ->where('section_recruitment.section_id', '=', '1')
      ->where('recruitments.status_id', '=', '1')
-     ->orderBy('recruitments.id','ASC')
+     ->orderBy('recruitments.created_at','desc')
      ->paginate($this->per_page_number);
      $total = $recruitments->total();
      if($request->ajax())

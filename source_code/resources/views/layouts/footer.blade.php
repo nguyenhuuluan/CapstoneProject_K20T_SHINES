@@ -3,50 +3,28 @@
   <!-- Top section -->
   <div class="container">
     <div class="row">
-
       <div class="col-xs-6 col-sm-6 col-md-3">
         <h6>Việc làm theo ngành nghề</h6>
         <ul class="footer-links">
-          <li><a href="job-list.html">Việc làm Kế toán</a></li>
-          <li><a href="job-list.html">Việc làm Ngân hàng</a></li>
-          <li><a href="job-list.html">Việc làm IT - Phần mềm</a></li>
-          <li><a href="job-list.html">Việc làm IT-Phần cứng/Mạng</a></li>
-          <li><a href="job-list.html">Việc làm Xây dựng</a></li>
-        </ul>
-      </div>
 
-      <div class="col-xs-6 col-sm-6 col-md-3">
-        <ul class="footer-links">
+  @foreach ($faculties as $faculty)
+          <li><a href="{{ route('recruitments.search', 'searchtext='.$faculty->name) }}">{{ $faculty->name }}</a></li>
+          @if(($loop->index + 1)>19)
+          @break
+          @else
+          @if(($loop->index + 1)%5 ==0 )
+          </ul>
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-3">
+          <ul class="footer-links">
           <br>
-          <li><a href="job-list.html">Việc làm Quảng cáo/Khuyến mãi</a></li>
-          <li><a href="job-list.html">Việc làm Hàng không/Du lịch</a></li>
-          <li><a href="job-list.html">Việc làm Giáo dục/Đào tạo</a></li>
-          <li><a href="job-list.html">Việc làm Điện/Điện tử</a></li>
-          <li><a href="job-list.html">Việc làm Bán hàng</a></li>
+          @endif
+          @endif
+          
+          @endforeach
         </ul>
       </div>
 
-      <div class="col-xs-6 col-sm-6 col-md-3">
-        <h6>Việc làm IT theo công ty</h6>
-        <ul class="footer-links">
-          <li><a href="page-about.html">Global CyberSoft</a></li>
-          <li><a href="page-typography.html">Vingroup</a></li>
-          <li><a href="page-faq.html">Capella Holding</a></li>
-          <li><a href="page-typography.html">Vietjetair</a></li>
-          <li><a href="page-contact.html">Standard Charter</a></li>
-        </ul>
-      </div>
-
-
-      <div class="col-xs-6 col-sm-6 col-md-3">
-        <h6>Việc làm IT theo thành phố</h6>
-        <ul class="footer-links">
-          <li><a href="job-list.html">Hồ Chí Minh</a></li>
-          <li><a href="job-list.html">Hà Nội</a></li>
-          <li><a href="job-list.html">Đà Nẵng</a></li>
-          <li><a href="job-list.html">Thêm</a></li>
-        </ul>
-      </div>
     </div>
 
     <hr>
@@ -77,4 +55,4 @@
 
 <!-- Back to top button -->
 <a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
-<!-- END Back to top button -->
+          <!-- END Back to top button -->

@@ -31,7 +31,8 @@
             </header>
 
             <div class="item-body">
-              <p>{{  strip_tags(substr($recruitment->sections->where('id',1)->first()->pivot->content, 0, 150) .'...') }}</p>
+              <p>{!!  $recruitment->section !!}</p>
+              {{-- <p>{{  strip_tags(substr($recruitment->sections->where('id',1)->first()->pivot->content, 0, 150) .'...') }}</p> --}}
             </div>
 
             <footer>

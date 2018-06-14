@@ -19,8 +19,8 @@ xmlns:o="urn:schemas-microsoft-com:office:office">
 				<tbody>
 					<tr>
 						<td style="padding:0 0 20px 0;border-bottom:1px solid #e9edee;">
-							<a href="https://www.xero.com/us/" style="display:block; margin:0 auto;" target="_blank">
-								<img src="https://image.ibb.co/egY2EG/logo.png" width="300" height="75" alt="VLU" style="border: 0px;">
+							<a href="{{ route('home') }}" style="display:block; margin:0 auto;" target="_blank">
+								<img src="https://image.ibb.co/nFvj7o/logo2.png" alt="VLU" style="border: 0px; max-width: 80%;">
 							</a>
 						</td>
 					</tr>

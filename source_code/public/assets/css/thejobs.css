@@ -3063,7 +3063,8 @@ dl.icon-holder dd {
 }
 
 .nav-on-header .navbar .nav-menu>li:hover>a {
-  color:#fff;
+  color:#4db8fe;
+  /*color:#fff;*/
   opacity:1;
 }
 
@@ -3135,7 +3136,7 @@ dl.icon-holder dd {
 
 .sticky-nav.body-scrolled .navbar .user-login a:not(.btn),
 .smart-nav.body-scrolled .navbar .user-login a:not(.btn) {
-  color:#fff;
+  /*color:#fff;*/
   /*color:#29aafe;*/
 }
 

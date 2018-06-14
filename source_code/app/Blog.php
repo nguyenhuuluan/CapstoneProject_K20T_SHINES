@@ -55,4 +55,9 @@ public function photos()
 public function getPhotoAttribute($value){
     return $this->path.$value;
 }
+
+public function getCreatedAtAtrribute(){
+        \Carbon\Carbon::setLocale('vi');
+        return $this->created_at->diffForHumans();
+    }
 }

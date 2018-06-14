@@ -64,6 +64,21 @@ class Recruitment extends Model
            }else{return $this->title;}
        }else{return $this->title;}
    }
+
+   public function getSectionAttribute(){
+        $limit = 12;
+        $str_s ='';
+        $text = $this->sections->where('id',1)->first()->pivot->content;
+        if(stripos($text," ")){
+            $ex_str = explode(" ",$this->title);
+            if(count($ex_str)>$limit){
+                for($i=0;$i<$limit;$i++){
+                   $str_s.=$ex_str[$i]." ";
+               }
+               return $str_s.'...';
+           }else{return $this->sections->where('id',1)->first()->pivot->content;}
+       }else{return $this->sections->where('id',1)->first()->pivot->content;}
+   }
     public function path(){
          return "../recruitments/{$this->slug}";
          // host

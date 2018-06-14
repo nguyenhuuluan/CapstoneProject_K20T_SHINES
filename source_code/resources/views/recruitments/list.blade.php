@@ -111,7 +111,7 @@
             </header>
             {{-- {!!$recruitment->sections[0]->pivot->content !!} --}}
             <div class="item-body">
-              <p>{!! substr($recruitment->content, 0, 150) .'...' !!}</p>
+              <p>{!!  $recruitment->section !!}</p>
             </div>
 
             <footer>

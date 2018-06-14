@@ -459,7 +459,7 @@
 						</div>
 						
 
-						<span class="col-xs-12 col-sm-12 help-block"><p class="text-danger">Vui lòng chọn file dung lượng dưới 2MB và đúng định dạng .pdf .docx .png .jpg .jpeg</p></span>
+						<span class="col-xs-12 col-sm-12 help-block"><p class="text-danger">Vui lòng chọn file dung lượng dưới 1MB và đúng định dạng .pdf .docx .png .jpg .jpeg</p></span>
 						<br>
 						{!! Form::submit('Tải lên', ['class'=>'btn btn-primary pull-right upload-cv']) !!}
 							{{-- <div class="modelFootr">
@@ -506,11 +506,17 @@
 
 		//Upload CV
 		$("#cv").change(function() {
-			if(validateSize(this,'1') && validateFile(this,'Cv'))
+			var tmp = $('.cv-info').children('tr').length;
+			// console.log(tmp);
+			if(($('.cv-info').children('tr').length)>=3){
+				alertError('Mỗi tài khoản chỉ được upload tối đa 3 CV.');
+				$('#cv').val(null);
+				$("#cvname").val(null);
+				return false;
+			}else if(validateSize(this,'1') && validateFile(this,'Cv'))
 			{
 				return true;				
-			}
-			else{
+			}else{
 				alertError('Vui lòng chọn CV đúng định dạng và dung lượng tối đa 1MB ...');
 				$('#cv').val(null);
 				$("#cvname").val(null);
@@ -579,7 +585,14 @@
 								$('.cv-info').append(data.cvs);
 							},
 							error: function(data){
-								alertError('Kiểm tra lại CV upload đúng định dạng ...');
+								if(data['responseJSON'].hasOwnProperty('errorTotal'))
+								{
+									alertError(data['responseJSON']['errorTotal']);
+								}else if(data['responseJSON'].hasOwnProperty('error')){
+									alertError(data['responseJSON']['error'][0]);
+								}else{
+									alertError('Upload Cv thất bại, vui lòng thử lại sau.');
+								}
 								$("#cv").val('');
 								$("#cvname").val('');
 							}

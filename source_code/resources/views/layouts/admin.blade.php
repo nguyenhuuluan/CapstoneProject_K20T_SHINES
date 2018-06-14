@@ -27,6 +27,7 @@
     {{-- Custom style --}}
     <link href="{{asset('assets/vendors/bootstrap/css/admin-custom.css')}}" rel="stylesheet">
 
+    <link rel="icon" href="{{ asset('assets/img/favicon.ico') }} ">
     @yield('styles')
     
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -54,7 +55,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="{{ route('admin.home') }}"><img src="{{ asset('assets/img/logo.png') }}" alt="Jobee" style="max-width: 200px; max-height: 50px;"></a>
+                <a href="{{ route('admin.home') }}"><img src="{{ asset('assets/img/logo2.png') }}" alt="Jobee" style="max-width: 200px; max-height: 50px;"></a>
             </div>
             <!-- /.navbar-header -->
 
@@ -203,8 +204,8 @@ crossorigin="anonymous"></script>
 <script src="{{asset('assets/dist/js/sb-admin-2.js')}}"></script>
 
 <script type="text/javascript">
-        var loading = $('.modal-ajax-loading');
-        $(document).ajaxStart(function () {
+    var loading = $('.modal-ajax-loading');
+    $(document).ajaxStart(function () {
         loading.fadeIn();
     });
 

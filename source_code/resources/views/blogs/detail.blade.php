@@ -34,7 +34,7 @@
           <li>
             <strong>Tags: </strong>
             @foreach ($blog->tags as $tag)
-            <a href="#">{!! $tag->name !!}</a>, 
+            <a href="{{ route('recruitments.search', 'searchtext='.$tag->name) }}">{!! $tag->name !!}</a>  
             @endforeach
           </li>
         </ul>
@@ -55,44 +55,23 @@
       <div class="widget">
         <h6 class="widget-title">Bài liên quan</h6>
         <ul class="widget-body media-list">
+          @foreach ($blogs as $blg)
           <li>
-            <div class="thumb"><a href="page-post.html"><img src="{{ asset('assets/img/blog-1-thumb.jpg') }}" alt="..."></a></div>
+            <div class="thumb"><a href="{{ route('detailblog', $blg->slug) }}" title="{{ $blg->title }}"><img src="{{ asset($blg->photo) }}" alt="..."></a></div>
             <div class="content">
-              <h5><a href="page-post.html">Thăng tiến công việc nhờ chính sách luân chuyển nội bộ</a></h5>
-              <time datetime="2018-04-14 20:00">14/4/2018</time>
+              <h5><a href="{{ route('detailblog', $blg->slug) }}" title="{{ $blg->title }}">{{ $blg->header }}</a></h5>
+              <time datetime="2018-04-14 20:00">{{ $blg->getCreatedAtAtrribute() }}</time>
             </div>
           </li>
-
-          <li>
-            <div class="thumb"><a href="page-post.html"><img src="{{ asset('assets/img/blog-2-thumb.jpg') }}" alt="..."></a></div>
-            <div class="content">
-              <h5><a href="page-post.html">Trở thành triệu phú sau 5 năm</a></h5>
-              <time datetime="2018-04-14 20:00">14/4/2018</time>
-            </div>
-          </li>
-
-          <li>
-            <div class="thumb"><a href="page-post.html"><img src="{{ asset('assets/img/blog-3-thumb.jpg') }}" alt="..."></a></div>
-            <div class="content">
-              <h5><a href="page-post.html">Tại sao nên làm việc nhóm?</a></h5>
-              <time datetime="2018-04-14 20:00">14/4/2018</time>
-            </div>
-          </li>
+          @endforeach
         </ul>
       </div>
-
       <div class="widget widget_tag_cloud">
         <h6 class="widget-title">Tags</h6>
         <div class="widget-body">
-          <a href="#">Blog</a>
-          <a href="#">New</a>
-          <a href="#">Google</a>
-          <a href="#">Position</a>
-          <a href="#">Facebook</a>
-          <a href="#">Hire</a>
-          <a href="#">Chance</a>
-          <a href="#">TopNew</a>
-          <a href="#">Tips</a>
+          @foreach ($blog->tags as $tag)
+          <a href="{{ route('recruitments.search', 'searchtext='.$tag->name) }}">{!! $tag->name !!}</a> 
+          @endforeach
         </div>
       </div>
 

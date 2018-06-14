@@ -110,7 +110,7 @@
             </header>
 
             <div class="item-body">
-              <p>{!! substr($recruitment->content, 0, 150) .'...' !!}</p>
+              <p>{!!  $recruitment->section !!}</p>
             </div>
 
             <footer>
